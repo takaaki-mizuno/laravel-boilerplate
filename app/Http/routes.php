@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => ['security_headers']], function () {
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
 });

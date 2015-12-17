@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
 
             $table->bigInteger('profile_image_id')->default(0);
 
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -4,6 +4,8 @@
  * App\Models\AuthenticatableBase
  *
  * @property string $password
+ * @property string $api_access_token
+ *
  */
 
 use Illuminate\Auth\Authenticatable;
@@ -18,5 +20,16 @@ class AuthenticatableBase extends LocaleStorableBase implements AuthenticatableC
     function setPassword($password)
     {
         $this->password = \Hash::make($password);
+    }
+
+    public function setAPIAccessToken()
+    {
+        $user = null;
+        do {
+            $code = md5(\Hash::make($this->id . $this->email . $this->password . time() . mt_rand()));
+            $user = static::whereApiAccessToken($code)->first();
+        } while (isset($user));
+        $this->api_access_token = $code;
+        return $code;
     }
 }

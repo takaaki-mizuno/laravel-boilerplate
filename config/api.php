@@ -12,6 +12,16 @@ return [
             'message'     => 'Not Found',
             'status_code' => 400,
         ],
+        'auth_failed' => [
+            'code'        => 1002,
+            'message'     => 'Auth Failed',
+            'status_code' => 401,
+        ],
+        'sign_in_required' => [
+            'code'        => 1003,
+            'message'     => 'Sign In Required',
+            'status_code' => 401,
+        ],
     ],
     "headers" => [
         'locale' => 'X-MYAPP-LOCALE',

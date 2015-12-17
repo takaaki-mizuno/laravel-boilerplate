@@ -39,5 +39,20 @@ class RepositoryBindServiceProvider extends ServiceProvider
             'App\Repositories\Eloquent\UserRepository'
         );
 
+        $this->app->singleton(
+            'App\Repositories\FileRepositoryInterface',
+            'App\Repositories\Eloquent\FileRepository'
+        );
+
+        $this->app->singleton(
+            'App\Repositories\ImageRepositoryInterface',
+            'App\Repositories\Eloquent\ImageRepository'
+        );
+
+        $this->app->singleton(
+            'App\Repositories\SiteConfigurationRepositoryInterface',
+            'App\Repositories\Eloquent\SiteConfigurationRepository'
+        );
+
     }
 }

@@ -2,19 +2,6 @@
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * App\Models\AdminUserRole
- *
- * @property integer $admin_user_id
- * @property string $role
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \App\Models\AdminUser $adminUser
- * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereAdminUserId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereRole($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereUpdatedAt($value)
- */
 class AdminUserRole extends Base
 {
 

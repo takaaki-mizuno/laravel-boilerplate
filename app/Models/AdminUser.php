@@ -1,7 +1,10 @@
 <?php namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class AdminUser extends AuthenticatableBase
 {
+    use SoftDeletes;
 
     /**
      * The database table used by the model.

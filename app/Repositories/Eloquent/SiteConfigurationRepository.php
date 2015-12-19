@@ -36,7 +36,7 @@ class SiteConfigurationRepository extends SingleKeyModelRepository implements Si
 
         if ($this->cacheEnabled) {
             $data = \Cache::get($this->getLocaleCacheKey($locale));
-            if( !empty($data) ) {
+            if (!empty($data)) {
                 return $data;
             }
         }

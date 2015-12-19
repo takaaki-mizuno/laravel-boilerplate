@@ -18,6 +18,7 @@ class Kernel extends HttpKernel
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         \App\Http\Middleware\VerifyCsrfToken::class,
+        \App\Http\Middleware\SecurityHeaders::class,
     ];
 
     /**
@@ -26,9 +27,10 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'             => \App\Http\Middleware\Authenticate::class,
-        'auth.basic'       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest'            => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'security_headers' => \App\Http\Middleware\SecurityHeaders::class,
+        'auth.basic'                => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'admin.auth'                => \App\Http\Middleware\Admin\Authenticate::class,
+        'admin.guest'               => \App\Http\Middleware\Admin\RedirectIfAuthenticated::class,
+        'admin.has_role.super_user' => \App\Http\Middleware\Admin\HasRoleSuperUser::class,
+
     ];
 }

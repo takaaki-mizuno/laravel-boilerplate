@@ -13,7 +13,7 @@
     "predis/predis": "1.*",
     "aws/aws-sdk-php": "3.2.*",
     "facebook/php-sdk-v4": "5.1.*",
-    "abraham/twitteroauth": "0.6.*",
+    "abraham/twitteroauth": "0.6.*"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

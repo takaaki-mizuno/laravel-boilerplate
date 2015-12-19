@@ -30,4 +30,11 @@ interface URLHelperInterface
      */
     public function getHostWithLocale($locale = null, $host = null);
 
+    /**
+     * @param  string $path
+     * @param  string $type
+     * @return string
+     */
+    public function asset($path, $type = "user");
+
 }

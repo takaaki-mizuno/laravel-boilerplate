@@ -33,6 +33,8 @@ class AuthenticatableService
     {
         $authDriver = $this->getAuthDriver();
         if (!$authDriver->attempt(['email' => $input['email'], 'password' => $input['password']])) {
+            \Log::info($input);
+            \Log::info('No');
             return null;
         }
         return $authDriver->user();

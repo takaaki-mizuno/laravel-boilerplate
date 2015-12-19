@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "473fd4d317c339aa00f1b0c186242150",
-    "content-hash": "7c578a1b1dcd04c71992e7b90cb17ce2",
+    "hash": "9a2b5c0252614accdfd71559c794db4b",
+    "content-hash": "7d0dcb60a938de150e028dffd4d35e6b",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -717,16 +717,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.1.26",
+            "version": "v5.1.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "be7fbb60376bd61f07e9c637473e5b2cf7eebe5c"
+                "reference": "b16f80878fd3603022d3c84593397cedd9af0bcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/be7fbb60376bd61f07e9c637473e5b2cf7eebe5c",
-                "reference": "be7fbb60376bd61f07e9c637473e5b2cf7eebe5c",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/b16f80878fd3603022d3c84593397cedd9af0bcf",
+                "reference": "b16f80878fd3603022d3c84593397cedd9af0bcf",
                 "shasum": ""
             },
             "require": {
@@ -772,7 +772,6 @@
                 "illuminate/events": "self.version",
                 "illuminate/exception": "self.version",
                 "illuminate/filesystem": "self.version",
-                "illuminate/foundation": "self.version",
                 "illuminate/hashing": "self.version",
                 "illuminate/http": "self.version",
                 "illuminate/log": "self.version",
@@ -842,7 +841,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-12-02 21:59:57"
+            "time": "2015-12-17 20:35:38"
         },
         {
             "name": "league/flysystem",
@@ -2335,51 +2334,6 @@
             "time": "2015-11-18 13:41:01"
         },
         {
-            "name": "takaaki-mizuno/video-service-url-analyzer",
-            "version": "0.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/takaaki-mizuno/video-service-url-analyzer.git",
-                "reference": "b75d0653573abfa9ee454fbf79192206adb51846"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/takaaki-mizuno/video-service-url-analyzer/zipball/b75d0653573abfa9ee454fbf79192206adb51846",
-                "reference": "b75d0653573abfa9ee454fbf79192206adb51846",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": ">=3.7.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "TakaakiMizuno\\VideoServiceUrlAnalyzer\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Takaaki Mizuno",
-                    "email": "takaaki.mizuno@gmail.com"
-                }
-            ],
-            "description": "Video URL analyzer for famous video sharing services",
-            "homepage": "https://github.com/takaaki-mizuno/video-service-url-analyzer",
-            "keywords": [
-                "video",
-                "vimeo",
-                "youtube"
-            ],
-            "time": "2015-08-27 00:57:48"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v1.1.1",
             "source": {
@@ -2614,16 +2568,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "v1.5.2",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "47c7128262da274f590ae6f86eb137a7a64e82af"
+                "reference": "6ecaf07f0dfcc3dd454d0c549c2d16f29a19bffc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/47c7128262da274f590ae6f86eb137a7a64e82af",
-                "reference": "47c7128262da274f590ae6f86eb137a7a64e82af",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/6ecaf07f0dfcc3dd454d0c549c2d16f29a19bffc",
+                "reference": "6ecaf07f0dfcc3dd454d0c549c2d16f29a19bffc",
                 "shasum": ""
             },
             "require": {
@@ -2680,7 +2634,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-12-03 10:50:37"
+            "time": "2015-12-19 01:09:56"
         },
         {
             "name": "doctrine/collections",

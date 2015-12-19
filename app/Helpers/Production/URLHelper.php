@@ -114,4 +114,15 @@ class URLHelper implements URLHelperInterface
         return $urlPath;
     }
 
+    public function asset($path, $type = "user")
+    {
+        $hash = \Config::get('assets.hash');
+        $url = asset('static/' . $type . '/' . $path);
+
+        if (\App::environment() == 'local' || empty($hash)) {
+            return $url;
+        }
+        return $url . '?' . $hash;
+    }
+
 }

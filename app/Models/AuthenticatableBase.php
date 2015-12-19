@@ -4,8 +4,8 @@
  * App\Models\AuthenticatableBase
  *
  * @property string $password
+ * @property int $profile_image_id
  * @property string $api_access_token
- *
  */
 
 use Illuminate\Auth\Authenticatable;
@@ -31,5 +31,24 @@ class AuthenticatableBase extends LocaleStorableBase implements AuthenticatableC
         } while (isset($user));
         $this->api_access_token = $code;
         return $code;
+    }
+
+    // Relation
+
+    public function profileImage()
+    {
+        return $this->belongsTo('App\Models\Image', 'profile_image_id', 'id');
+    }
+
+    public function getProfileImageUrl($width = 0, $height = 0)
+    {
+        if ($this->profile_image_id == 0) {
+            return \URLHelper::asset('img/user.png', 'common');
+        }
+        if ($width == 0 && $height == 0) {
+            return $this->profileImage->url;
+        } else {
+            return $this->profileImage->url;
+        }
     }
 }

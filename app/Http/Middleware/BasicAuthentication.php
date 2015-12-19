@@ -22,7 +22,7 @@ class BasicAuthentication
                 return response('Please enter username and password', 401,
                     ['WWW-Authenticate' => 'Basic realm="RESTRICTED"']);
             }
-            if ($_SERVER['PHP_AUTH_USER'] != 'yakiniku' && $_SERVER['PHP_AUTH_PW'] != '1q2w3e4r') {
+            if ($_SERVER['PHP_AUTH_USER'] != 'test' && $_SERVER['PHP_AUTH_PW'] != 'abcdef') {
                 return response('Please enter username and password', 401,
                     ['WWW-Authenticate' => 'Basic realm="RESTRICTED"']);
             }

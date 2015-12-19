@@ -3,7 +3,7 @@
 /**
  * App\Models\LocaleStorableBase
  *
- * @property string         $locale
+ * @property string $locale
  * @method static \Illuminate\Database\Query\Builder|\App\Models\LocaleStorableBase whereLocale($value)
  */
 

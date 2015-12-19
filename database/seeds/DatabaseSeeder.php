@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call('AdminUserTableSeeder');
 
+        if( App::environment() === 'testing' ) {
+            // Add More Seed For Testing
+        }
+
         Model::reguard();
     }
 }

@@ -111,12 +111,13 @@ class URLHelper implements URLHelperInterface
     {
         $urlPath = strtolower($urlPath);
         $urlPath = str_replace('_', '-', $urlPath);
+        $urlPath = str_replace(' ', '-', $urlPath);
         return $urlPath;
     }
 
     public function asset($path, $type = "user")
     {
-        $hash = \Config::get('assets.hash');
+        $hash = \Config::get('asset.hash');
         $url = asset('static/' . $type . '/' . $path);
 
         if (\App::environment() == 'local' || empty($hash)) {

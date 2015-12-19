@@ -7,9 +7,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class ExampleTest extends TestCase
 {
 
-    use DatabaseMigrations;
+//    use DatabaseMigrations;
 
-    protected $useDatabase = false;
+    protected $useDatabase = true;
 
     /**
      * A basic functional test example.

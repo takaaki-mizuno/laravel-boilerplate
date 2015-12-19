@@ -44,5 +44,10 @@ class HelperBindServiceProvider extends ServiceProvider
             'App\Helpers\Production\URLHelper'
         );
 
+        $this->app->singleton(
+            'App\Helpers\CollectionHelperInterface',
+            'App\Helpers\Production\CollectionHelper'
+        );
+
     }
 }

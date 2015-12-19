@@ -3,6 +3,9 @@
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
 
+    /** @var bool  */
+    protected $useDatabase = false;
+
     /**
      * The base URL to use while testing the application.
      *
@@ -22,6 +25,23 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+    public function setUp()
+    {
+        parent::setUp();
+        if ($this->useDatabase) {
+            $this->artisan('migrate');
+            $this->artisan('db:seed');
+        }
+    }
+
+    public function tearDown()
+    {
+        if ($this->useDatabase) {
+            $this->artisan('migrate:rollback');
+        }
+        parent::tearDown();
     }
 
 }

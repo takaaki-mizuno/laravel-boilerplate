@@ -212,6 +212,7 @@ return [
         'LocaleHelper'          => 'App\Facades\LocaleHelper',
         'MetaInformationHelper' => 'App\Facades\MetaInformationHelper',
         'URLHelper'             => 'App\Facades\URLHelper',
+        'CollectionHelper'      => 'App\Facades\CollectionHelper',
 
     ],
 

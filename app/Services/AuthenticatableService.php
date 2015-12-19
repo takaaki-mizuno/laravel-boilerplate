@@ -96,12 +96,27 @@ class AuthenticatableService
         return true;
     }
 
+    /**
+     * @param \App\Models\AuthenticatableBase $user
+     */
+    public function setUser($user)
+    {
+        $authDriver = $this->getAuthDriver();
+        $authDriver->login($user);
+    }
+
+    /**
+     * @return \App\Models\AuthenticatableBase
+     */
     public function getUser()
     {
         $authDriver = $this->getAuthDriver();
         return $authDriver->user();
     }
 
+    /**
+     * @return bool
+     */
     public function isSignedIn()
     {
         $authDriver = $this->getAuthDriver();

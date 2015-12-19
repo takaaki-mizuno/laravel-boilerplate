@@ -7,8 +7,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.guest']], function ()
     Route::post('forgot-password', 'Admin\AuthController@postForgotPassword');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth', 'admin.values']], function () {
     Route::get('/', 'Admin\IndexController@index');
 });
 
-Route::get('/', 'User\IndexController@index');
+Route::group(['middleware' => ['user.values']], function () {
+    Route::get('/', 'User\IndexController@index');
+});

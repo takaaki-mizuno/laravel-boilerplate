@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Services\AdminUserService;
 use App\Http\Requests\Admin\SignInRequest;
 
-class AuthController extends Controller
+class PasswordController extends Controller
 {
 
     /** @var \App\Services\AdminUserService AdminUserService */
@@ -15,19 +15,15 @@ class AuthController extends Controller
         $this->adminUserService = $adminUserService;
     }
 
-    public function getSignIn()
+    public function getForgotPassword()
     {
-        return view('pages.admin.auth.signin', [
+        return view('pages.admin.auth.forgot-password', [
         ]);
     }
 
-    public function postSignIn(SignInRequest $request)
+    public function postForgotPassword()
     {
-        $adminUser = $this->adminUserService->signIn($request->all());
-        if (empty($adminUser)) {
-            return redirect()->action('Admin\AuthController@getSignIn');
-        }
-        return redirect()->action('Admin\IndexController@index');
+        return view('pages.admin.auth.forgot-password', [
+        ]);
     }
-
 }

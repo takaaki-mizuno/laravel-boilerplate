@@ -39,11 +39,11 @@ class FacebookService
         $accessToken = null;
         try {
             $accessToken = $helper->getAccessToken();
-        } catch(Exceptions\FacebookResponseException $e) {
+        } catch (Exceptions\FacebookResponseException $e) {
             // When Graph returns an error
-        } catch(Exceptions\FacebookSDKException $e) {
+        } catch (Exceptions\FacebookSDKException $e) {
             // When validation fails or other local issues
         }
-        return (string) $accessToken;
+        return (string)$accessToken;
     }
 }

@@ -17,13 +17,13 @@ class PasswordController extends Controller
 
     public function getForgotPassword()
     {
-        return view('pages.admin.auth.forgot-password', [
+        return view('pages.admin.auth.forgot_password', [
         ]);
     }
 
     public function postForgotPassword()
     {
-        return view('pages.admin.auth.forgot-password', [
+        return view('pages.admin.auth.forgot_password', [
         ]);
     }
 }

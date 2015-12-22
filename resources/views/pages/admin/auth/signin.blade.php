@@ -61,7 +61,7 @@ Sign In
                 <!-- /.col -->
             </div>
         </form>
-        <a href="{!! \URL::action('Admin\AuthController@getForgotPassword') !!}">@lang('admin.pages.auth.messages.forgot_password')</a><br>
+        <a href="{!! \URL::action('Admin\PasswordController@getForgotPassword') !!}">@lang('admin.pages.auth.messages.forgot_password')</a><br>
 
     </div>
     <!-- /.login-box-body -->

@@ -12,9 +12,9 @@ class UserService extends AuthenticatableService
         $this->authenticatableRepository = $userRepository;
     }
 
-    protected function getAuthDriverName()
+    protected function getGuardName()
     {
-        return "user";
+        return "users";
     }
 
 }

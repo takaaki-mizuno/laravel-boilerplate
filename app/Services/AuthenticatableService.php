@@ -15,14 +15,17 @@ class AuthenticatableService
         $this->authenticatableRepository = $authenticatableRepository;
     }
 
-    protected function getAuthDriverName()
+    protected function getGuardName()
     {
         return "";
     }
 
-    protected function getAuthDriver()
+    /**
+     * @return \Illuminate\Contracts\Auth\Guard
+     */
+    protected function getGuard()
     {
-        return \Auth::driver($this->getAuthDriverName());
+        return \Auth::guard($this->getGuardName());
     }
 
     /**
@@ -31,13 +34,13 @@ class AuthenticatableService
      */
     public function signIn($input)
     {
-        $authDriver = $this->getAuthDriver();
-        if (!$authDriver->attempt(['email' => $input['email'], 'password' => $input['password']])) {
+        $guard = $this->getGuard();
+        if (!$guard->attempt(['email' => $input['email'], 'password' => $input['password']], false, true)) {
             \Log::info($input);
             \Log::info('No');
             return null;
         }
-        return $authDriver->user();
+        return $guard->user();
     }
 
     /**
@@ -46,13 +49,14 @@ class AuthenticatableService
      */
     public function signUp($input)
     {
+        /** @var \App\Models\AuthenticatableBase $user */
         $user = $this->authenticatableRepository->create($input);
         if (empty($user)) {
             return null;
         }
-        $authDriver = $this->getAuthDriver();
-        $authDriver->login($user);
-        return $authDriver->user();
+        $guard = $this->getGuard();
+        $guard->login($user);
+        return $guard->user();
     }
 
     /**
@@ -74,8 +78,8 @@ class AuthenticatableService
         if (empty($user)) {
             return false;
         }
-        $authDriver = $this->getAuthDriver();
-        $authDriver->logout();
+        $guard = $this->getGuard();
+        $guard->logout();
         \Session::flush();
         return true;
     }
@@ -89,8 +93,8 @@ class AuthenticatableService
         if (empty($user)) {
             return false;
         }
-        $authDriver = $this->getAuthDriver();
-        $authDriver->logout();
+        $guard = $this->getGuard();
+        $guard->logout();
         \Session::flush();
         $this->authenticatableRepository->delete($user);
         return true;
@@ -101,8 +105,8 @@ class AuthenticatableService
      */
     public function setUser($user)
     {
-        $authDriver = $this->getAuthDriver();
-        $authDriver->login($user);
+        $guard = $this->getGuard();
+        $guard->login($user);
     }
 
     /**
@@ -110,8 +114,8 @@ class AuthenticatableService
      */
     public function getUser()
     {
-        $authDriver = $this->getAuthDriver();
-        return $authDriver->user();
+        $guard = $this->getGuard();
+        return $guard->user();
     }
 
     /**
@@ -119,8 +123,8 @@ class AuthenticatableService
      */
     public function isSignedIn()
     {
-        $authDriver = $this->getAuthDriver();
-        return $authDriver->check();
+        $guard = $this->getGuard();
+        return $guard->check();
     }
 
 }

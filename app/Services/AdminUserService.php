@@ -12,9 +12,9 @@ class AdminUserService extends AuthenticatableService
         $this->authenticatableRepository = $adminUserRepository;
     }
 
-    protected function getAuthDriverName()
+    protected function getGuardName()
     {
-        return "admin";
+        return "admins";
     }
 
 }

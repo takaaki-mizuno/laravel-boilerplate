@@ -85,7 +85,10 @@ class AdminUser extends AuthenticatableBase
      */
     public function hasRole($targetRole, $checkSubRoles = true)
     {
-        $roles = $this->roles->lists('role')->toArray();
+        $roles = [];
+        foreach($this->roles as $role) {
+            $roles[] = $role->role;
+        }
         if (in_array($targetRole, $roles)) {
             return true;
         }

@@ -92,4 +92,12 @@ interface BaseRepositoryInterface
      */
     public function getAPIArray($models);
 
+    /**
+     * @param \Illuminate\Support\Collection $collection
+     * @param string $value
+     * @param string|null $key
+     * @return \Illuminate\Support\Collection
+     */
+    public function pluck($collection, $value, $key = null);
+
 }

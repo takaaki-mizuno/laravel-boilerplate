@@ -1,6 +1,6 @@
 <?php namespace App\Repositories;
 
-interface AdminUserRoleRepositoryInterface extends CompositeKeyModelRepositoryInterface
+interface AdminUserRoleRepositoryInterface extends SingleKeyModelRepositoryInterface
 {
 
     /**
@@ -8,4 +8,10 @@ interface AdminUserRoleRepositoryInterface extends CompositeKeyModelRepositoryIn
      * @return boolean
      */
     public function deleteByAdminUserId($id);
+
+    /**
+     * @param  int $adminUserId
+     * @param  array $roles
+     */
+    public function setAdminUserRoles($adminUserId, $roles);
 }

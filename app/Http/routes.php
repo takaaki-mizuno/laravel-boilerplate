@@ -11,6 +11,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.values']], function (
 
     Route::group(['middleware' => ['admin.auth']], function () {
         Route::get('/', 'Admin\IndexController@index');
+
+        Route::resource('users', 'Admin\UserController');
+        Route::resource('admin-users', 'Admin\AdminUserController');
     });
 });
 

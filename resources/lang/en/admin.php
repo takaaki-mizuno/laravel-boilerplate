@@ -7,6 +7,11 @@ return [
         'users'                     => 'Users',
         'site-configuration'        => 'Site Configuration',
     ],
+    'messages' => [
+        'general' => [
+            'update_success' => 'Successfully updated.',
+        ],
+    ],
     'errors' => [
         'general' => [
             'save_failed' => 'Failed To Save. Please contact with developers',

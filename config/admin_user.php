@@ -10,8 +10,5 @@ return [
             'name'      => 'admin.roles.site_admin',
             'sub_roles' => ['editor'],
         ],
-        'editor'     => [
-            'name' => 'admin.roles.editor',
-        ],
     ],
 ];

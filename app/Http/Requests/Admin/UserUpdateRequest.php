@@ -1,8 +1,8 @@
-<?php namespace App\Http\Requests\User;
+<?php namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\Request;
 
-class SignInRequest extends Request
+class UserUpdateRequest extends Request
 {
 
     /**
@@ -23,18 +23,16 @@ class SignInRequest extends Request
     public function rules()
     {
         return [
-            'email'    => 'required|email',
-            'password' => 'required|min:6',
+            'email'    => 'email',
+            'password' => 'min:6',
         ];
     }
 
     public function messages()
     {
         return [
-            'email.required'    => '',
-            'email.email'       => '',
-            'password.required' => '',
-            'password.min'      => '',
+            'email.email'  => '',
+            'password.min' => '',
         ];
     }
 

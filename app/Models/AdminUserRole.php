@@ -47,8 +47,6 @@ class AdminUserRole extends Base
      */
     protected $hidden     = [];
 
-    protected $primaryKey = ['admin_user_id', 'role'];
-
     protected $dates      = ['publish_started_at', 'publish_ended_at', 'deleted_at'];
 
     /*

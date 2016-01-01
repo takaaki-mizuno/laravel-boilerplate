@@ -143,4 +143,18 @@ class BaseRepository implements BaseRepositoryInterface
 
         return $query->orderBy($order, $direction)->offset($offset)->limit($limit)->get();
     }
+
+    public function pluck($collection, $value, $key = null)
+    {
+        $items = [];
+        foreach( $collection as $model ) {
+            if( empty($key) ) {
+                $items[] = $model->$value;
+            }else {
+                $items[$model->$key] = $model->$value;
+            }
+        }
+        return Collection::make($items);
+    }
+
 }

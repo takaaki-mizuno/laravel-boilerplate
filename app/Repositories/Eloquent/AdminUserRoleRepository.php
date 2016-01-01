@@ -3,7 +3,7 @@
 use App\Repositories\AdminUserRoleRepositoryInterface;
 use App\Models\AdminUserRole;
 
-class AdminUserRoleRepository extends CompositeKeyModelRepository implements AdminUserRoleRepositoryInterface
+class AdminUserRoleRepository extends SingleKeyModelRepository implements AdminUserRoleRepositoryInterface
 {
 
     public function getBlankModel()
@@ -31,6 +31,17 @@ class AdminUserRoleRepository extends CompositeKeyModelRepository implements Adm
         $modelClass = $this->getModelClassName();
         $modelClass::where('admin_user_id', $id)->delete();
         return true;
+    }
+
+    public function setAdminUserRoles($adminUserId, $roles)
+    {
+        $this->deleteByAdminUserId($adminUserId);
+        foreach ($roles as $role) {
+            $this->create([
+                'admin_user_id' => $adminUserId,
+                'role'          => $role,
+            ]);
+        }
     }
 
 }

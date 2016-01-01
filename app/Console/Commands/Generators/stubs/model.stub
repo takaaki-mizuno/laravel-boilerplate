@@ -1,0 +1,33 @@
+<?php namespace App\Models;
+
+class %%CLASS%% extends Base
+{
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = '%%TABLE%%';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+    ];
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = [];
+
+    protected $dates  = [];
+
+    // Relations
+
+    // Urility Functions
+
+}

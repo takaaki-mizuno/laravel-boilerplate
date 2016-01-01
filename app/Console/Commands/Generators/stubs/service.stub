@@ -1,0 +1,8 @@
+<?php namespace App\Services;
+
+class %%CLASS%%
+{
+    public function method()
+    {
+    }
+}

@@ -54,5 +54,7 @@ class RepositoryBindServiceProvider extends ServiceProvider
             'App\Repositories\Eloquent\SiteConfigurationRepository'
         );
 
+        /* NEW BINDING */
+
     }
 }

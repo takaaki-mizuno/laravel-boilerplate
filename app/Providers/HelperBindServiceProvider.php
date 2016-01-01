@@ -49,5 +49,7 @@ class HelperBindServiceProvider extends ServiceProvider
             'App\Helpers\Production\CollectionHelper'
         );
 
+        /* NEW BINDING */
+
     }
 }

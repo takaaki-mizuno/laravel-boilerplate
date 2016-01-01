@@ -1,0 +1,8 @@
+<?php namespace App\Helpers\Production;
+
+use App\Helpers\%%CLASS%%Interface;
+
+class %%CLASS%% implements %%CLASS%%Interface
+{
+
+}

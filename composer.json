@@ -14,7 +14,9 @@
     "aws/aws-sdk-php": "3.12.*",
     "facebook/php-sdk-v4": "5.1.*",
     "abraham/twitteroauth": "0.6.*",
-    "maknz/slack": "^1.7"
+    "maknz/slack": "^1.7",
+    "icanboogie/inflector": "^1.4",
+    "mccool/laravel-auto-presenter": "^4.2"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

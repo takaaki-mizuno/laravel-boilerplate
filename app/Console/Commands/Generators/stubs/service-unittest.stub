@@ -1,0 +1,13 @@
+<?php
+
+class %%CLASS%%Test extends TestCase
+{
+
+    public function testGetInstance()
+    {
+        /** @var  \App\Services\%%CLASS%% $service */
+        $service = App::make('App\Services\%%CLASS%%');
+        $this->assertNotNull($service);
+    }
+
+}

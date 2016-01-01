@@ -1,0 +1,13 @@
+<?php
+
+class %%CLASS%%Test extends TestCase
+{
+
+    public function testGetInstance()
+    {
+        /** @var  \App\Helpers\%%CLASS%%Interface $helper */
+        $helper = App::make('App\Helper\%%CLASS%%Interface');
+        $this->assertNotNull($helper);
+    }
+
+}

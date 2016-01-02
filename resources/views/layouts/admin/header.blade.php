@@ -120,15 +120,15 @@
                         <!-- The user image in the navbar-->
                         <img src="{!! $authUser->getProfileImageUrl() !!}" class="user-image" alt="User Image">
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        <span class="hidden-xs">{{ $authUser->name }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
                             <img src="{!! $authUser->getProfileImageUrl() !!}" class="img-circle" alt="User Image">
                             <p>
-                                {!! $authUser->name !!}
-                                <small>Member since : {!! $authUser->created_at->format('Y-m-d') !!}</small>
+                                {{ $authUser->name }}
+                                <small>Member since : {{ $authUser->created_at->format('Y-m-d') }}</small>
                             </p>
                         </li>
                         <!-- Menu Body -->

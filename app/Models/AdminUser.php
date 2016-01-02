@@ -76,7 +76,7 @@ class AdminUser extends AuthenticatableBase
         return $this->hasMany('App\Models\AdminUserRole', 'admin_user_id', 'id');
     }
 
-    // Urility Functions
+    // Utility Functions
 
     /**
      * @param  string $targetRole

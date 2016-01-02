@@ -31,6 +31,7 @@ class Kernel extends HttpKernel
         'admin.auth'                => \App\Http\Middleware\Admin\Authenticate::class,
         'admin.guest'               => \App\Http\Middleware\Admin\RedirectIfAuthenticated::class,
         'admin.has_role.super_user' => \App\Http\Middleware\Admin\HasRoleSuperUser::class,
+        'admin.has_role.site_admin' => \App\Http\Middleware\Admin\HasRoleSiteAdmin::class,
         'admin.values'              => \App\Http\Middleware\Admin\SetDefaultValues::class,
         'user.auth'                 => \App\Http\Middleware\User\Authenticate::class,
         'user.guest'                => \App\Http\Middleware\User\RedirectIfAuthenticated::class,

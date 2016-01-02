@@ -32,7 +32,7 @@ Admin Users
                     <td>{{ $adminUser->name }}</td>
                     <td>{{ $adminUser->email }}</td>
                     <td>
-                        <a href="{!! URL::action('Admin\AdminUserController@show', [$adminUser->id]) !!}" class="btn">Edit</a>
+                        <a href="{!! URL::action('Admin\AdminUserController@show', [$adminUser->id]) !!}" class="btn btn-block btn-primary">Edit</a>
                     </td>
                 </tr>
             @endforeach

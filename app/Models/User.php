@@ -30,7 +30,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
  */
-class User extends AuthenticatableBase implements CanResetPasswordContract
+class User extends AuthenticatableBase
 {
     use SoftDeletes;
 

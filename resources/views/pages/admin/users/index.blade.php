@@ -30,10 +30,10 @@ Users
             <tr>
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
                 <td>
-                <a href="{!! URL::action('Admin\UserController@show') !!}" class="btn">Edit</a>
+                <a href="{!! URL::action('Admin\UserController@show') !!}" class="btn btn-block btn-primary">Edit</a>
                 </td>
-                <td><span class="badge bg-red">55%</span></td>
             </tr>
 @endforeach
         </table>

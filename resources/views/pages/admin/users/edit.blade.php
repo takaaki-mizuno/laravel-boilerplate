@@ -18,7 +18,7 @@ Edit Admin Users
 @stop
 
 @section('content')
-    <form class="form-horizontal" action="{!! \URL::action('Admin\UserController@update') !!}" method="post">
+    <form class="form-horizontal" action="{!! \URL::action('Admin\UserController@update', [$user->id]) !!}" method="post">
         {!! csrf_field() !!}
         <input type="hidden" name="_method" value="put">
         <div class="box-body">
@@ -41,16 +41,7 @@ Edit Admin Users
                 <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Remember me
-                        </label>
-                    </div>
+                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password"  value="">
                 </div>
             </div>
         </div>

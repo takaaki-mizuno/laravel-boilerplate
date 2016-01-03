@@ -1,12 +1,14 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use McCool\LaravelAutoPresenter\HasPresenter;
+use App\Presenters\BasePresenter;
 
 /**
  * App\Models\Base
  *
  */
-class Base extends Model
+class Base extends Model implements HasPresenter
 {
 
     /**
@@ -50,4 +52,8 @@ class Base extends Model
         return [];
     }
 
+    public function getPresenterClass()
+    {
+        return BasePresenter::class;
+    }
 }

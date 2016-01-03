@@ -79,7 +79,8 @@ class RepositoryMakeCommand extends GeneratorCommandBase
 
         $repositoryStab = $this->files->get($this->getStubForRepository($name));
         $this->replaceTemplateVariable($repositoryStab, 'CLASS', $className);
-        $this->replaceTemplateVariable($repositoryStab, 'MODEL', $this->getModel($className));
+        $this->replaceTemplateVariable($repositoryStab, 'MODEL',
+            str_replace("\\App\\Models\\", "", $this->getModel($className)));
         $this->files->put($repositoryPath, $repositoryStab);
 
         return true;
@@ -155,7 +156,7 @@ class RepositoryMakeCommand extends GeneratorCommandBase
     protected function getModel($className)
     {
         $modelName = str_replace("Repository", "", $className);
-        return $modelName;
+        return "\\App\\Models\\" . $modelName;
     }
 
 }

@@ -1,7 +1,7 @@
 <?php namespace App\Repositories\Eloquent;
 
-use App\Repositories\%%CLASS%%Interface;
-use App\Models\%%MODEL%%;
+use \App\Repositories\%%CLASS%%Interface;
+use \App\Models\%%MODEL%%;
 
 class %%CLASS%% extends SingleKeyModelRepository implements %%CLASS%%Interface
 {

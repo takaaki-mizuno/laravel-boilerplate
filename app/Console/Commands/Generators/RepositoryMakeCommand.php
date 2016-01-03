@@ -155,7 +155,7 @@ class RepositoryMakeCommand extends GeneratorCommandBase
     protected function getModel($className)
     {
         $modelName = str_replace("Repository", "", $className);
-        return "\\App\\Models\\" . $modelName;
+        return $modelName;
     }
 
 }

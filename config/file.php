@@ -18,7 +18,7 @@ return [
         1 => [
             'name'         => 'cover-image',
             'type'         => 'image',
-            'region'       => 'ap-northeast-1',
+            'region'       => env('AWS_IMAGE_REGION'),
             'buckets'      => [
                 env('AWS_IMAGE_BUCKET'),
             ],

@@ -140,11 +140,13 @@ class HelperMakeCommand extends GeneratorCommandBase
      */
     protected function bindInterface($name)
     {
+        $className = $this->getClassName($name);
+
         $bindService = $this->files->get($this->getBindServiceProviderPath());
         $key = '/* NEW BINDING */';
         $bind = '$this->app->singleton(' . PHP_EOL .
-            "            'App\\Helpers\\" . $name. "Interface'," . PHP_EOL .
-            "            'App\\Helpers\\Eloquent\\" . $name. "'" . PHP_EOL .
+            "            'App\\Helpers\\" . $className. "Interface'," . PHP_EOL .
+            "            'App\\Helpers\\Eloquent\\" . $className. "'" . PHP_EOL .
             "        );" . PHP_EOL . PHP_EOL .'        ' . $key;
         $bindService = str_replace($key, $bind, $bindService);
         $this->files->put($this->getBindServiceProviderPath(), $bindService);

@@ -8,7 +8,8 @@ use Symfony\Component\Console\Input\InputArgument;
 
 abstract class GeneratorCommandBase extends Command
 {
-    protected $file;
+    /** @var Filesystem  */
+    protected $files;
 
     protected $type = '';
 
@@ -23,7 +24,7 @@ abstract class GeneratorCommandBase extends Command
      *
      * @return bool|null
      */
-    public function fire()
+    public function handle()
     {
         $targetName = $this->getTargetName();
         $name = $this->parseName($targetName);

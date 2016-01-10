@@ -7,7 +7,8 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     @include('layouts.user.metadata')
     @include('layouts.user.styles')
-    @yield('styles')
+    @section('styles')
+    @show
     <meta name="csrf-token" content="{!! csrf_token() !!}">
 </head>
 <body class="{!! isset($bodyClasses) ? $bodyClasses : '' !!}">
@@ -17,6 +18,7 @@
 @include('layouts.user.frame')
 @endif
 @include('layouts.user.scripts')
-@yield('scripts')
+@section('scripts')
+@show
 </body>
 </html>

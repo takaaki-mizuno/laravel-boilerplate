@@ -34,6 +34,6 @@ class Kernel extends HttpKernel
         'admin.values'              => \App\Http\Middleware\Admin\SetDefaultValues::class,
         'user.auth'                 => \App\Http\Middleware\User\Authenticate::class,
         'user.guest'                => \App\Http\Middleware\User\RedirectIfAuthenticated::class,
-        'user.values'               => \App\Http\Middleware\Admin\SetDefaultValues::class,
+        'user.values'               => \App\Http\Middleware\User\SetDefaultValues::class,
     ];
 }

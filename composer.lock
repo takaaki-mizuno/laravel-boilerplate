@@ -63,16 +63,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.12.0",
+            "version": "3.12.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6d7c51c5eccf5a71f9f001884cccc55a671ff506"
+                "reference": "07e01f31ebfe283f24d06544c0cd615b5758486c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6d7c51c5eccf5a71f9f001884cccc55a671ff506",
-                "reference": "6d7c51c5eccf5a71f9f001884cccc55a671ff506",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/07e01f31ebfe283f24d06544c0cd615b5758486c",
+                "reference": "07e01f31ebfe283f24d06544c0cd615b5758486c",
                 "shasum": ""
             },
             "require": {
@@ -97,6 +97,7 @@
                 "phpunit/phpunit": "~4.0"
             },
             "suggest": {
+                "aws/aws-php-sns-message-validator": "To validate incoming SNS notifications",
                 "doctrine/cache": "To use the DoctrineCacheAdapter",
                 "ext-curl": "To send requests using cURL",
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages"
@@ -137,7 +138,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2015-12-21 22:54:08"
+            "time": "2016-01-13 02:19:36"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -718,16 +719,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.2.6",
+            "version": "v5.2.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "b774c304ee81fcf5402fa06b261b364ba8f29cf0"
+                "reference": "93dc5b0089eef468157fd7200e575c3861ec59a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/b774c304ee81fcf5402fa06b261b364ba8f29cf0",
-                "reference": "b774c304ee81fcf5402fa06b261b364ba8f29cf0",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/93dc5b0089eef468157fd7200e575c3861ec59a5",
+                "reference": "93dc5b0089eef468157fd7200e575c3861ec59a5",
                 "shasum": ""
             },
             "require": {
@@ -842,7 +843,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-12-31 17:41:58"
+            "time": "2016-01-13 20:29:10"
         },
         {
             "name": "league/flysystem",
@@ -1162,16 +1163,16 @@
         },
         {
             "name": "mtdowling/jmespath.php",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jmespath/jmespath.php.git",
-                "reference": "a7d99d0c836e69d27b7bfca1d33ca2759fba3289"
+                "reference": "192f93e43c2c97acde7694993ab171b3de284093"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/a7d99d0c836e69d27b7bfca1d33ca2759fba3289",
-                "reference": "a7d99d0c836e69d27b7bfca1d33ca2759fba3289",
+                "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/192f93e43c2c97acde7694993ab171b3de284093",
+                "reference": "192f93e43c2c97acde7694993ab171b3de284093",
                 "shasum": ""
             },
             "require": {
@@ -1213,7 +1214,7 @@
                 "json",
                 "jsonpath"
             ],
-            "time": "2015-05-27 17:21:31"
+            "time": "2016-01-05 18:25:05"
         },
         {
             "name": "nesbot/carbon",
@@ -1315,16 +1316,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "1.1.4",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "d762ee5b099a29044603cd4649851e81aa66cb47"
+                "reference": "dd8998b7c846f6909f4e7a5f67fabebfc412a4f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/d762ee5b099a29044603cd4649851e81aa66cb47",
-                "reference": "d762ee5b099a29044603cd4649851e81aa66cb47",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/dd8998b7c846f6909f4e7a5f67fabebfc412a4f7",
+                "reference": "dd8998b7c846f6909f4e7a5f67fabebfc412a4f7",
                 "shasum": ""
             },
             "require": {
@@ -1359,7 +1360,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2015-12-10 14:48:13"
+            "time": "2016-01-06 13:31:20"
         },
         {
             "name": "predis/predis",
@@ -2849,16 +2850,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "v2.5.3",
+            "version": "v2.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "2fbcea96eae34a53183377cdbb0b9bec33974648"
+                "reference": "abbdfd1cff43a7b99d027af3be709bc8fc7d4769"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/2fbcea96eae34a53183377cdbb0b9bec33974648",
-                "reference": "2fbcea96eae34a53183377cdbb0b9bec33974648",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/abbdfd1cff43a7b99d027af3be709bc8fc7d4769",
+                "reference": "abbdfd1cff43a7b99d027af3be709bc8fc7d4769",
                 "shasum": ""
             },
             "require": {
@@ -2916,7 +2917,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2015-12-25 16:28:24"
+            "time": "2016-01-05 22:11:12"
         },
         {
             "name": "doctrine/instantiator",
@@ -4211,16 +4212,16 @@
         },
         {
             "name": "symfony/class-loader",
-            "version": "v2.8.1",
+            "version": "v2.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/class-loader.git",
-                "reference": "ec74b0a279cf3a9bd36172b3e3061591d380ce6c"
+                "reference": "98e9089a428ed0e39423b67352c57ef5910a3269"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/class-loader/zipball/ec74b0a279cf3a9bd36172b3e3061591d380ce6c",
-                "reference": "ec74b0a279cf3a9bd36172b3e3061591d380ce6c",
+                "url": "https://api.github.com/repos/symfony/class-loader/zipball/98e9089a428ed0e39423b67352c57ef5910a3269",
+                "reference": "98e9089a428ed0e39423b67352c57ef5910a3269",
                 "shasum": ""
             },
             "require": {
@@ -4259,7 +4260,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "https://symfony.com",
-            "time": "2015-12-05 17:37:59"
+            "time": "2016-01-03 15:33:41"
         },
         {
             "name": "symfony/css-selector",

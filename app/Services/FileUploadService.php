@@ -206,7 +206,6 @@ class FileUploadService
             'title'            => array_get($metaInputs, 'title', ''),
             'file_category'    => $categoryType,
             'file_subcategory' => $categorySubType,
-            'article_id'       => array_get($metaInputs, 'articleId', ''),
             's3_key'           => $key,
             's3_bucket'        => $bucket,
             's3_region'        => $region,

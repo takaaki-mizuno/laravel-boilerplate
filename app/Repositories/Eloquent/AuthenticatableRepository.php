@@ -14,7 +14,15 @@ class AuthenticatableRepository extends SingleKeyModelRepository implements Auth
     public function findByEmail($email)
     {
         $className = $this->getModelClassName();
+
         return $className::whereEmail($email)->first();
+    }
+
+    public function findByFacebookId($facebookId)
+    {
+        $className = $this->getModelClassName();
+
+        return $className::whereFacebookId($facebookId)->first();
     }
 
     /**
@@ -25,9 +33,15 @@ class AuthenticatableRepository extends SingleKeyModelRepository implements Auth
     public function update($model, $input)
     {
         if (array_key_exists('password', $input)) {
-            $model->setPassword($input['password']);
+            $password = $input['password'];
+            if (empty($password)) {
+                $model->password = "";
+            } else {
+                $model->setPassword($input['password']);
+            }
             unset($input['password']);
         }
+
         return parent::update($model, $input);
     }
 

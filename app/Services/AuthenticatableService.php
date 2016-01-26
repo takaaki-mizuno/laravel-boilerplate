@@ -1,6 +1,7 @@
 <?php namespace App\Services;
 
 use App\Repositories\AuthenticatableRepositoryInterface;
+use App\Services\FacebookService;
 
 class AuthenticatableService
 {
@@ -8,28 +9,20 @@ class AuthenticatableService
     /** @var \App\Repositories\AuthenticatableRepositoryInterface */
     protected $authenticatableRepository;
 
+    /** @var \App\Services\FacebookService */
+    protected $facebookService;
+
     public function __construct(
-        AuthenticatableRepositoryInterface $authenticatableRepository
+        AuthenticatableRepositoryInterface $authenticatableRepository,
+        FacebookService $facebookService
     )
     {
         $this->authenticatableRepository = $authenticatableRepository;
-    }
-
-    protected function getGuardName()
-    {
-        return "";
+        $this->facebookService = $facebookService;
     }
 
     /**
-     * @return \Illuminate\Contracts\Auth\Guard
-     */
-    protected function getGuard()
-    {
-        return \Auth::guard($this->getGuardName());
-    }
-
-    /**
-     * @param  $input
+     * @param  array $input
      * @return \App\Models\Base
      */
     public function signIn($input)
@@ -38,13 +31,15 @@ class AuthenticatableService
         if (!$guard->attempt(['email' => $input['email'], 'password' => $input['password']], false, true)) {
             \Log::info($input);
             \Log::info('No');
+
             return null;
         }
+
         return $guard->user();
     }
 
     /**
-     * @param  $input
+     * @param  array $input
      * @return \App\Models\Base
      */
     public function signUp($input)
@@ -56,11 +51,45 @@ class AuthenticatableService
         }
         $guard = $this->getGuard();
         $guard->login($user);
+
         return $guard->user();
     }
 
     /**
-     * @param $email
+     * @param  string $token
+     * @return \App\Models\Base
+     */
+    public function signInWithFacebook($token)
+    {
+        $node = $this->facebookService->getMe($token);
+        if (empty($node)) {
+            return null;
+        }
+        $facebookId = $node->getId();
+        $email = $node->getEmail();
+        if (empty($email)) {
+            return null;
+        }
+        $user = $this->authenticatableRepository->findByFacebookId($facebookId);
+        if (empty($user)) {
+            $user = $this->authenticatableRepository->findByEmail($email);
+        }
+
+        if (empty($user)) {
+            $user = $this->authenticatableRepository->create([
+                'email'    => $email,
+                'password' => '',
+            ]);
+        }
+
+        $guard = $this->getGuard();
+        $guard->login($user);
+
+        return $guard->user();
+    }
+
+    /**
+     * @param  string $email
      * @return bool
      */
     public function sendPasswordReset($email)
@@ -81,6 +110,7 @@ class AuthenticatableService
         $guard = $this->getGuard();
         $guard->logout();
         \Session::flush();
+
         return true;
     }
 
@@ -97,6 +127,7 @@ class AuthenticatableService
         $guard->logout();
         \Session::flush();
         $this->authenticatableRepository->delete($user);
+
         return true;
     }
 
@@ -115,6 +146,7 @@ class AuthenticatableService
     public function getUser()
     {
         $guard = $this->getGuard();
+
         return $guard->user();
     }
 
@@ -124,7 +156,21 @@ class AuthenticatableService
     public function isSignedIn()
     {
         $guard = $this->getGuard();
+
         return $guard->check();
+    }
+
+    protected function getGuardName()
+    {
+        return "";
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Auth\Guard
+     */
+    protected function getGuard()
+    {
+        return \Auth::guard($this->getGuardName());
     }
 
 }

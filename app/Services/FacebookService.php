@@ -14,6 +14,7 @@ class FacebookService
             'app_secret'            => $config['secret'],
             'default_graph_version' => 'v2.5',
         ]);
+
         return $fb;
     }
 
@@ -31,7 +32,9 @@ class FacebookService
         return $loginUrl;
     }
 
-
+    /**
+     * @return string
+     */
     public function getFacebookAccessToken()
     {
         $fb = $this->getFacebookInstance();
@@ -44,6 +47,25 @@ class FacebookService
         } catch (Exceptions\FacebookSDKException $e) {
             // When validation fails or other local issues
         }
+
         return (string)$accessToken;
+    }
+
+    public function getMe($token)
+    {
+        $fb = $this->getFacebookInstance();
+        $fb->setDefaultAccessToken($token);
+        $userNode = null;
+        try {
+            $response = $fb->get('/me');
+            $userNode = $response->getGraphUser();
+        } catch(Facebook\Exceptions\FacebookResponseException $e) {
+            // When Graph returns an error
+            \Log::info('Graph returned an error: ' . $e->getMessage());
+        } catch(Facebook\Exceptions\FacebookSDKException $e) {
+            // When validation fails or other local issues
+            \Log::info('Facebook SDK returned an error: ' . $e->getMessage());
+        }
+        return $userNode;
     }
 }

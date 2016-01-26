@@ -30,6 +30,7 @@ class AuthenticatableBase extends LocaleStorableBase implements AuthenticatableC
             $user = static::whereApiAccessToken($code)->first();
         } while (isset($user));
         $this->api_access_token = $code;
+
         return $code;
     }
 

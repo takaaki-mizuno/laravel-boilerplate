@@ -11,4 +11,10 @@ interface AuthenticatableRepositoryInterface extends SingleKeyModelRepositoryInt
      */
     public function findByEmail($email);
 
+    /**
+     * @param  string $facebookId
+     * @return AuthenticatableBase|null
+     */
+    public function findByFacebookId($facebookId);
+
 }

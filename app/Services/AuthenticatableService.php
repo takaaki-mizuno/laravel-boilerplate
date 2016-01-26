@@ -1,7 +1,6 @@
 <?php namespace App\Services;
 
 use App\Repositories\AuthenticatableRepositoryInterface;
-use App\Services\FacebookService;
 
 class AuthenticatableService
 {
@@ -9,16 +8,11 @@ class AuthenticatableService
     /** @var \App\Repositories\AuthenticatableRepositoryInterface */
     protected $authenticatableRepository;
 
-    /** @var \App\Services\FacebookService */
-    protected $facebookService;
-
     public function __construct(
-        AuthenticatableRepositoryInterface $authenticatableRepository,
-        FacebookService $facebookService
+        AuthenticatableRepositoryInterface $authenticatableRepository
     )
     {
         $this->authenticatableRepository = $authenticatableRepository;
-        $this->facebookService = $facebookService;
     }
 
     /**
@@ -61,7 +55,8 @@ class AuthenticatableService
      */
     public function signInWithFacebook($token)
     {
-        $node = $this->facebookService->getMe($token);
+        $facebookService = new FacebookService();
+        $node = $facebookService->getMe($token);
         if (empty($node)) {
             return null;
         }

@@ -2,6 +2,32 @@
 
 use \Facebook\Facebook;
 use \Facebook\Exceptions;
+use \Facebook\PersistentData\FacebookSessionPersistentDataHandler;
+use \Facebook\PersistentData\PersistentDataInterface;
+
+class LaravelFacebookSessionPersistentDataHandler extends FacebookSessionPersistentDataHandler  implements PersistentDataInterface
+{
+
+    protected $sessionPrefix = 'FBRLH_';
+
+    public function __construct($enableSessionCheck = true)
+    {
+    }
+
+    public function get($key)
+    {
+        if (!empty(\Session::get($this->sessionPrefix . $key))) {
+            return \Session::get($this->sessionPrefix . $key);
+        }
+
+        return null;
+    }
+
+    public function set($key, $value)
+    {
+        \Session::put($this->sessionPrefix . $key, $value);
+    }
+}
 
 class FacebookService
 {
@@ -10,9 +36,10 @@ class FacebookService
     {
         $config = \Config::get('facebook');
         $fb = new Facebook([
-            'app_id'                => $config['appId'],
-            'app_secret'            => $config['secret'],
-            'default_graph_version' => 'v2.5',
+            'app_id'                  => $config['appId'],
+            'app_secret'              => $config['secret'],
+            'default_graph_version'   => 'v2.5',
+            'persistent_data_handler' => new LaravelFacebookSessionPersistentDataHandler(),
         ]);
 
         return $fb;
@@ -59,13 +86,14 @@ class FacebookService
         try {
             $response = $fb->get('/me');
             $userNode = $response->getGraphUser();
-        } catch(Facebook\Exceptions\FacebookResponseException $e) {
+        } catch (Facebook\Exceptions\FacebookResponseException $e) {
             // When Graph returns an error
             \Log::info('Graph returned an error: ' . $e->getMessage());
-        } catch(Facebook\Exceptions\FacebookSDKException $e) {
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
             // When validation fails or other local issues
             \Log::info('Facebook SDK returned an error: ' . $e->getMessage());
         }
+
         return $userNode;
     }
 }

@@ -84,12 +84,12 @@ class FacebookService
         $fb->setDefaultAccessToken($token);
         $userNode = null;
         try {
-            $response = $fb->get('/me');
+            $response = $fb->sendRequest('GET', '/me', ['fields' => 'name,email,id']);
             $userNode = $response->getGraphUser();
-        } catch (Facebook\Exceptions\FacebookResponseException $e) {
+        } catch (\Facebook\Exceptions\FacebookResponseException $e) {
             // When Graph returns an error
             \Log::info('Graph returned an error: ' . $e->getMessage());
-        } catch (Facebook\Exceptions\FacebookSDKException $e) {
+        } catch (\Facebook\Exceptions\FacebookSDKException $e) {
             // When validation fails or other local issues
             \Log::info('Facebook SDK returned an error: ' . $e->getMessage());
         }

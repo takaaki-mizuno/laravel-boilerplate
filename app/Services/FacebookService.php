@@ -1,4 +1,4 @@
-<?php
+<?php namespace App\Services;
 
 use \Facebook\Facebook;
 use \Facebook\Exceptions;

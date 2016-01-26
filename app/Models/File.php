@@ -59,7 +59,7 @@ class File extends Base
         'id',
         'url',
         'title',
-        'file_category_id',
+        'file_category',
         'file_subcategory',
         's3_key',
         's3_bucket',

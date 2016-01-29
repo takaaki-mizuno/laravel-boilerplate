@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
-use App\Http\Requests\Admin\SignInRequest;
+use App\Http\Requests\User\SignInRequest;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 
 class AuthController extends Controller

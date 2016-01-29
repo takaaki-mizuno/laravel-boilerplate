@@ -30,9 +30,33 @@ return [
     ],
 
     'stripe' => [
-        'model'  => App\User::class,
+        'model'  => \App\Models\User::class,
         'key'    => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
+    ],
+
+    'facebook' => [
+        'client_id'       => env('FACEBOOK_APP_ID'),
+        'client_secret'   => env('FACEBOOK_SECRET'),
+        'redirect_action' => 'User\FacebookServiceAuthController@callback',
+    ],
+
+    'twitter' => [
+        'client_id'       => '',
+        'client_secret'   => '',
+        'redirect_action' => '',
+    ],
+
+    'google' => [
+        'client_id'       => '',
+        'client_secret'   => '',
+        'redirect_action' => '',
+    ],
+
+    'github' => [
+        'client_id'       => '',
+        'client_secret'   => '',
+        'redirect_action' => '',
     ],
 
 ];

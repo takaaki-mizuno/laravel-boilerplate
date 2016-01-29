@@ -54,6 +54,11 @@ class RepositoryBindServiceProvider extends ServiceProvider
             'App\Repositories\Eloquent\SiteConfigurationRepository'
         );
 
+        $this->app->singleton(
+            'App\Repositories\UserServiceAuthenticationRepositoryInterface',
+            'App\Repositories\Eloquent\UserServiceAuthenticationRepository'
+        );
+
         /* NEW BINDING */
 
     }

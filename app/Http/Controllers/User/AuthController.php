@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use App\Http\Requests\Admin\SignInRequest;
+use Laravel\Socialite\Contracts\Factory as Socialite;
 
 class AuthController extends Controller
 {
@@ -10,9 +11,13 @@ class AuthController extends Controller
     /** @var \App\Services\UserService UserService */
     protected $userService;
 
-    public function __construct(UserService $userService)
+    /** @var Socialite */
+    protected $socialite;
+
+    public function __construct(UserService $userService, Socialite $socialite)
     {
         $this->userService = $userService;
+        $this->socialite = $socialite;
     }
 
     public function getSignIn()
@@ -27,7 +32,7 @@ class AuthController extends Controller
         if (empty($user)) {
             return redirect()->action('User\AuthController@getSignIn');
         }
+
         return redirect()->action('User\IndexController@index');
     }
-
 }

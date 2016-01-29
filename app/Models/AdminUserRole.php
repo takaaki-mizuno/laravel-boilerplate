@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\AdminUserRole
  *
+ * @property integer $id
  * @property integer $admin_user_id
  * @property string $role
  * @property \Carbon\Carbon $created_at

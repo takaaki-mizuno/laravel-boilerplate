@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateUserServiceAuthenticationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,18 +12,17 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('user_service_authentications', function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            $table->bigInteger('user_id');
+
             $table->string('name');
             $table->string('email');
-            $table->string('password', 60);
 
-            $table->string('api_access_token')->default('');
+            $table->string('service');
+            $table->bigInteger('service_id');
 
-            $table->bigInteger('profile_image_id')->default(0);
-
-            $table->softDeletes();
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -35,6 +34,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::drop('user_service_authentications');
     }
 }

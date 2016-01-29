@@ -16,7 +16,8 @@
     "abraham/twitteroauth": "0.6.*",
     "maknz/slack": "^1.7",
     "icanboogie/inflector": "^1.4",
-    "mccool/laravel-auto-presenter": "^4.2"
+    "mccool/laravel-auto-presenter": "^4.2",
+    "laravel/socialite": "^2.0"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

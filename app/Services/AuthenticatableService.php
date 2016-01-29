@@ -15,6 +15,19 @@ class AuthenticatableService
         $this->authenticatableRepository = $authenticatableRepository;
     }
 
+    public function signInById($id)
+    {
+        /** @var \App\Models\AuthenticatableBase $user */
+        $user = $this->authenticatableRepository->find($id);
+        if (empty($user)) {
+            return null;
+        }
+        $guard = $this->getGuard();
+        $guard->login($user);
+
+        return $guard->user();
+    }
+
     /**
      * @param  array $input
      * @return \App\Models\Base
@@ -23,9 +36,6 @@ class AuthenticatableService
     {
         $guard = $this->getGuard();
         if (!$guard->attempt(['email' => $input['email'], 'password' => $input['password']], false, true)) {
-            \Log::info($input);
-            \Log::info('No');
-
             return null;
         }
 

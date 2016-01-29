@@ -157,6 +157,11 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+         *
+         */
+        Laravel\Socialite\SocialiteServiceProvider::class,
+
+        /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
@@ -168,7 +173,6 @@ return [
          */
         App\Providers\RepositoryBindServiceProvider::class,
         App\Providers\HelperBindServiceProvider::class,
-//        App\Providers\CustomAuthServiceProvider::class,
 
     ], $additionalProviders),
 

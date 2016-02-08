@@ -225,7 +225,7 @@ return [
         'MetaInformationHelper' => 'App\Facades\MetaInformationHelper',
         'URLHelper'             => 'App\Facades\URLHelper',
         'CollectionHelper'      => 'App\Facades\CollectionHelper',
-
+        'StringHelper'          => 'App\Facades\StringHelper',
     ],
 
     'host'                 => env('APP_HOST', null),

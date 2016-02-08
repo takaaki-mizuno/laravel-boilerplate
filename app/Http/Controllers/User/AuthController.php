@@ -3,7 +3,6 @@
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use App\Http\Requests\User\SignInRequest;
-use Laravel\Socialite\Contracts\Factory as Socialite;
 
 class AuthController extends Controller
 {
@@ -11,13 +10,9 @@ class AuthController extends Controller
     /** @var \App\Services\UserService UserService */
     protected $userService;
 
-    /** @var Socialite */
-    protected $socialite;
-
-    public function __construct(UserService $userService, Socialite $socialite)
+    public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-        $this->socialite = $socialite;
     }
 
     public function getSignIn()

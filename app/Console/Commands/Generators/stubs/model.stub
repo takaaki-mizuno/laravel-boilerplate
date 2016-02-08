@@ -1,7 +1,10 @@
 <?php namespace App\Models;
 
+%%SOFT_DELETE_CLASS_USE%%
 class %%CLASS%% extends Base
 {
+
+    %%SOFT_DELETE_USE%%
     /**
      * The database table used by the model.
      *
@@ -15,6 +18,7 @@ class %%CLASS%% extends Base
      * @var array
      */
     protected $fillable = [
+        %%FILLABLES%%
     ];
 
     /**
@@ -24,10 +28,21 @@ class %%CLASS%% extends Base
      */
     protected $hidden = [];
 
-    protected $dates  = [];
+    protected $dates  = [%%DATETIMES%%];
 
     // Relations
 
     // Urility Functions
+
+    /*
+     * API Presentation
+     */
+    public function toAPIArray()
+    {
+        return [
+            'id' => $this->id,
+            %%API%%
+        ];
+    }
 
 }

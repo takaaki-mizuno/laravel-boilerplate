@@ -2,6 +2,32 @@
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Models\Image
+ *
+ * @property integer $id
+ * @property string $url
+ * @property string $title
+ * @property integer $file_category
+ * @property integer $file_subcategory
+ * @property string $s3_key
+ * @property string $s3_bucket
+ * @property string $s3_region
+ * @property string $s3_extension
+ * @property string $media_type
+ * @property string $format
+ * @property integer $file_size
+ * @property integer $width
+ * @property integer $height
+ * @property boolean $has_alternative
+ * @property string $alternative_media_type
+ * @property string $alternative_format
+ * @property string $alternative_extension
+ * @property boolean $is_enabled
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property \Carbon\Carbon $deleted_at
+ */
 class Image extends Base
 {
 

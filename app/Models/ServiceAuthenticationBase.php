@@ -1,5 +1,9 @@
 <?php namespace App\Models;
 
+/**
+ * App\Models\ServiceAuthenticationBase
+ *
+ */
 class ServiceAuthenticationBase extends Base
 {
 

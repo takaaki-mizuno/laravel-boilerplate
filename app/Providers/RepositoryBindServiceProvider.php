@@ -24,40 +24,23 @@ class RepositoryBindServiceProvider extends ServiceProvider
     public function register()
     {
 
-        $this->app->singleton(
-            'App\Repositories\AdminUserRepositoryInterface',
-            'App\Repositories\Eloquent\AdminUserRepository'
-        );
+        $this->app->singleton('App\Repositories\AdminUserRepositoryInterface',
+            'App\Repositories\Eloquent\AdminUserRepository');
 
-        $this->app->singleton(
-            'App\Repositories\AdminUserRoleRepositoryInterface',
-            'App\Repositories\Eloquent\AdminUserRoleRepository'
-        );
+        $this->app->singleton('App\Repositories\AdminUserRoleRepositoryInterface',
+            'App\Repositories\Eloquent\AdminUserRoleRepository');
 
-        $this->app->singleton(
-            'App\Repositories\UserRepositoryInterface',
-            'App\Repositories\Eloquent\UserRepository'
-        );
+        $this->app->singleton('App\Repositories\UserRepositoryInterface', 'App\Repositories\Eloquent\UserRepository');
 
-        $this->app->singleton(
-            'App\Repositories\FileRepositoryInterface',
-            'App\Repositories\Eloquent\FileRepository'
-        );
+        $this->app->singleton('App\Repositories\FileRepositoryInterface', 'App\Repositories\Eloquent\FileRepository');
 
-        $this->app->singleton(
-            'App\Repositories\ImageRepositoryInterface',
-            'App\Repositories\Eloquent\ImageRepository'
-        );
+        $this->app->singleton('App\Repositories\ImageRepositoryInterface', 'App\Repositories\Eloquent\ImageRepository');
 
-        $this->app->singleton(
-            'App\Repositories\SiteConfigurationRepositoryInterface',
-            'App\Repositories\Eloquent\SiteConfigurationRepository'
-        );
+        $this->app->singleton('App\Repositories\SiteConfigurationRepositoryInterface',
+            'App\Repositories\Eloquent\SiteConfigurationRepository');
 
-        $this->app->singleton(
-            'App\Repositories\UserServiceAuthenticationRepositoryInterface',
-            'App\Repositories\Eloquent\UserServiceAuthenticationRepository'
-        );
+        $this->app->singleton('App\Repositories\UserServiceAuthenticationRepositoryInterface',
+            'App\Repositories\Eloquent\UserServiceAuthenticationRepository');
 
         /* NEW BINDING */
 

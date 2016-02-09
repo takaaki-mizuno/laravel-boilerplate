@@ -74,7 +74,9 @@ class UserController extends Controller
         }
 
         $this->userRepository->update($user, $request->all());
-        return redirect()->action('Admin\UserController@show', [$id])->with('message-success',\Lang::get('admin.messages.general.update_success'));
+
+        return redirect()->action('Admin\UserController@show', [$id])->with('message-success',
+            \Lang::get('admin.messages.general.update_success'));
     }
 
 

@@ -76,6 +76,7 @@ class SiteConfiguration extends Base
     public function getOGPImage()
     {
         $this->load('ogpImage');
+
         return $this->ogpImage ? $this->ogpImage : new Image();
     }
 

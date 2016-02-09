@@ -57,8 +57,10 @@ class ModelMakeCommand extends GeneratorCommandBase
         $this->replaceTemplateVariable($stub, 'DATETIMES', $datetimes);
 
         $hasSoftDelete = $this->hasSoftDeleteColumn($tableName);
-        $this->replaceTemplateVariable($stub, 'SOFT_DELETE_CLASS_USE', $hasSoftDelete ? 'use Illuminate\Database\Eloquent\SoftDeletes;' . PHP_EOL : PHP_EOL);
-        $this->replaceTemplateVariable($stub, 'SOFT_DELETE_USE', $hasSoftDelete ? 'use SoftDeletes;' . PHP_EOL : PHP_EOL);
+        $this->replaceTemplateVariable($stub, 'SOFT_DELETE_CLASS_USE',
+            $hasSoftDelete ? 'use Illuminate\Database\Eloquent\SoftDeletes;' . PHP_EOL : PHP_EOL);
+        $this->replaceTemplateVariable($stub, 'SOFT_DELETE_USE',
+            $hasSoftDelete ? 'use SoftDeletes;' . PHP_EOL : PHP_EOL);
 
         $this->files->put($path, $stub);
 

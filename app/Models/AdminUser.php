@@ -86,7 +86,7 @@ class AdminUser extends AuthenticatableBase
     public function hasRole($targetRole, $checkSubRoles = true)
     {
         $roles = [];
-        foreach($this->roles as $role) {
+        foreach ($this->roles as $role) {
             $roles[] = $role->role;
         }
         if (in_array($targetRole, $roles)) {
@@ -102,6 +102,7 @@ class AdminUser extends AuthenticatableBase
                 return true;
             }
         }
+
         return false;
     }
 

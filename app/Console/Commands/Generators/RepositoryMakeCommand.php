@@ -33,6 +33,7 @@ class RepositoryMakeCommand extends GeneratorCommandBase
         if (!$this->generateRepository($name)) {
             return false;
         }
+
         return $this->bindInterface($name);
     }
 
@@ -45,6 +46,7 @@ class RepositoryMakeCommand extends GeneratorCommandBase
         $interfacePath = $this->getInterfacePath($name);
         if ($this->alreadyExists($interfacePath)) {
             $this->error($name . ' interface already exists.');
+
             return false;
         }
 
@@ -69,6 +71,7 @@ class RepositoryMakeCommand extends GeneratorCommandBase
         $repositoryPath = $this->getRepositoryPath($name);
         if ($this->alreadyExists($repositoryPath)) {
             $this->error($name . ' already exists.');
+
             return false;
         }
 
@@ -96,24 +99,24 @@ class RepositoryMakeCommand extends GeneratorCommandBase
 
         $bindService = $this->files->get($this->getBindServiceProviderPath());
         $key = '/* NEW BINDING */';
-        $bind = '$this->app->singleton(' . PHP_EOL .
-            "            'App\\Repositories\\" . $className . "Interface'," . PHP_EOL .
-            "            'App\\Repositories\\Eloquent\\" . $className . "'" . PHP_EOL .
-            "        );" . PHP_EOL . PHP_EOL . '        ' . $key;
+        $bind = '$this->app->singleton(' . PHP_EOL . "            'App\\Repositories\\" . $className . "Interface'," . PHP_EOL . "            'App\\Repositories\\Eloquent\\" . $className . "'" . PHP_EOL . "        );" . PHP_EOL . PHP_EOL . '        ' . $key;
         $bindService = str_replace($key, $bind, $bindService);
         $this->files->put($this->getBindServiceProviderPath(), $bindService);
+
         return true;
     }
 
     protected function getInterfacePath($name)
     {
         $className = $this->getClassName($name);
+
         return $this->laravel['path'] . '/Repositories/' . $className . 'Interface.php';
     }
 
     protected function getRepositoryPath($name)
     {
         $className = $this->getClassName($name);
+
         return $this->laravel['path'] . '/Repositories/Eloquent/' . $className . '.php';
     }
 
@@ -122,8 +125,8 @@ class RepositoryMakeCommand extends GeneratorCommandBase
         $className = $this->getClassName($name);
         $model = $this->getModel($className);
         $instance = new $model();
-        return is_array($instance->primaryKey) ? __DIR__ . '/stubs/composite-key-model-repository-interface.stub'
-            : __DIR__ . '/stubs/single-key-model-repository-interface.stub';
+
+        return is_array($instance->primaryKey) ? __DIR__ . '/stubs/composite-key-model-repository-interface.stub' : __DIR__ . '/stubs/single-key-model-repository-interface.stub';
     }
 
     protected function getStubForRepository($name)
@@ -131,8 +134,8 @@ class RepositoryMakeCommand extends GeneratorCommandBase
         $className = $this->getClassName($name);
         $model = $this->getModel($className);
         $instance = new $model();
-        return is_array($instance->primaryKey) ? __DIR__ . '/stubs/composite-key-model-repository.stub'
-            : __DIR__ . '/stubs/single-key-model-repository.stub';
+
+        return is_array($instance->primaryKey) ? __DIR__ . '/stubs/composite-key-model-repository.stub' : __DIR__ . '/stubs/single-key-model-repository.stub';
     }
 
     protected function getBindServiceProviderPath()
@@ -158,6 +161,7 @@ class RepositoryMakeCommand extends GeneratorCommandBase
     protected function getModel($className)
     {
         $modelName = str_replace("Repository", "", $className);
+
         return "\\App\\Models\\" . $modelName;
     }
 

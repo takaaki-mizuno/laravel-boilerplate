@@ -39,6 +39,7 @@ class HelperMakeCommand extends GeneratorCommandBase
         if (!$this->generateUnitTest($name)) {
             return false;
         }
+
         return $this->bindInterface($name);
     }
 
@@ -51,6 +52,7 @@ class HelperMakeCommand extends GeneratorCommandBase
         $path = $this->getInterfacePath($name);
         if ($this->alreadyExists($path)) {
             $this->error($name . ' already exists.');
+
             return false;
         }
 
@@ -74,6 +76,7 @@ class HelperMakeCommand extends GeneratorCommandBase
         $path = $this->getHelperPath($name);
         if ($this->alreadyExists($path)) {
             $this->error($name . ' already exists.');
+
             return false;
         }
 
@@ -97,6 +100,7 @@ class HelperMakeCommand extends GeneratorCommandBase
         $path = $this->getFacadePath($name);
         if ($this->alreadyExists($path)) {
             $this->error($name . ' already exists.');
+
             return false;
         }
 
@@ -120,6 +124,7 @@ class HelperMakeCommand extends GeneratorCommandBase
         $path = $this->getUnitTestPath($name);
         if ($this->alreadyExists($path)) {
             $this->error($name . ' already exists.');
+
             return false;
         }
 
@@ -144,60 +149,66 @@ class HelperMakeCommand extends GeneratorCommandBase
 
         $bindService = $this->files->get($this->getBindServiceProviderPath());
         $key = '/* NEW BINDING */';
-        $bind = '$this->app->singleton(' . PHP_EOL .
-            "            'App\\Helpers\\" . $className. "Interface'," . PHP_EOL .
-            "            'App\\Helpers\\Production\\" . $className. "'" . PHP_EOL .
-            "        );" . PHP_EOL . PHP_EOL .'        ' . $key;
+        $bind = '$this->app->singleton(' . PHP_EOL . "            'App\\Helpers\\" . $className . "Interface'," . PHP_EOL . "            'App\\Helpers\\Production\\" . $className . "'" . PHP_EOL . "        );" . PHP_EOL . PHP_EOL . '        ' . $key;
         $bindService = str_replace($key, $bind, $bindService);
         $this->files->put($this->getBindServiceProviderPath(), $bindService);
+
         return true;
     }
 
     protected function getInterfacePath($name)
     {
         $className = $this->getClassName($name);
+
         return $this->laravel['path'] . '/Helpers/' . $className . 'Interface.php';
     }
 
     protected function getHelperPath($name)
     {
         $className = $this->getClassName($name);
+
         return $this->laravel['path'] . '/Helpers/Production/' . $className . '.php';
     }
 
     protected function getFacadePath($name)
     {
         $className = $this->getClassName($name);
+
         return $this->laravel['path'] . '/Facades/' . $className . '.php';
     }
 
     protected function getUnitTestPath($name)
     {
         $className = $this->getClassName($name);
+
         return $this->laravel['path'] . '/../tests/Helpers/' . $className . 'Test.php';
     }
 
     protected function getStubForInterface($name)
     {
         $className = $this->getClassName($name);
+
         return __DIR__ . '/stubs/helper-interface.stub';
     }
 
     protected function getStubForHelper($name)
     {
         $className = $this->getClassName($name);
+
         return __DIR__ . '/stubs/helper.stub';
     }
 
     protected function getStubForFacade($name)
     {
         $className = $this->getClassName($name);
+
         return __DIR__ . '/stubs/facade.stub';
     }
 
     protected function getStubForUnitTest($name)
     {
         $className = $this->getClassName($name);
+
         return __DIR__ . '/stubs/helper-unittest.stub';
     }
 

@@ -44,10 +44,10 @@ class LocaleHelper implements LocaleHelperInterface
                 $languages = array_combine($lang_parse[1], $lang_parse[4]);
                 foreach ($languages as $lang => $val) {
                     if ($val === '') {
-                        $languages[$lang] = 1;
+                        $languages[ $lang ] = 1;
                     }
                 }
-//                arsort($languages, SORT_NUMERIC);
+                //                arsort($languages, SORT_NUMERIC);
             }
         }
         foreach ($languages as $lang => $val) {

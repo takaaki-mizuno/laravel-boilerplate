@@ -35,8 +35,8 @@ if (!function_exists('http_build_url')) {
 
         if ($flags & HTTP_URL_REPLACE) {
             foreach ($key as $v) {
-                if (isset($parts[$v])) {
-                    $new_url[$v] = $parts[$v];
+                if (isset($parts[ $v ])) {
+                    $new_url[ $v ] = $parts[ $v ];
                 }
             }
         } else {
@@ -61,7 +61,7 @@ if (!function_exists('http_build_url')) {
 
         foreach ($key as $v) {
             if ($flags & constant('HTTP_URL_STRIP_' . strtoupper($v))) {
-                unset($new_url[$v]);
+                unset($new_url[ $v ]);
             }
         }
 
@@ -83,6 +83,7 @@ class URLHelper implements URLHelperInterface
         if (array_key_exists($locale, \Config::get('locale.languages'))) {
             $host = $locale . '.' . $host;
         }
+
         return $host;
     }
 
@@ -112,6 +113,7 @@ class URLHelper implements URLHelperInterface
         $urlPath = strtolower($urlPath);
         $urlPath = str_replace('_', '-', $urlPath);
         $urlPath = str_replace(' ', '-', $urlPath);
+
         return $urlPath;
     }
 
@@ -123,6 +125,7 @@ class URLHelper implements URLHelperInterface
         if (\App::environment() == 'local' || empty($hash)) {
             return $url;
         }
+
         return $url . '?' . $hash;
     }
 

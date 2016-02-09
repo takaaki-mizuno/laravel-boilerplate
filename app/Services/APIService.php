@@ -9,7 +9,7 @@ class APIService
     public function error($type)
     {
         $config = \Config::get('api.errors');
-        $error = array_get($config, $type, $config[$this::ERROR_UNKNOWN]);
+        $error = array_get($config, $type, $config[ $this::ERROR_UNKNOWN ]);
 
         return response()->json([
             'code'    => array_get($error, 'code', 100),
@@ -27,6 +27,7 @@ class APIService
         foreach ($models as $model) {
             $return[] = $model->toAPIArray();
         }
+
         return $result;
     }
 

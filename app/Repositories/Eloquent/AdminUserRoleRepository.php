@@ -23,6 +23,7 @@ class AdminUserRoleRepository extends SingleKeyModelRepository implements AdminU
         if (!array_key_exists($role, \Config::get('admin_user.roles', []))) {
             return null;
         }
+
         return parent::create($input);
     }
 
@@ -30,6 +31,7 @@ class AdminUserRoleRepository extends SingleKeyModelRepository implements AdminU
     {
         $modelClass = $this->getModelClassName();
         $modelClass::where('admin_user_id', $id)->delete();
+
         return true;
     }
 

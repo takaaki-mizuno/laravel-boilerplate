@@ -30,6 +30,7 @@ class SetDefaultValues
     {
         $user = $this->userService->getUser();
         \View::share('authUser', $user);
+
         return $next($request);
     }
 }

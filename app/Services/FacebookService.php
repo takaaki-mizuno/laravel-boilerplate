@@ -5,7 +5,7 @@ use \Facebook\Exceptions;
 use \Facebook\PersistentData\FacebookSessionPersistentDataHandler;
 use \Facebook\PersistentData\PersistentDataInterface;
 
-class LaravelFacebookSessionPersistentDataHandler extends FacebookSessionPersistentDataHandler  implements PersistentDataInterface
+class LaravelFacebookSessionPersistentDataHandler extends FacebookSessionPersistentDataHandler implements PersistentDataInterface
 {
 
     protected $sessionPrefix = 'FBRLH_';

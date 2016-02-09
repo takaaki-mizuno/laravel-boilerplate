@@ -41,6 +41,7 @@ class Base extends Model implements HasPresenter
             $localizedKey = $key . '_en';
             $value = $this->$localizedKey;
         }
+
         return $value;
     }
 

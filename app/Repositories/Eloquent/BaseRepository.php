@@ -147,13 +147,14 @@ class BaseRepository implements BaseRepositoryInterface
     public function pluck($collection, $value, $key = null)
     {
         $items = [];
-        foreach( $collection as $model ) {
-            if( empty($key) ) {
+        foreach ($collection as $model) {
+            if (empty($key)) {
                 $items[] = $model->$value;
-            }else {
-                $items[$model->$key] = $model->$value;
+            } else {
+                $items[ $model->$key ] = $model->$value;
             }
         }
+
         return Collection::make($items);
     }
 

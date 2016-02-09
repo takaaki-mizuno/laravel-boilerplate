@@ -21,7 +21,7 @@ class UpdateAssetHash extends Command
      */
     protected $description = 'Update asset version hash';
 
-    /** @var Filesystem  */
+    /** @var Filesystem */
     protected $files;
 
     protected $type = '';
@@ -66,6 +66,7 @@ class UpdateAssetHash extends Command
     private function replaceVersionNumber($file, $version)
     {
         $file = preg_replace('/\'\d{10}\'/', "'$version'", $file);
+
         return $file;
     }
 

@@ -33,6 +33,7 @@ class ServiceMakeCommand extends GeneratorCommandBase
         if (!$this->generateUnitTest($name)) {
             return false;
         }
+
         return true;
     }
 
@@ -42,6 +43,7 @@ class ServiceMakeCommand extends GeneratorCommandBase
         $path = $this->getPath($name);
         if ($this->alreadyExists($path)) {
             $this->error($name . ' already exists.');
+
             return false;
         }
 
@@ -64,6 +66,7 @@ class ServiceMakeCommand extends GeneratorCommandBase
         $path = $this->getUnitTestPath($name);
         if ($this->alreadyExists($path)) {
             $this->error($name . ' already exists.');
+
             return false;
         }
 
@@ -81,29 +84,33 @@ class ServiceMakeCommand extends GeneratorCommandBase
     protected function getPath($name)
     {
         $className = $this->getClassName($name);
+
         return $this->laravel['path'] . '/Services/' . $className . '.php';
     }
 
     protected function getStub($name)
     {
-        return  __DIR__ . '/stubs/service.stub';
+        return __DIR__ . '/stubs/service.stub';
     }
 
     protected function getUnitTestPath($name)
     {
         $className = $this->getClassName($name);
+
         return $this->laravel['path'] . '/../tests/Services/' . $className . 'Test.php';
     }
 
     protected function getStubForUnitTest($name)
     {
         $className = $this->getClassName($name);
+
         return __DIR__ . '/stubs/service-unittest.stub';
     }
 
     protected function getTableName($name)
     {
         $className = $this->getClassName($name);
+
         return $className;
     }
 

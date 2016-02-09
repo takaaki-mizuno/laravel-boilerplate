@@ -126,7 +126,7 @@ class FileUploadService
         $sessionIds = \Session::get(self::IMAGE_ID_SESSION_KEY, []);
         $pos = array_search(intval($imageId), $sessionIds);
         if ($pos !== false) {
-            unset($sessionIds[$pos]);
+            unset($sessionIds[ $pos ]);
             \Session::put(self::IMAGE_ID_SESSION_KEY, array_values($sessionIds));
         }
     }
@@ -289,8 +289,7 @@ class FileUploadService
             return null;
         }
 
-        $client->putObject
-        ([
+        $client->putObject([
             'Bucket'      => $bucket,
             'Key'         => $key,
             'SourceFile'  => $path,
@@ -311,7 +310,7 @@ class FileUploadService
     {
         $pos = ord(time() % 10) % count($candidates);
 
-        return $candidates[$pos];
+        return $candidates[ $pos ];
     }
 
     /**
@@ -323,8 +322,7 @@ class FileUploadService
     {
         $client = $this->getS3Client($region);
 
-        $client->deleteObject
-        ([
+        $client->deleteObject([
             'Bucket' => $bucket,
             'Key'    => $key,
         ]);
@@ -338,15 +336,14 @@ class FileUploadService
     {
         $config = \Config::get('aws');
 
-        return new S3Client(
-            [
-                'credentials' => [
-                    'key'    => array_get($config, 'key'),
-                    'secret' => array_get($config, 'secret'),
-                ],
-                'region'      => $region,
-                'version'     => 'latest',
-            ]);
+        return new S3Client([
+            'credentials' => [
+                'key'    => array_get($config, 'key'),
+                'secret' => array_get($config, 'secret'),
+            ],
+            'region'      => $region,
+            'version'     => 'latest',
+        ]);
     }
 
 

@@ -46,6 +46,7 @@ class SiteConfigurationRepository extends SingleKeyModelRepository implements Si
             if ($this->cacheEnabled) {
                 \Cache::put($this->getLocaleCacheKey($locale), $siteConfiguration, $this->cacheLifeTime);
             }
+
             return $siteConfiguration;
         }
         $siteConfiguration = SiteConfiguration::whereLocale(\Config::get('app.locale'))->first();
@@ -53,6 +54,7 @@ class SiteConfigurationRepository extends SingleKeyModelRepository implements Si
             if ($this->cacheEnabled) {
                 \Cache::put($this->getLocaleCacheKey($locale), $siteConfiguration, $this->cacheLifeTime);
             }
+
             return $siteConfiguration;
         }
         $siteConfiguration = SiteConfiguration::orderBy('id', 'asc')->first();

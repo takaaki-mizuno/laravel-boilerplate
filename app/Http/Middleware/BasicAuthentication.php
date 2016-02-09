@@ -28,6 +28,7 @@ class BasicAuthentication
             }
 
         }
+
         return $next($request);
     }
 }

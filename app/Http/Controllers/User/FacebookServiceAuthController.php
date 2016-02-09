@@ -24,5 +24,4 @@ class FacebookServiceAuthController extends ServiceAuthController
     }
 
 
-
 }

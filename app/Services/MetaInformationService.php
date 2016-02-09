@@ -16,6 +16,7 @@ class MetaInformationService
                 $result[] = $keyword;
             }
         }
+
         return $result;
     }
 

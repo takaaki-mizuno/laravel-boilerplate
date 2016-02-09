@@ -33,6 +33,7 @@ class PaginationRequest extends Request
     public function offset()
     {
         $offset = $this->get('offset', 0);
+
         return $offset >= 0 ? $offset : 0;
     }
 
@@ -43,6 +44,7 @@ class PaginationRequest extends Request
     public function limit($default = 10)
     {
         $limit = $this->get('limit', $default);
+
         return ($limit > 0 && $limit <= 100) ? $limit : $default;
     }
 }

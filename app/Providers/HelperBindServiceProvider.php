@@ -24,35 +24,18 @@ class HelperBindServiceProvider extends ServiceProvider
     public function register()
     {
         /* Helpers */
-        $this->app->singleton(
-            'App\Helpers\DateTimeHelperInterface',
-            'App\Helpers\Production\DateTimeHelper'
-        );
+        $this->app->singleton('App\Helpers\DateTimeHelperInterface', 'App\Helpers\Production\DateTimeHelper');
 
-        $this->app->singleton(
-            'App\Helpers\LocaleHelperInterface',
-            'App\Helpers\Production\LocaleHelper'
-        );
+        $this->app->singleton('App\Helpers\LocaleHelperInterface', 'App\Helpers\Production\LocaleHelper');
 
-        $this->app->singleton(
-            'App\Helpers\MetaInformationHelperInterface',
-            'App\Helpers\Production\MetaInformationHelper'
-        );
+        $this->app->singleton('App\Helpers\MetaInformationHelperInterface',
+            'App\Helpers\Production\MetaInformationHelper');
 
-        $this->app->singleton(
-            'App\Helpers\URLHelperInterface',
-            'App\Helpers\Production\URLHelper'
-        );
+        $this->app->singleton('App\Helpers\URLHelperInterface', 'App\Helpers\Production\URLHelper');
 
-        $this->app->singleton(
-            'App\Helpers\CollectionHelperInterface',
-            'App\Helpers\Production\CollectionHelper'
-        );
+        $this->app->singleton('App\Helpers\CollectionHelperInterface', 'App\Helpers\Production\CollectionHelper');
 
-        $this->app->singleton(
-            'App\Helpers\StringHelperInterface',
-            'App\Helpers\Production\StringHelper'
-        );
+        $this->app->singleton('App\Helpers\StringHelperInterface', 'App\Helpers\Production\StringHelper');
 
         /* NEW BINDING */
 

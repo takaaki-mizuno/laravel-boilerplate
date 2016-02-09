@@ -11,6 +11,7 @@ class AsyncService
         if (array_get($jobs, 'id', 0) == 0) {
             return null;
         }
+
         return new Job($jobs);
     }
 
@@ -20,6 +21,7 @@ class AsyncService
             case Job::ID_REGISTER:
                 return \App::make('\App\Async\Workers\UserRegistrationWorker');
         }
+
         return null;
     }
 
@@ -47,7 +49,7 @@ class AsyncService
                 [
                     'id'   => $jobId,
                     'data' => $jobInfo,
-                ]
+                ],
             ],
         ];
         if (\Config::get('async.enable', false) == true) {
@@ -57,8 +59,7 @@ class AsyncService
                 "region" => \Config::get('aws.accounts.region'),
             ];
             $sqs = new SqsClient($auth);
-            $sqs->
-            $sqs->sendMessage([
+            $sqs->$sqs->sendMessage([
                 'QueueUrl'    => \Config::get('async.worker.queue'),
                 'MessageBody' => json_encode($queueData),
             ]);

@@ -20,6 +20,7 @@ class LanguageDetectionService
         if (empty($locale)) {
             $locale = $this->parseAcceptLanguage();
         }
+
         return $locale;
     }
 
@@ -33,7 +34,7 @@ class LanguageDetectionService
                 $languages = array_combine($lang_parse[1], $lang_parse[4]);
                 foreach ($languages as $lang => $val) {
                     if ($val === '') {
-                        $languages[$lang] = 1;
+                        $languages[ $lang ] = 1;
                     }
                 }
                 arsort($languages, SORT_NUMERIC);
@@ -46,6 +47,7 @@ class LanguageDetectionService
                 }
             }
         }
+
         return \Config::get('locale.default');
     }
 }

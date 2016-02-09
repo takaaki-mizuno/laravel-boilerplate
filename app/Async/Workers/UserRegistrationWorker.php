@@ -34,6 +34,7 @@ class UserRegistrationWorker extends Worker
             return false;
         }
         $this->mailService->sendRegisteredMail($user);
+
         return true;
     }
 

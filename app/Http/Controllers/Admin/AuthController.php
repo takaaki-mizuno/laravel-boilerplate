@@ -27,6 +27,7 @@ class AuthController extends Controller
         if (empty($adminUser)) {
             return redirect()->action('Admin\AuthController@getSignIn');
         }
+
         return redirect()->action('Admin\IndexController@index');
     }
 

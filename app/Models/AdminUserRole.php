@@ -46,9 +46,9 @@ class AdminUserRole extends Base
      *
      * @var array
      */
-    protected $hidden     = [];
+    protected $hidden = [];
 
-    protected $dates      = ['publish_started_at', 'publish_ended_at', 'deleted_at'];
+    protected $dates  = ['publish_started_at', 'publish_ended_at', 'deleted_at'];
 
     /*
      * API Presentation

@@ -23,6 +23,7 @@ class SecurityHeaders
         if ($response->headers->get('content-type') == 'application/json') {
             $response->headers->set('Content-Security-Policy', 'default-src \'none\'');
         }
+
         return $response;
     }
 }

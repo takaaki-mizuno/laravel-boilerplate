@@ -75,6 +75,7 @@ class MetaInformationHelper implements MetaInformationHelperInterface
             if (empty($image)) {
                 $image = $this->imageRepository->getBlankModel();
             }
+
             return $image->getThumbnailUrl(1200, 628);
         }
 
@@ -90,6 +91,7 @@ class MetaInformationHelper implements MetaInformationHelperInterface
             if (empty($image)) {
                 $image = $this->imageRepository->getBlankModel();
             }
+
             return $image->getThumbnailUrl(1024, 512);
         }
 

@@ -75,18 +75,12 @@ class MailService
 
         $articles = $this->articleRepository->getFeaturedArticles(0, 2);
 
-        return $this->sendMail(
-            '【登録完了】Catalyst Newsletter',
-            \Config::get('mail.contacts.info'),
-            [
+        return $this->sendMail('【登録完了】Catalyst Newsletter', \Config::get('mail.contacts.info'), [
                 'address' => $mail,
                 'name'    => null,
-            ],
-            'emails.users.newsletter_subscribed',
-            [
+            ], 'emails.users.newsletter_subscribed', [
                 'articles' => $articles,
-            ]
-        );
+            ]);
     }
 
     /**
@@ -100,25 +94,19 @@ class MailService
         $categories = $this->categoryRepository->getEnabled('id', 'desc', 0, 100);
         $articles = [];
         foreach ($categories as $category) {
-            $articles[$category->id] = $this->articleRepository->getByCategoryId($category->id, 'id', 'desc', 0, 2,
+            $articles[ $category->id ] = $this->articleRepository->getByCategoryId($category->id, 'id', 'desc', 0, 2,
                 true, false, $language);
         }
         $featureArticles = $this->articleRepository->getFeaturedArticles(0, 1);
 
-        return $this->sendMail(
-            '【Catalyst News】 ' . $featureArticles[0]->title,
-            \Config::get('mail.contacts.info'),
-            [
+        return $this->sendMail('【Catalyst News】 ' . $featureArticles[0]->title, \Config::get('mail.contacts.info'), [
                 'address' => $mail,
                 'name'    => null,
-            ],
-            'emails.users.newsletter',
-            [
+            ], 'emails.users.newsletter', [
                 'categories'      => $categories,
                 'featuredArticle' => $featureArticles[0],
                 'articles'        => $articles,
-            ]
-        );
+            ]);
     }
 
     /**
@@ -127,16 +115,10 @@ class MailService
      */
     public function sendRegisteredMail($user)
     {
-        return $this->sendMail(
-            'ご登録ありがとうございます',
-            \Config::get('mail.contacts.info'),
-            [
+        return $this->sendMail('ご登録ありがとうございます', \Config::get('mail.contacts.info'), [
                 'address' => $user->email,
                 'name'    => null,
-            ],
-            'emails.users.registered',
-            []
-        );
+            ], 'emails.users.registered', []);
     }
 
 }

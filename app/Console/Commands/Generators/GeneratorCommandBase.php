@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 abstract class GeneratorCommandBase extends Command
 {
-    /** @var Filesystem  */
+    /** @var Filesystem */
     protected $files;
 
     protected $type = '';
@@ -60,9 +60,8 @@ abstract class GeneratorCommandBase extends Command
      */
     protected function replaceTemplateVariable(&$stub, $key, $value)
     {
-        $stub = str_replace(
-            '%%' . $key . '%%', $value, $stub
-        );
+        $stub = str_replace('%%' . $key . '%%', $value, $stub);
+
         return $this;
     }
 

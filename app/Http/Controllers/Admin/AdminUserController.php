@@ -83,7 +83,7 @@ class AdminUserController extends Controller
         $this->adminUserRepository->update($adminUser, $request->all());
         $this->adminUserRoleRepository->setAdminUserRoles($id, $request->input('role', []));
 
-        return redirect()->action('Admin\AdminUserController@show', [$id])
-            ->with('message-success', \Lang::get('admin.messages.general.update_success'));
+        return redirect()->action('Admin\AdminUserController@show', [$id])->with('message-success',
+                \Lang::get('admin.messages.general.update_success'));
     }
 }

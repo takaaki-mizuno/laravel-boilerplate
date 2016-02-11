@@ -52,7 +52,7 @@ class BaseRepository implements BaseRepositoryInterface
         $model = $this->getModelClassName();
         if( !empty($order) ) {
             $direction = empty($direction) ? 'asc' : $direction;
-            return $model->orderBy($order, $direction)->get();
+            return $model::orderBy($order, $direction)->get();
         }
         return $model::all();
     }

@@ -220,12 +220,13 @@ return [
         'Validator'             => Illuminate\Support\Facades\Validator::class,
         'View'                  => Illuminate\Support\Facades\View::class,
         // App's Facades
-        'DateTimeHelper'        => 'App\Facades\DateTimeHelper',
-        'LocaleHelper'          => 'App\Facades\LocaleHelper',
-        'MetaInformationHelper' => 'App\Facades\MetaInformationHelper',
-        'URLHelper'             => 'App\Facades\URLHelper',
-        'CollectionHelper'      => 'App\Facades\CollectionHelper',
-        'StringHelper'          => 'App\Facades\StringHelper',
+        'DateTimeHelper'        => App\Facades\DateTimeHelper::class,
+        'LocaleHelper'          => App\Facades\LocaleHelper::class,
+        'MetaInformationHelper' => App\Facades\MetaInformationHelper::class,
+        'URLHelper'             => App\Facades\URLHelper::class,
+        'CollectionHelper'      => App\Facades\CollectionHelper::class,
+        'StringHelper'          => App\Facades\StringHelper::class,
+        /* NEW FACADE */
     ],
 
     'host'                 => env('APP_HOST', null),

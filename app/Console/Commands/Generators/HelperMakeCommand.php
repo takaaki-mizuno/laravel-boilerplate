@@ -39,6 +39,9 @@ class HelperMakeCommand extends GeneratorCommandBase
         if (!$this->generateUnitTest($name)) {
             return false;
         }
+        if (!$this->addFacadeToConfig($name)) {
+            return false;
+        }
 
         return $this->bindInterface($name);
     }
@@ -156,6 +159,19 @@ class HelperMakeCommand extends GeneratorCommandBase
         return true;
     }
 
+    protected function addFacadeToConfig($name)
+    {
+        $className = $this->getClassName($name);
+
+        $appConfig = $this->files->get($this->getAppConfigPath());
+        $key = '/* NEW FACADE */';
+        $facade = "'" . $className . "'  => App\\Facades\\" . $className . "::class," . PHP_EOL . "        " . $key;
+        $appConfig = str_replace($key, $facade, $appConfig);
+        $this->files->put($this->getAppConfigPath(), $appConfig);
+
+        return true;
+    }
+
     protected function getInterfacePath($name)
     {
         $className = $this->getClassName($name);
@@ -215,6 +231,11 @@ class HelperMakeCommand extends GeneratorCommandBase
     protected function getBindServiceProviderPath()
     {
         return $this->laravel['path'] . '/Providers/HelperBindServiceProvider.php';
+    }
+
+    protected function getAppConfigPath()
+    {
+        return $this->laravel['path'] . '/../config/app.php';
     }
 
     /**

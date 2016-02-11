@@ -32,7 +32,7 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         }
     }
 
-    public function getByIds($ids)
+    public function getByIds($ids, $order = null, $direction = null, $offset = null, $limit = null)
     {
         if (count($ids) == 0) {
             return $this->getEmptyList();
@@ -40,8 +40,16 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         $modelClass = $this->getModelClassName();
         $primaryKey = $this->getPrimaryKey();
 
-        return $modelClass::whereIn($primaryKey, $ids)->get();
+        $query = $modelClass::whereIn($primaryKey, $ids);
+        if (!empty($order)) {
+            $direction = empty($direction) ? 'asc' : $direction;
+            $query = $query->orderBy($order, $direction);
+        }
+        if (!empty($offset) && !empty($limit)) {
+            $query = $query->offset($offset)->limit($limit);
+        }
 
+        return $query->get();
     }
 
     public function create($input)

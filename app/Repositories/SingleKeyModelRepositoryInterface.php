@@ -14,10 +14,14 @@ interface SingleKeyModelRepositoryInterface extends BaseRepositoryInterface
     public function find($id);
 
     /**
-     * @param  array $ids
+     * @param array $ids
+     * @param string|null $order
+     * @param string|null $direction
+     * @param int|null $offset
+     * @param int|null $limit
      * @return \App\Models\Base[]
      */
-    public function getByIds($ids);
+    public function getByIds($ids, $order = null, $direction = null, $offset = null, $limit = null);
 
     /**
      * @param  array $input

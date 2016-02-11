@@ -47,18 +47,25 @@ class BaseRepository implements BaseRepositoryInterface
         return \Validator::make($data, $this->rule());
     }
 
-    public function all()
+    public function all($order = null, $direction = null)
     {
         $model = $this->getModelClassName();
-
+        if( !empty($order) ) {
+            $direction = empty($direction) ? 'asc' : $direction;
+            return $model->orderBy($order, $direction)->get();
+        }
         return $model::all();
     }
 
-    public function allEnabled()
+    public function allEnabled($order = null, $direction = null)
     {
         $model = $this->getModelClassName();
-
-        return $model::where('is_enabled', '=', true)->get();
+        $query = $model::where('is_enabled', '=', true);
+        if( !empty($order) ) {
+            $direction = empty($direction) ? 'asc' : $direction;
+            $query = $query->orderBy($order, $direction);
+        }
+        return $query->get();
     }
 
     public function get($order = 'id', $direction = 'asc', $offset = 0, $limit = 20)
@@ -90,6 +97,20 @@ class BaseRepository implements BaseRepositoryInterface
         }
 
         return $ret;
+    }
+
+    public function pluck($collection, $value, $key = null)
+    {
+        $items = [];
+        foreach ($collection as $model) {
+            if (empty($key)) {
+                $items[] = $model->$value;
+            } else {
+                $items[ $model->$key ] = $model->$value;
+            }
+        }
+
+        return Collection::make($items);
     }
 
     /**
@@ -142,20 +163,6 @@ class BaseRepository implements BaseRepositoryInterface
         }
 
         return $query->orderBy($order, $direction)->offset($offset)->limit($limit)->get();
-    }
-
-    public function pluck($collection, $value, $key = null)
-    {
-        $items = [];
-        foreach ($collection as $model) {
-            if (empty($key)) {
-                $items[] = $model->$value;
-            } else {
-                $items[ $model->$key ] = $model->$value;
-            }
-        }
-
-        return Collection::make($items);
     }
 
 }

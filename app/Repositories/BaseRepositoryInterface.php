@@ -13,16 +13,20 @@ interface BaseRepositoryInterface
     /**
      * Get All Models
      *
+     * @param  string $order
+     * @param  string $direction
      * @return \App\Models\Base[]|\Traversable|array
      */
-    public function all();
+    public function all($order = null, $direction = null);
 
     /**
      * Get All Enabled Models
      *
+     * @param  string $order
+     * @param  string $direction
      * @return \App\Models\Base[]|\Traversable|array
      */
-    public function allEnabled();
+    public function allEnabled($order = null, $direction = null);
 
     /**
      * Get Models with Order

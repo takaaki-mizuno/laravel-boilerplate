@@ -129,4 +129,10 @@ class URLHelper implements URLHelperInterface
         return $url . '?' . $hash;
     }
 
+    public function elixir($path, $type = "user")
+    {
+        $url = elixir('static/' . $type . '/' . $path);
+        return $url;
+    }
+
 }

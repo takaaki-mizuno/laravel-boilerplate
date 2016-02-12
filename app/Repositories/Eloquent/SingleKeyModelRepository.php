@@ -80,12 +80,14 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
 
     public function save($model)
     {
-        return $model->save();
+        $model->save();
+        return $model;
     }
 
     public function delete($model)
     {
-        return $model->delete();
+        $model->delete();
+        return true;
     }
 
 }

@@ -37,4 +37,11 @@ interface URLHelperInterface
      */
     public function asset($path, $type = "user");
 
+    /**
+     * @param  string $path
+     * @param  string $type
+     * @return string
+     */
+    public function elixir($path, $type = "user");
+
 }

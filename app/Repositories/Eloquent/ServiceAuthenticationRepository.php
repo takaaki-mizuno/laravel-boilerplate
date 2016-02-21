@@ -41,7 +41,7 @@ class ServiceAuthenticationRepository extends SingleKeyModelRepository implement
     {
         $class = $this->getModelClassName();
 
-        return $class::whereService($service)->where('$authModelColumn', $authModelId)->first();
+        return $class::whereService($service)->where("$this->authModelColumn", $authModelId)->first();
     }
 
 

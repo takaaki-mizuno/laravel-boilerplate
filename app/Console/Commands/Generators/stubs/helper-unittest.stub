@@ -6,7 +6,7 @@ class %%CLASS%%Test extends TestCase
     public function testGetInstance()
     {
         /** @var  \App\Helpers\%%CLASS%%Interface $helper */
-        $helper = App::make('App\Helper\%%CLASS%%Interface');
+        $helper = App::make('App\Helpers\%%CLASS%%Interface');
         $this->assertNotNull($helper);
     }
 

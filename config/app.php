@@ -62,6 +62,8 @@ return [
 
     'timezone' => 'UTC',
 
+    'default_presentation_timezone' => 'Asia/Tokyo',
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

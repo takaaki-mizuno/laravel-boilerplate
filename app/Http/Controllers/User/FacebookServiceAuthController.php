@@ -12,6 +12,8 @@ class FacebookServiceAuthController extends ServiceAuthController
 
     protected $redirectAction = 'User\IndexController@index';
 
+    protected $errorRedirectAction = 'User\AuthController@getSignUp';
+
     public function __construct(
         UserService $authenticatableService,
         UserServiceAuthenticationService $serviceAuthenticationService,

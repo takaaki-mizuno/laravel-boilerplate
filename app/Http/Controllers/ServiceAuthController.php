@@ -14,6 +14,9 @@ class ServiceAuthController extends Controller
     /** @var string */
     protected $redirectAction = '';
 
+    /** @var string */
+    protected $errorRedirectAction = '';
+
     /** @var \App\Services\AuthenticatableService */
     protected $authenticatableService;
 
@@ -45,7 +48,11 @@ class ServiceAuthController extends Controller
     {
         \Config::set("services.$this->driver.redirect", action(\Config::get("services.$this->driver.redirect_action")));
 
-        $serviceUser = $this->socialite->driver($this->driver)->user();
+        try {
+            $serviceUser = $this->socialite->driver($this->driver)->user();
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            return redirect()->action($this->errorRedirectAction);
+        }
 
         $serviceUserId = $serviceUser->getId();
         $name = $serviceUser->getName();

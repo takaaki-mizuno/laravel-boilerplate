@@ -40,7 +40,7 @@ class ServiceAuthenticationService
         if (!empty($authUser)) {
             $authInfo = $this->serviceAuthenticationRepository->findByServiceAndAuthModelId($service, $authUser->id);
             if (!empty($authInfo)) {
-                return null;
+                return $authUser->id;
             }
         } else {
             $authUser = $this->authenticatableRepository->create($input);

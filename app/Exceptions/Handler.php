@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
 
 class Handler extends ExceptionHandler
 {
+
     /**
      * A list of the exception types that should not be reported.
      *
@@ -18,7 +20,9 @@ class Handler extends ExceptionHandler
     protected $dontReport = [
         HttpException::class,
         ModelNotFoundException::class,
+        TokenMismatchException::class,
     ];
+
 
     /**
      * Report or log an exception.
@@ -26,18 +30,29 @@ class Handler extends ExceptionHandler
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
      * @param  \Exception $e
+     *
      * @return void
      */
     public function report(Exception $e)
     {
+        if ($this->shouldReport($e)) {
+            if ( ! \App::environment('local') && ! $e instanceof TokenMismatchException) {
+                // notify to slack
+                $slackService = \App::make('\App\Services\SlackService');
+                $slackService->exception($e);
+            }
+        }
+
         return parent::report($e);
     }
+
 
     /**
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \Exception $e
+     * @param  \Exception               $e
+     *
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)

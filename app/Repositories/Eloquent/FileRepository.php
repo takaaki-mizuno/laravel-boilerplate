@@ -11,9 +11,9 @@ class FileRepository extends SingleKeyModelRepository implements FileRepositoryI
         return new File();
     }
 
-    public function getByFileCategoryId($fileCategoryId, $order, $direction, $offset, $limit)
+    public function getByFileCategoryId($fileCategory, $order, $direction, $offset, $limit)
     {
-        $query = File::whereFileCategoryId($fileCategoryId)->whereIsEnabled(true);
+        $query = File::whereFileCategory($fileCategory)->whereIsEnabled(true);
 
         return $this->getWithQueryBuilder($query, ['id'], 'id', $order, $direction, $offset, $limit);
     }

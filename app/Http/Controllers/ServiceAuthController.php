@@ -73,6 +73,6 @@ class ServiceAuthController extends Controller
             $this->authenticatableService->signInById($authUserId);
         }
 
-        return redirect()->action($this->redirectAction);
+        return redirect()->intended(\URL::action($this->redirectAction));
     }
 }

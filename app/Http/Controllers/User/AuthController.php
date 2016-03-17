@@ -28,6 +28,6 @@ class AuthController extends Controller
             return redirect()->action('User\AuthController@getSignIn');
         }
 
-        return redirect()->action('User\IndexController@index');
-    }
+        return redirect()->intended(\URL::action('User\IndexController@index'));
+   }
 }

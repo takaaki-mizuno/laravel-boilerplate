@@ -4,14 +4,14 @@ interface AdminUserRoleRepositoryInterface extends SingleKeyModelRepositoryInter
 {
 
     /**
-     * @param  int $id
+     * @param  int     $id
      * @return boolean
      */
     public function deleteByAdminUserId($id);
 
     /**
-     * @param  int $adminUserId
-     * @param  array $roles
+     * @param int   $adminUserId
+     * @param array $roles
      */
     public function setAdminUserRoles($adminUserId, $roles);
 }

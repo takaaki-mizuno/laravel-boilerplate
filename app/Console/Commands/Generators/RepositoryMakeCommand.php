@@ -1,7 +1,5 @@
 <?php namespace App\Console\Commands\Generators;
 
-use Symfony\Component\Console\Input\InputOption;
-
 class RepositoryMakeCommand extends GeneratorCommandBase
 {
     /**
@@ -76,7 +74,6 @@ class RepositoryMakeCommand extends GeneratorCommandBase
         }
 
         $this->makeDirectory($repositoryPath);
-
 
         $className = $this->getClassName($name);
 
@@ -155,7 +152,7 @@ class RepositoryMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $className
+     * @param  string           $className
      * @return \App\Models\Base
      */
     protected function getModel($className)

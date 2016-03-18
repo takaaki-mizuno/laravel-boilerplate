@@ -1,6 +1,5 @@
 <?php namespace App\Helpers;
 
-
 interface CollectionHelperInterface
 {
 

@@ -21,7 +21,7 @@ class MetaInformationService
     }
 
     /**
-     * @param  array $keywords
+     * @param  array  $keywords
      * @return string
      */
     public function generateKeywordString($keywords)

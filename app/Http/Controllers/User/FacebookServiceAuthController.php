@@ -25,5 +25,4 @@ class FacebookServiceAuthController extends ServiceAuthController
         $this->socialite = $socialite;
     }
 
-
 }

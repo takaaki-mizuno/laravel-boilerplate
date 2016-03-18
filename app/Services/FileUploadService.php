@@ -2,7 +2,6 @@
 
 use App\Repositories\FileRepositoryInterface;
 use App\Repositories\ImageRepositoryInterface;
-use App\Services\ImageService;
 use Aws\S3\S3Client;
 
 class FileUploadService
@@ -31,11 +30,11 @@ class FileUploadService
     }
 
     /**
-     * @param int $categoryType
-     * @param int $categorySubType
-     * @param string $path
-     * @param string $mediaType
-     * @param array $metaInputs
+     * @param  int                                     $categoryType
+     * @param  int                                     $categorySubType
+     * @param  string                                  $path
+     * @param  string                                  $mediaType
+     * @param  array                                   $metaInputs
      * @return \App\Models\Image|\App\Models\File|null
      */
     public function upload($categoryType, $categorySubType, $path, $mediaType, $metaInputs)
@@ -140,7 +139,7 @@ class FileUploadService
     }
 
     /**
-     * @param int $imageId
+     * @param  int  $imageId
      * @return bool
      */
     public function hasImageIdInSession($imageId)
@@ -151,8 +150,8 @@ class FileUploadService
     }
 
     /**
-     * @param string $key
-     * @param array $size
+     * @param  string      $key
+     * @param  array       $size
      * @return null|string
      */
     private function getThumbnailKeyFromKey($key, $size)
@@ -165,7 +164,7 @@ class FileUploadService
     }
 
     /**
-     * @param  string $seed
+     * @param  string      $seed
      * @param  string|null $postFix
      * @param  string|null $ext
      * @return string
@@ -184,13 +183,13 @@ class FileUploadService
     }
 
     /**
-     * @param array $conf
-     * @param string $ext
-     * @param int $categoryType
-     * @param int $categorySubType
-     * @param string $path
-     * @param string $mediaType
-     * @param array $metaInputs
+     * @param  array  $conf
+     * @param  string $ext
+     * @param  int    $categoryType
+     * @param  int    $categorySubType
+     * @param  string $path
+     * @param  string $mediaType
+     * @param  array  $metaInputs
      * @return int
      */
     private function uploadFile($conf, $ext, $categoryType, $categorySubType, $path, $mediaType, $metaInputs)
@@ -220,13 +219,13 @@ class FileUploadService
     }
 
     /**
-     * @param array $conf
-     * @param string $ext
-     * @param int $categoryType
-     * @param int $categorySubType
-     * @param string $path
-     * @param string $mediaType
-     * @param array $metaInputs
+     * @param  array                 $conf
+     * @param  string                $ext
+     * @param  int                   $categoryType
+     * @param  int                   $categorySubType
+     * @param  string                $path
+     * @param  string                $mediaType
+     * @param  array                 $metaInputs
      * @return \App\Models\Base|null
      */
     private function uploadImage($conf, $ext, $categoryType, $categorySubType, $path, $mediaType, $metaInputs)
@@ -274,11 +273,11 @@ class FileUploadService
     }
 
     /**
-     * @param string $path
-     * @param string $region
-     * @param string $bucket
-     * @param string $key
-     * @param string $mediaType
+     * @param  string      $path
+     * @param  string      $region
+     * @param  string      $bucket
+     * @param  string      $key
+     * @param  string      $mediaType
      * @return null|string
      */
     private function uploadToS3($path, $region, $bucket, $key, $mediaType = 'binary/octet-stream')
@@ -303,7 +302,7 @@ class FileUploadService
     }
 
     /**
-     * @param  array $candidates
+     * @param  array  $candidates
      * @return string
      */
     private function decideBucket($candidates)
@@ -329,7 +328,7 @@ class FileUploadService
     }
 
     /**
-     * @param  string $region
+     * @param  string   $region
      * @return S3Client
      */
     private function getS3Client($region)
@@ -345,6 +344,5 @@ class FileUploadService
             'version'     => 'latest',
         ]);
     }
-
 
 }

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Controller;
 use App\Services\AdminUserService;
-use App\Http\Requests\Admin\SignInRequest;
 
 class PasswordController extends Controller
 {

@@ -114,5 +114,4 @@ class MetaInformationHelper implements MetaInformationHelperInterface
         return $this->siteConfigurationRepository->findByLocale($locale);
     }
 
-
 }

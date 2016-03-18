@@ -1,7 +1,5 @@
 <?php namespace App\Console\Commands\Generators;
 
-use Symfony\Component\Console\Input\InputOption;
-
 class HelperMakeCommand extends GeneratorCommandBase
 {
     /**

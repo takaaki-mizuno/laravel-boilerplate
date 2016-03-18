@@ -2,7 +2,6 @@
 
 use App\Repositories\UserRepositoryInterface;
 use App\Services\MailService;
-use App\Async\Workers\Worker;
 
 class UserRegistrationWorker extends Worker
 {

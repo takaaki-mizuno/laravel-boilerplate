@@ -75,7 +75,7 @@ class FacebookService
             // When validation fails or other local issues
         }
 
-        return (string)$accessToken;
+        return (string) $accessToken;
     }
 
     public function getMe($token)

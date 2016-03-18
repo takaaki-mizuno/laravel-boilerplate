@@ -13,7 +13,6 @@ use App\Http\Requests\PaginationRequest;
 use App\Http\Requests\Admin\AdminUserUpdateRequest;
 use Illuminate\Support\MessageBag;
 
-
 class AdminUserController extends Controller
 {
 

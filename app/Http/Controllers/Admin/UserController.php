@@ -79,5 +79,4 @@ class UserController extends Controller
             \Lang::get('admin.messages.general.update_success'));
     }
 
-
 }

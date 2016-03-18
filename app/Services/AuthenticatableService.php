@@ -29,7 +29,7 @@ class AuthenticatableService
     }
 
     /**
-     * @param  array $input
+     * @param  array            $input
      * @return \App\Models\Base
      */
     public function signIn($input)
@@ -43,7 +43,7 @@ class AuthenticatableService
     }
 
     /**
-     * @param  array $input
+     * @param  array            $input
      * @return \App\Models\Base
      */
     public function signUp($input)
@@ -60,7 +60,7 @@ class AuthenticatableService
     }
 
     /**
-     * @param  string $token
+     * @param  string           $token
      * @return \App\Models\Base
      */
     public function signInWithFacebook($token)
@@ -99,7 +99,6 @@ class AuthenticatableService
      */
     public function sendPasswordReset($email)
     {
-
         return false;
     }
 

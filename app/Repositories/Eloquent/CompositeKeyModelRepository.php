@@ -2,7 +2,6 @@
 
 use App\Repositories\CompositeKeyModelRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
-use App\Models\Base;
 
 class CompositeKeyModelRepository extends BaseRepository implements CompositeKeyModelRepositoryInterface
 {

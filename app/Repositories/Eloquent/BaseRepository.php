@@ -50,10 +50,12 @@ class BaseRepository implements BaseRepositoryInterface
     public function all($order = null, $direction = null)
     {
         $model = $this->getModelClassName();
-        if( !empty($order) ) {
+        if ( !empty($order) ) {
             $direction = empty($direction) ? 'asc' : $direction;
+
             return $model::orderBy($order, $direction)->get();
         }
+
         return $model::all();
     }
 
@@ -61,10 +63,11 @@ class BaseRepository implements BaseRepositoryInterface
     {
         $model = $this->getModelClassName();
         $query = $model::where('is_enabled', '=', true);
-        if( !empty($order) ) {
+        if ( !empty($order) ) {
             $direction = empty($direction) ? 'asc' : $direction;
             $query = $query->orderBy($order, $direction);
         }
+
         return $query->get();
     }
 
@@ -114,7 +117,7 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param  array $ids
+     * @param  array  $ids
      * @return string
      */
     protected function getCacheKey($ids)
@@ -128,13 +131,13 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param \Illuminate\Database\Query\Builder $query
-     * @param array $orderCandidates
-     * @param string $orderDefault
-     * @param string $order
-     * @param string $direction
-     * @param integer $offset
-     * @param integer $limit
+     * @param  \Illuminate\Database\Query\Builder $query
+     * @param  array                              $orderCandidates
+     * @param  string                             $orderDefault
+     * @param  string                             $order
+     * @param  string                             $direction
+     * @param  integer                            $offset
+     * @param  integer                            $limit
      * @return array
      */
     protected function getWithQueryBuilder(

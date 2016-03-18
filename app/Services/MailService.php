@@ -1,14 +1,9 @@
 <?php namespace App\Services;
 
-use App\Repositories\ArticleRepositoryInterface;
-use App\Repositories\CategoryRepositoryInterface;
-
 use Aws\Ses\SesClient;
-use Aws\Ses\Exception\SesException;
 
 class MailService
 {
-
 
     public function __construct()
     {
@@ -19,7 +14,6 @@ class MailService
         if (\Config::get('app.offline_mode')) {
             return true;
         }
-
 
         if (\App::environment() != 'production') {
             $title = '[' . \App::environment() . '] ' . $title;

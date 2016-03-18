@@ -36,7 +36,7 @@ abstract class GeneratorCommandBase extends Command
     /**
      * Get the stub file for the generator.
      *
-     * @param  string $name
+     * @param  string  $name
      * @return boolean
      */
     abstract protected function generate($name);
@@ -122,7 +122,6 @@ abstract class GeneratorCommandBase extends Command
             $this->files->makeDirectory(dirname($path), 0777, true, true);
         }
     }
-
 
     /**
      * Get the full namespace name for a given class.

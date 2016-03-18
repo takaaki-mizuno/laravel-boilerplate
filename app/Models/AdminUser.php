@@ -80,7 +80,7 @@ class AdminUser extends AuthenticatableBase
 
     /**
      * @param  string $targetRole
-     * @param  bool $checkSubRoles
+     * @param  bool   $checkSubRoles
      * @return bool
      */
     public function hasRole($targetRole, $checkSubRoles = true)

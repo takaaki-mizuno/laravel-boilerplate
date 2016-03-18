@@ -4,10 +4,10 @@ class ImageService
 {
 
     /**
-     * @param string $src file path
-     * @param string $dst file path
-     * @param string|null $format file format
-     * @param array $size [ width, height ]
+     * @param  string      $src    file path
+     * @param  string      $dst    file path
+     * @param  string|null $format file format
+     * @param  array       $size   [ width, height ]
      * @return array
      */
     public function convert($src, $dst, $format, $size)
@@ -29,7 +29,7 @@ class ImageService
     /**
      * @ref http://www.b-prep.com/blog/?p=1764
      *
-     * @param \Imagick $image
+     * @param  \Imagick $image
      * @return \Imagick
      */
     private function fixImageOrientation($image)
@@ -79,7 +79,7 @@ class ImageService
 
     /**
      * @param  \Imagick $image
-     * @param  string $format
+     * @param  string   $format
      * @return \Imagick
      */
     private function setImageFormat($image, $format)
@@ -96,7 +96,7 @@ class ImageService
 
     /**
      * @param  \Imagick $image
-     * @param  array $size
+     * @param  array    $size
      * @return \Imagick
      */
     private function setImageSize($image, $size)

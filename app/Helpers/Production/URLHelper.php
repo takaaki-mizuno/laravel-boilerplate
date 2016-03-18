@@ -16,7 +16,7 @@ if (!function_exists('http_build_url')) {
     define('HTTP_URL_STRIP_QUERY', 128);
     define('HTTP_URL_STRIP_FRAGMENT', 256);
     define('HTTP_URL_STRIP_ALL', 504);
-    function http_build_url($url, $parts = [], $flags = HTTP_URL_REPLACE, &$new_url = [])
+    public function http_build_url($url, $parts = [], $flags = HTTP_URL_REPLACE, &$new_url = [])
     {
 
         $key = ['user', 'pass', 'port', 'path', 'query', 'fragment'];
@@ -132,6 +132,7 @@ class URLHelper implements URLHelperInterface
     public function elixir($path, $type = "user")
     {
         $url = elixir('static/' . $type . '/' . $path);
+
         return $url;
     }
 

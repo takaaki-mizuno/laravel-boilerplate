@@ -53,7 +53,6 @@ class SlackService
         $this->post($message, $type, $attachment);
     }
 
-
     /**
      * @param string $message
      * @param string $type

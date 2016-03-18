@@ -1,7 +1,5 @@
 <?php namespace App\Console\Commands\Generators;
 
-use Symfony\Component\Console\Input\InputOption;
-
 class ModelMakeCommand extends GeneratorCommandBase
 {
     /**
@@ -98,7 +96,7 @@ class ModelMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $className
+     * @param  string           $className
      * @return \App\Models\Base
      */
     protected function getModel($className)

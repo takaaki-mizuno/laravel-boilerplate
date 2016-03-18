@@ -26,8 +26,8 @@ class AuthenticatableRepository extends SingleKeyModelRepository implements Auth
     }
 
     /**
-     * @param \App\Models\AuthenticatableBase $model
-     * @param array $input
+     * @param  \App\Models\AuthenticatableBase $model
+     * @param  array                           $input
      * @return \App\Models\Base
      */
     public function update($model, $input)

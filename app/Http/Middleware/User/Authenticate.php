@@ -12,7 +12,7 @@ class Authenticate
     /**
      * Create a new filter instance.
      *
-     * @param  UserService $userService
+     * @param UserService $userService
      */
     public function __construct(UserService $userService)
     {
@@ -23,7 +23,7 @@ class Authenticate
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param  \Closure                 $next
      * @return mixed
      */
     public function handle($request, Closure $next)

@@ -1,7 +1,6 @@
 <?php namespace App\Http\Middleware\User;
 
 use Closure;
-use Illuminate\Contracts\Auth\Guard;
 use App\Services\UserService;
 
 class SetDefaultValues
@@ -12,7 +11,7 @@ class SetDefaultValues
     /**
      * Create a new filter instance.
      *
-     * @param  UserService $userService
+     * @param UserService $userService
      */
     public function __construct(UserService $userService)
     {
@@ -23,7 +22,7 @@ class SetDefaultValues
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param  \Closure                 $next
      * @return mixed
      */
     public function handle($request, \Closure $next)

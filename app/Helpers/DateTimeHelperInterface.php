@@ -11,7 +11,7 @@ interface DateTimeHelperInterface
     public function timezoneForStorage();
 
     /**
-     * @param  string $timezone
+     * @param string $timezone
      */
     public function setPresentationTimeZone($timezone = null);
 
@@ -42,22 +42,22 @@ interface DateTimeHelperInterface
     /**
      * Get DateTime Object from string
      *
-     * @param  string $dateTimeStr
-     * @param  \DateTimeZone $timezoneFrom
-     * @param  \DateTimeZone $timezoneTo
+     * @param  string         $dateTimeStr
+     * @param  \DateTimeZone  $timezoneFrom
+     * @param  \DateTimeZone  $timezoneTo
      * @return \Carbon\Carbon
      */
     public function dateTime($dateTimeStr, \DateTimeZone $timezoneFrom = null, \DateTimeZone $timezoneTo = null);
 
     /**
-     * @param  \DateTime $dateTime
+     * @param  \DateTime     $dateTime
      * @param  \DateTimeZone $timezone
      * @return string
      */
     public function formatDate($dateTime, \DateTimeZone $timezone = null);
 
     /**
-     * @param  \DateTime $dateTime
+     * @param  \DateTime     $dateTime
      * @param  \DateTimeZone $timezone
      * @return string
      */
@@ -65,8 +65,8 @@ interface DateTimeHelperInterface
 
     /**
      * @param  \DateTime|null $dateTime
-     * @param  string $format
-     * @param  \DateTimeZone $timezone
+     * @param  string         $format
+     * @param  \DateTimeZone  $timezone
      * @return string
      */
     public function formatDateTime($dateTime, $format = "Y-m-d H:i", \DateTimeZone $timezone = null);

@@ -92,8 +92,8 @@ class Image extends Base
     }
 
     /**
-     * @param  int $width
-     * @param  int $height
+     * @param  int    $width
+     * @param  int    $height
      * @return string
      */
     public function getThumbnailUrl($width, $height)

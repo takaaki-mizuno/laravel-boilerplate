@@ -26,9 +26,10 @@ class DateTimeHelper implements DateTimeHelperInterface
     public function getPresentationTimeZoneString()
     {
         $timezone = \Session::get(static::PRESENTATION_TIME_ZONE_SESSION_KEY);
-        if( empty($timezone) ) {
+        if ( empty($timezone) ) {
             $timezone = \Config::get('app.default_presentation_timezone');
         }
+
         return $timezone;
     }
 
@@ -81,6 +82,5 @@ class DateTimeHelper implements DateTimeHelperInterface
 
         return $viewDateTime->format($format);
     }
-
 
 }

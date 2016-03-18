@@ -18,7 +18,7 @@ class AuthenticatableBase extends LocaleStorableBase implements AuthenticatableC
 {
     use Authenticatable, CanResetPassword;
 
-    function setPassword($password)
+    public function setPassword($password)
     {
         $this->password = \Hash::make($password);
     }

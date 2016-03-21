@@ -1,6 +1,7 @@
 <?php namespace App\Services;
 
 use App\Repositories\AuthenticatableRepositoryInterface;
+use App\Repositories\PasswordResettableRepositoryInterface;
 
 class AuthenticatableService
 {
@@ -8,18 +9,29 @@ class AuthenticatableService
     /** @var \App\Repositories\AuthenticatableRepositoryInterface */
     protected $authenticatableRepository;
 
+    /** @var  \App\Repositories\PasswordResettableRepositoryInterface */
+    protected $passwordResettableRepository;
+
+    /** @var string $resetEmailTitle */
+    protected $resetEmailTitle = "Reset Password";
+
+    /** @var string $resetEmailTemplate */
+    protected $resetEmailTemplate = "";
+
     public function __construct(
-        AuthenticatableRepositoryInterface $authenticatableRepository
+        AuthenticatableRepositoryInterface $authenticatableRepository,
+        PasswordResettableRepositoryInterface $passwordResettableRepository
     )
     {
         $this->authenticatableRepository = $authenticatableRepository;
+        $this->passwordResettableRepository = $passwordResettableRepository;
     }
 
     public function signInById($id)
     {
         /** @var \App\Models\AuthenticatableBase $user */
         $user = $this->authenticatableRepository->find($id);
-        if (empty($user)) {
+        if (empty( $user )) {
             return null;
         }
         $guard = $this->getGuard();
@@ -35,7 +47,7 @@ class AuthenticatableService
     public function signIn($input)
     {
         $guard = $this->getGuard();
-        if (!$guard->attempt(['email' => $input['email'], 'password' => $input['password']], false, true)) {
+        if (!$guard->attempt([ 'email' => $input['email'], 'password' => $input['password'] ], false, true)) {
             return null;
         }
 
@@ -50,7 +62,7 @@ class AuthenticatableService
     {
         /** @var \App\Models\AuthenticatableBase $user */
         $user = $this->authenticatableRepository->create($input);
-        if (empty($user)) {
+        if (empty( $user )) {
             return null;
         }
         $guard = $this->getGuard();
@@ -67,20 +79,20 @@ class AuthenticatableService
     {
         $facebookService = new FacebookService();
         $node = $facebookService->getMe($token);
-        if (empty($node)) {
+        if (empty( $node )) {
             return null;
         }
         $facebookId = $node->getId();
         $email = $node->getEmail();
-        if (empty($email)) {
+        if (empty( $email )) {
             return null;
         }
         $user = $this->authenticatableRepository->findByFacebookId($facebookId);
-        if (empty($user)) {
+        if (empty( $user )) {
             $user = $this->authenticatableRepository->findByEmail($email);
         }
 
-        if (empty($user)) {
+        if (empty( $user )) {
             $user = $this->authenticatableRepository->create([
                 'email'    => $email,
                 'password' => '',
@@ -108,7 +120,7 @@ class AuthenticatableService
     public function signOut()
     {
         $user = $this->getUser();
-        if (empty($user)) {
+        if (empty( $user )) {
             return false;
         }
         $guard = $this->getGuard();
@@ -124,7 +136,7 @@ class AuthenticatableService
     public function resignation()
     {
         $user = $this->getUser();
-        if (empty($user)) {
+        if (empty( $user )) {
             return false;
         }
         $guard = $this->getGuard();
@@ -152,6 +164,64 @@ class AuthenticatableService
         $guard = $this->getGuard();
 
         return $guard->user();
+    }
+
+    /**
+     * @param string $email
+     */
+    public function sendPasswordResetEmail($email)
+    {
+
+        $user = $this->authenticatableRepository->findByEmail($email);
+        if (empty( $user )) {
+            return;
+        }
+
+        $token = $this->passwordResettableRepository->create($user);
+
+        /** @var \App\Services\MailService $mailService */
+        $mailService = \App::make('App\Services\MailService');
+
+        $mailService->sendMail($this->resetEmailTitle, [ 'name' => 'Catalyst', 'address' => 'info@catalyst.red' ],
+            [ 'name' => '', 'address' => $user->email ], $this->resetEmailTemplate, [
+                'token' => $token,
+            ]);
+    }
+
+    /**
+     * @param  string                               $token
+     * @return null|\App\Models\AuthenticatableBase
+     */
+    public function getUserByPasswordResetToken($token)
+    {
+        $email = $this->passwordResettableRepository->findEmailByToken($token);
+        if (empty( $email )) {
+            return null;
+        }
+
+        return $this->authenticatableRepository->findByEmail($email);
+    }
+
+    /**
+     * @param  string $email
+     * @param  string $password
+     * @param  string $token
+     * @return bool
+     */
+    public function resetPassword($email, $password, $token)
+    {
+        $user = $this->authenticatableRepository->findByEmail($email);
+        if (empty( $user )) {
+            return false;
+        }
+        if (!$this->passwordResettableRepository->exists($user, $token)) {
+            return false;
+        }
+        $this->authenticatableRepository->update($user, [ 'password' => $password ]);
+        $this->passwordResettableRepository->delete($token);
+        $this->setUser($user);
+
+        return true;
     }
 
     /**

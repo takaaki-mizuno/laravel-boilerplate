@@ -42,6 +42,15 @@ class RepositoryBindServiceProvider extends ServiceProvider
         $this->app->singleton('App\Repositories\UserServiceAuthenticationRepositoryInterface',
             'App\Repositories\Eloquent\UserServiceAuthenticationRepository');
 
+        $this->app->singleton('App\Repositories\PasswordResettableRepositoryInterface',
+            'App\Repositories\Eloquent\PasswordResettableRepository');
+
+        $this->app->singleton('App\Repositories\UserPasswordResetRepositoryInterface',
+            'App\Repositories\Eloquent\UserPasswordResetRepository');
+
+        $this->app->singleton('App\Repositories\AdminPasswordResetRepositoryInterface',
+            'App\Repositories\Eloquent\AdminPasswordResetRepository');
+
         /* NEW BINDING */
 
     }

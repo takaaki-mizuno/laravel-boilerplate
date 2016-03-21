@@ -1,28 +1,20 @@
 <?php namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\PasswordController as PasswordControllerBase;
 use App\Services\AdminUserService;
 
-class PasswordController extends Controller
+class PasswordController extends PasswordControllerBase
 {
 
-    /** @var \App\Services\AdminUserService AdminUserService */
-    protected $adminUserService;
+    /** @var string $emailSetPageView */
+    protected $emailSetPageView = 'pages.admin.auth.forgot-password';
+
+    /** @var string $passwordResetPageView */
+    protected $passwordResetPageView = 'pages.admin.auth.reset-password';
 
     public function __construct(AdminUserService $adminUserService)
     {
-        $this->adminUserService = $adminUserService;
+        $this->authenticatableService = $adminUserService;
     }
 
-    public function getForgotPassword()
-    {
-        return view('pages.admin.auth.forgot_password', [
-        ]);
-    }
-
-    public function postForgotPassword()
-    {
-        return view('pages.admin.auth.forgot_password', [
-        ]);
-    }
 }

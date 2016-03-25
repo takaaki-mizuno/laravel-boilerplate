@@ -46,8 +46,9 @@ class AuthenticatableService
      */
     public function signIn($input)
     {
+        $rememberMe = !!array_get($input, 'remember_me', 0);
         $guard = $this->getGuard();
-        if (!$guard->attempt([ 'email' => $input['email'], 'password' => $input['password'] ], false, true)) {
+        if (!$guard->attempt([ 'email' => $input['email'], 'password' => $input['password'] ], $rememberMe, true)) {
             return null;
         }
 

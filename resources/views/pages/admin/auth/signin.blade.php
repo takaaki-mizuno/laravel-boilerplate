@@ -50,7 +50,7 @@ Sign In
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox"> @lang('admin.pages.auth.messages.remember_me')
+                            <input type="checkbox" name="remember_me" value="1"> @lang('admin.pages.auth.messages.remember_me')
                         </label>
                     </div>
                 </div>

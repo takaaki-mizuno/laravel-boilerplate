@@ -12,6 +12,9 @@ class PasswordController extends PasswordControllerBase
     /** @var string $passwordResetPageView */
     protected $passwordResetPageView = 'pages.admin.auth.reset-password';
 
+    /** @var string $returnAction */
+    protected $returnAction = 'Admin\IndexController@index';
+
     public function __construct(AdminUserService $adminUserService)
     {
         $this->authenticatableService = $adminUserService;

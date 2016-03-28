@@ -17,6 +17,9 @@ class PasswordController extends Controller
     /** @var string $passwordResetPageView */
     protected $passwordResetPageView = '';
 
+    /** @var string $returnAction */
+    protected $returnAction = '';
+
     public function __construct(AuthenticatableService $authenticatableService)
     {
         $this->authenticatableService = $authenticatableService;
@@ -83,7 +86,7 @@ class PasswordController extends Controller
         $password = $request->get('password');
         if ($password == $request->get('password_confirmation')) {
             if ($this->authenticatableService->resetPassword($email, $password, $token)) {
-                return \Redirect::action('Admin\IndexController@index');
+                return \Redirect::action($this->returnAction);
             }
         }
 

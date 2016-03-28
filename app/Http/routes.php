@@ -7,6 +7,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.values']], function (
         Route::post('signin', 'Admin\AuthController@postSignIn');
         Route::get('forgot-password', 'Admin\PasswordController@getForgotPassword');
         Route::post('forgot-password', 'Admin\PasswordController@postForgotPassword');
+        Route::get('reset-password/{token}', 'Admin\PasswordController@getResetPassword');
+        Route::post('reset-password', 'Admin\PasswordController@postResetPassword');
     });
 
     Route::group(['middleware' => ['admin.auth']], function () {
@@ -29,6 +31,10 @@ Route::group(['middleware' => ['user.values']], function () {
 
         Route::get('forgot-password', 'User\PasswordController@getForgotPassword');
         Route::post('forgot-password', 'User\PasswordController@postForgotPassword');
+
+        Route::get('reset-password/{token}', 'User\PasswordController@getResetPassword');
+        Route::post('reset-password', 'User\PasswordController@postResetPassword');
+
     });
 
     Route::group(['middleware' => ['user.auth']], function () {

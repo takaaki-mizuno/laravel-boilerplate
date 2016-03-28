@@ -48,7 +48,7 @@ class AuthenticatableService
     {
         $rememberMe = !!array_get($input, 'remember_me', 0);
         $guard = $this->getGuard();
-        if (!$guard->attempt([ 'email' => $input['email'], 'password' => $input['password'] ], $rememberMe, true)) {
+        if (!$guard->attempt(['email' => $input['email'], 'password' => $input['password']], $rememberMe, true)) {
             return null;
         }
 
@@ -183,8 +183,8 @@ class AuthenticatableService
         /** @var \App\Services\MailService $mailService */
         $mailService = \App::make('App\Services\MailService');
 
-        $mailService->sendMail($this->resetEmailTitle, [ 'name' => 'Catalyst', 'address' => 'info@catalyst.red' ],
-            [ 'name' => '', 'address' => $user->email ], $this->resetEmailTemplate, [
+        $mailService->sendMail($this->resetEmailTitle, \Config::get('mail.from'),
+            ['name' => '', 'address' => $user->email], $this->resetEmailTemplate, [
                 'token' => $token,
             ]);
     }
@@ -218,7 +218,7 @@ class AuthenticatableService
         if (!$this->passwordResettableRepository->exists($user, $token)) {
             return false;
         }
-        $this->authenticatableRepository->update($user, [ 'password' => $password ]);
+        $this->authenticatableRepository->update($user, ['password' => $password]);
         $this->passwordResettableRepository->delete($token);
         $this->setUser($user);
 

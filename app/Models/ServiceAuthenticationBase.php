@@ -3,6 +3,7 @@
 /**
  * App\Models\ServiceAuthenticationBase
  *
+ * @mixin \Eloquent
  */
 class ServiceAuthenticationBase extends Base
 {

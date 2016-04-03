@@ -13,6 +13,8 @@
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereRole($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereId($value)
+ * @mixin \Eloquent
  */
 class AdminUserRole extends Base
 {

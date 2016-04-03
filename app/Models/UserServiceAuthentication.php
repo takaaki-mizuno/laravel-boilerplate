@@ -16,6 +16,12 @@
  * @method static \Illuminate\Database\Query\Builder|\App\Models\UserServiceAuthentication whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\UserServiceAuthentication whereService($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\UserServiceAuthentication whereServiceId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserServiceAuthentication whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserServiceAuthentication whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserServiceAuthentication whereEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserServiceAuthentication whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserServiceAuthentication whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class UserServiceAuthentication extends ServiceAuthenticationBase
 {

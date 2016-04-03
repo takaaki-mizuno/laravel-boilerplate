@@ -1,6 +1,7 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Presenters\ImagePresenter;
 
 /**
  * App\Models\Image
@@ -27,6 +28,31 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $deleted_at
+ * @property boolean $is_local
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereIsLocal($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereFileCategory($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereFileSubcategory($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereS3Key($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereS3Bucket($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereS3Region($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereS3Extension($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereMediaType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereFormat($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereFileSize($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereWidth($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereHeight($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereHasAlternative($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereAlternativeMediaType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereAlternativeFormat($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereAlternativeExtension($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereIsEnabled($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereDeletedAt($value)
+ * @mixin \Eloquent
  */
 class Image extends Base
 {
@@ -48,6 +74,7 @@ class Image extends Base
     protected $fillable = [
         'url',
         'title',
+        'is_local',
         'file_category',
         'file_subcategory',
         's3_key',
@@ -75,9 +102,15 @@ class Image extends Base
 
     protected $dates  = ['deleted_at'];
 
+    public function getPresenterClass()
+    {
+        return ImagePresenter::class;
+    }
+
     // Relations
 
     // Urility Functions
+
     /**
      * @return string
      */
@@ -88,12 +121,12 @@ class Image extends Base
             return \URL::to('static/img/local/local.png');
         }
 
-        return !empty($this->url) ? $this->url : 'https://placehold.jp/1440x900.jpg';
+        return !empty( $this->url ) ? $this->url : 'https://placehold.jp/1440x900.jpg';
     }
 
     /**
-     * @param  int    $width
-     * @param  int    $height
+     * @param  int $width
+     * @param  int $height
      * @return string
      */
     public function getThumbnailUrl($width, $height)
@@ -103,7 +136,7 @@ class Image extends Base
             return \URL::to('static/img/local/local.png');
         }
 
-        if (empty($this->url)) {
+        if (empty( $this->url )) {
             if ($height == 0) {
                 $height = intval($width / 4 * 3);
             }
@@ -116,7 +149,7 @@ class Image extends Base
 
         $conf = array_get($confList, $categoryType);
 
-        if (empty($conf)) {
+        if (empty( $conf )) {
             return $this->getUrl();
         }
 

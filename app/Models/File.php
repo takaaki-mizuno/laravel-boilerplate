@@ -1,6 +1,7 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Presenters\FilePresenter;
 
 /**
  * App\Models\File
@@ -8,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $id
  * @property string $url
  * @property string $title
+ * @property boolean $is_local
  * @property integer $file_category
  * @property integer $file_subcategory
  * @property string $s3_key
@@ -24,6 +26,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereUrl($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereIsLocal($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereFileCategory($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereFileSubcategory($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereS3Key($value)
@@ -37,6 +40,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereDeletedAt($value)
+ * @mixin \Eloquent
  */
 class File extends Base
 {
@@ -79,6 +83,11 @@ class File extends Base
     protected $hidden = [];
 
     protected $dates  = ['deleted_at'];
+
+    public function getPresenterClass()
+    {
+        return FilePresenter::class;
+    }
 
     /*
      * API Presentation

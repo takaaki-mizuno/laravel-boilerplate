@@ -24,6 +24,7 @@
  * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereTwitterCardImageId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class SiteConfiguration extends Base
 {

@@ -7,6 +7,7 @@
  * @property int $profile_image_id
  * @property string $api_access_token
  * @property-read \App\Models\Image $profileImage
+ * @mixin \Eloquent
  */
 
 use Illuminate\Auth\Authenticatable;

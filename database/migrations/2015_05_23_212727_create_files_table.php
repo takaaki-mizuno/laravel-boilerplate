@@ -19,6 +19,8 @@ class CreateFilesTable extends Migration
             $table->string('url')->default('');
             $table->text('title')->nullable();
 
+            $table->boolean('is_local')->default(false);
+
             $table->unsignedInteger('file_category')->default(0);
             $table->unsignedInteger('file_subcategory')->default(0);
 

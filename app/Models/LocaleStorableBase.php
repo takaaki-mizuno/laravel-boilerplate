@@ -5,6 +5,7 @@
  *
  * @property string $locale
  * @method static \Illuminate\Database\Query\Builder|\App\Models\LocaleStorableBase whereLocale($value)
+ * @mixin \Eloquent
  */
 
 class LocaleStorableBase extends Base

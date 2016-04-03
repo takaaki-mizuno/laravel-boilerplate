@@ -7,6 +7,7 @@ use App\Presenters\BasePresenter;
 /**
  * App\Models\Base
  *
+ * @mixin \Eloquent
  */
 class Base extends Model implements HasPresenter
 {

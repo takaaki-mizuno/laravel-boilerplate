@@ -34,10 +34,19 @@ interface DateTimeHelperInterface
     /**
      * Get Current DateTime
      *
-     * @param  \DateTimeZone $timezone
-     * @return \DateTime
+     * @param  \DateTimeZone  $timezone
+     * @return \Carbon\Carbon
      */
     public function now(\DateTimeZone $timezone = null);
+
+    /**
+     * Convert Unix TimeStamp to Carbon(DateTime)
+     *
+     * @param  int            $timeStamp
+     * @param  \DateTimeZone  $timezone
+     * @return \Carbon\Carbon
+     */
+    public function fromTimestamp($timeStamp, \DateTimeZone $timezone = null);
 
     /**
      * Get DateTime Object from string

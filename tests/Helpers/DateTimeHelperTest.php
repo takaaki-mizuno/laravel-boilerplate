@@ -48,6 +48,12 @@ class DateTimeHelperTest extends TestCase
         $this->assertEquals($defaultNow->format('Y-m-d H:i:s'), $helper->formatDateTime($now, 'Y-m-d H:i:s'));
         $this->assertEquals($defaultNow->format('Y-m-d'), $helper->formatDate($now));
         $this->assertEquals($defaultNow->format('H:i'), $helper->formatTime($now));
+
+        $fromTimestamp = $helper->fromTimestamp($now->timestamp);
+        $this->assertEquals($defaultNow->format('Y-m-d'), $helper->formatDate($fromTimestamp));
+        $this->assertEquals($defaultNow->format('Y-m-d'), $helper->formatDate($fromTimestamp));
+        $this->assertEquals($defaultNow->format('H:i'), $helper->formatTime($fromTimestamp));
+
     }
 
     public function testTimeZoneForStorage()

@@ -53,6 +53,16 @@ class DateTimeHelper implements DateTimeHelperInterface
         return Carbon::parse($dateTimeStr, $timezoneFrom)->setTimezone($timezoneTo);
     }
 
+    public function fromTimestamp($timeStamp, \DateTimeZone $timezone = null)
+    {
+        $timezone = empty($timezone) ? $this->timezoneForStorage() : $timezone;
+
+        $datetime = Carbon::now($timezone);
+        $datetime->setTimestamp($timeStamp);
+
+        return $datetime;
+    }
+
     public function formatDate($dateTime, \DateTimeZone $timezone = null)
     {
         $viewDateTime = clone $dateTime;

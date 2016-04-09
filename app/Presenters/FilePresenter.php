@@ -11,9 +11,10 @@ class FilePresenter extends BasePresenter
 
     public function url()
     {
-        if( $this->wrappedObject->is_local == false ) {
+        if ($this->wrappedObject->is_local == false) {
             return $this->wrappedObject->url;
         }
+
         return \URL::to($this->wrappedObject->url);
     }
 

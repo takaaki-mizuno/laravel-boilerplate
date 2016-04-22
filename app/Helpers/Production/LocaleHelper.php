@@ -1,4 +1,4 @@
-s<?php namespace App\Helpers\Production;
+<?php namespace App\Helpers\Production;
 
 use App\Helpers\LocaleHelperInterface;
 

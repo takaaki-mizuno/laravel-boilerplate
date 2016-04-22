@@ -175,6 +175,7 @@ return [
          * Original Service Providers
          */
         App\Providers\RepositoryBindServiceProvider::class,
+        App\Providers\ServiceBindServiceProvider::class,
         App\Providers\HelperBindServiceProvider::class,
 
     ], $additionalProviders),

@@ -14,7 +14,7 @@ class ServiceMakeCommand extends GeneratorCommandBase
      *
      * @var string
      */
-    protected $description = 'Create a new  service class';
+    protected $description = 'Create a new service class';
 
     /**
      * The type of class being generated.
@@ -25,12 +25,39 @@ class ServiceMakeCommand extends GeneratorCommandBase
 
     protected function generate($name)
     {
+        if (!$this->generateInterface($name)) {
+            return false;
+        }
         if (!$this->generateService($name)) {
             return false;
         }
         if (!$this->generateUnitTest($name)) {
             return false;
         }
+
+        return $this->bindInterface($name);
+    }
+
+    /**
+     * @param  string $name
+     * @return bool
+     */
+    protected function generateInterface($name)
+    {
+        $interfacePath = $this->getInterfacePath($name);
+        if ($this->alreadyExists($interfacePath)) {
+            $this->error($name . ' interface already exists.');
+
+            return false;
+        }
+
+        $this->makeDirectory($interfacePath);
+
+        $className = $this->getClassName($name);
+
+        $interfaceStub = $this->files->get($this->getStubForInterface($name));
+        $this->replaceTemplateVariable($interfaceStub, 'CLASS', $className);
+        $this->files->put($interfacePath, $interfaceStub);
 
         return true;
     }
@@ -79,17 +106,47 @@ class ServiceMakeCommand extends GeneratorCommandBase
         return true;
     }
 
+    /**
+     * @param  string $name
+     * @return bool
+     */
+    protected function bindInterface($name)
+    {
+        $className = $this->getClassName($name);
+
+        $bindService = $this->files->get($this->getBindServiceProviderPath());
+        $key = '/* NEW BINDING */';
+        $bind = '$this->app->singleton(' . PHP_EOL . "            \\App\\Services\\" . $className . "Interface::class," . PHP_EOL . "            \\App\\Services\\Production\\" . $className . "::class" . PHP_EOL . "        );" . PHP_EOL . PHP_EOL . '        ' . $key;
+        $bindService = str_replace($key, $bind, $bindService);
+        $this->files->put($this->getBindServiceProviderPath(), $bindService);
+
+        return true;
+    }
+
+    protected function getInterfacePath($name)
+    {
+        $className = $this->getClassName($name);
+
+        return $this->laravel['path'] . '/Services/' . $className . 'Interface.php';
+    }
+
     protected function getPath($name)
     {
         $className = $this->getClassName($name);
 
-        return $this->laravel['path'] . '/Services/' . $className . '.php';
+        return $this->laravel['path'] . '/Services/Production/' . $className . '.php';
     }
 
     protected function getStub($name)
     {
         return __DIR__ . '/stubs/service.stub';
     }
+
+    protected function getStubForInterface($name)
+    {
+        return __DIR__ . '/stubs/service-interface.stub';
+    }
+
 
     protected function getUnitTestPath($name)
     {
@@ -122,5 +179,11 @@ class ServiceMakeCommand extends GeneratorCommandBase
     {
         return $rootNamespace . '\Services';
     }
+
+    protected function getBindServiceProviderPath()
+    {
+        return $this->laravel['path'] . '/Providers/ServiceBindServiceProvider.php';
+    }
+
 
 }

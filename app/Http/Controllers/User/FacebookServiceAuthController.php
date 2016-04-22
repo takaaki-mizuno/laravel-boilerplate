@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\ServiceAuthController;
-use App\Services\UserService;
-use App\Services\UserServiceAuthenticationService;
+use App\Services\UserServiceInterface;
+use App\Services\UserServiceAuthenticationServiceInterface;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 
 class FacebookServiceAuthController extends ServiceAuthController
@@ -15,8 +15,8 @@ class FacebookServiceAuthController extends ServiceAuthController
     protected $errorRedirectAction = 'User\AuthController@getSignUp';
 
     public function __construct(
-        UserService $authenticatableService,
-        UserServiceAuthenticationService $serviceAuthenticationService,
+        UserServiceInterface $authenticatableService,
+        UserServiceAuthenticationServiceInterface $serviceAuthenticationService,
         Socialite $socialite
     )
     {

@@ -1,9 +1,10 @@
-<?php namespace App\Services;
+<?php namespace App\Services\Production;
 
 use App\Repositories\UserRepositoryInterface;
 use App\Repositories\UserPasswordResetRepositoryInterface;
+use App\Services\UserServiceInterface;
 
-class UserService extends AuthenticatableService
+class UserService extends AuthenticatableService implements UserServiceInterface
 {
 
     /** @var string $resetEmailTitle */

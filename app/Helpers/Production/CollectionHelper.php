@@ -7,7 +7,7 @@ class CollectionHelper implements CollectionHelperInterface
 
     public function getSelectOptions($collection)
     {
-        return $collection->lists('name', 'id')->toArray();
+        return $collection->pluck('name', 'id')->toArray();
     }
 
 }

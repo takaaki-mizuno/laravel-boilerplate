@@ -1,6 +1,8 @@
-<?php namespace App\Services;
+<?php namespace App\Services\Production;
 
-class LanguageDetectionService
+use App\Services\LanguageDetectionServiceInterface;
+
+class LanguageDetectionService extends BaseService implements LanguageDetectionServiceInterface
 {
 
     public function detect($language = null)
@@ -24,7 +26,7 @@ class LanguageDetectionService
         return $locale;
     }
 
-    public function parseAcceptLanguage()
+    private function parseAcceptLanguage()
     {
         $languages = [];
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {

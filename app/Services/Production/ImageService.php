@@ -1,6 +1,8 @@
-<?php namespace App\Services;
+<?php namespace App\Services\Production;
 
-class ImageService
+use App\Services\ImageServiceInterface;
+
+class ImageService extends BaseService implements ImageServiceInterface
 {
 
     /**

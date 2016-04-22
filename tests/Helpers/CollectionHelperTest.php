@@ -7,13 +7,20 @@ class CollectionHelperTest extends TestCase
 
     protected $useDatabase = true;
 
+    public function testGetInstance()
+    {
+        /** @var  \App\Helpers\CollectionHelperInterface $helper */
+        $helper = App::make(\App\Helpers\CollectionHelperInterface::class);
+        $this->assertNotNull($helper);
+    }
+
     public function testGetSelectOptions()
     {
 
         /** @var  \App\Helpers\CollectionHelperInterface $helper */
-        $helper = App::make('App\Helpers\CollectionHelperInterface');
+        $helper = App::make(\App\Helpers\CollectionHelperInterface::class);
         /** @var \App\Repositories\AdminUserRepositoryInterface $repository */
-        $repository = App::make('App\Repositories\AdminUserRepositoryInterface');
+        $repository = App::make(\App\Repositories\AdminUserRepositoryInterface::class);
         $adminUsers = $repository->all();
 
         $expects = [];

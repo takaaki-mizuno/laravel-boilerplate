@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\PasswordController as PasswordControllerBase;
-use App\Services\AdminUserService;
+use App\Services\AdminUserServiceInterface;
 
 class PasswordController extends PasswordControllerBase
 {
@@ -15,7 +15,7 @@ class PasswordController extends PasswordControllerBase
     /** @var string $returnAction */
     protected $returnAction = 'Admin\IndexController@index';
 
-    public function __construct(AdminUserService $adminUserService)
+    public function __construct(AdminUserServiceInterface $adminUserService)
     {
         $this->authenticatableService = $adminUserService;
     }

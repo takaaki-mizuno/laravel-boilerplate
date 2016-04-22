@@ -3,10 +3,17 @@
 class URLHelperTest extends TestCase
 {
 
+    public function testGetInstance()
+    {
+        /** @var  \App\Helpers\URLHelperInterface $helper */
+        $helper = App::make(\App\Helpers\URLHelperInterface::class);
+        $this->assertNotNull($helper);
+    }
+
     public function testSwapHost()
     {
         /** @var  \App\Helpers\URLHelperInterface $helper */
-        $helper = App::make('App\Helpers\URLHelperInterface');
+        $helper = App::make(\App\Helpers\URLHelperInterface::class);
         $result = $helper->swapHost('http://takaaki.info/path/to/somewhere', 'example.com');
         $this->assertEquals('http://example.com/path/to/somewhere', $result);
     }
@@ -22,7 +29,7 @@ class URLHelperTest extends TestCase
     public function testAsset()
     {
         /** @var  \App\Helpers\URLHelperInterface $helper */
-        $helper = App::make('App\Helpers\URLHelperInterface');
+        $helper = App::make(\App\Helpers\URLHelperInterface::class);
         $hash = \Config::get('asset.hash');
         $result = $helper->asset('img/test.png');
         $this->assertEquals('http://localhost/static/user/img/test.png?' . $hash, $result);

@@ -1,9 +1,10 @@
-<?php namespace App\Services;
+<?php namespace App\Services\Production;
 
 use App\Repositories\ServiceAuthenticationRepositoryInterface;
 use App\Repositories\AuthenticatableRepositoryInterface;
+use App\Services\ServiceAuthenticationServiceInterface;
 
-class ServiceAuthenticationService
+class ServiceAuthenticationService extends BaseService implements ServiceAuthenticationServiceInterface
 {
 
     /** @var \App\Repositories\ServiceAuthenticationRepositoryInterface */

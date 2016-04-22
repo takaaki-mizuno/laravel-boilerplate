@@ -1,9 +1,10 @@
-<?php namespace App\Services;
+<?php namespace App\Services\Production;
 
 use App\Repositories\AuthenticatableRepositoryInterface;
 use App\Repositories\PasswordResettableRepositoryInterface;
+use App\Services\AuthenticatableServiceInterface;
 
-class AuthenticatableService
+class AuthenticatableService implements AuthenticatableServiceInterface
 {
 
     /** @var \App\Repositories\AuthenticatableRepositoryInterface */
@@ -66,40 +67,6 @@ class AuthenticatableService
         if (empty( $user )) {
             return null;
         }
-        $guard = $this->getGuard();
-        $guard->login($user);
-
-        return $guard->user();
-    }
-
-    /**
-     * @param  string           $token
-     * @return \App\Models\Base
-     */
-    public function signInWithFacebook($token)
-    {
-        $facebookService = new FacebookService();
-        $node = $facebookService->getMe($token);
-        if (empty( $node )) {
-            return null;
-        }
-        $facebookId = $node->getId();
-        $email = $node->getEmail();
-        if (empty( $email )) {
-            return null;
-        }
-        $user = $this->authenticatableRepository->findByFacebookId($facebookId);
-        if (empty( $user )) {
-            $user = $this->authenticatableRepository->findByEmail($email);
-        }
-
-        if (empty( $user )) {
-            $user = $this->authenticatableRepository->create([
-                'email'    => $email,
-                'password' => '',
-            ]);
-        }
-
         $guard = $this->getGuard();
         $guard->login($user);
 

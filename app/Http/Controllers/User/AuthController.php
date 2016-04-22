@@ -1,16 +1,16 @@
 <?php namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Services\UserService;
+use App\Services\UserServiceInterface;
 use App\Http\Requests\User\SignInRequest;
 
 class AuthController extends Controller
 {
 
-    /** @var \App\Services\UserService UserService */
+    /** @var \App\Services\UserServiceInterface UserService */
     protected $userService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserServiceInterface $userService)
     {
         $this->userService = $userService;
     }

@@ -1,6 +1,8 @@
-<?php namespace App\Services;
+<?php namespace App\Services\Production;
 
-class APIService
+use App\Services\APIServiceInterface;
+
+class APIService extends BaseService implements APIServiceInterface
 {
 
     const ERROR_UNKNOWN = 'unknown';
@@ -17,10 +19,6 @@ class APIService
         ], array_get($error, 'status_code', 400));
     }
 
-    /**
-     * @param  \App\Models\Base[] $models
-     * @return array
-     */
     public function getAPIArray($models)
     {
         $result = [];

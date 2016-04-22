@@ -1,21 +1,21 @@
 <?php namespace App\Http\Middleware\Admin;
 
 use Closure;
-use App\Services\AdminUserService;
+use App\Services\AdminUserServiceInterface;
 use App\Models\AdminUserRole;
 
 class HasRoleSuperUser
 {
 
-    /** @var AdminUserService */
+    /** @var AdminUserServiceInterface */
     protected $adminUserService;
 
     /**
      * Create a new filter instance.
      *
-     * @param AdminUserService $adminUserService
+     * @param AdminUserServiceInterface $adminUserService
      */
-    public function __construct(AdminUserService $adminUserService)
+    public function __construct(AdminUserServiceInterface $adminUserService)
     {
         $this->adminUserService = $adminUserService;
     }

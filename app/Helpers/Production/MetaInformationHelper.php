@@ -1,7 +1,7 @@
 <?php namespace App\Helpers\Production;
 
 use App\Helpers\MetaInformationHelperInterface;
-use App\Services\MetaInformationService;
+use App\Services\MetaInformationServiceInterface;
 use App\Repositories\SiteConfigurationRepositoryInterface;
 use App\Repositories\ImageRepositoryInterface;
 use \URLHelper as URLHelperFacade;
@@ -9,7 +9,7 @@ use \URLHelper as URLHelperFacade;
 class MetaInformationHelper implements MetaInformationHelperInterface
 {
 
-    /** @var \App\Services\MetaInformationService */
+    /** @var \App\Services\MetaInformationServiceInterface */
     protected $metaInformationService;
 
     /** @var  \App\Repositories\SiteConfigurationRepositoryInterface */
@@ -19,7 +19,7 @@ class MetaInformationHelper implements MetaInformationHelperInterface
     protected $imageRepository;
 
     public function __construct(
-        MetaInformationService $metaInformationService,
+        MetaInformationServiceInterface $metaInformationService,
         SiteConfigurationRepositoryInterface $siteConfigurationRepository,
         ImageRepositoryInterface $imageRepository
     )

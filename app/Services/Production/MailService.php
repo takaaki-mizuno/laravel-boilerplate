@@ -1,8 +1,9 @@
-<?php namespace App\Services;
+<?php namespace App\Services\Production;
 
+use App\Services\MailServiceInterface;
 use Aws\Ses\SesClient;
 
-class MailService
+class MailService extends BaseService implements MailServiceInterface
 {
 
     public function __construct()

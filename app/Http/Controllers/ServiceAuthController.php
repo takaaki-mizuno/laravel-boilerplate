@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-use App\Services\AuthenticatableService;
-use App\Services\ServiceAuthenticationService;
+use App\Services\AuthenticatableServiceInterface;
+use App\Services\ServiceAuthenticationServiceInterface;
 
 use Laravel\Socialite\Contracts\Factory as Socialite;
 
@@ -17,18 +17,18 @@ class ServiceAuthController extends Controller
     /** @var string */
     protected $errorRedirectAction = '';
 
-    /** @var \App\Services\AuthenticatableService */
+    /** @var \App\Services\AuthenticatableServiceInterface */
     protected $authenticatableService;
 
-    /** @var \App\Services\ServiceAuthenticationService */
+    /** @var \App\Services\ServiceAuthenticationServiceInterface */
     protected $serviceAuthenticationService;
 
     /** @var Socialite */
     protected $socialite;
 
     public function __construct(
-        AuthenticatableService $authenticatableService,
-        ServiceAuthenticationService $serviceAuthenticationService,
+        AuthenticatableServiceInterface $authenticatableService,
+        ServiceAuthenticationServiceInterface $serviceAuthenticationService,
         Socialite $socialite
     )
     {

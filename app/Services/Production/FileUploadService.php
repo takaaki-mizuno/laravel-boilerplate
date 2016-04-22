@@ -1,10 +1,11 @@
-<?php namespace App\Services;
+<?php namespace App\Services\Production;
 
 use App\Repositories\FileRepositoryInterface;
 use App\Repositories\ImageRepositoryInterface;
+use App\Services\FileUploadServiceInterface;
 use Aws\S3\S3Client;
 
-class FileUploadService
+class FileUploadService extends BaseService implements FileUploadServiceInterface
 {
 
     const IMAGE_ID_SESSION_KEY = 'image-id-session-key';

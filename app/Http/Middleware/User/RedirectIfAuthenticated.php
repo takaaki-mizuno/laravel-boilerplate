@@ -1,19 +1,19 @@
 <?php namespace App\Http\Middleware\User;
 
 use Closure;
-use App\Services\UserService;
+use App\Services\UserServiceInterface;
 
 class RedirectIfAuthenticated
 {
-    /** @var UserService */
+    /** @var UserServiceInterface */
     protected $userService;
 
     /**
      * Create a new filter instance.
      *
-     * @param UserService $userService
+     * @param UserServiceInterface $userService
      */
-    public function __construct(UserService $userService)
+    public function __construct(UserServiceInterface $userService)
     {
         $this->userService = $userService;
     }

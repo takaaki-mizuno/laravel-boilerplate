@@ -1,6 +1,8 @@
-<?php namespace App\Services;
+<?php namespace App\Services\Production;
 
-class MetaInformationService
+use App\Services\MetaInformationServiceInterface;
+
+class MetaInformationService extends BaseService implements MetaInformationServiceInterface
 {
 
     /**

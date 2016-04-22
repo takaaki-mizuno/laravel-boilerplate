@@ -1,18 +1,18 @@
-<?php namespace App\Services;
+<?php namespace App\Services\Production;
 
+use App\Services\SlackServiceInterface;
 use Maknz\Slack\Client;
 use Maknz\Slack\Attachment;
-use Exception;
 
-class SlackService
+class SlackService extends BaseService implements SlackServiceInterface
 {
 
     /**
      * Report an exception to slack
      *
-     * @param Exception $e
+     * @param \Exception $e
      */
-    public function exception(Exception $e)
+    public function exception(\Exception $e)
     {
 
         $fields = [ ];

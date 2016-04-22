@@ -1,9 +1,10 @@
-<?php namespace App\Services;
+<?php namespace App\Services\Production;
 
 use \App\Async\Jobs\Job;
+use App\Services\AsyncServiceInterface;
 use \Aws\Sqs\SqsClient;
 
-class AsyncService
+class AsyncService extends BaseService implements AsyncServiceInterface
 {
 
     public function getJob($jobs)

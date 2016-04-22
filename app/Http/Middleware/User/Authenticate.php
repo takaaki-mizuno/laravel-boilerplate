@@ -1,20 +1,20 @@
 <?php namespace App\Http\Middleware\User;
 
+use App\Services\UserServiceInterface;
 use Closure;
-use App\Services\UserService;
 
 class Authenticate
 {
 
-    /** @var UserService */
+    /** @var UserServiceInterface */
     protected $userService;
 
     /**
      * Create a new filter instance.
      *
-     * @param UserService $userService
+     * @param UserServiceInterface $userService
      */
-    public function __construct(UserService $userService)
+    public function __construct(UserServiceInterface $userService)
     {
         $this->userService = $userService;
     }

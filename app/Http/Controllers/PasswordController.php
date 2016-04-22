@@ -3,12 +3,12 @@
 use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\ResetPasswordRequest;
 
-use App\Services\AuthenticatableService;
+use App\Services\AuthenticatableServiceInterface;
 
 class PasswordController extends Controller
 {
 
-    /** @var \App\Services\AuthenticatableService $authenticatableService */
+    /** @var \App\Services\AuthenticatableServiceInterface $authenticatableService */
     protected $authenticatableService;
 
     /** @var string $emailSetPageView */
@@ -20,7 +20,7 @@ class PasswordController extends Controller
     /** @var string $returnAction */
     protected $returnAction = '';
 
-    public function __construct(AuthenticatableService $authenticatableService)
+    public function __construct(AuthenticatableServiceInterface $authenticatableService)
     {
         $this->authenticatableService = $authenticatableService;
     }

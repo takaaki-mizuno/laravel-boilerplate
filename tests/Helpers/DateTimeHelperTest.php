@@ -6,7 +6,7 @@ class DateTimeHelperTest extends TestCase
     public function testGetInstance()
     {
         /** @var  \App\Helpers\DateTimeHelperInterface $helper */
-        $helper = App::make('App\Helpers\DateTimeHelperInterface');
+        $helper = App::make(\App\Helpers\DateTimeHelperInterface::class);
         $this->assertNotNull($helper);
     }
 

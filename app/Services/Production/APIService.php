@@ -19,14 +19,29 @@ class APIService extends BaseService implements APIServiceInterface
         ], array_get($error, 'status_code', 400));
     }
 
+    public function listResponse($models, $key, $offset, $limit, $count, $statusCode = 200)
+    {
+        return response()->json($this->getAPIListObject($models, $key, $offset, $limit, $count), $statusCode);
+    }
+
     public function getAPIArray($models)
     {
         $result = [];
         foreach ($models as $model) {
-            $return[] = $model->toAPIArray();
+            $result[] = $model->toAPIArray();
         }
 
         return $result;
+    }
+
+    public function getAPIListObject($models, $key, $offset, $limit, $count)
+    {
+        return [
+            $key     => $this->getAPIArray($models),
+            'offset' => $offset,
+            'limit'  => $limit,
+            'count'  => $count,
+        ];
     }
 
 }

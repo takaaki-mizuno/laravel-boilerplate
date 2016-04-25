@@ -17,18 +17,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $remember_token
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereEmail($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User wherePassword($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereFacebookId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereFacebookToken($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereApiAccessToken($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereProfileImageId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDeletedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRememberToken($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereName( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereEmail( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User wherePassword( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereFacebookId( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereFacebookToken( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereApiAccessToken( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereProfileImageId( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDeletedAt( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRememberToken( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt( $value )
  * @property-read \App\Models\Image $profileImage
  * @mixin \Eloquent
  */
@@ -68,4 +68,15 @@ class User extends AuthenticatableBase
 
     protected $dates  = ['deleted_at'];
 
+    /*
+     * API Presentation
+     */
+
+    public function toAPIArray()
+    {
+        return [
+            'id'   => $this->id,
+            'name' => $this->name,
+        ];
+    }
 }

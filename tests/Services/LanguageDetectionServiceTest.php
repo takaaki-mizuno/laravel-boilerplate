@@ -10,4 +10,15 @@ class LanguageDetectionServiceTest extends TestCase
         $this->assertNotNull($service);
     }
 
+    public function testDetect()
+    {
+        /** @var  \App\Services\LanguageDetectionServiceInterface $service */
+        $service = App::make(\App\Services\LanguageDetectionServiceInterface::class);
+        $this->assertNotNull($service);
+
+        $locale = $service->detect('en');
+        $this->assertEquals('en', $locale);
+
+    }
+
 }

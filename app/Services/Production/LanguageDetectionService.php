@@ -5,6 +5,15 @@ use App\Services\LanguageDetectionServiceInterface;
 class LanguageDetectionService extends BaseService implements LanguageDetectionServiceInterface
 {
 
+    public function normalize($language)
+    {
+        $language = strtolower($language);
+        if (!array_key_exists($language, \Config::get('locale.languages'))) {
+            $language = \Config::get('locale.default');
+        }
+        return $language;
+    }
+
     public function detect($language = null)
     {
 

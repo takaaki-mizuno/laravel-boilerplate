@@ -30,6 +30,35 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         }
     }
 
+    public function allByIds($ids, $order = null, $direction = null)
+    {
+        if (count($ids) == 0) {
+            return $this->getEmptyList();
+        }
+        $modelClass = $this->getModelClassName();
+        $primaryKey = $this->getPrimaryKey();
+
+        $query = $modelClass::whereIn($primaryKey, $ids);
+        if (!empty( $order )) {
+            $direction = empty( $direction ) ? 'asc' : $direction;
+            $query = $query->orderBy($order, $direction);
+        }
+
+        return $query->get();
+    }
+
+    public function countByIds($ids)
+    {
+        if (count($ids) == 0) {
+            return 0;
+        }
+        $modelClass = $this->getModelClassName();
+        $primaryKey = $this->getPrimaryKey();
+
+        return $modelClass::whereIn($primaryKey, $ids)->count();
+    }
+
+
     public function getByIds($ids, $order = null, $direction = null, $offset = null, $limit = null)
     {
         if (count($ids) == 0) {
@@ -39,11 +68,11 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         $primaryKey = $this->getPrimaryKey();
 
         $query = $modelClass::whereIn($primaryKey, $ids);
-        if (!empty($order)) {
-            $direction = empty($direction) ? 'asc' : $direction;
+        if (!empty( $order )) {
+            $direction = empty( $direction ) ? 'asc' : $direction;
             $query = $query->orderBy($order, $direction);
         }
-        if (!empty($offset) && !empty($limit)) {
+        if (!empty( $offset ) && !empty( $limit )) {
             $query = $query->offset($offset)->limit($limit);
         }
 
@@ -78,7 +107,7 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
 
     public function save($model)
     {
-        if ( ! $model->save()) {
+        if (!$model->save()) {
             return false;
         }
 

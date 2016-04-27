@@ -17,6 +17,20 @@ interface SingleKeyModelRepositoryInterface extends BaseRepositoryInterface
      * @param  array              $ids
      * @param  string|null        $order
      * @param  string|null        $direction
+     * @return \App\Models\Base[]
+     */
+    public function allByIds($ids, $order = null, $direction = null);
+
+    /**
+     * @param  array              $ids
+     * @return int
+     */
+    public function countByIds($ids);
+
+    /**
+     * @param  array              $ids
+     * @param  string|null        $order
+     * @param  string|null        $direction
      * @param  int|null           $offset
      * @param  int|null           $limit
      * @return \App\Models\Base[]

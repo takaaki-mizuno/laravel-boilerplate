@@ -82,9 +82,8 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
         if (preg_match('/([A-Za-z0-9]+)(Controller)?$/', $name, $matches)) {
             $name = $matches[1];
         }
-        $inflector = Inflector::get('en');
 
-        return $inflector->singularize(ucwords($name));
+        return \StringHelper::singularize(ucwords($name));
     }
 
     protected function getColumns($name)
@@ -204,8 +203,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
      */
     protected function getViewPath($name, $type)
     {
-        $inflector = Inflector::get('en');
-        $directoryName = \StringHelper::camel2spinal($inflector->pluralize($name));
+        $directoryName = \StringHelper::camel2Spinal(\StringHelper::pluralize($name));
 
         return $this->laravel['path'] . '/../resources/views/pages/admin/' . $directoryName . '/' . $type . '.blade.php';
     }
@@ -225,8 +223,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
      */
     protected function addRoute($name)
     {
-        $inflector = Inflector::get('en');
-        $directoryName = \StringHelper::camel2Spinal($inflector->pluralize($name));
+        $directoryName = \StringHelper::camel2Spinal(\StringHelper::pluralize($name));
 
         $routes = $this->files->get($this->getRoutesPath());
         $key = '/* NEW ADMIN RESOURCE ROUTE */';
@@ -244,8 +241,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
     protected function generateLanguageFile($name)
     {
-        $inflector = Inflector::get('en');
-        $directoryName = \StringHelper::camel2Spinal($inflector->pluralize($name));
+        $directoryName = \StringHelper::camel2Spinal(\StringHelper::pluralize($name));
 
         $languages = $this->files->get($this->getLanguageFilePath());
         $key = '/* NEW PAGE STRINGS */';

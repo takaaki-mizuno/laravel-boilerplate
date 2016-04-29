@@ -41,3 +41,4 @@ $factory->define(App\Models\SiteConfiguration::class, function (Faker\Generator 
     ];
 });
 
+/* NEW MODEL FACTORY */

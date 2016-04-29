@@ -1,0 +1,32 @@
+<?php namespace Tests\Models;
+
+use App\Models\%%CLASS%%;
+use Tests\TestCase;
+
+class %%CLASS%%Test extends TestCase
+{
+
+    protected $useDatabase = true;
+
+    public function testGetInstance()
+    {
+        /** @var  \App\Models\%%CLASS%% $%%class%% */
+        $%%class%% = new %%CLASS%%();
+        $this->assertNotNull($%%class%%);
+    }
+
+    public function testStoreNew()
+    {
+        /** @var  \App\Models\%%CLASS%% $%%class%% */
+        $%%class%%Model = new %%CLASS%%();
+
+        $%%class%%Data = factory(%%CLASS%%::class)->make();
+        foreach( $%%class%%Data->toArray() as $key => $value ) {
+            $%%class%%Model->$key = $value;
+        }
+        $%%class%%Model->save();
+
+        $this->assertNotNull(%%CLASS%%::find($%%class%%Model->id));
+    }
+
+}

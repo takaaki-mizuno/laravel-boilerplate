@@ -36,4 +36,11 @@ class StringHelper implements StringHelperInterface
         return $inflector->pluralize($singular);
     }
 
+    public function singularize($plural)
+    {
+        $inflector = Inflector::get('en');
+
+        return $inflector->singularize($plural);
+    }
+
 }

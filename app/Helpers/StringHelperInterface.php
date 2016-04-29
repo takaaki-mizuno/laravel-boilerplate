@@ -21,4 +21,9 @@ interface StringHelperInterface
      */
     public function pluralize($singular);
 
+    /**
+     * @param  string $plural
+     * @return string
+     */
+    public function singularize($plural);
 }

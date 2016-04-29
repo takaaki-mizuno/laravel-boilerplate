@@ -16,6 +16,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.values']], function (
 
         Route::resource('users', 'Admin\UserController');
         Route::resource('admin-users', 'Admin\AdminUserController');
+        Route::resource('site-configurations', 'Admin\SiteConfigurationController');
+        /* NEW ADMIN RESOURCE ROUTE */
+
     });
 });
 

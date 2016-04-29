@@ -58,4 +58,9 @@ class Base extends Model implements HasPresenter
     {
         return BasePresenter::class;
     }
+
+    public function getFillableColumns()
+    {
+        return $this->fillable;
+    }
 }

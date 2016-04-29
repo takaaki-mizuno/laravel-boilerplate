@@ -166,4 +166,5 @@ abstract class GeneratorCommandBase extends Command
             ['name', InputArgument::REQUIRED, 'The name of the class'],
         ];
     }
+
 }

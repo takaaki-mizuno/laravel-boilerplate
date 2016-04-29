@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class UserUpdateRequest extends Request
+class UserRequest extends Request
 {
 
     /**

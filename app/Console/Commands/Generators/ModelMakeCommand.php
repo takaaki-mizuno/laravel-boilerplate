@@ -80,6 +80,7 @@ class ModelMakeCommand extends GeneratorCommandBase
     protected function getTableName($name)
     {
         $className = $this->getClassName($name);
+        $inflector = Inflector::get('en');
 
         return \StringHelper::pluralize(\StringHelper::camel2Snake($className));
     }

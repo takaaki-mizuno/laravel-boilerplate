@@ -200,29 +200,21 @@ class HelperMakeCommand extends GeneratorCommandBase
 
     protected function getStubForInterface($name)
     {
-        $className = $this->getClassName($name);
-
         return __DIR__ . '/stubs/helper-interface.stub';
     }
 
     protected function getStubForHelper($name)
     {
-        $className = $this->getClassName($name);
-
         return __DIR__ . '/stubs/helper.stub';
     }
 
     protected function getStubForFacade($name)
     {
-        $className = $this->getClassName($name);
-
         return __DIR__ . '/stubs/facade.stub';
     }
 
     protected function getStubForUnitTest($name)
     {
-        $className = $this->getClassName($name);
-
         return __DIR__ . '/stubs/helper-unittest.stub';
     }
 

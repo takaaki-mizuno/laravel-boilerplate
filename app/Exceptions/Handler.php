@@ -35,14 +35,14 @@ class Handler extends ExceptionHandler
     public function report(Exception $e)
     {
         if ($this->shouldReport($e)) {
-            if ( ! \App::environment('local') && ! $e instanceof TokenMismatchException) {
+            if ( \App::environment() == 'production' && ! $e instanceof TokenMismatchException) {
                 // notify to slack
-                $slackService = \App::make('\App\Services\SlackService');
+                $slackService = \App::make('\App\Services\SlackServiceInterface');
                 $slackService->exception($e);
             }
         }
 
-        return parent::report($e);
+        parent::report($e);
     }
 
     /**

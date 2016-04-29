@@ -31,11 +31,13 @@ $factory->define(App\Models\AdminUser::class, function (Faker\Generator $faker) 
 
 $factory->define(App\Models\SiteConfiguration::class, function (Faker\Generator $faker) {
     return [
-        'locale'      => 'ja',
-        'name'        => $faker->name,
-        'title'       => $faker->sentence,
-        'keywords'    => join(',', $faker->words(5)),
-        'description' => $faker->sentences(3, true),
+        'locale'                => 'ja',
+        'name'                  => $faker->name,
+        'title'                 => $faker->sentence,
+        'keywords'              => join(',', $faker->words(5)),
+        'description'           => $faker->sentences(3, true),
+        'ogp_image_id'          => 0,
+        'twitter_card_image_id' => 0,
     ];
 });
 

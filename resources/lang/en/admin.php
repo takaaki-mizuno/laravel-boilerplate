@@ -10,6 +10,8 @@ return [
     'messages' => [
         'general' => [
             'update_success' => 'Successfully updated.',
+            'create_success' => 'Successfully created.',
+            'delete_success' => 'Successfully deleted.',
         ],
     ],
     'errors'   => [
@@ -44,6 +46,19 @@ return [
                 'reset_password'  => 'Please enter your e-mail address and new password',
             ],
         ],
+        'site-configurations'   => [
+            'columns'  => [
+                'id' => '',
+                'locale' => '',
+                'name' => '',
+                'title' => '',
+                'keywords' => '',
+                'description' => '',
+                'ogp_image_id' => '',
+                'twitter_card_image_id' => '',
+            ],
+        ],
+        /* NEW PAGE STRINGS */
     ],
     'roles'    => [
         'super_user' => 'Super User',

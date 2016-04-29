@@ -1,6 +1,7 @@
 <?php namespace App\Helpers\Production;
 
 use App\Helpers\StringHelperInterface;
+use ICanBoogie\Inflector;
 
 class StringHelper implements StringHelperInterface
 {
@@ -17,16 +18,22 @@ class StringHelper implements StringHelperInterface
         return implode('_', $ret);
     }
 
+    public function camel2Spinal($input)
+    {
+        preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
+        $ret = $matches[0];
+        foreach ($ret as &$match) {
+            $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+        }
+
+        return implode('-', $ret);
+    }
+
     public function pluralize($singular)
     {
-        $last_letter = strtolower($singular[ strlen($singular) - 1 ]);
-        switch ($last_letter) {
-            case 'y':
-                return substr($singular, 0, -1) . 'ies';
-            case 's':
-                return $singular . 'es';
-            default:
-                return $singular . 's';
-        }
+        $inflector = Inflector::get('en');
+
+        return $inflector->pluralize($singular);
     }
+
 }

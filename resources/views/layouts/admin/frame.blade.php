@@ -11,7 +11,7 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{!! \URL::action('Admin\IndexController@index') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                @yield('breadcrumb')s
+                @yield('breadcrumb')
             </ol>
         </section>
 

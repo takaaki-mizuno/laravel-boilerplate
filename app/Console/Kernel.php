@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\Generators\ModelMakeCommand::class,
         \App\Console\Commands\Generators\ServiceMakeCommand::class,
         \App\Console\Commands\Generators\HelperMakeCommand::class,
+        \App\Console\Commands\Generators\AdminCRUDMakeCommand::class,
         \App\Console\Commands\UpdateAssetHash::class,
     ];
 

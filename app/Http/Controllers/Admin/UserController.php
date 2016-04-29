@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Repositories\UserRepositoryInterface;
 use App\Http\Requests\PaginationRequest;
-use App\Http\Requests\Admin\UserUpdateRequest;
+use App\Http\Requests\Admin\UserRequest;
 
 use Illuminate\Support\MessageBag;
 
@@ -61,12 +61,15 @@ class UserController extends Controller
 
     }
 
-    public function store(UserUpdateRequest $request)
+    public function store(UserRequest $request)
     {
+        $model = $this->userRepository->create($request->all());
 
+        return redirect()->action('Admin\UserController@show', [$model->id])->with('message-success',
+            \Lang::get('admin.messages.general.create_success'));
     }
 
-    public function update($id, UserUpdateRequest $request)
+    public function update($id, UserRequest $request)
     {
         $user = $this->userRepository->find($id);
         if (empty($user)) {
@@ -77,6 +80,17 @@ class UserController extends Controller
 
         return redirect()->action('Admin\UserController@show', [$id])->with('message-success',
             \Lang::get('admin.messages.general.update_success'));
+    }
+
+    public function destroy($id)
+    {
+        $user = $this->userRepository->find($id);
+        if (empty($user)) {
+            abort(404);
+        }
+        $this->userRepository->delete($user);
+        return redirect()->action('Admin\UserController@index')->with('message-success',
+            \Lang::get('admin.messages.general.delete_success'));
     }
 
 }

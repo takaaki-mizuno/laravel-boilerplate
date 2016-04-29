@@ -1,4 +1,6 @@
-<?php
+<?php namespace Tests\Services;
+
+use Tests\TestCase;
 
 class LanguageDetectionServiceTest extends TestCase
 {
@@ -6,14 +8,14 @@ class LanguageDetectionServiceTest extends TestCase
     public function testGetInstance()
     {
         /** @var  \App\Services\LanguageDetectionServiceInterface $service */
-        $service = App::make(\App\Services\LanguageDetectionServiceInterface::class);
+        $service = \App::make(\App\Services\LanguageDetectionServiceInterface::class);
         $this->assertNotNull($service);
     }
 
     public function testNormalize()
     {
         /** @var  \App\Services\LanguageDetectionServiceInterface $service */
-        $service = App::make(\App\Services\LanguageDetectionServiceInterface::class);
+        $service = \App::make(\App\Services\LanguageDetectionServiceInterface::class);
         $this->assertNotNull($service);
 
         $locale = $service->normalize('en');
@@ -29,7 +31,7 @@ class LanguageDetectionServiceTest extends TestCase
     public function testDetect()
     {
         /** @var  \App\Services\LanguageDetectionServiceInterface $service */
-        $service = App::make(\App\Services\LanguageDetectionServiceInterface::class);
+        $service = \App::make(\App\Services\LanguageDetectionServiceInterface::class);
         $this->assertNotNull($service);
 
         $locale = $service->detect('en');

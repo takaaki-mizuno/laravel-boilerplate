@@ -1,6 +1,6 @@
-<?php
+<?php namespace Tests\Helpers;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class CollectionHelperTest extends TestCase
 {
@@ -10,7 +10,7 @@ class CollectionHelperTest extends TestCase
     public function testGetInstance()
     {
         /** @var  \App\Helpers\CollectionHelperInterface $helper */
-        $helper = App::make(\App\Helpers\CollectionHelperInterface::class);
+        $helper = \App::make(\App\Helpers\CollectionHelperInterface::class);
         $this->assertNotNull($helper);
     }
 
@@ -18,15 +18,15 @@ class CollectionHelperTest extends TestCase
     {
 
         /** @var  \App\Helpers\CollectionHelperInterface $helper */
-        $helper = App::make(\App\Helpers\CollectionHelperInterface::class);
+        $helper = \App::make(\App\Helpers\CollectionHelperInterface::class);
         /** @var \App\Repositories\AdminUserRepositoryInterface $repository */
-        $repository = App::make(\App\Repositories\AdminUserRepositoryInterface::class);
+        $repository = \App::make(\App\Repositories\AdminUserRepositoryInterface::class);
         $adminUsers = $repository->all();
 
         $expects = [];
-        foreach( $adminUsers as $adminUser ) {
+        foreach ($adminUsers as $adminUser) {
             /** @var \App\Models\AdminUser $adminUser */
-            $expects[$adminUser->id] = $adminUser->name;
+            $expects[ $adminUser->id ] = $adminUser->name;
         }
 
         $result = $helper->getSelectOptions($adminUsers);

@@ -1,4 +1,6 @@
-<?php
+<?php namespace Tests\Helpers;
+
+use Tests\TestCase;
 
 class DateTimeHelperTest extends TestCase
 {
@@ -6,14 +8,14 @@ class DateTimeHelperTest extends TestCase
     public function testGetInstance()
     {
         /** @var  \App\Helpers\DateTimeHelperInterface $helper */
-        $helper = App::make(\App\Helpers\DateTimeHelperInterface::class);
+        $helper = \App::make(\App\Helpers\DateTimeHelperInterface::class);
         $this->assertNotNull($helper);
     }
 
     public function testTimeZoneForPresentation()
     {
         /** @var  \App\Helpers\DateTimeHelperInterface $helper */
-        $helper = App::make('App\Helpers\DateTimeHelperInterface');
+        $helper = \App::make('App\Helpers\DateTimeHelperInterface');
 
         $this->assertEquals(\Config::get('app.default_presentation_timezone'), $helper->getPresentationTimeZoneString());
 
@@ -59,7 +61,7 @@ class DateTimeHelperTest extends TestCase
     public function testTimeZoneForStorage()
     {
         /** @var  \App\Helpers\DateTimeHelperInterface $helper */
-        $helper = App::make('App\Helpers\DateTimeHelperInterface');
+        $helper = \App::make('App\Helpers\DateTimeHelperInterface');
 
         $timeZone = $helper->timezoneForStorage();
         $this->assertEquals(\Config::get('app.timezone'), $timeZone->getName());

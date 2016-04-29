@@ -1,6 +1,8 @@
 <?php  namespace Tests\Controllers\Admin;
 
-class %%CLASS%%ControllerTest extends \TestCase
+use Tests\TestCase;
+
+class %%CLASS%%ControllerTest extends TestCase
 {
 
     protected $useDatabase = true;

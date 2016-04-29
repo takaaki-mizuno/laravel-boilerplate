@@ -1,6 +1,8 @@
 <?php  namespace Tests\Controllers\Admin;
 
-class SiteConfigurationControllerTest extends \TestCase
+use Tests\TestCase;
+
+class SiteConfigurationControllerTest extends TestCase
 {
 
     protected $useDatabase = true;

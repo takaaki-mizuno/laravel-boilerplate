@@ -46,7 +46,7 @@ class ServiceMakeCommand extends GeneratorCommandBase
     {
         $interfacePath = $this->getInterfacePath($name);
         if ($this->alreadyExists($interfacePath)) {
-            $this->error($name . ' interface already exists.');
+            $this->error($name.' interface already exists.');
 
             return false;
         }
@@ -67,7 +67,7 @@ class ServiceMakeCommand extends GeneratorCommandBase
 
         $path = $this->getPath($name);
         if ($this->alreadyExists($path)) {
-            $this->error($name . ' already exists.');
+            $this->error($name.' already exists.');
 
             return false;
         }
@@ -90,7 +90,7 @@ class ServiceMakeCommand extends GeneratorCommandBase
     {
         $path = $this->getUnitTestPath($name);
         if ($this->alreadyExists($path)) {
-            $this->error($name . ' already exists.');
+            $this->error($name.' already exists.');
 
             return false;
         }
@@ -116,7 +116,7 @@ class ServiceMakeCommand extends GeneratorCommandBase
 
         $bindService = $this->files->get($this->getBindServiceProviderPath());
         $key = '/* NEW BINDING */';
-        $bind = '$this->app->singleton(' . PHP_EOL . "            \\App\\Services\\" . $className . "Interface::class," . PHP_EOL . "            \\App\\Services\\Production\\" . $className . "::class" . PHP_EOL . "        );" . PHP_EOL . PHP_EOL . '        ' . $key;
+        $bind = '$this->app->singleton('.PHP_EOL."            \\App\\Services\\".$className."Interface::class,".PHP_EOL."            \\App\\Services\\Production\\".$className."::class".PHP_EOL."        );".PHP_EOL.PHP_EOL.'        '.$key;
         $bindService = str_replace($key, $bind, $bindService);
         $this->files->put($this->getBindServiceProviderPath(), $bindService);
 
@@ -127,24 +127,24 @@ class ServiceMakeCommand extends GeneratorCommandBase
     {
         $className = $this->getClassName($name);
 
-        return $this->laravel['path'] . '/Services/' . $className . 'Interface.php';
+        return $this->laravel['path'].'/Services/'.$className.'Interface.php';
     }
 
     protected function getPath($name)
     {
         $className = $this->getClassName($name);
 
-        return $this->laravel['path'] . '/Services/Production/' . $className . '.php';
+        return $this->laravel['path'].'/Services/Production/'.$className.'.php';
     }
 
     protected function getStub($name)
     {
-        return __DIR__ . '/stubs/service.stub';
+        return __DIR__.'/stubs/service.stub';
     }
 
     protected function getStubForInterface($name)
     {
-        return __DIR__ . '/stubs/service-interface.stub';
+        return __DIR__.'/stubs/service-interface.stub';
     }
 
 
@@ -152,14 +152,14 @@ class ServiceMakeCommand extends GeneratorCommandBase
     {
         $className = $this->getClassName($name);
 
-        return $this->laravel['path'] . '/../tests/Services/' . $className . 'Test.php';
+        return $this->laravel['path'].'/../tests/Services/'.$className.'Test.php';
     }
 
     protected function getStubForUnitTest($name)
     {
         $className = $this->getClassName($name);
 
-        return __DIR__ . '/stubs/service-unittest.stub';
+        return __DIR__.'/stubs/service-unittest.stub';
     }
 
     protected function getTableName($name)
@@ -177,12 +177,12 @@ class ServiceMakeCommand extends GeneratorCommandBase
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Services';
+        return $rootNamespace.'\Services';
     }
 
     protected function getBindServiceProviderPath()
     {
-        return $this->laravel['path'] . '/Providers/ServiceBindServiceProvider.php';
+        return $this->laravel['path'].'/Providers/ServiceBindServiceProvider.php';
     }
 
 

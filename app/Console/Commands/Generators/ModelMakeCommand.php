@@ -37,7 +37,7 @@ class ModelMakeCommand extends GeneratorCommandBase
 
         $path = $this->getPath($name);
         if ($this->alreadyExists($path)) {
-            $this->error($name . ' already exists.');
+            $this->error($name.' already exists.');
 
             return false;
         }
@@ -51,23 +51,22 @@ class ModelMakeCommand extends GeneratorCommandBase
         $this->replaceTemplateVariable($stub, 'TABLE', $tableName);
 
         $columns = $this->getFillableColumns($tableName);
-        $fillables = count($columns) > 0 ? "'" . join("'," . PHP_EOL . "        '", $columns) . "'," : '';
+        $fillables = count($columns) > 0 ? "'".join("',".PHP_EOL."        '", $columns)."'," : '';
         $this->replaceTemplateVariable($stub, 'FILLABLES', $fillables);
 
-        $api = count($columns) > 0 ? join(',' . PHP_EOL . '            ', array_map(function ($column) {
-                return "'" . $column . "'" . ' => $this->' . $column;
-            }, $columns)) . ',' : '';
+        $api = count($columns) > 0 ? join(','.PHP_EOL.'            ', array_map(function ($column) {
+                return "'".$column."'".' => $this->'.$column;
+            }, $columns)).',' : '';
         $this->replaceTemplateVariable($stub, 'API', $api);
 
         $columns = $this->getDateTimeColumns($tableName);
-        $datetimes = count($columns) > 0 ? "'" . join("','", $columns) . "'" : '';
+        $datetimes = count($columns) > 0 ? "'".join("','", $columns)."'" : '';
         $this->replaceTemplateVariable($stub, 'DATETIMES', $datetimes);
 
         $hasSoftDelete = $this->hasSoftDeleteColumn($tableName);
         $this->replaceTemplateVariable($stub, 'SOFT_DELETE_CLASS_USE',
-            $hasSoftDelete ? 'use Illuminate\Database\Eloquent\SoftDeletes;' . PHP_EOL : PHP_EOL);
-        $this->replaceTemplateVariable($stub, 'SOFT_DELETE_USE',
-            $hasSoftDelete ? 'use SoftDeletes;' . PHP_EOL : PHP_EOL);
+            $hasSoftDelete ? 'use Illuminate\Database\Eloquent\SoftDeletes;'.PHP_EOL : PHP_EOL);
+        $this->replaceTemplateVariable($stub, 'SOFT_DELETE_USE', $hasSoftDelete ? 'use SoftDeletes;'.PHP_EOL : PHP_EOL);
 
         $this->files->put($path, $stub);
 
@@ -78,12 +77,12 @@ class ModelMakeCommand extends GeneratorCommandBase
     {
         $className = $this->getClassName($name);
 
-        return $this->laravel['path'] . '/Models/' . $className . '.php';
+        return $this->laravel['path'].'/Models/'.$className.'.php';
     }
 
     protected function getStub($name)
     {
-        return __DIR__ . '/stubs/model.stub';
+        return __DIR__.'/stubs/model.stub';
     }
 
     protected function getTableName($name)
@@ -119,7 +118,7 @@ class ModelMakeCommand extends GeneratorCommandBase
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Models';
+        return $rootNamespace.'\Models';
     }
 
     /**
@@ -208,11 +207,12 @@ class ModelMakeCommand extends GeneratorCommandBase
 
         $ret = [];
         $columns = $schema->listTableColumns($tableName);
-        foreach( $columns as $column ) {
+        foreach ($columns as $column) {
             if (!in_array($column->getName(), ['created_at', 'updated_at', 'deleted_at'])) {
                 $ret[] = $column;
             }
         }
+
         return $ret;
     }
 
@@ -226,11 +226,11 @@ class ModelMakeCommand extends GeneratorCommandBase
         $factory = $this->files->get($this->getFactoryPath());
         $key = '/* NEW MODEL FACTORY */';
 
-        $data = '$factory->define(App\Models\\' . $className . '::class, function (Faker\Generator $faker) {' . PHP_EOL . '    return [' . PHP_EOL;
+        $data = '$factory->define(App\Models\\'.$className.'::class, function (Faker\Generator $faker) {'.PHP_EOL.'    return ['.PHP_EOL;
         foreach ($columns as $column) {
-            $data .= "        '" . $column->getName() . "' => ''," . PHP_EOL;
+            $data .= "        '".$column->getName()."' => '',".PHP_EOL;
         }
-        $data .= "    ];" . PHP_EOL . "});" . PHP_EOL . PHP_EOL . $key;
+        $data .= "    ];".PHP_EOL."});".PHP_EOL.PHP_EOL.$key;
 
         $factory = str_replace($key, $data, $factory);
         $this->files->put($this->getFactoryPath(), $factory);
@@ -240,7 +240,7 @@ class ModelMakeCommand extends GeneratorCommandBase
 
     protected function getFactoryPath()
     {
-        return $this->laravel['path'] . '/../database/factories/ModelFactory.php';
+        return $this->laravel['path'].'/../database/factories/ModelFactory.php';
     }
 
     protected function generateUnitTest($name)
@@ -249,7 +249,7 @@ class ModelMakeCommand extends GeneratorCommandBase
 
         $path = $this->getUnitTestPath($name);
         if ($this->alreadyExists($path)) {
-            $this->error($path . ' already exists.');
+            $this->error($path.' already exists.');
 
             return false;
         }
@@ -259,7 +259,7 @@ class ModelMakeCommand extends GeneratorCommandBase
         $stub = $this->files->get($this->getStubForUnitTest());
 
         $this->replaceTemplateVariable($stub, 'CLASS', $className);
-        $this->replaceTemplateVariable($stub, 'class', strtolower(substr($className, 0, 1)) . substr($className, 1));
+        $this->replaceTemplateVariable($stub, 'class', strtolower(substr($className, 0, 1)).substr($className, 1));
 
         $this->files->put($path, $stub);
 
@@ -274,7 +274,7 @@ class ModelMakeCommand extends GeneratorCommandBase
     {
         $className = $this->getClassName($name);
 
-        return $this->laravel['path'] . '/../tests/Models/' . $className . 'Test.php';
+        return $this->laravel['path'].'/../tests/Models/'.$className.'Test.php';
     }
 
     /**
@@ -282,7 +282,7 @@ class ModelMakeCommand extends GeneratorCommandBase
      */
     protected function getStubForUnitTest()
     {
-        return __DIR__ . '/stubs/model-unittest.stub';
+        return __DIR__.'/stubs/model-unittest.stub';
     }
 
     /**

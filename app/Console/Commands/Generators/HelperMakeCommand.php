@@ -52,7 +52,7 @@ class HelperMakeCommand extends GeneratorCommandBase
     {
         $path = $this->getInterfacePath($name);
         if ($this->alreadyExists($path)) {
-            $this->error($name . ' already exists.');
+            $this->error($name.' already exists.');
 
             return false;
         }
@@ -76,7 +76,7 @@ class HelperMakeCommand extends GeneratorCommandBase
     {
         $path = $this->getHelperPath($name);
         if ($this->alreadyExists($path)) {
-            $this->error($name . ' already exists.');
+            $this->error($name.' already exists.');
 
             return false;
         }
@@ -100,7 +100,7 @@ class HelperMakeCommand extends GeneratorCommandBase
     {
         $path = $this->getFacadePath($name);
         if ($this->alreadyExists($path)) {
-            $this->error($name . ' already exists.');
+            $this->error($name.' already exists.');
 
             return false;
         }
@@ -124,7 +124,7 @@ class HelperMakeCommand extends GeneratorCommandBase
     {
         $path = $this->getUnitTestPath($name);
         if ($this->alreadyExists($path)) {
-            $this->error($name . ' already exists.');
+            $this->error($name.' already exists.');
 
             return false;
         }
@@ -150,7 +150,7 @@ class HelperMakeCommand extends GeneratorCommandBase
 
         $bindService = $this->files->get($this->getBindServiceProviderPath());
         $key = '/* NEW BINDING */';
-        $bind = '$this->app->singleton(' . PHP_EOL . "            'App\\Helpers\\" . $className . "Interface'," . PHP_EOL . "            'App\\Helpers\\Production\\" . $className . "'" . PHP_EOL . "        );" . PHP_EOL . PHP_EOL . '        ' . $key;
+        $bind = '$this->app->singleton('.PHP_EOL."            'App\\Helpers\\".$className."Interface',".PHP_EOL."            'App\\Helpers\\Production\\".$className."'".PHP_EOL."        );".PHP_EOL.PHP_EOL.'        '.$key;
         $bindService = str_replace($key, $bind, $bindService);
         $this->files->put($this->getBindServiceProviderPath(), $bindService);
 
@@ -163,7 +163,7 @@ class HelperMakeCommand extends GeneratorCommandBase
 
         $appConfig = $this->files->get($this->getAppConfigPath());
         $key = '/* NEW FACADE */';
-        $facade = "'" . $className . "'  => App\\Facades\\" . $className . "::class," . PHP_EOL . "        " . $key;
+        $facade = "'".$className."'  => App\\Facades\\".$className."::class,".PHP_EOL."        ".$key;
         $appConfig = str_replace($key, $facade, $appConfig);
         $this->files->put($this->getAppConfigPath(), $appConfig);
 
@@ -174,58 +174,58 @@ class HelperMakeCommand extends GeneratorCommandBase
     {
         $className = $this->getClassName($name);
 
-        return $this->laravel['path'] . '/Helpers/' . $className . 'Interface.php';
+        return $this->laravel['path'].'/Helpers/'.$className.'Interface.php';
     }
 
     protected function getHelperPath($name)
     {
         $className = $this->getClassName($name);
 
-        return $this->laravel['path'] . '/Helpers/Production/' . $className . '.php';
+        return $this->laravel['path'].'/Helpers/Production/'.$className.'.php';
     }
 
     protected function getFacadePath($name)
     {
         $className = $this->getClassName($name);
 
-        return $this->laravel['path'] . '/Facades/' . $className . '.php';
+        return $this->laravel['path'].'/Facades/'.$className.'.php';
     }
 
     protected function getUnitTestPath($name)
     {
         $className = $this->getClassName($name);
 
-        return $this->laravel['path'] . '/../tests/Helpers/' . $className . 'Test.php';
+        return $this->laravel['path'].'/../tests/Helpers/'.$className.'Test.php';
     }
 
     protected function getStubForInterface($name)
     {
-        return __DIR__ . '/stubs/helper-interface.stub';
+        return __DIR__.'/stubs/helper-interface.stub';
     }
 
     protected function getStubForHelper($name)
     {
-        return __DIR__ . '/stubs/helper.stub';
+        return __DIR__.'/stubs/helper.stub';
     }
 
     protected function getStubForFacade($name)
     {
-        return __DIR__ . '/stubs/facade.stub';
+        return __DIR__.'/stubs/facade.stub';
     }
 
     protected function getStubForUnitTest($name)
     {
-        return __DIR__ . '/stubs/helper-unittest.stub';
+        return __DIR__.'/stubs/helper-unittest.stub';
     }
 
     protected function getBindServiceProviderPath()
     {
-        return $this->laravel['path'] . '/Providers/HelperBindServiceProvider.php';
+        return $this->laravel['path'].'/Providers/HelperBindServiceProvider.php';
     }
 
     protected function getAppConfigPath()
     {
-        return $this->laravel['path'] . '/../config/app.php';
+        return $this->laravel['path'].'/../config/app.php';
     }
 
     /**
@@ -236,7 +236,7 @@ class HelperMakeCommand extends GeneratorCommandBase
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Helpers';
+        return $rootNamespace.'\Helpers';
     }
 
 }

@@ -1,4 +1,6 @@
-<?php namespace App\Console\Commands\Generators;
+<?php
+
+namespace App\Console\Commands\Generators;
 
 use Illuminate\Console\Command;
 
@@ -36,8 +38,9 @@ abstract class GeneratorCommandBase extends Command
     /**
      * Get the stub file for the generator.
      *
-     * @param  string  $name
-     * @return boolean
+     * @param  string $name
+     *
+     * @return bool
      */
     abstract protected function generate($name);
 
@@ -45,6 +48,7 @@ abstract class GeneratorCommandBase extends Command
      * Determine if the class already exists.
      *
      * @param  string $path
+     *
      * @return bool
      */
     protected function alreadyExists($path)
@@ -56,11 +60,12 @@ abstract class GeneratorCommandBase extends Command
      * @param $stub
      * @param $key
      * @param $value
+     *
      * @return $this
      */
     protected function replaceTemplateVariable(&$stub, $key, $value)
     {
-        $stub = str_replace('%%' . $key . '%%', $value, $stub);
+        $stub = str_replace('%%'.$key.'%%', $value, $stub);
 
         return $this;
     }
@@ -69,19 +74,21 @@ abstract class GeneratorCommandBase extends Command
      * Get the destination class path.
      *
      * @param  string $name
+     *
      * @return string
      */
     protected function getPath($name)
     {
         $name = str_replace($this->laravel->getNamespace(), '', $name);
 
-        return $this->laravel['path'] . '/' . str_replace('\\', '/', $name) . '.php';
+        return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
     }
 
     /**
      * Parse the name and format according to the root namespace.
      *
      * @param  string $name
+     *
      * @return string
      */
     protected function parseName($name)
@@ -96,13 +103,14 @@ abstract class GeneratorCommandBase extends Command
             $name = str_replace('/', '\\', $name);
         }
 
-        return $this->parseName($this->getDefaultNamespace(trim($rootNamespace, '\\')) . '\\' . $name);
+        return $this->parseName($this->getDefaultNamespace(trim($rootNamespace, '\\')).'\\'.$name);
     }
 
     /**
      * Get the default namespace for the class.
      *
      * @param  string $rootNamespace
+     *
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
@@ -114,6 +122,7 @@ abstract class GeneratorCommandBase extends Command
      * Build the directory for the class if necessary.
      *
      * @param  string $path
+     *
      * @return string
      */
     protected function makeDirectory($path)
@@ -127,6 +136,7 @@ abstract class GeneratorCommandBase extends Command
      * Get the full namespace name for a given class.
      *
      * @param  string $name
+     *
      * @return string
      */
     protected function getNamespace($name)
@@ -138,11 +148,12 @@ abstract class GeneratorCommandBase extends Command
      * Replace the class name for the given stub.
      *
      * @param  string $name
+     *
      * @return string
      */
     protected function getClassName($name)
     {
-        return str_replace($this->getNamespace($name) . '\\', '', $name);
+        return str_replace($this->getNamespace($name).'\\', '', $name);
     }
 
     /**

@@ -59,7 +59,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     {
         $path = $this->getControllerPath($name);
         if ($this->alreadyExists($path)) {
-            $this->error($path . ' already exists.');
+            $this->error($path.' already exists.');
 
             return false;
         }
@@ -88,7 +88,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
     protected function getColumns($name)
     {
-        $modelFullName = '\\App\\Models\\' . $name;
+        $modelFullName = '\\App\\Models\\'.$name;
         /** @var \App\Models\Base $model */
         $model = new $modelFullName;
 
@@ -103,14 +103,14 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     {
         $this->replaceTemplateVariable($stub, 'CLASS', $modelName);
         $this->replaceTemplateVariable($stub, 'CLASSES', \StringHelper::pluralize($modelName));
-        $this->replaceTemplateVariable($stub, 'class', strtolower(substr($modelName, 0, 1)) . substr($modelName, 1));
+        $this->replaceTemplateVariable($stub, 'class', strtolower(substr($modelName, 0, 1)).substr($modelName, 1));
         $this->replaceTemplateVariable($stub, 'classes', \StringHelper::pluralize(strtolower($modelName)));
         $this->replaceTemplateVariable($stub, 'classes-spinal',
-            \StringHelper::camel2spinal(\StringHelper::pluralize($modelName)));
+            \StringHelper::camel2Spinal(\StringHelper::pluralize($modelName)));
 
         $columns = $this->getColumns($modelName);
         $list = join(',', array_map(function ($name) {
-            return "'" . $name . "'";
+            return "'".$name."'";
         }, $columns));
         $this->replaceTemplateVariable($stub, 'COLUMNS', $list);
     }
@@ -121,7 +121,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
      */
     protected function getControllerPath($name)
     {
-        return $this->laravel['path'] . '/Http/Controllers/Admin/' . $name . 'Controller.php';
+        return $this->laravel['path'].'/Http/Controllers/Admin/'.$name.'Controller.php';
     }
 
     /**
@@ -129,7 +129,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
      */
     protected function getStubForController()
     {
-        return __DIR__ . '/stubs/admin-crud-controller.stub';
+        return __DIR__.'/stubs/admin-crud-controller.stub';
     }
 
     /**
@@ -140,7 +140,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     {
         $path = $this->getRequestPath($name);
         if ($this->alreadyExists($path)) {
-            $this->error($path . ' already exists.');
+            $this->error($path.' already exists.');
 
             return false;
         }
@@ -160,7 +160,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
      */
     protected function getRequestPath($name)
     {
-        return $this->laravel['path'] . '/Http/Requests/Admin/' . $name . 'Request.php';
+        return $this->laravel['path'].'/Http/Requests/Admin/'.$name.'Request.php';
     }
 
     /**
@@ -168,7 +168,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
      */
     protected function getStubForRequest()
     {
-        return __DIR__ . '/stubs/admin-crud-request.stub';
+        return __DIR__.'/stubs/admin-crud-request.stub';
     }
 
     /**
@@ -181,7 +181,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
         foreach (['index', 'edit'] as $type) {
             $path = $this->getViewPath($name, $type);
             if ($this->alreadyExists($path)) {
-                $this->error($path . ' already exists.');
+                $this->error($path.' already exists.');
 
                 return false;
             }
@@ -205,7 +205,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     {
         $directoryName = \StringHelper::camel2Spinal(\StringHelper::pluralize($name));
 
-        return $this->laravel['path'] . '/../resources/views/pages/admin/' . $directoryName . '/' . $type . '.blade.php';
+        return $this->laravel['path'].'/../resources/views/pages/admin/'.$directoryName.'/'.$type.'.blade.php';
     }
 
     /**
@@ -214,7 +214,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
      */
     protected function getStubForView($type)
     {
-        return __DIR__ . '/stubs/admin-crud-view-' . $type . '.stub';
+        return __DIR__.'/stubs/admin-crud-view-'.$type.'.stub';
     }
 
     /**
@@ -227,7 +227,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
         $routes = $this->files->get($this->getRoutesPath());
         $key = '/* NEW ADMIN RESOURCE ROUTE */';
-        $route = 'Route::resource(\'' . $directoryName . '\', \'Admin\\' . $name . 'Controller\');' . PHP_EOL . '        ' . $key;
+        $route = 'Route::resource(\''.$directoryName.'\', \'Admin\\'.$name.'Controller\');'.PHP_EOL.'        '.$key;
         $routes = str_replace($key, $route, $routes);
         $this->files->put($this->getRoutesPath(), $routes);
 
@@ -236,7 +236,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
     protected function getRoutesPath()
     {
-        return $this->laravel['path'] . '/Http/routes.php';
+        return $this->laravel['path'].'/Http/routes.php';
     }
 
     protected function generateLanguageFile($name)
@@ -247,11 +247,11 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
         $key = '/* NEW PAGE STRINGS */';
 
         $columns = $this->getColumns($name);
-        $data = "'" . $directoryName . "'   => [" . PHP_EOL . "            'columns'  => [" . PHP_EOL;
+        $data = "'".$directoryName."'   => [".PHP_EOL."            'columns'  => [".PHP_EOL;
         foreach ($columns as $column) {
-            $data .= "                '" . $column . "' => ''," . PHP_EOL;
+            $data .= "                '".$column."' => '',".PHP_EOL;
         }
-        $data .= "            ]," . PHP_EOL . "        ]," . PHP_EOL . '        ' . $key;
+        $data .= "            ],".PHP_EOL."        ],".PHP_EOL.'        '.$key;
 
 
         $languages = str_replace($key, $data, $languages);
@@ -263,14 +263,14 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
     protected function getLanguageFilePath()
     {
-        return $this->laravel['path'] . '/../resources/lang/en/admin.php';
+        return $this->laravel['path'].'/../resources/lang/en/admin.php';
     }
 
     protected function generateUnitTest($name)
     {
         $path = $this->getUnitTestPath($name);
         if ($this->alreadyExists($path)) {
-            $this->error($path . ' already exists.');
+            $this->error($path.' already exists.');
 
             return false;
         }
@@ -290,7 +290,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
      */
     protected function getUnitTestPath($name)
     {
-        return $this->laravel['path'] . '/../tests/Controllers/Admin/' . $name . 'ControllerTest.php';
+        return $this->laravel['path'].'/../tests/Controllers/Admin/'.$name.'ControllerTest.php';
     }
 
     /**
@@ -298,7 +298,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
      */
     protected function getStubForUnitTest()
     {
-        return __DIR__ . '/stubs/admin-crud-controller-unittest.stub';
+        return __DIR__.'/stubs/admin-crud-controller-unittest.stub';
     }
 
 }

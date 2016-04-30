@@ -25,12 +25,9 @@ class RepositoryMakeCommand extends GeneratorCommandBase
 
     protected function generate($name)
     {
-        if (!$this->generateInterface($name)) {
-            return false;
-        }
-        if (!$this->generateRepository($name)) {
-            return false;
-        }
+        $this->generateInterface($name);
+        $this->generateRepository($name);
+        $this->generateUnitTest($name);
 
         return $this->bindInterface($name);
     }
@@ -140,6 +137,52 @@ class RepositoryMakeCommand extends GeneratorCommandBase
         return $this->laravel['path'] . '/Providers/RepositoryBindServiceProvider.php';
     }
 
+    protected function generateUnitTest($name)
+    {
+        $className = $this->getClassName($name);
+
+        $path = $this->getUnitTestPath($name);
+        if ($this->alreadyExists($path)) {
+            $this->error($path . ' already exists.');
+
+            return false;
+        }
+
+        $this->makeDirectory($path);
+
+        $stub = $this->files->get($this->getStubForUnitTest());
+
+        $model = $this->getModelClass($className);
+
+        $this->replaceTemplateVariable($stub, 'MODEL', $model);
+        $this->replaceTemplateVariable($stub, 'model', strtolower(substr($model, 0, 1)) . substr($model, 1));
+        $this->replaceTemplateVariable($stub, 'models',
+            \StringHelper::pluralize(strtolower(substr($model, 0, 1)) . substr($model, 1)));
+
+        $this->files->put($path, $stub);
+
+        return true;
+    }
+
+    /**
+     * @param  string $name
+     * @return string
+     */
+    protected function getUnitTestPath($name)
+    {
+        $className = $this->getClassName($name);
+
+        return $this->laravel['path'] . '/../tests/Repositories/' . $className . 'Test.php';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getStubForUnitTest()
+    {
+        return __DIR__ . '/stubs/single-key-model-repository-unittest.stub';
+    }
+
     /**
      * Get the default namespace for the class.
      *
@@ -152,7 +195,7 @@ class RepositoryMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string           $className
+     * @param  string $className
      * @return \App\Models\Base
      */
     protected function getModel($className)
@@ -160,6 +203,17 @@ class RepositoryMakeCommand extends GeneratorCommandBase
         $modelName = str_replace("Repository", "", $className);
 
         return "\\App\\Models\\" . $modelName;
+    }
+
+    /**
+     * @param  string $className
+     * @return \App\Models\Base
+     */
+    protected function getModelClass($className)
+    {
+        $modelName = str_replace("Repository", "", $className);
+
+        return $modelName;
     }
 
 }

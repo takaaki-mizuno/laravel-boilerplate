@@ -1,0 +1,84 @@
+<?php namespace Tests\Repositories;
+
+use App\Models\%%MODEL%%;
+use Tests\TestCase;
+
+class %%MODEL%%RepositoryTest extends TestCase
+{
+    protected $useDatabase = true;
+
+    public function testGetInstance()
+    {
+        /** @var  \App\Repositories\%%MODEL%%RepositoryInterface $repository */
+        $repository = \App::make(\App\Repositories\%%MODEL%%RepositoryInterface::class);
+        $this->assertNotNull($repository);
+    }
+
+    public function testGetList()
+    {
+        $%%models%% = factory(%%MODEL%%::class, 3)->create();
+        $%%model%%Ids = $%%models%%->pluck('id')->toArray();
+
+        /** @var  \App\Repositories\%%MODEL%%RepositoryInterface $repository */
+        $repository = \App::make(\App\Repositories\%%MODEL%%RepositoryInterface::class);
+        $this->assertNotNull($repository);
+
+        $%%models%%Check = $repository->get('id', 'asc', 0, 1);
+        $this->assertInstanceOf(%%MODEL%%::class, $%%models%%Check[0]);
+
+        $%%models%%Check = $repository->getByIds($%%model%%Ids);
+        $this->assertEquals(3, count($%%models%%Check));
+    }
+
+    public function testFind()
+    {
+        $%%models%% = factory(%%MODEL%%::class, 3)->create();
+        $%%model%%Ids = $%%models%%->pluck('id')->toArray();
+
+        /** @var  \App\Repositories\%%MODEL%%RepositoryInterface $repository */
+        $repository = \App::make(\App\Repositories\%%MODEL%%RepositoryInterface::class);
+        $this->assertNotNull($repository);
+
+        $%%model%%Check = $repository->find($%%model%%Ids[0]);
+        $this->assertEquals($%%model%%Ids[0], $%%model%%Check->id);
+    }
+
+    public function testCreate()
+    {
+        $%%model%%Data = factory(%%MODEL%%::class)->make();
+
+        /** @var  \App\Repositories\%%MODEL%%RepositoryInterface $repository */
+        $repository = \App::make(\App\Repositories\%%MODEL%%RepositoryInterface::class);
+        $this->assertNotNull($repository);
+
+        $%%model%%Check = $repository->create($%%model%%Data->toArray());
+        $this->assertNotNull($%%model%%Check);
+    }
+
+    public function testUpdate()
+    {
+        $%%model%%Data = factory(%%MODEL%%::class)->create();
+
+        /** @var  \App\Repositories\%%MODEL%%RepositoryInterface $repository */
+        $repository = \App::make(\App\Repositories\%%MODEL%%RepositoryInterface::class);
+        $this->assertNotNull($repository);
+
+        $%%model%%Check = $repository->update($%%model%%Data, $%%model%%Data->toArray());
+        $this->assertNotNull($%%model%%Check);
+    }
+
+    public function testDelete()
+    {
+        $%%model%%Data = factory(%%MODEL%%::class)->create();
+
+        /** @var  \App\Repositories\%%MODEL%%RepositoryInterface $repository */
+        $repository = \App::make(\App\Repositories\%%MODEL%%RepositoryInterface::class);
+        $this->assertNotNull($repository);
+
+        $repository->delete($%%model%%Data);
+
+        $%%model%%Check = $repository->find($%%model%%Data->id);
+        $this->assertNull($%%model%%Check);
+    }
+
+}

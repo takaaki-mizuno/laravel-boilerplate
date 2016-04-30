@@ -1,6 +1,5 @@
 <?php namespace Tests;
 
-
 abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
 
@@ -32,6 +31,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
     {
         parent::setUp();
         if ($this->useDatabase) {
+            \DB::disableQueryLog();
             $this->artisan('migrate');
             $this->artisan('db:seed');
         }

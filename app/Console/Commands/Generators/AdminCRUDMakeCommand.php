@@ -190,6 +190,10 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
             $stub = $this->files->get($this->getStubForView($type));
             $this->replaceTemplateVariables($stub, $name);
+            if ($type == 'edit') {
+                $inputs = $this->generateForm($name);
+                $this->replaceTemplateVariable($stub, 'FORM', $inputs);
+            }
             $this->files->put($path, $stub);
         }
 
@@ -259,6 +263,24 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
         return true;
 
+    }
+
+    protected function generateForm($name)
+    {
+        $columns = $this->getColumns($name);
+        $result = "";
+        foreach ($columns as $column) {
+            if ($column == 'id' || $column == 'is_enabled') {
+                continue;
+            }
+            $template = '                    <div class="form-group @if ($errors->has(\'%%column%%\')) has-error @endif">'.PHP_EOL.'                        <label for="%%column%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'.PHP_EOL.'                        <input type="text" class="form-control" id="%%column%%" name="%%column%%" value="{{ \Input::old(\'%%column%%\') ? \Input::old(\'%%column%%\') : $%%class%%->%%column%% }}">'.PHP_EOL.'                    </div>';
+            $this->replaceTemplateVariable($template, 'column', $column);
+            $this->replaceTemplateVariable($template, 'class', strtolower($name));
+            $this->replaceTemplateVariable($template, 'classes-spinal',
+                \StringHelper::camel2Spinal(\StringHelper::pluralize($name)));
+            $result = $result.PHP_EOL.$template.PHP_EOL;
+        }
+        return $result;
     }
 
     protected function getLanguageFilePath()

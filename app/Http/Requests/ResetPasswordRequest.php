@@ -1,6 +1,6 @@
 <?php namespace App\Http\Requests;
 
-class ResetPasswordRequest extends Request
+class ResetPasswordRequest extends BaseRequest
 {
 
     /**

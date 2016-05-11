@@ -1,8 +1,6 @@
-<?php namespace App\Http\Requests\Admin;
+<?php namespace App\Http\Requests;
 
-use App\Http\Requests\BaseRequest;
-
-class UserRequest extends BaseRequest
+class BaseRequest extends Request
 {
 
     /**
@@ -23,17 +21,15 @@ class UserRequest extends BaseRequest
     public function rules()
     {
         return [
-            'email'    => 'email',
-            'password' => 'min:6',
+            'email' => 'required|email',
         ];
     }
 
     public function messages()
     {
         return [
-            'email.email'  => '',
-            'password.min' => '',
+            'email.required' => '',
+            'email.email'    => '',
         ];
     }
-
 }

@@ -1,8 +1,8 @@
 <?php namespace App\Http\Requests\Admin;
 
-use App\Http\Requests\Request;
+use App\Http\Requests\BaseRequest;
 
-class PasswordRequest extends Request
+class PasswordRequest extends BaseRequest
 {
 
     /**

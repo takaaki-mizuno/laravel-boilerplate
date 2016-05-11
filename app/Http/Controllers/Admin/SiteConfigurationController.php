@@ -51,7 +51,7 @@ class SiteConfigurationController extends Controller
     public function create()
     {
         return view('pages.admin.site-configurations.edit', [
-            'isNew' => true,
+            'isNew'             => true,
             'siteConfiguration' => $this->siteConfigurationRepository->getBlankModel(),
         ]);
     }
@@ -64,15 +64,24 @@ class SiteConfigurationController extends Controller
      */
     public function store(SiteConfigurationRequest $request)
     {
-        $input = $request->only(['id','locale','name','title','keywords','description','ogp_image_id','twitter_card_image_id']);
+        $input = $request->only([
+            'id',
+            'locale',
+            'name',
+            'title',
+            'keywords',
+            'description',
+            'ogp_image_id',
+            'twitter_card_image_id',
+        ]);
         $model = $this->siteConfigurationRepository->create($input);
 
         if (empty( $model )) {
             return redirect()->back()->withErrors(\Lang::get('admin.errors.general.save_failed'));
         }
 
-        return redirect()->action('Admin\SiteConfigurationController@index')
-            ->with('message-success', \Lang::get('admin.messages.general.create_success'));
+        return redirect()->action('Admin\SiteConfigurationController@index')->with('message-success',
+                \Lang::get('admin.messages.general.create_success'));
     }
 
     /**
@@ -89,7 +98,7 @@ class SiteConfigurationController extends Controller
         }
 
         return view('pages.admin.site-configurations.edit', [
-            'isNew' => false,
+            'isNew'             => false,
             'siteConfiguration' => $model,
         ]);
     }
@@ -119,11 +128,20 @@ class SiteConfigurationController extends Controller
         if (empty( $model )) {
             \App::abort(404);
         }
-        $input = $request->only(['id','locale','name','title','keywords','description','ogp_image_id','twitter_card_image_id']);
+        $input = $request->only([
+            'id',
+            'locale',
+            'name',
+            'title',
+            'keywords',
+            'description',
+            'ogp_image_id',
+            'twitter_card_image_id',
+        ]);
         $this->siteConfigurationRepository->update($model, $input);
 
-        return redirect()->action('Admin\SiteConfigurationController@show', [$id])
-                    ->with('message-success', \Lang::get('admin.messages.general.update_success'));
+        return redirect()->action('Admin\SiteConfigurationController@show', [$id])->with('message-success',
+                \Lang::get('admin.messages.general.update_success'));
     }
 
     /**
@@ -141,8 +159,8 @@ class SiteConfigurationController extends Controller
         }
         $this->siteConfigurationRepository->delete($model);
 
-        return redirect()->action('Admin\SiteConfigurationController@index')
-                    ->with('message-success', \Lang::get('admin.messages.general.delete_success'));
+        return redirect()->action('Admin\SiteConfigurationController@index')->with('message-success',
+                \Lang::get('admin.messages.general.delete_success'));
     }
 
 }

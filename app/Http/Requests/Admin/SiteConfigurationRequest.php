@@ -1,9 +1,9 @@
 <?php namespace App\Http\Requests\Admin;
 
-use App\Http\Requests\Request;
+use App\Http\Requests\BaseRequest;
 use App\Repositories\SiteConfigurationRepositoryInterface;
 
-class SiteConfigurationRequest extends Request
+class SiteConfigurationRequest extends BaseRequest
 {
 
     /** @var \App\Repositories\SiteConfigurationRepositoryInterface */

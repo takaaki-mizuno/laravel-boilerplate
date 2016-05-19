@@ -56,6 +56,11 @@ interface BaseRepositoryInterface
     public function count();
 
     /**
+     * @return integer
+     */
+    public function countEnabled();
+
+    /**
      * @return string
      */
     public function getModelClassName();

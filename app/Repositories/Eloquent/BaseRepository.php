@@ -92,6 +92,13 @@ class BaseRepository implements BaseRepositoryInterface
         return $model::count();
     }
 
+    public function countEnabled()
+    {
+        $model = $this->getModelClassName();
+
+        return $model::where('is_enabled', '=', true)->count();
+    }
+
     public function getAPIArray($models)
     {
         $ret = [];

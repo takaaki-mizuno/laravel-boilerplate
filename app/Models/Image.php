@@ -1,7 +1,6 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Presenters\ImagePresenter;
 
 /**
  * App\Models\Image
@@ -102,10 +101,7 @@ class Image extends Base
 
     protected $dates  = ['deleted_at'];
 
-    public function getPresenterClass()
-    {
-        return ImagePresenter::class;
-    }
+    protected $presenter = 'App\Presenters\ImagePresenter';
 
     // Relations
 

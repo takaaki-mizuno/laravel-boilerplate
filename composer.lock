@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4d8cd7d363f85c62cb23d3af6b68321f",
-    "content-hash": "da5b6b8647b5f30759df5281dae61519",
+    "hash": "8a03aa28500808e4cbdaab8b85125328",
+    "content-hash": "80d224c1b8dd3a1a66b44a74f8eeea9c",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -139,6 +139,49 @@
                 "sdk"
             ],
             "time": "2016-01-13 02:19:36"
+        },
+        {
+            "name": "caffeinated/presenter",
+            "version": "v2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/caffeinated/presenter.git",
+                "reference": "effae70c5f0506d54c89d973700c9ee7748616bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/caffeinated/presenter/zipball/effae70c5f0506d54c89d973700c9ee7748616bb",
+                "reference": "effae70c5f0506d54c89d973700c9ee7748616bb",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.1.*|5.2.*",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Caffeinated\\Presenter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shea Lewis",
+                    "email": "shea.lewis89@gmail.com"
+                }
+            ],
+            "description": "Laravel 5 View Presenters",
+            "keywords": [
+                "caffeinated",
+                "laravel",
+                "presenter",
+                "view"
+            ],
+            "time": "2016-02-25 22:12:28"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -1231,68 +1274,6 @@
                 "slack"
             ],
             "time": "2015-06-03 03:35:16"
-        },
-        {
-            "name": "mccool/laravel-auto-presenter",
-            "version": "4.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel-auto-presenter/laravel-auto-presenter.git",
-                "reference": "08ce32a41aa5d6c842b4cc19ae442e211cb3dd96"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel-auto-presenter/laravel-auto-presenter/zipball/08ce32a41aa5d6c842b4cc19ae442e211cb3dd96",
-                "reference": "08ce32a41aa5d6c842b4cc19ae442e211cb3dd96",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/container": "5.1.*|5.2.*|5.3.*",
-                "illuminate/contracts": "5.1.*|5.2.*|5.3.*",
-                "illuminate/events": "5.1.*|5.2.*|5.3.*",
-                "illuminate/pagination": "5.1.*|5.2.*|5.3.*",
-                "illuminate/support": "5.1.*|5.2.*|5.3.*",
-                "illuminate/view": "5.1.*|5.2.*|5.3.*",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "graham-campbell/testbench": "^3.1",
-                "mockery/mockery": "^0.9.4",
-                "phpunit/phpunit": "^4.8|^5.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "McCool\\LaravelAutoPresenter\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Shawn McCool",
-                    "email": "shawn@heybigname.com"
-                },
-                {
-                    "name": "Graham Campbell",
-                    "email": "graham@alt-three.com"
-                }
-            ],
-            "description": "A system for auto-decorating models with presenter objects.",
-            "keywords": [
-                "eloquent",
-                "laravel",
-                "lpm",
-                "presenter"
-            ],
-            "time": "2016-05-01 15:29:13"
         },
         {
             "name": "monolog/monolog",

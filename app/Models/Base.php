@@ -1,16 +1,19 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use McCool\LaravelAutoPresenter\HasPresenter;
-use App\Presenters\BasePresenter;
+use Caffeinated\Presenter\Traits\PresentableTrait;
 
 /**
  * App\Models\Base
  *
  * @mixin \Eloquent
  */
-class Base extends Model implements HasPresenter
+class Base extends Model
 {
+
+    use PresentableTrait;
+
+    protected $presenter = 'App\Presenters\BasePresenter';
 
     /**
      * @return string
@@ -52,11 +55,6 @@ class Base extends Model implements HasPresenter
     public function toAPIArray()
     {
         return [];
-    }
-
-    public function getPresenterClass()
-    {
-        return BasePresenter::class;
     }
 
     public function getFillableColumns()

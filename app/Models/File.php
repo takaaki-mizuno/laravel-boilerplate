@@ -1,7 +1,6 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Presenters\FilePresenter;
 
 /**
  * App\Models\File
@@ -84,10 +83,7 @@ class File extends Base
 
     protected $dates  = ['deleted_at'];
 
-    public function getPresenterClass()
-    {
-        return FilePresenter::class;
-    }
+    protected $presenter = 'App\Presenters\FilePresenter';
 
     /*
      * API Presentation

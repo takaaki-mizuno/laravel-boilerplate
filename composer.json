@@ -16,7 +16,7 @@
     "abraham/twitteroauth": "0.6.*",
     "maknz/slack": "^1.7",
     "icanboogie/inflector": "^1.4",
-    "mccool/laravel-auto-presenter": "^4.2",
+    "caffeinated/presenter": "~2.0",
     "laravel/socialite": "^2.0",
     "google/apiclient": "1.*"
   },

@@ -1,13 +1,7 @@
 <?php namespace App\Presenters;
 
-use App\Models\Base;
-use McCool\LaravelAutoPresenter\BasePresenter as OriginalBasePresenter;
+use Caffeinated\Presenter\Presenter;
 
-class BasePresenter extends OriginalBasePresenter
+class BasePresenter extends Presenter
 {
-    public function __construct(Base $resource)
-    {
-        $this->wrappedObject = $resource;
-    }
-
 }

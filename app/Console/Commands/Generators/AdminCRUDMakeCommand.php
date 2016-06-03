@@ -231,7 +231,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
         $routes = $this->files->get($this->getRoutesPath());
         $key = '/* NEW ADMIN RESOURCE ROUTE */';
-        $route = 'Route::resource(\''.$directoryName.'\', \'Admin\\'.$name.'Controller\');'.PHP_EOL.'                '.$key;
+        $route = '\\Route::resource(\''.$directoryName.'\', \'Admin\\'.$name.'Controller\');'.PHP_EOL.'                '.$key;
         $routes = str_replace($key, $route, $routes);
         $this->files->put($this->getRoutesPath(), $routes);
 

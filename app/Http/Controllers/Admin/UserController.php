@@ -36,12 +36,15 @@ class UserController extends Controller
         $limit = $request->limit();
 
         $users = $this->userRepository->get('id', 'desc', $offset, $limit);
+        $count = $this->userRepository->count();
 
         return view('pages.admin.users.index', [
-            'users'  => $users,
-            'offset' => $offset,
-            'limit'  => $limit,
-            'menu'   => 'user',
+            'users'   => $users,
+            'offset'  => $offset,
+            'limit'   => $limit,
+            'count'   => $count,
+            'baseUrl' => \URL::action('Admin\UserController@index'),
+            'menu'    => 'user',
         ]);
     }
 

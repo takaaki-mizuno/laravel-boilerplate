@@ -42,11 +42,14 @@ class AdminUserController extends Controller
         $limit = $request->limit();
 
         $adminUsers = $this->adminUserRepository->get('id', 'desc', $offset, $limit);
+        $count = $this->adminUserRepository->count();
 
         return view('pages.admin.admin-users.index', [
             'adminUsers' => $adminUsers,
             'offset'     => $offset,
             'limit'      => $limit,
+            'count'      => $count,
+            'baseUrl'    => \URL::action('Admin\AdminUserController@index'),
             'menu'       => 'admin_user',
         ]);
     }

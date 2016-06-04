@@ -23,7 +23,6 @@ class Admin extends BaseRoute
                 \Route::resource('admin-users', 'Admin\AdminUserController');
                 \Route::resource('site-configurations', 'Admin\SiteConfigurationController');
                 /* NEW ADMIN RESOURCE ROUTE */
-
             });
         });
     }

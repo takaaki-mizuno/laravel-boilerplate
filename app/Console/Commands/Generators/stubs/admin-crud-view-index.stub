@@ -34,12 +34,14 @@
         <table class="table table-bordered">
             <tr>
                 <th style="width: 10px">ID</th>
+%%TABLE_HEADER%%
                 <th style="width: 40px">@lang('admin.pages.%%classes-spinal%%.columns.is_enabled')</th>
                 <th style="width: 40px">&nbsp;</th>
             </tr>
             @foreach( $models as $model )
                 <tr>
                     <td>{{ $model->id }}</td>
+%%TABLE_CONTENT%%
                     <td>
                         @if( $model->is_enabled )
                             <span class="badge bg-green">@lang('admin.pages.%%classes-spinal%%.columns.is_enabled_true')</span>

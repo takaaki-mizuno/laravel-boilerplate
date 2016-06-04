@@ -44,7 +44,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
         }
 
-        if( !$this->addItemToSubMenu($modelName) ) {
+        if (!$this->addItemToSubMenu($modelName)) {
 
         }
         $this->generateLanguageFile($modelName);
@@ -110,7 +110,8 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
         $this->replaceTemplateVariable($stub, 'classes', \StringHelper::pluralize(strtolower($modelName)));
         $this->replaceTemplateVariable($stub, 'classes-spinal',
             \StringHelper::camel2Spinal(\StringHelper::pluralize($modelName)));
-
+        $this->replaceTemplateVariable($stub, 'classes-snake',
+            \StringHelper::camel2Snake(\StringHelper::pluralize($modelName)));
         $columns = $this->getColumns($modelName);
         $list = join(',', array_map(function ($name) {
             return "'".$name."'";
@@ -180,7 +181,6 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
      */
     protected function generateViews($name)
     {
-
         foreach (['index', 'edit'] as $type) {
             $path = $this->getViewPath($name, $type);
             if ($this->alreadyExists($path)) {
@@ -192,12 +192,29 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
             $this->makeDirectory($path);
 
             $stub = $this->files->get($this->getStubForView($type));
-            $this->replaceTemplateVariables($stub, $name);
-            if ($type == 'edit') {
+            if ($type == 'index') {
+                $tableHeader = "";
+                $tableContent = "";
+                $columns = $this->getColumns($name);
+                foreach ($columns as $column) {
+                    if ($column == 'id' || $column == 'is_enabled') {
+                        continue;
+                    }
+                    $tableHeader .= '                <th>@lang(\'admin.pages.%%classes-spinal%%.columns.'.$column.'\')</th>'.PHP_EOL;
+                    $tableContent .= '                <td>{{ $model->'.$column.' }}</td>'.PHP_EOL;
+                }
+                $this->replaceTemplateVariable($stub, 'TABLE_HEADER', $tableHeader);
+                $this->replaceTemplateVariable($stub, 'TABLE_CONTENT', $tableContent);
+
+            } elseif ($type == 'edit') {
                 $inputs = $this->generateForm($name);
                 $this->replaceTemplateVariable($stub, 'FORM', $inputs);
             }
+
+            $this->replaceTemplateVariables($stub, $name);
             $this->files->put($path, $stub);
+
+
         }
 
         return true;
@@ -208,7 +225,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
         $sideMenu = $this->files->get($this->getSideBarViewPath());
 
-        $value = '<li><a href=\"{!! URL::action(\'Admin\\'.$name.'Controller@index\') !!}\"><i class="fa fa-users"></i> <span>'.\StringHelper::pluralize($name).'</span></a></li>'.PHP_EOL.'            <!-- %%SIDEMENU%% -->';
+        $value = '<li><a href="{!! URL::action(\'Admin\\'.$name.'Controller@index\') !!}"><i class="fa fa-users"></i> <span>'.\StringHelper::pluralize($name).'</span></a></li>'.PHP_EOL.'            <!-- %%SIDEMENU%% -->';
 
         $sideMenu = str_replace('<!-- %%SIDEMENU%% -->', $value, $sideMenu);
         $this->files->put($this->getSideBarViewPath(), $sideMenu);

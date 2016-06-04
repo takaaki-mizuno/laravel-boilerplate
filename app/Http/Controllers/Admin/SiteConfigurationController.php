@@ -40,7 +40,6 @@ class SiteConfigurationController extends Controller
             'offset'  => $offset,
             'limit'   => $limit,
             'baseUrl' => \URL::action('Admin\SiteConfigurationController@index'),
-            'menu'    => 'sitemap_configuration',
         ]);
     }
 
@@ -54,7 +53,6 @@ class SiteConfigurationController extends Controller
         return view('pages.admin.site-configurations.edit', [
             'isNew'             => true,
             'siteConfiguration' => $this->siteConfigurationRepository->getBlankModel(),
-            'menu'              => 'sitemap_configuration',
         ]);
     }
 
@@ -102,7 +100,6 @@ class SiteConfigurationController extends Controller
         return view('pages.admin.site-configurations.edit', [
             'isNew'             => false,
             'siteConfiguration' => $model,
-            'menu'              => 'sitemap_configuration',
         ]);
     }
 

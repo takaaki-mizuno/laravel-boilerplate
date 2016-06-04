@@ -40,7 +40,6 @@ class %%CLASS%%Controller extends Controller
             'offset'  => $offset,
             'limit'   => $limit,
             'baseUrl' => \URL::action('Admin\%%CLASS%%Controller@index'),
-            'menu'    => '%%classes-snake%%',
         ]);
     }
 
@@ -54,7 +53,6 @@ class %%CLASS%%Controller extends Controller
         return view('pages.admin.%%classes-spinal%%.edit', [
             'isNew'     => true,
             '%%class%%' => $this->%%class%%Repository->getBlankModel(),
-            'menu'      => '%%classes-snake%%',
         ]);
     }
 
@@ -94,7 +92,6 @@ class %%CLASS%%Controller extends Controller
         return view('pages.admin.%%classes-spinal%%.edit', [
             'isNew' => false,
             '%%class%%' => $model,
-            'menu'  => '%%classes-snake%%',
         ]);
     }
 

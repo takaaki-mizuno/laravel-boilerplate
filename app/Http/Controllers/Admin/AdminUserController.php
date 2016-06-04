@@ -50,7 +50,6 @@ class AdminUserController extends Controller
             'limit'      => $limit,
             'count'      => $count,
             'baseUrl'    => \URL::action('Admin\AdminUserController@index'),
-            'menu'       => 'admin_user',
         ]);
     }
 
@@ -63,7 +62,6 @@ class AdminUserController extends Controller
 
         return view('pages.admin.admin-users.edit', [
             'adminUser' => $adminUser,
-            'menu'      => 'admin_user',
         ]);
     }
 

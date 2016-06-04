@@ -1,4 +1,4 @@
-@extends('layouts.admin.application' )
+@extends('layouts.admin.application', ['menu' => 'admin_users'] )
 
 @section('metadata')
 @stop

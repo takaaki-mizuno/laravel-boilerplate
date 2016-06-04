@@ -31,6 +31,7 @@ class SetDefaultValues
     {
         $user = $this->adminUserService->getUser();
         \View::share('authUser', $user);
+        \View::share('menu', '');
 
         return $next($request);
     }

@@ -44,6 +44,9 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
         }
 
+        if( !$this->addItemToSubMenu($modelName) ) {
+
+        }
         $this->generateLanguageFile($modelName);
 
 
@@ -198,6 +201,22 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
         }
 
         return true;
+    }
+
+    protected function addItemToSubMenu($name)
+    {
+
+        $sideMenu = $this->files->get($this->getSideBarViewPath());
+
+        $value = '<li><a href=\"{!! URL::action(\'Admin\\'.$name.'Controller@index\') !!}\"><i class="fa fa-users"></i> <span>'.\StringHelper::pluralize($name).'</span></a></li>'.PHP_EOL.'            <!-- %%SIDEMENU%% -->';
+
+        $sideMenu = str_replace('<!-- %%SIDEMENU%% -->', $value, $sideMenu);
+        $this->files->put($this->getSideBarViewPath(), $sideMenu);
+    }
+
+    protected function getSideBarViewPath()
+    {
+        return $this->laravel['path'].'/../resources/views/layouts/admin/side_menu.blade.php';
     }
 
     /**

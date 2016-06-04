@@ -41,18 +41,20 @@ class UserController extends Controller
             'users'  => $users,
             'offset' => $offset,
             'limit'  => $limit,
+            'menu'   => 'user',
         ]);
     }
 
     public function show($id)
     {
         $user = $this->userRepository->find($id);
-        if (empty($user)) {
+        if (empty( $user )) {
             abort(404);
         }
 
         return view('pages.admin.users.edit', [
             'user' => $user,
+            'menu' => 'user',
         ]);
     }
 
@@ -72,7 +74,7 @@ class UserController extends Controller
     public function update($id, UserRequest $request)
     {
         $user = $this->userRepository->find($id);
-        if (empty($user)) {
+        if (empty( $user )) {
             abort(404);
         }
 
@@ -85,10 +87,11 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = $this->userRepository->find($id);
-        if (empty($user)) {
+        if (empty( $user )) {
             abort(404);
         }
         $this->userRepository->delete($user);
+
         return redirect()->action('Admin\UserController@index')->with('message-success',
             \Lang::get('admin.messages.general.delete_success'));
     }

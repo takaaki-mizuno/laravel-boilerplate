@@ -47,18 +47,20 @@ class AdminUserController extends Controller
             'adminUsers' => $adminUsers,
             'offset'     => $offset,
             'limit'      => $limit,
+            'menu'       => 'admin_user',
         ]);
     }
 
     public function show($id)
     {
         $adminUser = $this->adminUserRepository->find($id);
-        if (empty($adminUser)) {
+        if (empty( $adminUser )) {
             abort(404);
         }
 
         return view('pages.admin.admin-users.edit', [
             'adminUser' => $adminUser,
+            'menu'      => 'admin_user',
         ]);
     }
 
@@ -75,7 +77,7 @@ class AdminUserController extends Controller
     public function update($id, AdminUserUpdateRequest $request)
     {
         $adminUser = $this->adminUserRepository->find($id);
-        if (empty($adminUser)) {
+        if (empty( $adminUser )) {
             abort(404);
         }
 
@@ -83,6 +85,6 @@ class AdminUserController extends Controller
         $this->adminUserRoleRepository->setAdminUserRoles($id, $request->input('role', []));
 
         return redirect()->action('Admin\AdminUserController@show', [$id])->with('message-success',
-                \Lang::get('admin.messages.general.update_success'));
+            \Lang::get('admin.messages.general.update_success'));
     }
 }

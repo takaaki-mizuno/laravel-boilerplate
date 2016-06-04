@@ -22,8 +22,6 @@ class Admin extends BaseRoute
                 \Route::resource('users', 'Admin\UserController');
                 \Route::resource('admin-users', 'Admin\AdminUserController');
                 \Route::resource('site-configurations', 'Admin\SiteConfigurationController');
-                \Route::resource('files', 'Admin\FileController');
-                \Route::resource('files', 'Admin\FileController');
                 /* NEW ADMIN RESOURCE ROUTE */
 
             });

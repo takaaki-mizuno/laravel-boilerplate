@@ -44,7 +44,6 @@ class UserController extends Controller
             'limit'   => $limit,
             'count'   => $count,
             'baseUrl' => \URL::action('Admin\UserController@index'),
-            'menu'    => 'user',
         ]);
     }
 
@@ -57,7 +56,6 @@ class UserController extends Controller
 
         return view('pages.admin.users.edit', [
             'user' => $user,
-            'menu' => 'user',
         ]);
     }
 

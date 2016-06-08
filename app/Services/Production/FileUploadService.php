@@ -3,6 +3,7 @@
 use App\Repositories\FileRepositoryInterface;
 use App\Repositories\ImageRepositoryInterface;
 use App\Services\FileUploadServiceInterface;
+use App\Services\ImageServiceInterface;
 use Aws\S3\S3Client;
 
 class FileUploadService extends BaseService implements FileUploadServiceInterface
@@ -16,13 +17,13 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
     /** @var \App\Repositories\ImageRepositoryInterface */
     protected $imageRepository;
 
-    /** @var \App\Services\ImageService */
+    /** @var \App\Services\ImageServiceInterface */
     protected $imageService;
 
     public function __construct(
         FileRepositoryInterface $fileRepository,
         ImageRepositoryInterface $imageRepository,
-        ImageService $imageService
+        ImageServiceInterface $imageService
     )
     {
         $this->fileRepository = $fileRepository;
@@ -31,8 +32,29 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
     }
 
     /**
-     * @param  int                                     $categoryType
-     * @param  int                                     $categorySubType
+     * @param  string                                  $categoryType
+     * @param  string                                  $categorySubType
+     * @param  string                                  $text
+     * @param  string                                  $mediaType
+     * @param  array                                   $metaInputs
+     * @return \App\Models\Image|\App\Models\File|null
+     */
+    public function uploadFromText($categoryType, $categorySubType, $text, $mediaType, $metaInputs)
+    {
+        $tempFile = tempnam(sys_get_temp_dir(), 'upload');
+        $handle = fopen($tempFile, "w");
+        fwrite($handle, $text);
+        fclose($handle);
+
+        $file = $this->upload($categoryType, $categorySubType, $tempFile, $mediaType, $metaInputs);
+
+        unlink($handle);
+        return $file;
+    }
+
+    /**
+     * @param  string                                  $categoryType
+     * @param  string                                  $categorySubType
      * @param  string                                  $path
      * @param  string                                  $mediaType
      * @param  array                                   $metaInputs

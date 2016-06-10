@@ -34,7 +34,6 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
             \DB::disableQueryLog();
             $this->artisan('migrate');
             $this->artisan('db:seed');
-            \DB::disconnect();
         }
     }
 
@@ -42,6 +41,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
     {
         if ($this->useDatabase) {
             $this->artisan('migrate:rollback');
+            \DB::disconnect();
         }
         parent::tearDown();
     }

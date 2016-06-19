@@ -18,6 +18,7 @@ class Admin extends BaseRoute
 
             \Route::group(['middleware' => ['admin.auth']], function () {
                 \Route::get('/', 'Admin\IndexController@index');
+                \Route::post('signout', 'Admin\AuthController@postSignOut');
 
                 \Route::resource('users', 'Admin\UserController');
                 \Route::resource('admin-users', 'Admin\AdminUserController');

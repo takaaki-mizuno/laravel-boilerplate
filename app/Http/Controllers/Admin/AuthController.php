@@ -31,4 +31,11 @@ class AuthController extends Controller
         return redirect()->action('Admin\IndexController@index');
     }
 
+    public function postSignOut()
+    {
+        $this->adminUserService->signOut();
+
+        return redirect()->action('Admin\AuthController@getSignIn');
+    }
+
 }

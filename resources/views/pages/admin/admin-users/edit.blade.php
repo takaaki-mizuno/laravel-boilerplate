@@ -19,7 +19,7 @@ Edit Admin Users
 
 @section('content')
     <form class="form-horizontal"
-          @if( $isNew )
+    @if( $isNew )
         action="{!! \URL::action('Admin\AdminUserController@store') !!}" method="POST" enctype="multipart/form-data">
     @else
         action="{!! \URL::action('Admin\AdminUserController@update', [$adminUser->id]) !!}" method="post">

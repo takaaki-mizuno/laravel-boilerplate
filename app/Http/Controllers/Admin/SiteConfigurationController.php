@@ -65,7 +65,6 @@ class SiteConfigurationController extends Controller
     public function store(SiteConfigurationRequest $request)
     {
         $input = $request->only([
-            'id',
             'locale',
             'name',
             'title',

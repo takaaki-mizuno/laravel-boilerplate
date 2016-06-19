@@ -61,18 +61,34 @@ class AdminUserController extends Controller
         }
 
         return view('pages.admin.admin-users.edit', [
+            'isNew'     => false,
             'adminUser' => $adminUser,
         ]);
     }
 
     public function create()
     {
+        return view('pages.admin.admin-users.edit', [
+            'isNew'     => true,
+            'adminUser' => $this->adminUserRepository->getBlankModel(),
+        ]);
 
     }
 
     public function store(AdminUserUpdateRequest $request)
     {
 
+        $input = $request->only([
+            'name',
+            'email',
+            'password',
+        ]);
+
+        $adminUser = $this->adminUserRepository->create($input);
+        $this->adminUserRoleRepository->setAdminUserRoles($adminUser->id, $request->input('role', []));
+
+        return redirect()->action('Admin\AdminUserController@show', [$adminUser->id])->with('message-success',
+            \Lang::get('admin.messages.general.create_success'));
     }
 
     public function update($id, AdminUserUpdateRequest $request)

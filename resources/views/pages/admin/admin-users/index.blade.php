@@ -22,7 +22,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">
                 <p class="text-right">
-                    <a href="{!! URL::action('Admin\SiteConfigurationController@create') !!}"
+                    <a href="{!! URL::action('Admin\AdminUserController@create') !!}"
                        class="btn btn-block btn-primary btn-sm">@lang('admin.pages.common.buttons.create')</a>
                 </p>
             </h3>

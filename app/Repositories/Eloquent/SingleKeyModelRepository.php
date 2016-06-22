@@ -56,7 +56,7 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
             $map[$model->id] = $model;
         }
         foreach( $ids as $id ) {
-            $mddel = $map[$id];
+            $model = $map[$id];
             if( !empty($model) ) {
                 $result->push($model);
             }

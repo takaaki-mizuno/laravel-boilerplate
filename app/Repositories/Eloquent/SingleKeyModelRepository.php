@@ -30,7 +30,7 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         }
     }
 
-    public function allByIds($ids, $order = null, $direction = null)
+    public function allByIds($ids, $order = null, $direction = null, $reorder = false)
     {
         if (count($ids) == 0) {
             return $this->getEmptyList();
@@ -44,7 +44,24 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
             $query = $query->orderBy($order, $direction);
         }
 
-        return $query->get();
+        $models = $query->get();
+
+        if( !$reorder ) {
+            return $models;
+        }
+
+        $result = $this->getEmptyList();
+        $map = [];
+        foreach( $models as $model ) {
+            $map[$model->id] = $model;
+        }
+        foreach( $ids as $id ) {
+            $mddel = $map[$id];
+            if( !empty($model) ) {
+                $result->push($model);
+            }
+        }
+        return $result;
     }
 
     public function countByIds($ids)

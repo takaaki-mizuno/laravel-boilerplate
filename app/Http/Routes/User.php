@@ -21,6 +21,9 @@ class User extends BaseRoute
                 \Route::get('reset-password/{token}', 'User\PasswordController@getResetPassword');
                 \Route::post('reset-password', 'User\PasswordController@postResetPassword');
 
+                \Route::get('signin', 'User\AuthController@getSignUp');
+                \Route::post('signin', 'User\AuthController@postSignUp');
+
             });
 
             \Route::group(['middleware' => ['user.auth']], function () {

@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\SignUpRequest;
 use App\Services\UserServiceInterface;
 use App\Http\Requests\User\SignInRequest;
 
@@ -30,4 +31,20 @@ class AuthController extends Controller
 
         return redirect()->intended(\URL::action('User\IndexController@index'));
    }
+
+    public function getSignUp()
+    {
+        return view('pages.user.auth.signup', [
+        ]);
+    }
+
+    public function postSignUp(SignUpRequest $request)
+    {
+        $user = $this->userService->signUp($request->all());
+        if (empty($user)) {
+            return redirect()->action('User\AuthController@getSignUp');
+        }
+
+        return redirect()->intended(\URL::action('User\IndexController@index'));
+    }
 }

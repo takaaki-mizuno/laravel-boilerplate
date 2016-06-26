@@ -37,6 +37,11 @@ class HelperBindServiceProvider extends ServiceProvider
 
         $this->app->singleton('App\Helpers\StringHelperInterface', 'App\Helpers\Production\StringHelper');
 
+        $this->app->singleton(
+            'App\Helpers\PaginationHelperInterface',
+            'App\Helpers\Production\PaginationHelper'
+        );
+
         /* NEW BINDING */
     }
 }

@@ -231,6 +231,7 @@ return [
         'URLHelper'             => App\Facades\URLHelper::class,
         'CollectionHelper'      => App\Facades\CollectionHelper::class,
         'StringHelper'          => App\Facades\StringHelper::class,
+        'PaginationHelper'      => App\Facades\PaginationHelper::class,
         /* NEW FACADE */
     ],
 

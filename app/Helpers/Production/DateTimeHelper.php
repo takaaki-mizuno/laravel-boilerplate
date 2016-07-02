@@ -93,4 +93,7 @@ class DateTimeHelper implements DateTimeHelperInterface
         return $viewDateTime->format($format);
     }
 
+    public function getDateFormatByLocale($locale = null)
+    {
+    }
 }

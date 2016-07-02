@@ -79,4 +79,10 @@ interface DateTimeHelperInterface
      * @return string
      */
     public function formatDateTime($dateTime, $format = "Y-m-d H:i", \DateTimeZone $timezone = null);
+
+    /**
+     * @param  string $locale
+     * @return string
+     */
+    public function getDateFormatByLocale($locale = null);
 }

@@ -5,7 +5,6 @@ return [
         'languages' => [
             'en' => [
                 'name' => 'English',
-
             ],
             'ja' => [
                 'name' => 'Japanese',

@@ -1,7 +1,5 @@
 <?php namespace App\Console\Commands\Generators;
 
-use ICanBoogie\Inflector;
-
 class AdminCRUDMakeCommand extends GeneratorCommandBase
 {
     /**

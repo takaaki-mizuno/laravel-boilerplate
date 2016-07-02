@@ -18,6 +18,11 @@ Users
 @stop
 
 @section('content')
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            {!! \PaginationHelper::render($offset, $limit, $count, $baseUrl, []) !!}
+        </div>
+
     <div class="box-body no-padding">
         <table class="table">
             <tr>

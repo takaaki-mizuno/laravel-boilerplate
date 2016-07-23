@@ -162,6 +162,7 @@ return [
          *
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Dusterio\AwsWorker\Integrations\LaravelServiceProvider::class,
 
         /*
          * Application Service Providers...

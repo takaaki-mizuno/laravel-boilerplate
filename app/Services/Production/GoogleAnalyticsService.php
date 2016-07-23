@@ -1,10 +1,9 @@
-<?php namespace App\Services\Production;
+<?php
 
-use \App\Services\GoogleAnalyticsServiceInterface;
+namespace App\Services;
 
-class GoogleAnalyticsService extends BaseService implements GoogleAnalyticsServiceInterface
+class GoogleAnalyticsService
 {
-
     protected $service;
 
     public function __construct()
@@ -14,50 +13,40 @@ class GoogleAnalyticsService extends BaseService implements GoogleAnalyticsServi
 
     public function getService()
     {
-
-        if (!empty( $this->service )) {
+        if (!empty($this->service)) {
             return $this->service;
         }
 
         $client = new \Google_Client();
-        $client->setApplicationName(\Config::get('google.app_name'));
+        $client->setApplicationName(config('google.appName'));
+        $client->setAuthConfig(config('google.keyFileLocation'));
+        $client->setScopes([\Google_Service_Analytics::ANALYTICS_READONLY]);
         $analytics = new \Google_Service_Analytics($client);
-
-        $key = file_get_contents(\Config::get('google.key_file_location'));
-        $credential = new \Google_Auth_AssertionCredentials(\Config::get('google.service_account_email'),
-            [\Google_Service_Analytics::ANALYTICS_READONLY], $key);
-        $client->setAssertionCredentials($credential);
-        if ($client->getAuth()->isAccessTokenExpired()) {
-            $client->getAuth()->refreshTokenWithAssertion($credential);
-        }
-
         $this->service = $analytics;
 
         return $this->service;
     }
 
-    function getProfileIds()
+    public function getProfileIds()
     {
         $analytics = $this->getService();
 
+        /** @var \Google_Service_Analytics_Accounts $accounts */
         $accounts = $analytics->management_accounts->listManagementAccounts();
 
         $profileIds = [];
 
         foreach ($accounts->getItems() as $account) {
-
             $accountId = $account->getId();
             $properties = $analytics->management_webproperties->listManagementWebproperties($accountId);
 
             foreach ($properties->getItems() as $property) {
-
                 $propertyId = $property->getId();
 
                 $profiles = $analytics->management_profiles->listManagementProfiles($accountId, $propertyId);
 
                 foreach ($profiles->getItems() as $profile) {
                     $profileIds[] = $profile->getId();
-
                 }
             }
         }
@@ -65,32 +54,44 @@ class GoogleAnalyticsService extends BaseService implements GoogleAnalyticsServi
         return $profileIds;
     }
 
-    function getPageViews($profileId)
+    public function getPageViews($profileId)
     {
         $analytics = $this->getService();
 
-        $optParams = [
-            'dimensions'  => 'ga:pagePath',
-            'sort'        => '-ga:pageviews',
-            'max-results' => '1000',
-        ];
+        $startIndex = 1;
+        $finish = false;
+        $resultHash = [];
 
-        $result = $analytics->data_ga->get('ga:'.$profileId, '2015-01-01', 'today',
-            'ga:pageviews,ga:uniquePageviews,ga:timeOnPage,ga:bounces,ga:entrances,ga:exits', $optParams);
-        $rows = $result->rows;
-        $result = [];
-        foreach ($rows as $row) {
-            $result[ $row[0] ] = [
-                'pv'         => $row[1],
-                'uniquePv'   => $row[2],
-                'timeOnPage' => $row[3],
-                'bounce'     => $row[4],
-                'entrance'   => $row[5],
-                'exit'       => $row[6],
+        while (!$finish) {
+            $optParams = [
+                'dimensions'  => 'ga:pagePath',
+                'sort'        => '-ga:pageviews',
+                'max-results' => '10000',
+                'start-index' => $startIndex,
             ];
+
+            $result = $analytics->data_ga->get('ga:'.$profileId, '2014-01-01', 'today',
+                'ga:pageviews,ga:uniquePageviews,ga:timeOnPage,ga:bounces,ga:entrances,ga:exits', $optParams);
+            $rows = $result->rows;
+            if (count($rows) < 10000) {
+                $finish = true;
+            }
+            foreach ($rows as $row) {
+                $resultHash[$row[0]] = [
+                    'pv'         => $row[1],
+                    'uniquePv'   => $row[2],
+                    'timeOnPage' => $row[3],
+                    'bounce'     => $row[4],
+                    'entrance'   => $row[5],
+                    'exit'       => $row[6],
+                ];
+            }
+            $startIndex += 10000;
+            if ($startIndex > 100000) {
+                $finish = true;
+            }
         }
 
-        return $result;
+        return $resultHash;
     }
-
 }

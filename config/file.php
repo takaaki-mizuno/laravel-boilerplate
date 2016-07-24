@@ -16,7 +16,7 @@ return [
     ],
     'categories' => [
         'article-cover-image' => [
-            'name'         => 'cover-image',
+            'name'         => 'article-cover-image',
             'type'         => 'image',
             'region'       => env('AWS_IMAGE_REGION'),
             'buckets'      => [
@@ -36,7 +36,7 @@ return [
             'format'       => 'jpeg',
         ],
         'article-image' => [
-            'name'         => 'cover-image',
+            'name'         => 'article-image',
             'type'         => 'image',
             'region'       => env('AWS_IMAGE_REGION'),
             'buckets'      => [
@@ -48,5 +48,31 @@ return [
             'seedPrefix'   => 'article',
             'format'       => 'jpeg',
         ],
+        'ogp-image' => [
+            'name'         => 'ogp-image',
+            'type'         => 'image',
+            'region'       => env('AWS_IMAGE_REGION'),
+            'buckets'      => [
+                env('AWS_IMAGE_BUCKET'),
+            ],
+            'size'         => [1280, 628],
+            'thumbnails'   => [
+            ],
+            'seedPrefix'   => 'ogp',
+            'format'       => 'jpeg',
+        ],
+        'twitter-card-image' => [
+            'name'         => 'twitter-card-image',
+            'type'         => 'image',
+            'region'       => env('AWS_IMAGE_REGION'),
+            'buckets'      => [
+                env('AWS_IMAGE_BUCKET'),
+            ],
+            'size'         => [1024, 512],
+            'thumbnails'   => [
+            ],
+            'seedPrefix'   => 'twitter-card',
+            'format'       => 'jpeg',
+        ]
     ],
 ];

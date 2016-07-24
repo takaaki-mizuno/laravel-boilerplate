@@ -1,21 +1,25 @@
 $(function () {
     $('.delete-button').click(function () {
-        var self = $(this),
-            url = self.attr('data-delete-url');
+        if (window.confirm("Are you sure to delete this item ?") === true) {
 
-        $.ajax({
-            url: url,
-            method: 'DELETE',
-            data: {
-                '_token': Boilerplate.csrfToken
-            },
-            error: function (xhr, error) {
-                console.log(error);
-                self.loading = false;
-            },
-            success: function (response) {
-                location.reload();
-            }
-        });
+            var self = $(this),
+                url = self.attr('data-delete-url');
+
+            $.ajax({
+                url: url,
+                method: 'DELETE',
+                data: {
+                    '_token': Boilerplate.csrfToken
+                },
+                error: function (xhr, error) {
+                    console.log(error);
+                    self.loading = false;
+                    location.reload();
+                },
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        }
     });
 });

@@ -48,14 +48,13 @@ return [
         ],
         'site-configurations' => [
             'columns' => [
-                'id'                    => '',
-                'locale'                => '',
-                'name'                  => '',
-                'title'                 => '',
-                'keywords'              => '',
-                'description'           => '',
-                'ogp_image_id'          => '',
-                'twitter_card_image_id' => '',
+                'locale'                => 'Locale',
+                'name'                  => 'Name',
+                'title'                 => 'Title',
+                'keywords'              => 'Keywords',
+                'description'           => 'Descriptions',
+                'ogp_image_id'          => 'OGP Image',
+                'twitter_card_image_id' => 'Twitter Card Image',
             ],
         ],
         'articles'            => [

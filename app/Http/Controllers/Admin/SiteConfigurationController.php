@@ -3,9 +3,11 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Repositories\ImageRepositoryInterface;
 use App\Repositories\SiteConfigurationRepositoryInterface;
 use App\Http\Requests\Admin\SiteConfigurationRequest;
 use App\Http\Requests\PaginationRequest;
+use App\Services\FileUploadServiceInterface;
 
 class SiteConfigurationController extends Controller
 {
@@ -13,12 +15,22 @@ class SiteConfigurationController extends Controller
     /** @var \App\Repositories\SiteConfigurationRepositoryInterface */
     protected $siteConfigurationRepository;
 
+    /** @var FileUploadServiceInterface $fileUploadService */
+    protected $fileUploadService;
+
+    /** @var ImageRepositoryInterface $imageRepository */
+    protected $imageRepository;
+
 
     public function __construct(
-        SiteConfigurationRepositoryInterface $siteConfigurationRepository
+        SiteConfigurationRepositoryInterface $siteConfigurationRepository,
+        FileUploadServiceInterface $fileUploadService,
+        ImageRepositoryInterface $imageRepository
     )
     {
         $this->siteConfigurationRepository = $siteConfigurationRepository;
+        $this->fileUploadService = $fileUploadService;
+        $this->imageRepository = $imageRepository;
     }
 
     /**
@@ -70,13 +82,27 @@ class SiteConfigurationController extends Controller
             'title',
             'keywords',
             'description',
-            'ogp_image_id',
-            'twitter_card_image_id',
         ]);
         $model = $this->siteConfigurationRepository->create($input);
 
         if (empty( $model )) {
             return redirect()->back()->withErrors(\Lang::get('admin.errors.general.save_failed'));
+        }
+
+        if ($request->hasFile('ogp_image')) {
+            $file = $request->file('ogp_image');
+            $mediaType = $file->getClientMimeType();
+            $path = $file->getPathname();
+            $image = $this->fileUploadService->upload('ogp-image', $path, $mediaType, []);
+            $this->siteConfigurationRepository->update($model, ['ogp_image_id' => $image->id]);
+        }
+
+        if ($request->hasFile('twitter_card_image')) {
+            $file = $request->file('twitter_card_image');
+            $mediaType = $file->getClientMimeType();
+            $path = $file->getPathname();
+            $image = $this->fileUploadService->upload('twitter-card-image', $path, $mediaType, []);
+            $this->siteConfigurationRepository->update($model, ['twitter_card_image_id' => $image->id]);
         }
 
         return redirect()->action('Admin\SiteConfigurationController@index')->with('message-success',
@@ -138,6 +164,36 @@ class SiteConfigurationController extends Controller
             'twitter_card_image_id',
         ]);
         $this->siteConfigurationRepository->update($model, $input);
+
+        if ($request->hasFile('ogp_image')) {
+
+            $image = $model->ogpImage;
+            if (!empty($image)) {
+                $this->fileUploadService->delete($image);
+                $this->imageRepository->delete($image);
+            }
+
+            $file = $request->file('ogp_image');
+            $mediaType = $file->getClientMimeType();
+            $path = $file->getPathname();
+            $image = $this->fileUploadService->upload('ogp-image', $path, $mediaType, []);
+            $this->siteConfigurationRepository->update($model, ['ogp_image_id' => $image->id]);
+        }
+
+        if ($request->hasFile('twitter_card_image')) {
+
+            $image = $model->ogpImage;
+            if (!empty($image)) {
+                $this->fileUploadService->delete($image);
+                $this->imageRepository->delete($image);
+            }
+
+            $file = $request->file('twitter_card_image');
+            $mediaType = $file->getClientMimeType();
+            $path = $file->getPathname();
+            $image = $this->fileUploadService->upload('twitter-card-image', $path, $mediaType, []);
+            $this->siteConfigurationRepository->update($model, ['twitter_card_image_id' => $image->id]);
+        }
 
         return redirect()->action('Admin\SiteConfigurationController@show', [$id])->with('message-success',
             \Lang::get('admin.messages.general.update_success'));

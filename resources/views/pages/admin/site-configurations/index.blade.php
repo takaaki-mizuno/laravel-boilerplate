@@ -7,6 +7,7 @@
 @stop
 
 @section('scripts')
+<script src="{!! \URLHelper::asset('js/delete_item.js', 'admin') !!}"></script>
 @stop
 
 @section('title')
@@ -33,22 +34,20 @@ SiteConfigurations
         <table class="table table-bordered">
             <tr>
                 <th style="width: 10px">ID</th>
-                <th style="width: 40px">@lang('admin.pages.site-configurations.columns.is_enabled')</th>
+                <th>@lang('admin.pages.site-configurations.columns.locale')</th>
+                <th>@lang('admin.pages.site-configurations.columns.name')</th>
+                <th>@lang('admin.pages.site-configurations.columns.title')</th>
                 <th style="width: 40px">&nbsp;</th>
             </tr>
-            @foreach( $models as $model )
+            @foreach( $models as $siteConfiguration )
                 <tr>
-                    <td>{{ $model->id }}</td>
+                    <td>{{{ $siteConfiguration->id }}}</td>
+                    <td>@lang(array_get(\Config::get('locale.languages.' . $siteConfiguration->locale), 'name', $siteConfiguration->locale))</td>
+                    <td>{{{ $siteConfiguration->name }}}</td>
+                    <td>{{{ $siteConfiguration->title }}}</td>
                     <td>
-                        @if( $model->is_enabled )
-                            <span class="badge bg-green">@lang('admin.pages.site-configurations.columns.is_enabled_true')</span>
-                        @else
-                            <span class="badge bg-red">@lang('admin.pages.site-configurations.columns.is_enabled_false')</span>
-                        @endif
-                    </td>
-                    <td>
-                        <a href="{!! URL::action('Admin\SiteConfigurationController@show', $model->id) !!}" class="btn btn-block btn-primary btn-sm">@lang('admin.pages.common.buttons.edit')</a>
-                        <a href="#" class="btn btn-block btn-danger btn-sm delete-button" data-expreso-model-id="{{ $model->id }}">@lang('admin.pages.common.buttons.delete')</a>
+                        <a href="{!! URL::action('Admin\SiteConfigurationController@show', $siteConfiguration->id) !!}" class="btn btn-block btn-primary btn-sm">@lang('admin.pages.common.buttons.edit')</a>
+                        <a href="#" class="btn btn-block btn-danger btn-sm delete-button" data-delete-url="{!! \URL::action('Admin\SiteConfigurationController@destroy', $siteConfiguration->id) !!}"">@lang('admin.pages.common.buttons.delete')</a>
                     </td>
                 </tr>
             @endforeach

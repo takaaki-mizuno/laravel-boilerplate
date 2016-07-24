@@ -14,6 +14,7 @@
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \App\Models\Image $ogpImage
+ * @property-read \App\Models\Image $twitterCardImage
  * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereLocale($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereName($value)
@@ -84,6 +85,11 @@ class SiteConfiguration extends Base
     public function ogpImage()
     {
         return $this->hasOne('App\Models\Image', 'id', 'ogp_image_id');
+    }
+
+    public function twitterCardImage()
+    {
+        return $this->hasOne('App\Models\Image', 'id', 'twitter_card_image_id');
     }
 
 }

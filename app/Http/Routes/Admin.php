@@ -23,6 +23,12 @@ class Admin extends BaseRoute
                 \Route::resource('users', 'Admin\UserController');
                 \Route::resource('admin-users', 'Admin\AdminUserController');
                 \Route::resource('site-configurations', 'Admin\SiteConfigurationController');
+                \Route::post('articles/preview', 'Admin\ArticleController@preview');
+                \Route::resource('articles', 'Admin\ArticleController');
+                \Route::delete('images/delete', 'Admin\ImageController@deleteByUrl');
+                \Route::resource('images', 'Admin\ImageController');
+
+
                 /* NEW ADMIN RESOURCE ROUTE */
             });
         });

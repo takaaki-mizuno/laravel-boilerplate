@@ -78,7 +78,7 @@ class %%CLASS%%ControllerTest extends TestCase
         $this->action('DELETE', 'Admin\%%CLASS%%Controller@destroy', [$id], [
                 '_token' => csrf_token(),
             ]);
-        $this->assertResponseOk();
+        $this->assertResponseStatus(302);
 
         $check%%CLASS%% = \App\Models\%%CLASS%%::find($id);
         $this->assertNull($check%%CLASS%%);

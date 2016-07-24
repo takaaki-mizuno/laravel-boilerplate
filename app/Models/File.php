@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $id
  * @property string $url
  * @property string $title
+ * @property string $entity_type
+ * @property integer $entity_id
  * @property boolean $is_local
- * @property integer $file_category
- * @property integer $file_subcategory
+ * @property integer $file_category_type
  * @property string $s3_key
  * @property string $s3_bucket
  * @property string $s3_region
@@ -25,9 +26,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereUrl($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereEntityType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereEntityId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereIsLocal($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereFileCategory($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereFileSubcategory($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereFileCategoryType($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereS3Key($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereS3Bucket($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereS3Region($value)
@@ -62,8 +64,9 @@ class File extends Base
         'id',
         'url',
         'title',
-        'file_category',
-        'file_subcategory',
+        'entity_type',
+        'entity_id',
+        'file_category_type',
         's3_key',
         's3_bucket',
         's3_region',

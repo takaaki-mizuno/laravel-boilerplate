@@ -31,6 +31,7 @@
             <li @if( $menu=='users') class="active" @endif ><a href="{!! URL::action('Admin\UserController@index') !!}"><i class="fa fa-users"></i> <span>Users</span></a></li>
             <li @if( $menu=='site_configurations') class="active" @endif ><a href="{!! URL::action('Admin\SiteConfigurationController@index') !!}"><i class="fa fa-cogs"></i> <span>Site Configurations</span></a></li>
             @endif
+            <li @if( $menu=='article') class="active" @endif ><a href="{!! URL::action('Admin\ArticleController@index') !!}"><i class="fa fa-file-word-o"></i> <span>Articles</span></a></li>
             <!-- %%SIDEMENU%% -->
         </ul>
     </section>

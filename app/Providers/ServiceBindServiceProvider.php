@@ -62,6 +62,11 @@ class ServiceBindServiceProvider extends ServiceProvider
         $this->app->singleton(\App\Services\GoogleAnalyticsServiceInterface::class,
             \App\Services\Production\GoogleAnalyticsService::class);
 
+        $this->app->singleton(
+            \App\Services\ArticleServiceInterface::class,
+            \App\Services\Production\ArticleService::class
+        );
+
         /* NEW BINDING */
 
     }

@@ -41,4 +41,19 @@ $factory->define(App\Models\SiteConfiguration::class, function (Faker\Generator 
     ];
 });
 
+$factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
+    return [
+        'slug'               => $faker->word,
+        'title'              => $faker->sentence,
+        'keywords'           => join(',', $faker->words(5)),
+        'description'        => $faker->sentences(3, true),
+        'content'            => $faker->sentences(3, true),
+        'cover_image_id'     => 0,
+        'locale'             => 'ja',
+        'is_enabled'         => true,
+        'publish_started_at' => $faker->dateTime,
+        'publish_ended_at'   => $faker->dateTime,
+    ];
+});
+
 /* NEW MODEL FACTORY */

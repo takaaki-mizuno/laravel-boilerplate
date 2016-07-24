@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $id
  * @property string $url
  * @property string $title
- * @property integer $file_category
- * @property integer $file_subcategory
+ * @property string $entity_type
+ * @property integer $entity_id
+ * @property boolean $is_local
+ * @property string $file_category_type
  * @property string $s3_key
  * @property string $s3_bucket
  * @property string $s3_region
@@ -19,21 +21,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $file_size
  * @property integer $width
  * @property integer $height
- * @property boolean $has_alternative
- * @property string $alternative_media_type
- * @property string $alternative_format
- * @property string $alternative_extension
  * @property boolean $is_enabled
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $deleted_at
- * @property boolean $is_local
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereUrl($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereEntityType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereEntityId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereIsLocal($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereFileCategory($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereFileSubcategory($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereFileCategoryType($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereS3Key($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereS3Bucket($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereS3Region($value)
@@ -43,10 +41,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereFileSize($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereWidth($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereHeight($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereHasAlternative($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereAlternativeMediaType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereAlternativeFormat($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereAlternativeExtension($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereIsEnabled($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image whereUpdatedAt($value)
@@ -74,8 +68,9 @@ class Image extends Base
         'url',
         'title',
         'is_local',
-        'file_category',
-        'file_subcategory',
+        'entity_type',
+        'entity_id',
+        'file_category_type',
         's3_key',
         's3_bucket',
         's3_region',

@@ -85,4 +85,11 @@ interface DateTimeHelperInterface
      * @return string
      */
     public function getDateFormatByLocale($locale = null);
+
+    /**
+     * @param  string $dateTimeString
+     * @return \DateTime
+     */
+    public function convertToStorageDateTime($dateTimeString);
+
 }

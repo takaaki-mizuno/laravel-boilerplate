@@ -7,7 +7,7 @@
 <script src="{!! \URLHelper::asset('libs//plugins/iCheck/icheck.min.js', 'admin') !!}"></script>
 <script src="{!! \URLHelper::asset('libs/adminlte/js/app.min.js', 'admin') !!}"></script>
 <script type="text/javascript">
-    var Boiler = {
+    var Boilerplate = {
         'csrfToken': "{!! csrf_token() !!}"
     };
 </script>

@@ -7,7 +7,7 @@ $(function () {
             url: url,
             method: 'DELETE',
             data: {
-                '_token': Boiler.csrfToken
+                '_token': Boilerplate.csrfToken
             },
             error: function (xhr, error) {
                 console.log(error);

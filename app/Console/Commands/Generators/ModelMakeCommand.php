@@ -184,7 +184,7 @@ class ModelMakeCommand extends GeneratorCommandBase
         if ($columns) {
             foreach ($columns as $column) {
                 $columnName = $column->getName();
-                if (in_array($columnName, ['deleted_at'])) {
+                if ($columnName == 'deleted_at') {
                     return true;
                 }
             }

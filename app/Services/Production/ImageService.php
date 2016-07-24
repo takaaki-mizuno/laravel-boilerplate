@@ -5,6 +5,8 @@ use App\Services\ImageServiceInterface;
 class ImageService extends BaseService implements ImageServiceInterface
 {
 
+    const IMAGE_ID_SESSION_KEY = 'image-id-session-key';
+
     /**
      * @param  string      $src    file path
      * @param  string      $dst    file path
@@ -114,4 +116,37 @@ class ImageService extends BaseService implements ImageServiceInterface
         return $image;
     }
 
+    public function resetImageIdSession()
+    {
+        \Session::put(self::IMAGE_ID_SESSION_KEY, []);
+    }
+
+    public function addImageIdToSession($imageId)
+    {
+        $sessionIds = \Session::get(self::IMAGE_ID_SESSION_KEY, []);
+        array_push($sessionIds, intval($imageId));
+        \Session::put(self::IMAGE_ID_SESSION_KEY, array_values($sessionIds));
+    }
+
+    public function removeImageIdFromSession($imageId)
+    {
+        $sessionIds = \Session::get(self::IMAGE_ID_SESSION_KEY, []);
+        $pos = array_search(intval($imageId), $sessionIds);
+        if ($pos !== false) {
+            unset($sessionIds[$pos]);
+            \Session::put(self::IMAGE_ID_SESSION_KEY, array_values($sessionIds));
+        }
+    }
+
+    public function getImageIdsFromSession()
+    {
+        return \Session::get(self::IMAGE_ID_SESSION_KEY, []);
+    }
+
+    public function hasImageIdInSession($imageId)
+    {
+        $sessionIds = \Session::get(self::IMAGE_ID_SESSION_KEY, []);
+
+        return in_array(intval($imageId), $sessionIds);
+    }
 }

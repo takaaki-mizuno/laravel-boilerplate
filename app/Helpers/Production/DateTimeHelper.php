@@ -96,4 +96,13 @@ class DateTimeHelper implements DateTimeHelperInterface
     public function getDateFormatByLocale($locale = null)
     {
     }
+
+    public function convertToStorageDateTime($dateTimeString)
+    {
+        $viewDateTime = new Carbon($dateTimeString, $this->timezoneForPresentation());
+        $dateTime = clone $viewDateTime;
+        $dateTime->setTimeZone($this->timezoneForStorage());
+
+        return $dateTime;
+    }
 }

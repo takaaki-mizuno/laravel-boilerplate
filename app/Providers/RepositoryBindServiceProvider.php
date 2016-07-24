@@ -61,6 +61,11 @@ class RepositoryBindServiceProvider extends ServiceProvider
             'App\Repositories\Eloquent\SiteConfigurationRepository'
         );
 
+        $this->app->singleton(
+            'App\Repositories\ArticleRepositoryInterface',
+            'App\Repositories\Eloquent\ArticleRepository'
+        );
+
         /* NEW BINDING */
 
     }

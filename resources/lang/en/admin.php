@@ -20,7 +20,7 @@ return [
         ],
     ],
     'pages'    => [
-        'common' => [
+        'common'              => [
             'buttons' => [
                 'create'          => 'Create New',
                 'edit'            => 'Edit',
@@ -33,7 +33,7 @@ return [
                 'reset_password'  => 'Reset Password',
             ],
         ],
-        'auth'   => [
+        'auth'                => [
             'buttons'  => [
                 'sign_in'         => 'Sign In',
                 'forgot_password' => 'Send Me Email!',
@@ -46,16 +46,33 @@ return [
                 'reset_password'  => 'Please enter your e-mail address and new password',
             ],
         ],
-        'site-configurations'   => [
-            'columns'  => [
-                'id' => '',
-                'locale' => '',
-                'name' => '',
-                'title' => '',
-                'keywords' => '',
-                'description' => '',
-                'ogp_image_id' => '',
+        'site-configurations' => [
+            'columns' => [
+                'id'                    => '',
+                'locale'                => '',
+                'name'                  => '',
+                'title'                 => '',
+                'keywords'              => '',
+                'description'           => '',
+                'ogp_image_id'          => '',
                 'twitter_card_image_id' => '',
+            ],
+        ],
+        'articles'            => [
+            'columns' => [
+                'slug'               => 'Slug',
+                'title'              => 'Title',
+                'keywords'           => 'Keywords',
+                'description'        => 'Description',
+                'content'            => 'Content',
+                'cover_image_id'     => 'Cover Image',
+                'locale'             => 'Locale',
+                'is_enabled'         => 'Active',
+                'publish_started_at' => 'Publish Started At',
+                'publish_ended_at'   => 'Publish Ended At',
+                'is_enabled_true'    => 'Enabled',
+                'is_enabled_false'   => 'Disabled',
+
             ],
         ],
         /* NEW PAGE STRINGS */

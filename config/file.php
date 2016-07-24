@@ -15,7 +15,7 @@ return [
         ],
     ],
     'categories' => [
-        1 => [
+        'article-cover-image' => [
             'name'         => 'cover-image',
             'type'         => 'image',
             'region'       => env('AWS_IMAGE_REGION'),
@@ -34,7 +34,19 @@ return [
             ],
             'seedPrefix'   => 'article-cover',
             'format'       => 'jpeg',
-            'alternatives' => ['webp'],
+        ],
+        'article-image' => [
+            'name'         => 'cover-image',
+            'type'         => 'image',
+            'region'       => env('AWS_IMAGE_REGION'),
+            'buckets'      => [
+                env('AWS_IMAGE_BUCKET'),
+            ],
+            'size'         => [1440, 0],
+            'thumbnails'   => [
+            ],
+            'seedPrefix'   => 'article',
+            'format'       => 'jpeg',
         ],
     ],
 ];

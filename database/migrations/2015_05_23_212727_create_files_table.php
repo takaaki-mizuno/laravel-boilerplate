@@ -19,10 +19,12 @@ class CreateFilesTable extends Migration
             $table->string('url')->default('');
             $table->text('title')->nullable();
 
+            $table->string('entity_type')->default("");
+            $table->bigInteger('entity_id')->default(0);
+
             $table->boolean('is_local')->default(false);
 
-            $table->unsignedInteger('file_category')->default(0);
-            $table->unsignedInteger('file_subcategory')->default(0);
+            $table->unsignedInteger('file_category_type')->default(0);
 
             $table->string('s3_key')->default('');
             $table->string('s3_bucket')->default('');
@@ -39,9 +41,10 @@ class CreateFilesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['file_category', 'id', 'deleted_at']);
+            $table->index(['file_category_type', 'id', 'deleted_at']);
             $table->index(['id', 'deleted_at']);
             $table->index(['url', 'deleted_at']);
+            $table->index(['entity_type', 'entity_id', 'deleted_at']);
         });
     }
 

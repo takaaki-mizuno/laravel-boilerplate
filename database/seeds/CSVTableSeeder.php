@@ -50,7 +50,14 @@ class CSVSeeder extends Seeder
                     $header = $row;
                 } else {
                     try {
-                        $data[] = array_combine($header, $row);
+                        $rowData = array_combine($header, $row);
+                        if (!array_key_exists('created_at', $rowData)) {
+                            $rowData['created_at'] = \DateTimeHelper::now();
+                        }
+                        if (!array_key_exists('updated_at', $rowData)) {
+                            $rowData['updated_at'] = \DateTimeHelper::now();
+                        }
+                        $data[] = $rowData;
                     } catch (Exception $e) {
                         print_r($row);
                         print $e->getMessage();

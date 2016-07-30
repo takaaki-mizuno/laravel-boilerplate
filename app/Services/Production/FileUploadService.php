@@ -257,7 +257,7 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
             return null;
         }
 
-        $fileSize = filesize($path);
+        $fileSize = filesize($dstPath);
         $bucket = $this->decideBucket($conf['buckets']);
         $region = array_get($conf, 'region', 'ap-northeast-1');
         $seed = array_get($conf, 'seed_prefix', '').time().rand();

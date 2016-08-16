@@ -56,4 +56,16 @@ $factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Models\Notification::class, function (Faker\Generator $faker) {
+    return [
+        'user_id'       => 1,
+        'category_type' => 'notify',
+        'type'          => 'liked',
+        'data'          => '{"id":12345}',
+        'content'       => 'anc',
+        'read'          => false,
+        'sent_at'       => $faker->dateTime,
+    ];
+});
+
 /* NEW MODEL FACTORY */

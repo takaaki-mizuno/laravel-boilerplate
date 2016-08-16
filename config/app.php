@@ -236,6 +236,7 @@ return [
         /* NEW FACADE */
     ],
 
+    'offline_mode'         => env('OFFLINE_MODE', null),
     'host'                 => env('APP_HOST', null),
     'need_locale_prefix'   => true,
     'basic_authentication' => env('BASIC_AUTHENTICATION', true),

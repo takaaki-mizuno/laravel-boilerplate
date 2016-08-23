@@ -13,7 +13,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
      */
     protected $baseUrl = 'http://localhost';
 
-    /** @var \Faker\Factory */
+    /** @var \Faker\Generator */
     protected $faker;
 
     /**

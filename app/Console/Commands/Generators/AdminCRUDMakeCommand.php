@@ -274,7 +274,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
     protected function getRoutesPath()
     {
-        return $this->laravel['path'].'/Http/Routes/Admin.php';
+        return $this->laravel['path'].'/../routes/admin.php';
     }
 
     protected function generateLanguageFile($name)
@@ -307,7 +307,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
             if ($column == 'id' || $column == 'is_enabled') {
                 continue;
             }
-            $template = '                    <div class="form-group @if ($errors->has(\'%%column%%\')) has-error @endif">'.PHP_EOL.'                        <label for="%%column%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'.PHP_EOL.'                        <input type="text" class="form-control" id="%%column%%" name="%%column%%" value="{{ \Input::old(\'%%column%%\') ? \Input::old(\'%%column%%\') : $%%class%%->%%column%% }}">'.PHP_EOL.'                    </div>';
+            $template = '                    <div class="form-group @if ($errors->has(\'%%column%%\')) has-error @endif">'.PHP_EOL.'                        <label for="%%column%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'.PHP_EOL.'                        <input type="text" class="form-control" id="%%column%%" name="%%column%%" value="{{ old(\'%%column%%\') ? old(\'%%column%%\') : $%%class%%->%%column%% }}">'.PHP_EOL.'                    </div>';
             $this->replaceTemplateVariable($template, 'column', $column);
             $this->replaceTemplateVariable($template, 'class', strtolower(substr($name, 0, 1)).substr($name, 1));
             $this->replaceTemplateVariable($template, 'classes-spinal',

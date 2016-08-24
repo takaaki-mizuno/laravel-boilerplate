@@ -56,25 +56,25 @@ SiteConfigurations
                     <label for="locale">@lang('admin.pages.site-configurations.columns.locale')</label>
                     <select name="locale" class="form-control">
                         @foreach( \Config::get('locale.languages') as $code => $locale )
-                            <option value="{!! $code !!}" @if( (Input::old('locale') && Input::old('locale') == $code) || (!Input::old('locale') && $siteConfiguration->locale == $code)) selected @endif >@lang(array_get($locale, 'name', $code))</option>
+                            <option value="{!! $code !!}" @if( (old('locale') && old('locale') == $code) || (!old('locale') && $siteConfiguration->locale == $code)) selected @endif >@lang(array_get($locale, 'name', $code))</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group @if ($errors->has('name')) has-error @endif">
                     <label for="name">@lang('admin.pages.site-configurations.columns.name')</label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{{ Input::old('name') ? Input::old('name') : $siteConfiguration->name }}}">
+                    <input type="text" class="form-control" id="name" name="name" value="{{{ old('name') ? old('name') : $siteConfiguration->name }}}">
                 </div>
                 <div class="form-group @if ($errors->has('title')) has-error @endif">
                     <label for="title">@lang('admin.pages.site-configurations.columns.title')</label>
-                    <input type="text" class="form-control" id="title" name="title" value="{{{ Input::old('title') ? Input::old('title') : $siteConfiguration->title }}}">
+                    <input type="text" class="form-control" id="title" name="title" value="{{{ old('title') ? old('title') : $siteConfiguration->title }}}">
                 </div>
                 <div class="form-group @if ($errors->has('keywords')) has-error @endif">
                     <label for="keywords">@lang('admin.pages.site-configurations.columns.keywords')</label>
-                    <input type="text" class="form-control" id="keywords" name="keywords" value="{{{ Input::old('keywords') ? Input::old('keywords') : $siteConfiguration->keywords }}}">
+                    <input type="text" class="form-control" id="keywords" name="keywords" value="{{{ old('keywords') ? old('keywords') : $siteConfiguration->keywords }}}">
                 </div>
                 <div class="form-group">
                     <label for="description">@lang('admin.pages.site-configurations.columns.description')</label>
-                    <textarea name="description" class="form-control" rows="5" placeholder="Description">{{{ Input::old('description') ? Input::old('description') : $siteConfiguration->description }}}</textarea>
+                    <textarea name="description" class="form-control" rows="5" placeholder="Description">{{{ old('description') ? old('description') : $siteConfiguration->description }}}</textarea>
                 </div>
                 @if( !empty($siteConfiguration->ogpImage) )
                     <img width="400" height="157" src="{!! $siteConfiguration->ogpImage->getThumbnailUrl(400, 157) !!}" alt="" class="margin" />

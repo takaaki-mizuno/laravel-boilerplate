@@ -1,7 +1,7 @@
 <?php namespace App\Models;
 
+use App\Presenters\BasePresenter;
 use Illuminate\Database\Eloquent\Model;
-use Caffeinated\Presenter\Traits\PresentableTrait;
 
 /**
  * App\Models\Base
@@ -11,9 +11,18 @@ use Caffeinated\Presenter\Traits\PresentableTrait;
 class Base extends Model
 {
 
-    use PresentableTrait;
+    protected $presenterInstance;
 
-    protected $presenter = 'App\Presenters\BasePresenter';
+    protected $presenter = BasePresenter::class;
+
+    public function present()
+    {
+        if ( ! $this->presenterInstance)
+        {
+            $this->presenterInstance = new $this->presenter($this);
+        }
+        return $this->presenterInstance;
+    }
 
     /**
      * @return string

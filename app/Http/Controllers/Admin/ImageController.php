@@ -62,7 +62,7 @@ class ImageController extends Controller
                 'count'   => $count,
                 'offset'  => $offset,
                 'limit'   => $limit,
-                'baseUrl' => \URL::action('Admin\ImageController@index'),
+                'baseUrl' => action('Admin\ImageController@index'),
             ], 200);
         } else {
             if ($entityId > 0) {
@@ -107,7 +107,7 @@ class ImageController extends Controller
         $entityId = $imageRequest->input('entity_id', 0);
         $categoryType = $imageRequest->input('file_category_type', '');
 
-        $conf = \Config::get('file.categories.'.$categoryType);
+        $conf = config('file.categories.'.$categoryType);
         if (empty($conf)) {
             \App::abort(400, "Invalid category: ".$categoryType);
         }

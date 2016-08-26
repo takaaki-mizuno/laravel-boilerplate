@@ -75,12 +75,12 @@ class URLHelper implements URLHelperInterface
     public function getHostWithLocale($locale = null, $host = null)
     {
         if (empty($host)) {
-            $host = \Config::get('app.host');
+            $host = config('app.host');
         }
         if (empty($locale)) {
-            $locale = \Config::get('locale.default');
+            $locale = config('locale.default');
         }
-        if (array_key_exists($locale, \Config::get('locale.languages'))) {
+        if (array_key_exists($locale, config('locale.languages'))) {
             $host = $locale . '.' . $host;
         }
 
@@ -89,13 +89,13 @@ class URLHelper implements URLHelperInterface
 
     public function canonicalizeHost($url, $locale = null)
     {
-        $host = \Config::get('app.host');
+        $host = config('app.host');
 
         if (empty($host)) {
             return $url;
         }
 
-        $needLocalePrefix = \Config::get('app.need_locale_prefix');
+        $needLocalePrefix = config('app.need_locale_prefix');
         if ($needLocalePrefix) {
             $host = $this->getHostWithLocale($locale, $host);
         }
@@ -119,7 +119,7 @@ class URLHelper implements URLHelperInterface
 
     public function asset($path, $type = "user")
     {
-        $hash = \Config::get('asset.hash');
+        $hash = config('asset.hash');
         $url = asset('static/' . $type . '/' . $path);
 
         if (\App::environment() == 'local' || empty($hash)) {

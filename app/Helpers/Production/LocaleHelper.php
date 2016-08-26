@@ -9,7 +9,7 @@ class LocaleHelper implements LocaleHelperInterface
     {
         if (isset($locale)) {
             $locale = strtolower($locale);
-            if (array_key_exists($locale, \Config::get('locale.languages'))) {
+            if (array_key_exists($locale, config('locale.languages'))) {
                 if (!empty($user)) {
                     $user->setLocale($locale);
                 } else {
@@ -51,14 +51,14 @@ class LocaleHelper implements LocaleHelperInterface
             }
         }
         foreach ($languages as $lang => $val) {
-            foreach (\Config::get('locale.languages') as $langcode => $data) {
+            foreach (config('locale.languages') as $langcode => $data) {
                 if (strpos($lang, $langcode) === 0) {
                     return $langcode;
                 }
             }
         }
 
-        return \Config::get('locale.default');
+        return config('locale.default');
     }
 
 }

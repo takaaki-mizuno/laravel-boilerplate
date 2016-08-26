@@ -8,8 +8,8 @@ class LanguageDetectionService extends BaseService implements LanguageDetectionS
     public function normalize($language)
     {
         $language = strtolower($language);
-        if (!array_key_exists($language, \Config::get('locale.languages'))) {
-            $language = \Config::get('locale.default');
+        if (!array_key_exists($language, config('locale.languages'))) {
+            $language = config('locale.default');
         }
         return $language;
     }
@@ -19,7 +19,7 @@ class LanguageDetectionService extends BaseService implements LanguageDetectionS
 
         if (isset($language)) {
             $language = strtolower($language);
-            if (in_array($language, array_keys(\Config::get('locale.languages')))) {
+            if (in_array($language, array_keys(config('locale.languages')))) {
                 \Session::put('locale', $language);
             } else {
                 $locale = null;
@@ -52,13 +52,13 @@ class LanguageDetectionService extends BaseService implements LanguageDetectionS
             }
         }
         foreach ($languages as $lang => $val) {
-            foreach (array_keys(\Config::get('locale.languages')) as $langcode) {
+            foreach (array_keys(config('locale.languages')) as $langcode) {
                 if (strpos($lang, $langcode) === 0) {
                     return $langcode;
                 }
             }
         }
 
-        return \Config::get('locale.default');
+        return config('locale.default');
     }
 }

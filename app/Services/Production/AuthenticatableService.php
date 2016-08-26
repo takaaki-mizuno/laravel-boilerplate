@@ -123,7 +123,7 @@ class AuthenticatableService implements AuthenticatableServiceInterface
         /** @var \App\Services\MailServiceInterface $mailService */
         $mailService = \App::make('App\Services\MailServiceInterface');
 
-        $mailService->sendMail($this->resetEmailTitle, \Config::get('mail.from'),
+        $mailService->sendMail($this->resetEmailTitle, config('mail.from'),
             ['name' => '', 'address' => $user->email], $this->resetEmailTemplate, [
                 'token' => $token,
             ]);

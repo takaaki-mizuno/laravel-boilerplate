@@ -12,24 +12,24 @@ class MailService extends BaseService implements MailServiceInterface
 
     public function sendMail($title, $from, $to, $template, $data)
     {
-        if (\Config::get('app.offline_mode')) {
+        if (config('app.offline_mode')) {
             return true;
         }
 
         if (\App::environment() != 'production') {
             $title = '[' . \App::environment() . '] ' . $title;
             $to = [
-                'address' => \Config::get('mail.tester'),
+                'address' => config('mail.tester'),
                 'name'    => \App::environment() . ' Original: ' . $to['address'],
             ];
         }
 
         $client = new SesClient([
             'credentials' => [
-                'key'    => \Config::get('aws.key'),
-                'secret' => \Config::get('aws.secret'),
+                'key'    => config('aws.key'),
+                'secret' => config('aws.secret'),
             ],
-            'region'      => \Config::get('aws.ses_region'),
+            'region'      => config('aws.ses_region'),
             'version'     => 'latest',
         ]);
 

@@ -61,12 +61,12 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
      */
     public function upload($categoryType, $path, $mediaType, $metaInputs)
     {
-        $conf = \Config::get('file.categories.'.$categoryType);
+        $conf = config('file.categories.'.$categoryType);
         if (empty($conf)) {
             return null;
         }
 
-        $acceptableFileList = \Config::get('file.acceptable.'.$conf['type']);
+        $acceptableFileList = config('file.acceptable.'.$conf['type']);
         if (!array_key_exists($mediaType, $acceptableFileList)) {
             return null;
         }
@@ -98,7 +98,7 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
         $this->deleteS3($region, $bucket, $key);
 
         $categoryType = $model->file_category;
-        $conf = \Config::get('file.categories.'.$categoryType);
+        $conf = config('file.categories.'.$categoryType);
         if (empty($conf)) {
             return false;
         }
@@ -353,7 +353,7 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
      */
     private function getS3Client($region)
     {
-        $config = \Config::get('aws');
+        $config = config('aws');
 
         return new S3Client([
             'credentials' => [

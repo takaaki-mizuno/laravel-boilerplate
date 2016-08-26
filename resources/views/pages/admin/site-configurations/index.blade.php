@@ -47,7 +47,7 @@ SiteConfigurations
                     <td>{{{ $siteConfiguration->title }}}</td>
                     <td>
                         <a href="{!! URL::action('Admin\SiteConfigurationController@show', $siteConfiguration->id) !!}" class="btn btn-block btn-primary btn-sm">@lang('admin.pages.common.buttons.edit')</a>
-                        <a href="#" class="btn btn-block btn-danger btn-sm delete-button" data-delete-url="{!! \URL::action('Admin\SiteConfigurationController@destroy', $siteConfiguration->id) !!}"">@lang('admin.pages.common.buttons.delete')</a>
+                        <a href="#" class="btn btn-block btn-danger btn-sm delete-button" data-delete-url="{!! action('Admin\SiteConfigurationController@destroy', $siteConfiguration->id) !!}"">@lang('admin.pages.common.buttons.delete')</a>
                     </td>
                 </tr>
             @endforeach

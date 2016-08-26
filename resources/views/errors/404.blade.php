@@ -101,7 +101,7 @@
         <p class="enormous-font bree-font"> 404 </p>
         <p class="big-font"> this page does not exist... </p>
         <hr>
-        <p class="big-font"> Let’s return to the <a href="{!! \URL::action('User\IndexController@index') !!}">home page</a></p>
+        <p class="big-font"> Let’s return to the <a href="{!! action('User\IndexController@index') !!}">home page</a></p>
     </div>
 </div>
 </body>

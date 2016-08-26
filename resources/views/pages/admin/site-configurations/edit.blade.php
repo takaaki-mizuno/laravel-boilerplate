@@ -17,7 +17,7 @@ SiteConfigurations
 @stop
 
 @section('breadcrumb')
-    <li><a href="{!! \URL::action('Admin\SiteConfigurationController@index') !!}"><i class="fa fa-files-o"></i> SiteConfigurations</a></li>
+    <li><a href="{!! action('Admin\SiteConfigurationController@index') !!}"><i class="fa fa-files-o"></i> SiteConfigurations</a></li>
     @if( $isNew )
         <li class="active">New</li>
     @else
@@ -39,9 +39,9 @@ SiteConfigurations
 
     <form
     @if( $isNew )
-     action="{!! \URL::action('Admin\SiteConfigurationController@store') !!}" method="POST" enctype="multipart/form-data">
+     action="{!! action('Admin\SiteConfigurationController@store') !!}" method="POST" enctype="multipart/form-data">
     @else
-     action="{!! \URL::action('Admin\SiteConfigurationController@update', [$siteConfiguration->id]) !!}" method="POST" enctype="multipart/form-data">
+     action="{!! action('Admin\SiteConfigurationController@update', [$siteConfiguration->id]) !!}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="PUT">
     @endif
         {!! csrf_field() !!}

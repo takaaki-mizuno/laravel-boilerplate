@@ -18,7 +18,7 @@ Edit Admin Users
 @stop
 
 @section('content')
-    <form class="form-horizontal" action="{!! \URL::action('Admin\UserController@update', [$user->id]) !!}" method="post">
+    <form class="form-horizontal" action="{!! action('Admin\UserController@update', [$user->id]) !!}" method="post">
         {!! csrf_field() !!}
         <input type="hidden" name="_method" value="put">
         <div class="box-body">

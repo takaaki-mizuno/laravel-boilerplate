@@ -92,7 +92,7 @@ Articles
 @stop
 
 @section('breadcrumb')
-    <li><a href="{!! \URL::action('Admin\ArticleController@index') !!}"><i class="fa fa-files-o"></i> Articles</a></li>
+    <li><a href="{!! action('Admin\ArticleController@index') !!}"><i class="fa fa-files-o"></i> Articles</a></li>
     @if( $isNew )
         <li class="active">New</li>
     @else
@@ -113,9 +113,9 @@ Articles
     @endif
     <form
     @if( $isNew )
-    id="form-article" class="form-horizontal" action="{!! \URL::action('Admin\ArticleController@store') !!}" method="POST" enctype="multipart/form-data">
+    id="form-article" class="form-horizontal" action="{!! action('Admin\ArticleController@store') !!}" method="POST" enctype="multipart/form-data">
     @else
-    id="form-article" class="form-horizontal" action="{!! \URL::action('Admin\ArticleController@update', [$article->id]) !!}" method="POST" enctype="multipart/form-data">
+    id="form-article" class="form-horizontal" action="{!! action('Admin\ArticleController@update', [$article->id]) !!}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="PUT">
     @endif
     {!! csrf_field() !!}
@@ -149,7 +149,7 @@ Articles
                                         <label for="locale">@lang('admin.pages.articles.columns.locale')</label>
                                         <select name="locale" id="locale" class="form-control">
                                             @foreach( \Config::get('locale.languages') as $code => $locale )
-                                                <option value="{!! $code !!}" @if( (old('locale') && old('locale') == $code) || (!old('locale') && $article->locale == $code)) selected @endif >{{{ \Lang::get(array_get($locale, 'name', $code)) }}}</option>
+                                                <option value="{!! $code !!}" @if( (old('locale') && old('locale') == $code) || (!old('locale') && $article->locale == $code)) selected @endif >{{{ trans(array_get($locale, 'name', $code)) }}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -227,7 +227,7 @@ Articles
             </div>
         </div>
     </form>
-    <form id="form-preview" action="{!! \URL::action('Admin\ArticleController@preview') !!}" method="POST" enctype="multipart/form-data" target="_blank">
+    <form id="form-preview" action="{!! action('Admin\ArticleController@preview') !!}" method="POST" enctype="multipart/form-data" target="_blank">
         {!! csrf_field() !!}
         <input type="hidden" name="title" id="preview-title">
         <input type="hidden" name="content" id="preview-content">

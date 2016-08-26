@@ -96,7 +96,7 @@ class AdminUser extends AuthenticatableBase
         if (!$checkSubRoles) {
             return false;
         }
-        $roleConfigs = \Config::get('admin_user.roles', []);
+        $roleConfigs = config('admin_user.roles', []);
         foreach ($roles as $role) {
             $subRoles = array_get($roleConfigs, "$role.sub_roles", []);
             if (in_array($targetRole, $subRoles)) {

@@ -10,7 +10,7 @@
                 <small>@yield('subheader', 'Dashboard')</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{!! \URL::action('Admin\IndexController@index') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <li><a href="{!! action('Admin\IndexController@index') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                 @yield('breadcrumb')
             </ol>
         </section>

@@ -101,7 +101,7 @@ class MetaInformationHelper implements MetaInformationHelperInterface
     public function getUrl($url = null)
     {
         if (empty($url)) {
-            $url = URLHelperFacade::canonicalizeHost(\URL::action('Media\IndexController@index'));
+            $url = URLHelperFacade::canonicalizeHost(action('Media\IndexController@index'));
         }
 
         return $url;

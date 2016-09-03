@@ -1,6 +1,6 @@
 <?php namespace App\Presenters;
 
-class BasePresenter extends Presenter
+class BasePresenter
 {
 
     /**

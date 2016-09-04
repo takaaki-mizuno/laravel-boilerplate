@@ -13,6 +13,10 @@
 
     \Route::group(['middleware' => ['admin.auth']], function () {
         \Route::get('/', 'Admin\IndexController@index');
+
+        \Route::get('/me', 'Admin\MeController@index');
+        \Route::put('/me', 'Admin\MeController@update');
+
         \Route::post('signout', 'Admin\AuthController@postSignOut');
 
         \Route::resource('users', 'Admin\UserController');

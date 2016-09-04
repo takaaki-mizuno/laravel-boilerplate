@@ -22,7 +22,7 @@ Edit Admin Users
     @if( $isNew )
         action="{!! action('Admin\AdminUserController@store') !!}" method="POST" enctype="multipart/form-data">
     @else
-        action="{!! action('Admin\AdminUserController@update', [$adminUser->id]) !!}" method="post">
+        action="{!! action('Admin\AdminUserController@update', [$adminUser->id]) !!}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="put">
     @endif
     {!! csrf_field() !!}

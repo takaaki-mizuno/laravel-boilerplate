@@ -3,10 +3,10 @@
 interface ImageServiceInterface extends BaseServiceInterface
 {
     /**
-     * @param  string $src file path
-     * @param  string $dst file path
+     * @param  string      $src    file path
+     * @param  string      $dst    file path
      * @param  string|null $format file format
-     * @param  array $size [ width, height ]
+     * @param  array       $size   [ width, height ]
      * @return array
      */
     public function convert($src, $dst, $format, $size);
@@ -32,7 +32,7 @@ interface ImageServiceInterface extends BaseServiceInterface
     public function getImageIdsFromSession();
 
     /**
-     * @param int $imageId
+     * @param  int  $imageId
      * @return bool
      */
     public function hasImageIdInSession($imageId);

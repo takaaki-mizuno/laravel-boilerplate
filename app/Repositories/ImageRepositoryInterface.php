@@ -22,8 +22,8 @@ interface ImageRepositoryInterface extends SingleKeyModelRepositoryInterface
     public function findByUrl($url);
 
     /**
-     * @param  string $type
-     * @param  int    $entityId
+     * @param  string                                 $type
+     * @param  int                                    $entityId
      * @return \App\Models\Image[]|\Traversable|array
      */
     public function allByEntityTypeAndEntityId($type, $entityId);

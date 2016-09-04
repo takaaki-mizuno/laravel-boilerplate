@@ -17,10 +17,10 @@ class Base extends Model
 
     public function present()
     {
-        if ( ! $this->presenterInstance)
-        {
+        if (! $this->presenterInstance) {
             $this->presenterInstance = new $this->presenter($this);
         }
+
         return $this->presenterInstance;
     }
 

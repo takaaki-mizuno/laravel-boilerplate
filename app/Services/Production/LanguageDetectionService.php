@@ -11,6 +11,7 @@ class LanguageDetectionService extends BaseService implements LanguageDetectionS
         if (!array_key_exists($language, config('locale.languages'))) {
             $language = config('locale.default');
         }
+
         return $language;
     }
 

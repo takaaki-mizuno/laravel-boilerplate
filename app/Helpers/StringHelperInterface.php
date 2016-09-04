@@ -28,7 +28,7 @@ interface StringHelperInterface
     public function singularize($plural);
 
     /**
-     * @param  int $length
+     * @param  int    $length
      * @return string
      */
     public function randomString($length);

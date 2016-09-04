@@ -9,7 +9,7 @@ interface LanguageDetectionServiceInterface extends BaseServiceInterface
     public function normalize($language);
 
     /**
-     * @param null|string $language
+     * @param  null|string $language
      * @return string
      */
     public function detect($language = null);

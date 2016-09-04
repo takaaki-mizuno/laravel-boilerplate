@@ -11,7 +11,7 @@ class BasePresenter
     /**
      * @param \App\Models\Base $entity
      */
-    function __construct($entity)
+    public function __construct($entity)
     {
         $this->entity = $entity;
     }
@@ -22,10 +22,10 @@ class BasePresenter
      */
     public function __get($property)
     {
-        if (method_exists($this, $property))
-        {
+        if (method_exists($this, $property)) {
             return $this->$property();
         }
+
         return $this->entity->$property;
     }
 

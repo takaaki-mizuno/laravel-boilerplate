@@ -4,18 +4,18 @@ interface APIServiceInterface extends BaseServiceInterface
 {
 
     /**
-     * @param  string $type
+     * @param  string    $type
      * @return \Response
      */
     public function error($type);
 
     /**
-     * @param  array $models
-     * @param  string $key
-     * @param  int $offset
-     * @param  int $limit
-     * @param  int $count
-     * @param  int $statusCode
+     * @param  array     $models
+     * @param  string    $key
+     * @param  int       $offset
+     * @param  int       $limit
+     * @param  int       $count
+     * @param  int       $statusCode
      * @return \Response
      */
     public function listResponse($models, $key, $offset, $limit, $count, $statusCode = 200);
@@ -27,11 +27,11 @@ interface APIServiceInterface extends BaseServiceInterface
     public function getAPIArray($models);
 
     /**
-     * @param  array $models
+     * @param  array  $models
      * @param  string $key
-     * @param  int $offset
-     * @param  int $limit
-     * @param  int $count
+     * @param  int    $offset
+     * @param  int    $limit
+     * @param  int    $count
      * @return array
      */
     public function getAPIListObject($models, $key, $offset, $limit, $count);

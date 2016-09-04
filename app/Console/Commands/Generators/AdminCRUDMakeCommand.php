@@ -47,7 +47,6 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
         }
         $this->generateLanguageFile($modelName);
 
-
         return $this->addRoute($modelName);
 
     }
@@ -212,7 +211,6 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
             $this->replaceTemplateVariables($stub, $name);
             $this->files->put($path, $stub);
 
-
         }
 
         return true;
@@ -290,7 +288,6 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
             $data .= "                '".$column."' => '',".PHP_EOL;
         }
         $data .= "            ],".PHP_EOL."        ],".PHP_EOL.'        '.$key;
-
 
         $languages = str_replace($key, $data, $languages);
         $this->files->put($this->getLanguageFilePath(), $languages);

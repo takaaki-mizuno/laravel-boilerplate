@@ -38,7 +38,7 @@ abstract class GeneratorCommandBase extends Command
     /**
      * Get the stub file for the generator.
      *
-     * @param  string $name
+     * @param string $name
      *
      * @return bool
      */
@@ -47,7 +47,7 @@ abstract class GeneratorCommandBase extends Command
     /**
      * Determine if the class already exists.
      *
-     * @param  string $path
+     * @param string $path
      *
      * @return bool
      */
@@ -73,7 +73,7 @@ abstract class GeneratorCommandBase extends Command
     /**
      * Get the destination class path.
      *
-     * @param  string $name
+     * @param string $name
      *
      * @return string
      */
@@ -87,7 +87,7 @@ abstract class GeneratorCommandBase extends Command
     /**
      * Parse the name and format according to the root namespace.
      *
-     * @param  string $name
+     * @param string $name
      *
      * @return string
      */
@@ -109,7 +109,7 @@ abstract class GeneratorCommandBase extends Command
     /**
      * Get the default namespace for the class.
      *
-     * @param  string $rootNamespace
+     * @param string $rootNamespace
      *
      * @return string
      */
@@ -121,7 +121,7 @@ abstract class GeneratorCommandBase extends Command
     /**
      * Build the directory for the class if necessary.
      *
-     * @param  string $path
+     * @param string $path
      *
      * @return string
      */
@@ -135,7 +135,7 @@ abstract class GeneratorCommandBase extends Command
     /**
      * Get the full namespace name for a given class.
      *
-     * @param  string $name
+     * @param string $name
      *
      * @return string
      */
@@ -147,7 +147,7 @@ abstract class GeneratorCommandBase extends Command
     /**
      * Replace the class name for the given stub.
      *
-     * @param  string $name
+     * @param string $name
      *
      * @return string
      */

@@ -147,7 +147,6 @@ class ServiceMakeCommand extends GeneratorCommandBase
         return __DIR__.'/stubs/service-interface.stub';
     }
 
-
     protected function getUnitTestPath($name)
     {
         $className = $this->getClassName($name);
@@ -184,6 +183,5 @@ class ServiceMakeCommand extends GeneratorCommandBase
     {
         return $this->laravel['path'].'/Providers/ServiceBindServiceProvider.php';
     }
-
 
 }

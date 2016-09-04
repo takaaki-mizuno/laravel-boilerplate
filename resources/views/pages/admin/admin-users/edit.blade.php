@@ -20,9 +20,9 @@ Edit Admin Users
 @section('content')
     <form class="form-horizontal"
     @if( $isNew )
-        action="{!! \URL::action('Admin\AdminUserController@store') !!}" method="POST" enctype="multipart/form-data">
+        action="{!! action('Admin\AdminUserController@store') !!}" method="POST" enctype="multipart/form-data">
     @else
-        action="{!! \URL::action('Admin\AdminUserController@update', [$adminUser->id]) !!}" method="post">
+        action="{!! action('Admin\AdminUserController@update', [$adminUser->id]) !!}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="put">
     @endif
     {!! csrf_field() !!}

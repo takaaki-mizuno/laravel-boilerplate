@@ -39,7 +39,7 @@ class %%CLASS%%Controller extends Controller
             'count'   => $count,
             'offset'  => $offset,
             'limit'   => $limit,
-            'baseUrl' => \URL::action('Admin\%%CLASS%%Controller@index'),
+            'baseUrl' => action('Admin\%%CLASS%%Controller@index'),
         ]);
     }
 
@@ -69,11 +69,11 @@ class %%CLASS%%Controller extends Controller
         $model = $this->%%class%%Repository->create($input);
 
         if (empty( $model )) {
-            return redirect()->back()->withErrors(\Lang::get('admin.errors.general.save_failed'));
+            return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
         }
 
         return redirect()->action('Admin\%%CLASS%%Controller@index')
-            ->with('message-success', \Lang::get('admin.messages.general.create_success'));
+            ->with('message-success', trans('admin.messages.general.create_success'));
     }
 
     /**
@@ -125,7 +125,7 @@ class %%CLASS%%Controller extends Controller
         $this->%%class%%Repository->update($model, $input);
 
         return redirect()->action('Admin\%%CLASS%%Controller@show', [$id])
-                    ->with('message-success', \Lang::get('admin.messages.general.update_success'));
+                    ->with('message-success', trans('admin.messages.general.update_success'));
     }
 
     /**
@@ -144,7 +144,7 @@ class %%CLASS%%Controller extends Controller
         $this->%%class%%Repository->delete($model);
 
         return redirect()->action('Admin\%%CLASS%%Controller@index')
-                    ->with('message-success', \Lang::get('admin.messages.general.delete_success'));
+                    ->with('message-success', trans('admin.messages.general.delete_success'));
     }
 
 }

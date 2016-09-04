@@ -39,19 +39,19 @@ class ServiceAuthController extends Controller
 
     public function redirect()
     {
-        \Config::set("services.$this->driver.redirect", action(\Config::get("services.$this->driver.redirect_action")));
+        \Config::set("services.$this->driver.redirect", action(config("services.$this->driver.redirect_action")));
 
         return $this->socialite->driver($this->driver)->redirect();
     }
 
     public function callback()
     {
-        \Config::set("services.$this->driver.redirect", action(\Config::get("services.$this->driver.redirect_action")));
+        \Config::set("services.$this->driver.redirect", action(config("services.$this->driver.redirect_action")));
 
         try {
             $serviceUser = $this->socialite->driver($this->driver)->user();
         } catch (\GuzzleHttp\Exception\ClientException $e) {
-            return redirect()->action($this->errorRedirectAction)->withErrors([\Lang::get('sign_in_failed_title'), \Lang::get('social_sign_in_failed')]);
+            return redirect()->action($this->errorRedirectAction)->withErrors([trans('sign_in_failed_title'), trans('social_sign_in_failed')]);
         }
 
         $serviceUserId = $serviceUser->getId();
@@ -59,7 +59,7 @@ class ServiceAuthController extends Controller
         $email = $serviceUser->getEmail();
 
         if (empty( $email )) {
-            return redirect()->action($this->errorRedirectAction)->withErrors([\Lang::get('sign_in_failed_title'), \Lang::get('failed_to_get_email')]);
+            return redirect()->action($this->errorRedirectAction)->withErrors([trans('sign_in_failed_title'), trans('failed_to_get_email')]);
         }
 
         $authUserId = $this->serviceAuthenticationService->getAuthModelId($this->driver, [
@@ -73,6 +73,6 @@ class ServiceAuthController extends Controller
             $this->authenticatableService->signInById($authUserId);
         }
 
-        return redirect()->intended(\URL::action($this->redirectAction));
+        return redirect()->intended(action($this->redirectAction));
     }
 }

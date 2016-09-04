@@ -29,14 +29,14 @@ Sign In
 @section('content')
 <div class="login-box">
     <div class="login-logo">
-        <a href="{!! \URL::action('User\IndexController@index') !!}"><b>{{ \Config::get('site.name') }}</b> Admin</a>
+        <a href="{!! action('User\IndexController@index') !!}"><b>{{ \Config::get('site.name') }}</b> Admin</a>
     </div>
     <!-- /.login-logo -->
 
     <div class="login-box-body">
         <p class="login-box-msg">@lang('admin.pages.auth.messages.please_sign_in')</p>
 
-        <form action="{!! \URL::action('Admin\AuthController@postSignIn') !!}" method="post">
+        <form action="{!! action('Admin\AuthController@postSignIn') !!}" method="post">
             {!! csrf_field() !!}
             <div class="form-group has-feedback">
                 <input type="email" name="email" class="form-control" placeholder="Email">
@@ -61,7 +61,7 @@ Sign In
                 <!-- /.col -->
             </div>
         </form>
-        <a href="{!! \URL::action('Admin\PasswordController@getForgotPassword') !!}">@lang('admin.pages.auth.messages.forgot_password')</a><br>
+        <a href="{!! action('Admin\PasswordController@getForgotPassword') !!}">@lang('admin.pages.auth.messages.forgot_password')</a><br>
 
     </div>
     <!-- /.login-box-body -->

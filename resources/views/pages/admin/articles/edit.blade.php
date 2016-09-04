@@ -92,7 +92,7 @@ Articles
 @stop
 
 @section('breadcrumb')
-    <li><a href="{!! \URL::action('Admin\ArticleController@index') !!}"><i class="fa fa-files-o"></i> Articles</a></li>
+    <li><a href="{!! action('Admin\ArticleController@index') !!}"><i class="fa fa-files-o"></i> Articles</a></li>
     @if( $isNew )
         <li class="active">New</li>
     @else
@@ -101,21 +101,11 @@ Articles
 @stop
 
 @section('content')
-    @if (count($errors) > 0)
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <form
     @if( $isNew )
-    id="form-article" class="form-horizontal" action="{!! \URL::action('Admin\ArticleController@store') !!}" method="POST" enctype="multipart/form-data">
+    id="form-article" class="form-horizontal" action="{!! action('Admin\ArticleController@store') !!}" method="POST" enctype="multipart/form-data">
     @else
-    id="form-article" class="form-horizontal" action="{!! \URL::action('Admin\ArticleController@update', [$article->id]) !!}" method="POST" enctype="multipart/form-data">
+    id="form-article" class="form-horizontal" action="{!! action('Admin\ArticleController@update', [$article->id]) !!}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="PUT">
     @endif
     {!! csrf_field() !!}
@@ -125,7 +115,7 @@ Articles
                 <h3 class="box-title">
                     <div class="input-group @if ($errors->has('title')) has-error @endif">
                         <span class="input-group-addon"><i class="fa fa-newspaper-o"></i></span>
-                        <input type="text" id="input-title" name="title" class="form-control" placeholder="Title" value="{{{ Input::old('title') ? Input::old('title') : $article->title }}}">
+                        <input type="text" id="input-title" name="title" class="form-control" placeholder="Title" value="{{{ old('title') ? old('title') : $article->title }}}">
                     </div>
                 </h3>
             </div>
@@ -143,13 +133,13 @@ Articles
                                 <div class="tab-pane active" id="tab_info">
                                     <div class="form-group @if ($errors->has('slug')) has-error @endif">
                                         <label for="slug">@lang('admin.pages.articles.columns.slug')</label>
-                                        <input type="text" name="slug" class="form-control" placeholder="Slug"  value="{{ Input::old('slug') ? Input::old('slug') : $article->slug }}">
+                                        <input type="text" name="slug" class="form-control" placeholder="Slug"  value="{{ old('slug') ? old('slug') : $article->slug }}">
                                     </div>
                                     <div class="form-group @if ($errors->has('locale')) has-error @endif">
                                         <label for="locale">@lang('admin.pages.articles.columns.locale')</label>
                                         <select name="locale" id="locale" class="form-control">
                                             @foreach( \Config::get('locale.languages') as $code => $locale )
-                                                <option value="{!! $code !!}" @if( (Input::old('locale') && Input::old('locale') == $code) || (!Input::old('locale') && $article->locale == $code)) selected @endif >{{{ \Lang::get(array_get($locale, 'name', $code)) }}}</option>
+                                                <option value="{!! $code !!}" @if( (old('locale') && old('locale') == $code) || (!old('locale') && $article->locale == $code)) selected @endif >{{{ trans(array_get($locale, 'name', $code)) }}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -165,11 +155,11 @@ Articles
                                     </div>
                                     <div class="form-group @if ($errors->has('keywords')) has-error @endif">
                                         <label for="keywords">@lang('admin.pages.articles.columns.keywords')</label>
-                                        <input type="text" name="keywords" class="form-control" placeholder="Keywords" value="{{{ Input::old('keywords') ? Input::old('keywords') : $article->keywords }}}">
+                                        <input type="text" name="keywords" class="form-control" placeholder="Keywords" value="{{{ old('keywords') ? old('keywords') : $article->keywords }}}">
                                     </div>
                                     <div class="form-group">
                                         <label for="description">@lang('admin.pages.articles.columns.description')</label>
-                                        <textarea name="description" class="form-control" rows="5" placeholder="Description">{{{ Input::old('description') ? Input::old('description') : $article->description }}}</textarea>
+                                        <textarea name="description" class="form-control" rows="5" placeholder="Description">{{{ old('description') ? old('description') : $article->description }}}</textarea>
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="tab_contents">
@@ -178,7 +168,7 @@ Articles
                                             <div id='edit'>
                                             </div>
                                         </section>
-                                        <input type="hidden" name="content" id="input-content" value="{{ Input::old('content') ? Input::old('content') : $article->content }}">
+                                        <input type="hidden" name="content" id="input-content" value="{{ old('content') ? old('content') : $article->content }}">
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +191,7 @@ Articles
                             <label for="publish_started_at">@lang('admin.pages.articles.columns.publish_started_at')</label>
                             <div class='input-group date' id='input-publish-started-at'>
                                 <input type='text' class="form-control" name="publish_started_at"
-                                       value="{{ Input::old('publish_started_at') ? Input::old('publish_started_at') : \DateTimeHelper::formatDateTime($article->publish_started_at) }}">
+                                       value="{{ old('publish_started_at') ? old('publish_started_at') : \DateTimeHelper::formatDateTime($article->publish_started_at) }}">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -211,7 +201,7 @@ Articles
                             <label for="publish_ended_at">@lang('admin.pages.articles.columns.publish_ended_at')</label>
                             <div class='input-group date' id='input-publish-ended-at'>
                                 <input type='text' class="form-control" name="publish_ended_at"
-                                       value="{{ Input::old('publish_ended_at') ? Input::old('publish_ended_at') : !empty($article->publish_ended_at) ? \DateTimeHelper::formatDateTime($article->publish_ended_at) : '' }}">
+                                       value="{{ old('publish_ended_at') ? old('publish_ended_at') : !empty($article->publish_ended_at) ? \DateTimeHelper::formatDateTime($article->publish_ended_at) : '' }}">
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -227,7 +217,7 @@ Articles
             </div>
         </div>
     </form>
-    <form id="form-preview" action="{!! \URL::action('Admin\ArticleController@preview') !!}" method="POST" enctype="multipart/form-data" target="_blank">
+    <form id="form-preview" action="{!! action('Admin\ArticleController@preview') !!}" method="POST" enctype="multipart/form-data" target="_blank">
         {!! csrf_field() !!}
         <input type="hidden" name="title" id="preview-title">
         <input type="hidden" name="content" id="preview-content">

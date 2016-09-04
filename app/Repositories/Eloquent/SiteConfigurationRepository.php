@@ -27,7 +27,7 @@ class SiteConfigurationRepository extends SingleKeyModelRepository implements Si
     public function messages()
     {
         return [
-            'name.required' => \Lang::get('validation.repositories.site_configuration.name.required'),
+            'name.required' => trans('validation.repositories.site_configuration.name.required'),
         ];
     }
 
@@ -49,7 +49,7 @@ class SiteConfigurationRepository extends SingleKeyModelRepository implements Si
 
             return $siteConfiguration;
         }
-        $siteConfiguration = SiteConfiguration::whereLocale(\Config::get('app.locale'))->first();
+        $siteConfiguration = SiteConfiguration::whereLocale(config('app.locale'))->first();
         if (!empty($siteConfiguration)) {
             if ($this->cacheEnabled) {
                 \Cache::put($this->getLocaleCacheKey($locale), $siteConfiguration, $this->cacheLifeTime);
@@ -76,6 +76,7 @@ class SiteConfigurationRepository extends SingleKeyModelRepository implements Si
         if ($this->cacheEnabled) {
             \Cache::forget($this->getLocaleCacheKey($model->locale));
         }
+
         return parent::update($model, $input);
     }
 

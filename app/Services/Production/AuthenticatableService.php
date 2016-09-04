@@ -32,7 +32,7 @@ class AuthenticatableService implements AuthenticatableServiceInterface
     {
         /** @var \App\Models\AuthenticatableBase $user */
         $user = $this->authenticatableRepository->find($id);
-        if (empty( $user )) {
+        if (empty($user)) {
             return null;
         }
         $guard = $this->getGuard();
@@ -41,10 +41,6 @@ class AuthenticatableService implements AuthenticatableServiceInterface
         return $guard->user();
     }
 
-    /**
-     * @param  array            $input
-     * @return \App\Models\Base
-     */
     public function signIn($input)
     {
         $rememberMe = !!array_get($input, 'remember_me', 0);
@@ -56,15 +52,11 @@ class AuthenticatableService implements AuthenticatableServiceInterface
         return $guard->user();
     }
 
-    /**
-     * @param  array            $input
-     * @return \App\Models\Base
-     */
     public function signUp($input)
     {
         /** @var \App\Models\AuthenticatableBase $user */
         $user = $this->authenticatableRepository->create($input);
-        if (empty( $user )) {
+        if (empty($user)) {
             return null;
         }
         $guard = $this->getGuard();
@@ -73,22 +65,15 @@ class AuthenticatableService implements AuthenticatableServiceInterface
         return $guard->user();
     }
 
-    /**
-     * @param  string $email
-     * @return bool
-     */
     public function sendPasswordReset($email)
     {
         return false;
     }
 
-    /**
-     * @return bool
-     */
     public function signOut()
     {
         $user = $this->getUser();
-        if (empty( $user )) {
+        if (empty($user)) {
             return false;
         }
         $guard = $this->getGuard();
@@ -98,13 +83,10 @@ class AuthenticatableService implements AuthenticatableServiceInterface
         return true;
     }
 
-    /**
-     * @return bool
-     */
     public function resignation()
     {
         $user = $this->getUser();
-        if (empty( $user )) {
+        if (empty($user)) {
             return false;
         }
         $guard = $this->getGuard();
@@ -115,18 +97,12 @@ class AuthenticatableService implements AuthenticatableServiceInterface
         return true;
     }
 
-    /**
-     * @param \App\Models\AuthenticatableBase $user
-     */
     public function setUser($user)
     {
         $guard = $this->getGuard();
         $guard->login($user);
     }
 
-    /**
-     * @return \App\Models\AuthenticatableBase
-     */
     public function getUser()
     {
         $guard = $this->getGuard();
@@ -134,52 +110,39 @@ class AuthenticatableService implements AuthenticatableServiceInterface
         return $guard->user();
     }
 
-    /**
-     * @param string $email
-     */
     public function sendPasswordResetEmail($email)
     {
 
         $user = $this->authenticatableRepository->findByEmail($email);
-        if (empty( $user )) {
+        if (empty($user)) {
             return;
         }
 
         $token = $this->passwordResettableRepository->create($user);
 
-        /** @var \App\Services\MailService $mailService */
-        $mailService = \App::make('App\Services\MailService');
+        /** @var \App\Services\MailServiceInterface $mailService */
+        $mailService = \App::make('App\Services\MailServiceInterface');
 
-        $mailService->sendMail($this->resetEmailTitle, \Config::get('mail.from'),
+        $mailService->sendMail($this->resetEmailTitle, config('mail.from'),
             ['name' => '', 'address' => $user->email], $this->resetEmailTemplate, [
                 'token' => $token,
             ]);
     }
 
-    /**
-     * @param  string                               $token
-     * @return null|\App\Models\AuthenticatableBase
-     */
     public function getUserByPasswordResetToken($token)
     {
         $email = $this->passwordResettableRepository->findEmailByToken($token);
-        if (empty( $email )) {
+        if (empty($email)) {
             return null;
         }
 
         return $this->authenticatableRepository->findByEmail($email);
     }
 
-    /**
-     * @param  string $email
-     * @param  string $password
-     * @param  string $token
-     * @return bool
-     */
     public function resetPassword($email, $password, $token)
     {
         $user = $this->authenticatableRepository->findByEmail($email);
-        if (empty( $user )) {
+        if (empty($user)) {
             return false;
         }
         if (!$this->passwordResettableRepository->exists($user, $token)) {
@@ -192,9 +155,6 @@ class AuthenticatableService implements AuthenticatableServiceInterface
         return true;
     }
 
-    /**
-     * @return bool
-     */
     public function isSignedIn()
     {
         $guard = $this->getGuard();
@@ -202,6 +162,39 @@ class AuthenticatableService implements AuthenticatableServiceInterface
         return $guard->check();
     }
 
+    public function signInByAPI($input)
+    {
+        /** @var \App\Models\AuthenticatableBase $user */
+        $user = $this->signIn($input);
+        if (empty($user)) {
+            return null;
+        }
+
+        return $this->setAPIAccessToken($user);
+    }
+
+    public function signUpByAPI($input)
+    {
+        /** @var \App\Models\AuthenticatableBase $user */
+        $user = $this->signUp($input);
+        if (empty($user)) {
+            return null;
+        }
+
+        return $this->setAPIAccessToken($user);
+    }
+
+    public function setAPIAccessToken($user)
+    {
+        $user->setAPIAccessToken();
+        $this->authenticatableRepository->save($user);
+
+        return $user;
+    }
+
+    /**
+     * @return string
+     */
     protected function getGuardName()
     {
         return "";

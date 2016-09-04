@@ -43,7 +43,7 @@ class UserController extends Controller
             'offset'  => $offset,
             'limit'   => $limit,
             'count'   => $count,
-            'baseUrl' => \URL::action('Admin\UserController@index'),
+            'baseUrl' => action('Admin\UserController@index'),
         ]);
     }
 
@@ -69,7 +69,7 @@ class UserController extends Controller
         $model = $this->userRepository->create($request->all());
 
         return redirect()->action('Admin\UserController@show', [$model->id])->with('message-success',
-            \Lang::get('admin.messages.general.create_success'));
+            trans('admin.messages.general.create_success'));
     }
 
     public function update($id, UserRequest $request)
@@ -82,7 +82,7 @@ class UserController extends Controller
         $this->userRepository->update($user, $request->all());
 
         return redirect()->action('Admin\UserController@show', [$id])->with('message-success',
-            \Lang::get('admin.messages.general.update_success'));
+            trans('admin.messages.general.update_success'));
     }
 
     public function destroy($id)
@@ -94,7 +94,7 @@ class UserController extends Controller
         $this->userRepository->delete($user);
 
         return redirect()->action('Admin\UserController@index')->with('message-success',
-            \Lang::get('admin.messages.general.delete_success'));
+            trans('admin.messages.general.delete_success'));
     }
 
 }

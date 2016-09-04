@@ -23,7 +23,7 @@ interface SingleKeyModelRepositoryInterface extends BaseRepositoryInterface
     public function allByIds($ids, $order = null, $direction = null, $reorder = false);
 
     /**
-     * @param  array              $ids
+     * @param  array $ids
      * @return int
      */
     public function countByIds($ids);

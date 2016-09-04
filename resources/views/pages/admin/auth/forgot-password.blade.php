@@ -20,7 +20,7 @@ Forgot Password
     <body class="login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{!! \URL::action('User\IndexController@index') !!}"><b>{{ \Config::get('site.name') }}</b> Admin</a>
+            <a href="{!! action('User\IndexController@index') !!}"><b>{{ \Config::get('site.name') }}</b> Admin</a>
         </div>
         <div class="login-box-body">
             <p class="login-box-msg">@lang('admin.pages.auth.messages.forgot_password')</p>

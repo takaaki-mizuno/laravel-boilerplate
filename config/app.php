@@ -12,6 +12,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Name
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
+    */
+
+    'name' => 'Laravel Boilerplate',
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |
@@ -101,7 +113,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'SomeRandomString'),
+    'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -119,6 +131,8 @@ return [
     */
 
     'log' => env('APP_LOG', 'daily'),
+
+    'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*
     |--------------------------------------------------------------------------
@@ -207,11 +221,11 @@ return [
         'Event'                 => Illuminate\Support\Facades\Event::class,
         'File'                  => Illuminate\Support\Facades\File::class,
         'Gate'                  => Illuminate\Support\Facades\Gate::class,
-        'Input'                 => Illuminate\Support\Facades\Input::class,
         'Hash'                  => Illuminate\Support\Facades\Hash::class,
         'Lang'                  => Illuminate\Support\Facades\Lang::class,
         'Log'                   => Illuminate\Support\Facades\Log::class,
         'Mail'                  => Illuminate\Support\Facades\Mail::class,
+        'Notification'          => Illuminate\Support\Facades\Notification::class,
         'Password'              => Illuminate\Support\Facades\Password::class,
         'Queue'                 => Illuminate\Support\Facades\Queue::class,
         'Redirect'              => Illuminate\Support\Facades\Redirect::class,

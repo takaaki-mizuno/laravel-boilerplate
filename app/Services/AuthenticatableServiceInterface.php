@@ -4,19 +4,19 @@ interface AuthenticatableServiceInterface extends BaseServiceInterface
 {
 
     /**
-     * @param  int $id
+     * @param  int                             $id
      * @return \App\Models\AuthenticatableBase
      */
     public function signInById($id);
 
     /**
-     * @param  array            $input
+     * @param  array                           $input
      * @return \App\Models\AuthenticatableBase
      */
     public function signIn($input);
 
     /**
-     * @param  array            $input
+     * @param  array                           $input
      * @return \App\Models\AuthenticatableBase
      */
     public function signUp($input);
@@ -70,5 +70,23 @@ interface AuthenticatableServiceInterface extends BaseServiceInterface
      * @return bool
      */
     public function isSignedIn();
+
+    /**
+     * @param  $input
+     * @return \App\Models\AuthenticatableBase
+     */
+    public function signInByAPI($input);
+
+    /**
+     * @param  $input
+     * @return \App\Models\AuthenticatableBase
+     */
+    public function signUpByAPI($input);
+
+    /**
+     * @param  \App\Models\AuthenticatableBase $user
+     * @return \App\Models\AuthenticatableBase
+     */
+    public function setAPIAccessToken($user);
 
 }

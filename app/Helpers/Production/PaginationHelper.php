@@ -84,6 +84,7 @@ class PaginationHelper implements PaginationHelperInterface
     )
     {
         $data = $this->data($offset,$limit, $count, $path, $query, $paginationNumber);
+
         return view($template, $data);
     }
 

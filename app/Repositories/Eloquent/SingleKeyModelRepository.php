@@ -77,7 +77,6 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         return $modelClass::whereIn($primaryKey, $ids)->count();
     }
 
-
     public function getByIds($ids, $order = null, $direction = null, $offset = null, $limit = null)
     {
         if (count($ids) == 0) {

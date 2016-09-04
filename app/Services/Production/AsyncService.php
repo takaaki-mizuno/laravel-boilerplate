@@ -45,7 +45,7 @@ class AsyncService extends BaseService implements AsyncServiceInterface
     public function registerJob($jobId, $jobInfo)
     {
         $queueData = [
-            'key'  => \Config::get('async.key'),
+            'key'  => config('async.key'),
             'jobs' => [
                 [
                     'id'   => $jobId,
@@ -53,15 +53,15 @@ class AsyncService extends BaseService implements AsyncServiceInterface
                 ],
             ],
         ];
-        if (\Config::get('async.enable', false) == true) {
+        if (config('async.enable', false) == true) {
             $auth = [
-                "key"    => \Config::get('aws.accounts.key'),
-                "secret" => \Config::get('aws.accounts.secret'),
-                "region" => \Config::get('aws.accounts.region'),
+                "key"    => config('aws.accounts.key'),
+                "secret" => config('aws.accounts.secret'),
+                "region" => config('aws.accounts.region'),
             ];
             $sqs = new SqsClient($auth);
             $sqs->$sqs->sendMessage([
-                'QueueUrl'    => \Config::get('async.worker.queue'),
+                'QueueUrl'    => config('async.worker.queue'),
                 'MessageBody' => json_encode($queueData),
             ]);
             // Log::info('Add Queue:' . json_encode($queueData));

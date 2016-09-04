@@ -122,7 +122,7 @@ class ModelMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $className
+     * @param  string           $className
      * @return \App\Models\Base
      */
     protected function getModel($className)
@@ -194,7 +194,7 @@ class ModelMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param string $tableName
+     * @param  string                         $tableName
      * @return \Doctrine\DBAL\Schema\Column[]
      */
     protected function getTableColumns($tableName)

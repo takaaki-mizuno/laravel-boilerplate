@@ -9,7 +9,7 @@ interface MetaInformationServiceInterface extends BaseServiceInterface
     public function getKeywordArray($string);
 
     /**
-     * @param  array $keywords
+     * @param  array  $keywords
      * @return string
      */
     public function generateKeywordString($keywords);

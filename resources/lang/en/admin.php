@@ -15,8 +15,19 @@ return [
         ],
     ],
     'errors'   => [
-        'general' => [
+        'general'  => [
             'save_failed' => 'Failed To Save. Please contact with developers',
+        ],
+        'requests' => [
+            'me' => [
+                'email'    => [
+                    'required' => 'Email Required',
+                    'email'    => 'Email is not valid',
+                ],
+                'password' => [
+                    'min' => 'Password need at least 6 letters',
+                ],
+            ],
         ],
     ],
     'pages'    => [

@@ -60,7 +60,7 @@ Articles
                     </td>
                     <td>
                         <a href="{!! URL::action('Admin\ArticleController@show', $model->id) !!}" class="btn btn-block btn-primary btn-sm">@lang('admin.pages.common.buttons.edit')</a>
-                        <a href="#" class="btn btn-block btn-danger btn-sm delete-button" data-delete-url="{!! \URL::action('Admin\ArticleController@destroy', $model->id) !!}">@lang('admin.pages.common.buttons.delete')</a>
+                        <a href="#" class="btn btn-block btn-danger btn-sm delete-button" data-delete-url="{!! action('Admin\ArticleController@destroy', $model->id) !!}">@lang('admin.pages.common.buttons.delete')</a>
                     </td>
                 </tr>
             @endforeach

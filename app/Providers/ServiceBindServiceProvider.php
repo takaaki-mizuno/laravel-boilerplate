@@ -58,7 +58,7 @@ class ServiceBindServiceProvider extends ServiceProvider
             \App\Services\Production\UserServiceAuthenticationService::class);
 
         $this->app->singleton(\App\Services\UserServiceInterface::class, \App\Services\Production\UserService::class);
-        
+
         $this->app->singleton(\App\Services\GoogleAnalyticsServiceInterface::class,
             \App\Services\Production\GoogleAnalyticsService::class);
 

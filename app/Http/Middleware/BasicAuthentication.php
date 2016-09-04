@@ -16,7 +16,7 @@ class BasicAuthentication
      */
     public function handle($request, \Closure $next)
     {
-        $needAuthentication = \Config::get('app.basic_authentication', true);
+        $needAuthentication = config('app.basic_authentication', true);
         if ($needAuthentication) {
             if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])) {
                 return response('Please enter username and password', 401,

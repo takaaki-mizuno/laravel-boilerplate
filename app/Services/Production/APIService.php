@@ -10,7 +10,7 @@ class APIService extends BaseService implements APIServiceInterface
 
     public function error($type)
     {
-        $config = \Config::get('api.errors');
+        $config = config('api.errors');
         $error = array_get($config, $type, $config[ $this::ERROR_UNKNOWN ]);
 
         return response()->json([

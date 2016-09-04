@@ -21,7 +21,6 @@ class SiteConfigurationController extends Controller
     /** @var ImageRepositoryInterface $imageRepository */
     protected $imageRepository;
 
-
     public function __construct(
         SiteConfigurationRepositoryInterface $siteConfigurationRepository,
         FileUploadServiceInterface $fileUploadService,
@@ -51,7 +50,7 @@ class SiteConfigurationController extends Controller
             'count'   => $count,
             'offset'  => $offset,
             'limit'   => $limit,
-            'baseUrl' => \URL::action('Admin\SiteConfigurationController@index'),
+            'baseUrl' => action('Admin\SiteConfigurationController@index'),
         ]);
     }
 
@@ -86,7 +85,7 @@ class SiteConfigurationController extends Controller
         $model = $this->siteConfigurationRepository->create($input);
 
         if (empty( $model )) {
-            return redirect()->back()->withErrors(\Lang::get('admin.errors.general.save_failed'));
+            return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
         }
 
         if ($request->hasFile('ogp_image')) {
@@ -106,13 +105,13 @@ class SiteConfigurationController extends Controller
         }
 
         return redirect()->action('Admin\SiteConfigurationController@index')->with('message-success',
-            \Lang::get('admin.messages.general.create_success'));
+            trans('admin.messages.general.create_success'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function show($id)
@@ -131,7 +130,7 @@ class SiteConfigurationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function edit($id)
@@ -142,8 +141,8 @@ class SiteConfigurationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
-     * @param      $request
+     * @param  int       $id
+     * @param            $request
      * @return \Response
      */
     public function update($id, SiteConfigurationRequest $request)
@@ -196,13 +195,13 @@ class SiteConfigurationController extends Controller
         }
 
         return redirect()->action('Admin\SiteConfigurationController@show', [$id])->with('message-success',
-            \Lang::get('admin.messages.general.update_success'));
+            trans('admin.messages.general.update_success'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function destroy($id)
@@ -215,7 +214,7 @@ class SiteConfigurationController extends Controller
         $this->siteConfigurationRepository->delete($model);
 
         return redirect()->action('Admin\SiteConfigurationController@index')->with('message-success',
-            \Lang::get('admin.messages.general.delete_success'));
+            trans('admin.messages.general.delete_success'));
     }
 
 }

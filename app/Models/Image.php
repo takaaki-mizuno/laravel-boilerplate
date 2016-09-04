@@ -108,7 +108,7 @@ class Image extends Base
     public function getUrl()
     {
 
-        if (\Config::get('app.offline_mode', false)) {
+        if (config('app.offline_mode', false)) {
             return \URL::to('static/img/local/local.png');
         }
 
@@ -123,7 +123,7 @@ class Image extends Base
     public function getThumbnailUrl($width, $height)
     {
 
-        if (\Config::get('app.offline_mode', false)) {
+        if (config('app.offline_mode', false)) {
             return \URL::to('static/img/local/local.png');
         }
 
@@ -136,7 +136,7 @@ class Image extends Base
         }
 
         $categoryType = $this->file_category;
-        $confList = \Config::get('file.categories');
+        $confList = config('file.categories');
 
         $conf = array_get($confList, $categoryType);
 

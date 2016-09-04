@@ -56,7 +56,7 @@ class ArticleController extends Controller
             'count'   => $count,
             'offset'  => $offset,
             'limit'   => $limit,
-            'baseUrl' => \URL::action('Admin\ArticleController@index'),
+            'baseUrl' => action('Admin\ArticleController@index'),
         ]);
     }
 
@@ -96,7 +96,7 @@ class ArticleController extends Controller
         $model = $this->articleRepository->create($input);
 
         if (empty($model)) {
-            return redirect()->back()->withErrors(\Lang::get('admin.errors.general.save_failed'));
+            return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
         }
 
         if ($request->hasFile('cover_image')) {
@@ -115,13 +115,13 @@ class ArticleController extends Controller
         }
 
         return redirect()->action('Admin\ArticleController@index')->with('message-success',
-            \Lang::get('admin.messages.general.create_success'));
+            trans('admin.messages.general.create_success'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function show($id)
@@ -140,7 +140,7 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function edit($id)
@@ -151,8 +151,8 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
-     * @param      $request
+     * @param  int       $id
+     * @param            $request
      * @return \Response
      */
     public function update($id, ArticleRequest $request)
@@ -203,13 +203,13 @@ class ArticleController extends Controller
         }
 
         return redirect()->action('Admin\ArticleController@show', [$id])->with('message-success',
-            \Lang::get('admin.messages.general.update_success'));
+            trans('admin.messages.general.update_success'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function destroy($id)
@@ -222,11 +222,11 @@ class ArticleController extends Controller
         $this->articleRepository->delete($model);
 
         return redirect()->action('Admin\ArticleController@index')->with('message-success',
-            \Lang::get('admin.messages.general.delete_success'));
+            trans('admin.messages.general.delete_success'));
     }
 
     /**
-     * @param BaseRequest $request
+     * @param  BaseRequest $request
      * @return \Response
      */
     public function preview(BaseRequest $request)

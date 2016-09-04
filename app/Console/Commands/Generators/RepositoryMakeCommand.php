@@ -195,7 +195,7 @@ class RepositoryMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $className
+     * @param  string           $className
      * @return \App\Models\Base
      */
     protected function getModel($className)
@@ -206,7 +206,7 @@ class RepositoryMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $className
+     * @param  string           $className
      * @return \App\Models\Base
      */
     protected function getModelClass($className)

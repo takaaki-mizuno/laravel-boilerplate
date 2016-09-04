@@ -60,8 +60,8 @@ class SlackService extends BaseService implements SlackServiceInterface
      */
     public function post($message, $type, $attachment = [ ])
     {
-        $type       = \Config::get('slack.types.' . strtolower($type), \Config::get('slack.default', [ ]));
-        $webHookUrl = \Config::get('slack.webHookUrl');
+        $type       = config('slack.types.' . strtolower($type), config('slack.default', [ ]));
+        $webHookUrl = config('slack.webHookUrl');
         $client     = new Client($webHookUrl, [
             'username'   => array_get($type, 'username', 'FamarryBot'),
             'channel'    => array_get($type, 'channel', '#random'),

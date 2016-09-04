@@ -51,6 +51,7 @@ class StringHelper implements StringHelperInterface
         for ($i = 0; $i < $length; $i++) {
             $result .= $characters[mt_rand(0, count($characters) - 1)];
         }
+
         return $result;
     }
 }

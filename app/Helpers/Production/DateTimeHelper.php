@@ -10,7 +10,7 @@ class DateTimeHelper implements DateTimeHelperInterface
 
     public function timezoneForStorage()
     {
-        return new \DateTimeZone(\Config::get('app.timezone'));
+        return new \DateTimeZone(config('app.timezone'));
     }
 
     public function setPresentationTimeZone($timezone = null)
@@ -27,7 +27,7 @@ class DateTimeHelper implements DateTimeHelperInterface
     {
         $timezone = \Session::get(static::PRESENTATION_TIME_ZONE_SESSION_KEY);
         if ( empty($timezone) ) {
-            $timezone = \Config::get('app.default_presentation_timezone');
+            $timezone = config('app.default_presentation_timezone');
         }
 
         return $timezone;

@@ -2,7 +2,7 @@
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="{!! \URL::action('Admin\IndexController@index') !!}" class="logo">
+    <a href="{!! action('Admin\IndexController@index') !!}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini">{{ \Config::get('site.name') }}</span>
         <!-- logo for regular state and mobile devices -->
@@ -18,6 +18,9 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+
+            @if(0)
+
                 <!-- Messages: style can be found in dropdown.less-->
                 <li class="dropdown messages-menu">
                     <!-- Menu toggle button -->
@@ -114,6 +117,8 @@
                     </ul>
                 </li>
                 <!-- User Account Menu -->
+
+            @endif
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -132,6 +137,7 @@
                             </p>
                         </li>
                         <!-- Menu Body -->
+                        @if(0)
                         <li class="user-body">
                             <div class="row">
                                 <div class="col-xs-4 text-center">
@@ -144,12 +150,11 @@
                                     <a href="#">Friends</a>
                                 </div>
                             </div>
-                            <!-- /.row -->
                         </li>
-                        <!-- Menu Footer-->
+                        @endif
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <a href="{{ action('Admin\MeController@index') }}" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <form id="signout" method="post" action="{!! URL::action('Admin\AuthController@postSignOut') !!}">{!! csrf_field(); !!}</form>

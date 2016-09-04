@@ -20,7 +20,7 @@ class AdminUserRoleRepository extends SingleKeyModelRepository implements AdminU
     public function create($input)
     {
         $role = array_get($input, 'role', '');
-        if (!array_key_exists($role, \Config::get('admin_user.roles', []))) {
+        if (!array_key_exists($role, config('admin_user.roles', []))) {
             return null;
         }
 

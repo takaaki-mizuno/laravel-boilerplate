@@ -49,7 +49,7 @@ class AdminUserController extends Controller
             'offset'     => $offset,
             'limit'      => $limit,
             'count'      => $count,
-            'baseUrl'    => \URL::action('Admin\AdminUserController@index'),
+            'baseUrl'    => action('Admin\AdminUserController@index'),
         ]);
     }
 
@@ -88,7 +88,7 @@ class AdminUserController extends Controller
         $this->adminUserRoleRepository->setAdminUserRoles($adminUser->id, $request->input('role', []));
 
         return redirect()->action('Admin\AdminUserController@show', [$adminUser->id])->with('message-success',
-            \Lang::get('admin.messages.general.create_success'));
+            trans('admin.messages.general.create_success'));
     }
 
     public function update($id, AdminUserUpdateRequest $request)
@@ -102,6 +102,6 @@ class AdminUserController extends Controller
         $this->adminUserRoleRepository->setAdminUserRoles($id, $request->input('role', []));
 
         return redirect()->action('Admin\AdminUserController@show', [$id])->with('message-success',
-            \Lang::get('admin.messages.general.update_success'));
+            trans('admin.messages.general.update_success'));
     }
 }

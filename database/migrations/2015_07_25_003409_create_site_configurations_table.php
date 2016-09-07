@@ -30,8 +30,14 @@ class CreateSiteConfigurationsTable extends Migration
             $table->timestamps();
 
             $table->index(['locale']);
-
         });
+
+        DB::statement("ALTER TABLE site_configurations MODIFY created_at " .
+            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+
+        DB::statement("ALTER TABLE site_configurations MODIFY updated_at " .
+            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+
     }
 
     /**

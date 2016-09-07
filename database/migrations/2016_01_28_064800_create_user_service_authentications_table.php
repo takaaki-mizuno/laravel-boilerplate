@@ -25,6 +25,12 @@ class CreateUserServiceAuthenticationsTable extends Migration
 
             $table->timestamps();
         });
+
+        DB::statement("ALTER TABLE user_service_authentications MODIFY created_at " .
+            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+
+        DB::statement("ALTER TABLE user_service_authentications MODIFY updated_at " .
+            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
     }
 
     /**

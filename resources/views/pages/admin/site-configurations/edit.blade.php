@@ -45,7 +45,7 @@ SiteConfigurations
                 <div class="form-group @if ($errors->has('locale')) has-error @endif">
                     <label for="locale">@lang('admin.pages.site-configurations.columns.locale')</label>
                     <select name="locale" class="form-control">
-                        @foreach( \Config::get('locale.languages') as $code => $locale )
+                        @foreach( config('locale.languages') as $code => $locale )
                             <option value="{!! $code !!}" @if( (old('locale') && old('locale') == $code) || (!old('locale') && $siteConfiguration->locale == $code)) selected @endif >@lang(array_get($locale, 'name', $code))</option>
                         @endforeach
                     </select>

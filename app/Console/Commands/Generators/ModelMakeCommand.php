@@ -203,6 +203,10 @@ class ModelMakeCommand extends GeneratorCommandBase
         if (!$hasDoctrine) {
             return [];
         }
+
+        $platform = \DB::getDoctrineConnection()->getDatabasePlatform();
+        $platform->registerDoctrineTypeMapping('json', 'string');
+
         $schema = \DB::getDoctrineSchemaManager();
 
         $ret = [];

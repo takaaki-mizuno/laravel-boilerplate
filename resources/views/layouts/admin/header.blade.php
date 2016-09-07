@@ -56,30 +56,33 @@
                     </ul>
                 </li>
                 <!-- /.messages-menu -->
-
+            @endif
                 <!-- Notifications Menu -->
                 <li class="dropdown notifications-menu">
                     <!-- Menu toggle button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
+                        <span class="label label-warning">{{ $unreadNotificationCount }}</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">You have 10 notifications</li>
+                        <li class="header">You have {{ $unreadNotificationCount }} unread notifications</li>
                         <li>
                             <!-- Inner Menu: contains the notifications -->
                             <ul class="menu">
+                                @foreach( $notifications as $notification )
                                 <li><!-- start notification -->
                                     <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        <i class="fa fa-users text-aqua"></i> {{ $notification->content }}
                                     </a>
                                 </li>
                                 <!-- end notification -->
+                                @endforeach
                             </ul>
                         </li>
-                        <li class="footer"><a href="#">View all</a></li>
+                        <li class="footer"><a href="{{ action('Admin\MeController@notifications') }}">View all</a></li>
                     </ul>
                 </li>
+                @if(0)
                 <!-- Tasks Menu -->
                 <li class="dropdown tasks-menu">
                     <!-- Menu Toggle Button -->

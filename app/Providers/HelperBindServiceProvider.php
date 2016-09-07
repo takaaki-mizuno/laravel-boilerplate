@@ -42,6 +42,11 @@ class HelperBindServiceProvider extends ServiceProvider
             'App\Helpers\Production\PaginationHelper'
         );
 
+        $this->app->singleton(
+            'App\Helpers\UserNotificationHelperInterface',
+            'App\Helpers\Production\UserNotificationHelper'
+        );
+
         /* NEW BINDING */
     }
 }

@@ -29,6 +29,7 @@ Articles
                 <a href="{!! URL::action('Admin\ArticleController@create') !!}" class="btn btn-block btn-primary btn-sm">@lang('admin.pages.common.buttons.create')</a>
             </p>
         </h3>
+        {!! \PaginationHelper::render($offset, $limit, $count, $baseUrl, []) !!}
     </div>
     <div class="box-body">
         <table class="table table-bordered">
@@ -67,7 +68,7 @@ Articles
         </table>
     </div>
     <div class="box-footer">
-        @include('shared.admin.pagination')
+        {!! \PaginationHelper::render($offset, $limit, $count, $baseUrl, []) !!}
     </div>
 </div>
 @stop

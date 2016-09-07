@@ -247,9 +247,11 @@ return [
         'CollectionHelper'      => App\Facades\CollectionHelper::class,
         'StringHelper'          => App\Facades\StringHelper::class,
         'PaginationHelper'      => App\Facades\PaginationHelper::class,
+        'UserNotificationHelper'  => App\Facades\UserNotificationHelper::class,
         /* NEW FACADE */
     ],
 
+    'offline_mode'         => env('OFFLINE_MODE', null),
     'host'                 => env('APP_HOST', null),
     'need_locale_prefix'   => true,
     'basic_authentication' => env('BASIC_AUTHENTICATION', true),

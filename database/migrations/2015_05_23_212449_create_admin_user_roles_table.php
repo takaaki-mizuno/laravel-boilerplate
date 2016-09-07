@@ -22,6 +22,13 @@ class CreateAdminUserRolesTable extends Migration
             $table->index(['admin_user_id']);
             $table->index(['role', 'admin_user_id']);
         });
+
+        DB::statement("ALTER TABLE admin_user_roles MODIFY created_at " .
+            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+
+        DB::statement("ALTER TABLE admin_user_roles MODIFY updated_at " .
+            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+
     }
 
     /**

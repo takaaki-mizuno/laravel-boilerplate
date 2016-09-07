@@ -38,6 +38,13 @@ class CreateArticlesTable extends Migration
             $table->index(['is_enabled', 'publish_started_at', 'publish_ended_at', 'id']);
 
         });
+
+        DB::statement("ALTER TABLE articles MODIFY created_at " .
+            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+
+        DB::statement("ALTER TABLE articles MODIFY updated_at " .
+            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+
     }
 
     /**

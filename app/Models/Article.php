@@ -48,6 +48,8 @@ class Article extends Base
      */
     protected $table = 'articles';
 
+    protected $presenter = \App\Presenters\ArticlePresenter::class;
+
     /**
      * The attributes that are mass assignable.
      *

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware\Admin;
 
+use App\Services\AdminUserNotificationServiceInterface;
 use App\Services\AdminUserServiceInterface;
 use Closure;
 
@@ -10,21 +11,29 @@ class SetDefaultValues
     /** @var AdminUserServiceInterface */
     protected $adminUserService;
 
+    /** @var AdminUserNotificationServiceInterface */
+    protected $adminUserNotificationService;
+
     /**
      * Create a new filter instance.
      *
      * @param AdminUserServiceInterface $adminUserService
+     * @param AdminUserNotificationServiceInterface $adminUserNotificationService
      */
-    public function __construct(AdminUserServiceInterface $adminUserService)
+    public function __construct(
+        AdminUserServiceInterface $adminUserService,
+        AdminUserNotificationServiceInterface $adminUserNotificationService
+    )
     {
         $this->adminUserService = $adminUserService;
+        $this->adminUserNotificationService = $adminUserNotificationService;
     }
 
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, \Closure $next)
@@ -32,6 +41,12 @@ class SetDefaultValues
         $user = $this->adminUserService->getUser();
         \View::share('authUser', $user);
         \View::share('menu', '');
+
+        $notificationCount = $this->adminUserNotificationService->getUnreadNotificationCount($user);
+        $notifications = $this->adminUserNotificationService->getNotifications($user, 0, 10);
+
+        \View::share('unreadNotificationCount', $notificationCount);
+        \View::share('notifications', $notifications);
 
         return $next($request);
     }

@@ -16,6 +16,7 @@
 
         \Route::get('/me', 'Admin\MeController@index');
         \Route::put('/me', 'Admin\MeController@update');
+        \Route::get('/me/notifications', 'Admin\MeController@notifications');
 
         \Route::post('signout', 'Admin\AuthController@postSignOut');
 

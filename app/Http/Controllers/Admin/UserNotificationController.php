@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\UserNotificationRepositoryInterface;
 use App\Http\Requests\Admin\UserNotificationRequest;
 use App\Http\Requests\PaginationRequest;
+use App\Http\Requests\BaseRequest;
 
 class UserNotificationController extends Controller
 {
@@ -46,13 +47,20 @@ class UserNotificationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param BaseRequest $request
      * @return \Response
      */
-    public function create()
+    public function create(BaseRequest $request)
     {
+        $userId = $request->get('user_id');
+        $model = $this->userNotificationRepository->getBlankModel();
+        if ($userId !== null) {
+            $model->user_id = (int)$userId;
+        }
+
         return view('pages.admin.user-notifications.edit', [
-            'isNew'     => true,
-            'userNotification' => $this->userNotificationRepository->getBlankModel(),
+            'isNew'            => true,
+            'userNotification' => $model,
         ]);
     }
 
@@ -64,16 +72,16 @@ class UserNotificationController extends Controller
      */
     public function store(UserNotificationRequest $request)
     {
-        $input = $request->only(['user_id','category_type','type','data','locale','content']);
+        $input = $request->only(['user_id', 'category_type', 'type', 'data', 'locale', 'content']);
         $input['is_enabled'] = $request->get('is_enabled', 0);
         $model = $this->userNotificationRepository->create($input);
 
-        if (empty( $model )) {
+        if (empty($model)) {
             return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
         }
 
-        return redirect()->action('Admin\UserNotificationController@index')
-            ->with('message-success', trans('admin.messages.general.create_success'));
+        return redirect()->action('Admin\UserNotificationController@index')->with('message-success',
+                trans('admin.messages.general.create_success'));
     }
 
     /**
@@ -85,12 +93,12 @@ class UserNotificationController extends Controller
     public function show($id)
     {
         $model = $this->userNotificationRepository->find($id);
-        if (empty( $model )) {
+        if (empty($model)) {
             \App::abort(404);
         }
 
         return view('pages.admin.user-notifications.edit', [
-            'isNew' => false,
+            'isNew'            => false,
             'userNotification' => $model,
         ]);
     }
@@ -117,15 +125,15 @@ class UserNotificationController extends Controller
     {
         /** @var \App\Models\UserNotification $model */
         $model = $this->userNotificationRepository->find($id);
-        if (empty( $model )) {
+        if (empty($model)) {
             \App::abort(404);
         }
-        $input = $request->only(['user_id','category_type','type','data','locale','content']);
+        $input = $request->only(['user_id', 'category_type', 'type', 'data', 'locale', 'content']);
         $input['is_enabled'] = $request->get('is_enabled', 0);
         $this->userNotificationRepository->update($model, $input);
 
-        return redirect()->action('Admin\UserNotificationController@show', [$id])
-                    ->with('message-success', trans('admin.messages.general.update_success'));
+        return redirect()->action('Admin\UserNotificationController@show', [$id])->with('message-success',
+                trans('admin.messages.general.update_success'));
     }
 
     /**
@@ -138,13 +146,13 @@ class UserNotificationController extends Controller
     {
         /** @var \App\Models\UserNotification $model */
         $model = $this->userNotificationRepository->find($id);
-        if (empty( $model )) {
+        if (empty($model)) {
             \App::abort(404);
         }
         $this->userNotificationRepository->delete($model);
 
-        return redirect()->action('Admin\UserNotificationController@index')
-                    ->with('message-success', trans('admin.messages.general.delete_success'));
+        return redirect()->action('Admin\UserNotificationController@index')->with('message-success',
+                trans('admin.messages.general.delete_success'));
     }
 
 }

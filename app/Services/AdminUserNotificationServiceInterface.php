@@ -1,5 +1,5 @@
 <?php namespace App\Services;
 
-interface AdminUserNotificationServiceInterface extends BaseServiceInterface
+interface AdminUserNotificationServiceInterface extends NotificationServiceInterface
 {
 }

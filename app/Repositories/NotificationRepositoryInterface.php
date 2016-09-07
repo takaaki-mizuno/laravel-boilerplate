@@ -9,9 +9,15 @@ interface NotificationRepositoryInterface extends SingleKeyModelRepositoryInterf
      * @param string $direction
      * @param int $offset
      * @param int $limit
-     * @return mixed
+     * @return \App\Models\Notification[]
      */
     public function getByUserId($userId, $order = 'id', $direction = 'desc', $offset, $limit);
+
+    /**
+     * @param  int $userId
+     * @return int
+     */
+    public function countByUserId($userId);
 
     /**
      * @param string $categoryType

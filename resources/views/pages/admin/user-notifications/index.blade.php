@@ -47,17 +47,25 @@
                 </tr>
                 @foreach( $models as $model )
                     <tr>
-                        <td>{{ $model->id }}</td>
+                        @if( $model->isBroadcast() )
+                            {{ $model->present()->userName }}
+                        @else
+                            <a href="{{ action('Admin\AdminUserController@show',[$model->user_id]) }}">
+                                {{ $model->present()->userName }}
+                            </a>
+                        @endif
                         <td>{{ $model->user_id }}</td>
                         <td>{{ $model->category_type }}</td>
                         <td>{{ $model->type }}</td>
                         <td>{{ $model->locale }}</td>
                         <td>{{ $model->content }}</td>
                         <td>
+                            @if( !$model->isBroadcast )
                             @if( $model->read )
                                 <span class="badge bg-green">@lang('admin.pages.user-notifications.columns.read_true')</span>
                             @else
                                 <span class="badge bg-red">@lang('admin.pages.user-notifications.columns.read_false')</span>
+                            @endif
                             @endif
                         </td>
                         <td>{{ $model->sent_at }}</td>

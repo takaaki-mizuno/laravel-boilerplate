@@ -29,4 +29,23 @@ interface NotificationServiceInterface extends BaseServiceInterface
      */
     public function readUntil($user, $notification);
 
+    /**
+     * @param  \App\Models\AuthenticatableBase $user
+     * @return int
+     */
+    public function getUnreadNotificationCount($user);
+
+    /**
+     * @param  \App\Models\AuthenticatableBase $user
+     * @param  int $offset
+     * @param  int $limit
+     * @return \App\Models\Notification[]
+     */
+    public function getNotifications($user, $offset, $limit);
+
+    /**
+     * @param  \App\Models\AuthenticatableBase $user
+     * @return int
+     */
+    public function countNotifications($user);
 }

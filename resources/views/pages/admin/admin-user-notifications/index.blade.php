@@ -48,16 +48,26 @@
                 @foreach( $models as $model )
                     <tr>
                         <td>{{ $model->id }}</td>
-                        <td>{{ $model->user_id }}</td>
+                        <td>
+                        @if( $model->isBroadcast() )
+                                <span class="badge bg-aqua">{{ $model->present()->userName }}</span>
+                        @else
+                        <a href="{{ action('Admin\AdminUserController@show',[$model->user_id]) }}">
+                            {{ $model->present()->userName }}
+                        </a>
+                        @endif
+                        </td>
                         <td>{{ $model->category_type }}</td>
                         <td>{{ $model->type }}</td>
                         <td>{{ $model->locale }}</td>
                         <td>{{ $model->content }}</td>
                         <td>
+                            @if( !$model->isBroadcast() )
                             @if( $model->read )
                                 <span class="badge bg-green">@lang('admin.pages.user-notifications.columns.read_true')</span>
                             @else
                                 <span class="badge bg-red">@lang('admin.pages.user-notifications.columns.read_false')</span>
+                            @endif
                             @endif
                         </td>
                         <td>{{ $model->sent_at }}</td>

@@ -56,9 +56,24 @@ class NotificationService extends BaseService implements UserNotificationService
             return false;
         }
 
-        $user->last_notification_id = $notification;
+        $user->last_notification_id = $notification->id;
         $this->authenticatableRepository->save($user);
 
         return $this->notificationRepository->updateReadByUserId($user->id, $notification->id);
+    }
+
+    public function getUnreadNotificationCount($user)
+    {
+        return $this->notificationRepository->countUnreadByUserId($user->id, $user->last_notification_id);
+    }
+
+    public function getNotifications($user, $offset, $limit)
+    {
+        return $this->notificationRepository->getByUserId($user->id, 'id', 'desc', $offset, $limit);
+    }
+
+    public function countNotifications($user)
+    {
+        return $this->notificationRepository->countByUserId($user->id);
     }
 }

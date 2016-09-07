@@ -89,6 +89,11 @@ class Notification extends Base
         }
     }
 
+    public function isBroadcast()
+    {
+        return ( $this->user_id == static::BROADCAST_USER_ID );
+    }
+
     /*
      * API Presentation
      */

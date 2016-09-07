@@ -8,7 +8,7 @@ class AdminUserNotificationPresenter extends BasePresenter
             return "Broadcast";
         }
 
-        $user = $this->entity->user;
+        $user = $this->entity->adminUser;
         if( empty($user) ) {
             return "Unknown";
         }

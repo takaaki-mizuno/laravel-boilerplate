@@ -247,6 +247,7 @@ return [
         'CollectionHelper'      => App\Facades\CollectionHelper::class,
         'StringHelper'          => App\Facades\StringHelper::class,
         'PaginationHelper'      => App\Facades\PaginationHelper::class,
+        'UserNotificationHelper'  => App\Facades\UserNotificationHelper::class,
         /* NEW FACADE */
     ],
 

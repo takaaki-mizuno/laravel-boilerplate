@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt( $value )
  * @property-read \App\Models\Image $profileImage
  * @mixin \Eloquent
+ * @property integer $lastNotificationId
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereLastNotificationId($value)
  */
 class User extends AuthenticatableBase
 {

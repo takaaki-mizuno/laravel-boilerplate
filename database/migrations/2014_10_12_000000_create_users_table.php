@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('password', 60);
 
+            $table->bigInteger('lastNotificationId')->default(0);
+
             $table->string('api_access_token')->default('');
 
             $table->bigInteger('profile_image_id')->default(0);
@@ -26,6 +28,12 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        DB::statement("ALTER TABLE users MODIFY created_at " .
+            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+
+        DB::statement("ALTER TABLE users MODIFY updated_at " .
+            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
     }
 
     /**

@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property integer $lastNotificationId
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereLastNotificationId($value)
  */
 class AdminUser extends AuthenticatableBase
 {

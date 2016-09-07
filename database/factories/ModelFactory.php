@@ -68,4 +68,28 @@ $factory->define(App\Models\Notification::class, function (Faker\Generator $fake
     ];
 });
 
+$factory->define(App\Models\UserNotification::class, function (Faker\Generator $faker) {
+    return [
+        'user_id'       => \App\Models\UserNotification::BROADCAST_USER_ID,
+        'category_type' => \App\Models\UserNotification::CATEGORY_TYPE_SYSTEM_MESSAGE,
+        'type'          => \App\Models\UserNotification::TYPE_GENERAL_MESSAGE,
+        'data'          => [],
+        'locale'        => '',
+        'content'       => 'TEST',
+        'read'          => false,
+    ];
+});
+
+$factory->define(App\Models\AdminUserNotification::class, function (Faker\Generator $faker) {
+    return [
+        'user_id'       => \App\Models\AdminUserNotification::BROADCAST_USER_ID,
+        'category_type' => \App\Models\AdminUserNotification::CATEGORY_TYPE_SYSTEM_MESSAGE,
+        'type'          => \App\Models\AdminUserNotification::TYPE_GENERAL_MESSAGE,
+        'data'          => [],
+        'locale'        => '',
+        'content'       => 'TEST',
+        'read'          => false,
+    ];
+});
+
 /* NEW MODEL FACTORY */

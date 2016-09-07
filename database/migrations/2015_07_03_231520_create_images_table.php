@@ -39,16 +39,20 @@ class CreateImagesTable extends Migration
 
             $table->boolean('is_enabled')->default(true);
 
-            $table->timestamps();
-
             $table->softDeletes();
+            $table->timestamps();
 
             $table->index(['file_category_type', 'id', 'deleted_at']);
             $table->index(['id', 'deleted_at']);
             $table->index(['url', 'deleted_at']);
             $table->index(['entity_type', 'entity_id', 'deleted_at']);
-
         });
+
+        DB::statement("ALTER TABLE images MODIFY created_at " .
+            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+
+        DB::statement("ALTER TABLE images MODIFY updated_at " .
+            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
 
     }
 

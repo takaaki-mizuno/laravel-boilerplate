@@ -26,6 +26,7 @@
  * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\User $user
  */
 class UserNotification extends Notification
 {
@@ -36,5 +37,12 @@ class UserNotification extends Notification
      * @var string
      */
     protected $table = 'user_notifications';
+
+    protected $presenter = \App\Presenters\UserNotificationPresenter::class;
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'id', 'user_id');
+    }
 
 }

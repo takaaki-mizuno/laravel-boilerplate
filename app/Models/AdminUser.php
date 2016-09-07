@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $name
  * @property string $email
  * @property string $password
+ * @property integer $last_notification_id
  * @property string $api_access_token
  * @property integer $profile_image_id
  * @property string $remember_token
@@ -21,6 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereEmail($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser wherePassword($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereLastNotificationId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereApiAccessToken($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereProfileImageId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereRememberToken($value)
@@ -28,8 +30,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property integer $lastNotificationId
- * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereLastNotificationId($value)
  */
 class AdminUser extends AuthenticatableBase
 {
@@ -41,6 +41,8 @@ class AdminUser extends AuthenticatableBase
      * @var string
      */
     protected $table = 'admin_users';
+
+    protected $presenter = \App\Presenters\AdminUserPresenter::class;
 
     /**
      * The attributes that are mass assignable.
@@ -56,6 +58,7 @@ class AdminUser extends AuthenticatableBase
         'remember_token',
         'api_access_token',
         'profile_image_id',
+        'last_notification_id',
     ];
 
     /**
@@ -83,7 +86,7 @@ class AdminUser extends AuthenticatableBase
 
     /**
      * @param  string $targetRole
-     * @param  bool   $checkSubRoles
+     * @param  bool $checkSubRoles
      * @return bool
      */
     public function hasRole($targetRole, $checkSubRoles = true)

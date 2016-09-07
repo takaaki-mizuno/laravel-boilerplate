@@ -26,6 +26,7 @@
                        class="btn btn-block btn-primary btn-sm">@lang('admin.pages.common.buttons.create')</a>
                 </p>
             </h3>
+            {!! \PaginationHelper::render($offset, $limit, $count, $baseUrl, []) !!}
         </div>
         <div class="box-body no-padding">
             <table class="table">
@@ -49,7 +50,7 @@
             </table>
         </div>
         <div class="box-footer">
-            @include('shared.admin.pagination')
+            {!! \PaginationHelper::render($offset, $limit, $count, $baseUrl, []) !!}
         </div>
     </div>
 @stop

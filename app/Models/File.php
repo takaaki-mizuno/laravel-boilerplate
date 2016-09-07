@@ -86,7 +86,7 @@ class File extends Base
 
     protected $dates  = ['deleted_at'];
 
-    protected $presenter = 'App\Presenters\FilePresenter';
+    protected $presenter = \App\Presenters\FilePresenter::class;
 
     /*
      * API Presentation

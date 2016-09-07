@@ -1,6 +1,7 @@
 <?php namespace App\Services\Production;
 
 use App\Models\Notification;
+use App\Repositories\AuthenticatableRepositoryInterface;
 use App\Repositories\NotificationRepositoryInterface;
 use \App\Services\UserNotificationServiceInterface;
 
@@ -10,11 +11,16 @@ class NotificationService extends BaseService implements UserNotificationService
     /** @var \App\Repositories\NotificationRepositoryInterface */
     protected $notificationRepository;
 
+    /** @var AuthenticatableRepositoryInterface $authenticatableRepository */
+    protected $authenticatableRepository;
+
     public function __construct(
-        NotificationRepositoryInterface $notificationRepository
+        NotificationRepositoryInterface $notificationRepository,
+        AuthenticatableRepositoryInterface $authenticatableRepository
     )
     {
         $this->notificationRepository = $notificationRepository;
+        $this->authenticatableRepository = $authenticatableRepository;
     }
 
     public function broadcastSystemMessage($type, $locale, $content)
@@ -44,4 +50,15 @@ class NotificationService extends BaseService implements UserNotificationService
         return $notification;
     }
 
+    public function readUntil($user, $notification)
+    {
+        if( $notification->user_id != Notification::BROADCAST_USER_ID && $notification->user_id != $user->id ) {
+            return false;
+        }
+
+        $user->last_notification_id = $notification;
+        $this->authenticatableRepository->save($user);
+
+        return $this->notificationRepository->updateReadByUserId($user->id, $notification->id);
+    }
 }

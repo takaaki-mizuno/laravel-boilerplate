@@ -38,4 +38,11 @@ interface NotificationRepositoryInterface extends SingleKeyModelRepositoryInterf
      */
     public function countUnreadByUserId($userId, $lastId);
 
+    /**
+     * @param  int $userId
+     * @param  int $lastId
+     * @return boolean
+     */
+    public function updateReadByUserId($userId, $lastId);
+
 }

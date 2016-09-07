@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('password', 60);
 
-            $table->bigInteger('lastNotificationId')->default(0);
+            $table->bigInteger('last_notification_id')->default(0);
 
             $table->string('api_access_token')->default('');
 

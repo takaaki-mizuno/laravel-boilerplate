@@ -10,11 +10,11 @@
 @stop
 
 @section('title')
-{{ \Config::get('site.name') }} | Admin | Admin Users
+    {{ \Config::get('site.name') }} | Admin | Admin Users
 @stop
 
 @section('header')
-Users
+    Users
 @stop
 
 @section('content')
@@ -23,24 +23,29 @@ Users
             {!! \PaginationHelper::render($offset, $limit, $count, $baseUrl, []) !!}
         </div>
 
-    <div class="box-body no-padding">
-        <table class="table">
-            <tr>
-                <th style="width: 10px">#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th style="width: 40px"></th>
-            </tr>
-@foreach( $users as $user )
-            <tr>
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>
-                <a href="{!! URL::action('Admin\UserController@show') !!}" class="btn btn-block btn-primary">Edit</a>
-                </td>
-            </tr>
-@endforeach
-        </table>
+        <div class="box-body no-padding">
+            <table class="table">
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th style="width: 40px"></th>
+                </tr>
+                @foreach( $users as $user )
+                    <tr>
+                        <td>{{ $user->id }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>
+                            <a href="{!! URL::action('Admin\UserController@show') !!}"
+                               class="btn btn-block btn-primary">Edit</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
+        <div class="box-footer">
+            {!! \PaginationHelper::render($offset, $limit, $count, $baseUrl, []) !!}
+        </div>
     </div>
 @stop

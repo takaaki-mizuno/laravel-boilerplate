@@ -32,6 +32,8 @@
             <li @if( $menu=='site_configurations') class="active" @endif ><a href="{!! URL::action('Admin\SiteConfigurationController@index') !!}"><i class="fa fa-cogs"></i> <span>Site Configurations</span></a></li>
             @endif
             <li @if( $menu=='article') class="active" @endif ><a href="{!! URL::action('Admin\ArticleController@index') !!}"><i class="fa fa-file-word-o"></i> <span>Articles</span></a></li>
+            <li @if( $menu=='user_notification') class="active" @endif ><a href="{!! URL::action('Admin\UserNotificationController@index') !!}"><i class="fa fa-bell"></i> <span>UserNotifications</span></a></li>
+            <li @if( $menu=='admin_user_notification') class="active" @endif ><a href="{!! URL::action('Admin\AdminUserNotificationController@index') !!}"><i class="fa fa-bell-o"></i> <span>AdminUserNotifications</span></a></li>
             <!-- %%SIDEMENU%% -->
         </ul>
     </section>

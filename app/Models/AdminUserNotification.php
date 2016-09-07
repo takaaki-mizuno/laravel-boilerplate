@@ -27,6 +27,7 @@
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserNotification whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserNotification whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\AdminUser $adminUser
  */
 class AdminUserNotification extends Notification
 {
@@ -37,5 +38,12 @@ class AdminUserNotification extends Notification
      * @var string
      */
     protected $table = 'admin_user_notifications';
+
+    protected $presenter = \App\Presenters\AdminUserNotificationPresenter::class;
+
+    public function adminUser()
+    {
+        return $this->belongsTo('App\Models\AdminUser', 'id', 'user_id');
+    }
 
 }

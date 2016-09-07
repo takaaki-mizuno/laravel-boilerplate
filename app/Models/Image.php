@@ -96,7 +96,7 @@ class Image extends Base
 
     protected $dates  = ['deleted_at'];
 
-    protected $presenter = 'App\Presenters\ImagePresenter';
+    protected $presenter = \App\Presenters\ImagePresenter::class;
 
     // Relations
 

@@ -31,7 +31,7 @@ return [
         ],
     ],
     'pages'    => [
-        'common'              => [
+        'common'                   => [
             'buttons' => [
                 'create'          => 'Create New',
                 'edit'            => 'Edit',
@@ -44,7 +44,7 @@ return [
                 'reset_password'  => 'Reset Password',
             ],
         ],
-        'auth'                => [
+        'auth'                     => [
             'buttons'  => [
                 'sign_in'         => 'Sign In',
                 'forgot_password' => 'Send Me Email!',
@@ -57,7 +57,7 @@ return [
                 'reset_password'  => 'Please enter your e-mail address and new password',
             ],
         ],
-        'site-configurations' => [
+        'site-configurations'      => [
             'columns' => [
                 'locale'                => 'Locale',
                 'name'                  => 'Name',
@@ -68,7 +68,7 @@ return [
                 'twitter_card_image_id' => 'Twitter Card Image',
             ],
         ],
-        'articles'            => [
+        'articles'                 => [
             'columns' => [
                 'slug'               => 'Slug',
                 'title'              => 'Title',
@@ -83,6 +83,34 @@ return [
                 'is_enabled_true'    => 'Enabled',
                 'is_enabled_false'   => 'Disabled',
 
+            ],
+        ],
+        'user-notifications'       => [
+            'columns' => [
+                'user_id'       => 'User',
+                'category_type' => 'Category',
+                'type'          => 'Type',
+                'data'          => 'Data',
+                'locale'        => 'Locale',
+                'content'       => 'Content',
+                'read'          => 'Read',
+                'read_true'     => 'Read',
+                'read_false'    => 'Unread',
+                'sent_at'       => 'Sent At',
+            ],
+        ],
+        'admin-user-notifications' => [
+            'columns' => [
+                'user_id'       => 'User',
+                'category_type' => 'Category',
+                'type'          => 'Type',
+                'data'          => 'Data',
+                'locale'        => 'Locale',
+                'content'       => 'Content',
+                'read'          => 'Read',
+                'read_true'     => 'Read',
+                'read_false'    => 'Unread',
+                'sent_at'       => 'Sent At',
             ],
         ],
         /* NEW PAGE STRINGS */

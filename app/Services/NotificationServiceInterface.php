@@ -21,4 +21,12 @@ interface NotificationServiceInterface extends BaseServiceInterface
      * @return \App\Models\Notification|null
      */
     public function sendNotification( $userId, $categoryType, $type, $locale, $content, $data );
+
+    /**
+     * @param  \App\Models\AuthenticatableBase $user
+     * @param  \App\Models\Notification $notification
+     * @return boolean
+     */
+    public function readUntil($user, $notification);
+
 }

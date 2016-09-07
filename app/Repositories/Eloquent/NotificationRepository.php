@@ -62,4 +62,12 @@ class NotificationRepository extends SingleKeyModelRepository implements Notific
             });
         })->count();
     }
+
+    public function updateReadByUserId($userId, $lastId)
+    {
+        $model = $this->getBlankModel();
+        $model->where('id', '<=', $lastId)->whereUserId($userId)->update(['read'=>true]);
+
+        return true;
+    }
 }

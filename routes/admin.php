@@ -27,6 +27,8 @@
         \Route::delete('images/delete', 'Admin\ImageController@deleteByUrl');
         \Route::resource('images', 'Admin\ImageController');
 
-        /* NEW ADMIN RESOURCE ROUTE */
+        \Route::resource('user-notifications', 'Admin\UserNotificationController');
+                \Route::resource('admin-user-notifications', 'Admin\AdminUserNotificationController');
+                /* NEW ADMIN RESOURCE ROUTE */
     });
 });

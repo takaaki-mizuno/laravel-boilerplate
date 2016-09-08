@@ -42,11 +42,17 @@ class SetDefaultValues
         \View::share('authUser', $user);
         \View::share('menu', '');
 
-        $notificationCount = $this->adminUserNotificationService->getUnreadNotificationCount($user);
-        $notifications = $this->adminUserNotificationService->getNotifications($user, 0, 10);
+        if( !empty($user) ) {
+            $notificationCount = $this->adminUserNotificationService->getUnreadNotificationCount($user);
+            $notifications = $this->adminUserNotificationService->getNotifications($user, 0, 10);
+        }else {
+            $notificationCount = 0;
+            $notifications = 0;
+        }
 
         \View::share('unreadNotificationCount', $notificationCount);
         \View::share('notifications', $notifications);
+
 
         return $next($request);
     }

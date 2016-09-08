@@ -12,7 +12,7 @@
     "laravel/framework": "5.3.*",
     "predis/predis": "1.*",
     "aws/aws-sdk-php": "3.12.*",
-    "facebook/php-graph-sdk": "5.3.*",
+    "facebook/graph-sdk": "5.3.*",
     "abraham/twitteroauth": "0.6.*",
     "maknz/slack": "^1.7",
     "icanboogie/inflector": "^1.4",

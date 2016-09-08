@@ -1,6 +1,7 @@
 <?php namespace Tests\Services;
 
 use App\Models\AdminUser;
+use App\Models\AdminUserNotification;
 use Tests\TestCase;
 
 class AdminUserNotificationServiceTest extends TestCase
@@ -19,14 +20,14 @@ class AdminUserNotificationServiceTest extends TestCase
         $service = \App::make(\App\Services\AdminUserNotificationServiceInterface::class);
         $this->assertNotNull($service);
 
-        /** @var  \App\Repositories\UserNotificationRepositoryInterface $repository */
-        $repository = \App::make(\App\Repositories\UserNotificationRepositoryInterface::class);
+        /** @var  \App\Repositories\AdminUserNotificationRepositoryInterface $repository */
+        $repository = \App::make(\App\Repositories\AdminUserNotificationRepositoryInterface::class);
         $this->assertNotNull($repository);
 
         $user = factory(AdminUser::class)->create();
 
         $notification1 = $service->sendNotification($user->id, 'somecategory', 'sometype', '', 'TEST MESSAGE', ['test'=>1]);
-        $notification2 = $service->broadcastSystemMessage(UserNotification::TYPE_GENERAL_MESSAGE, \App::getLocale(), 'BROADCAST MESSAGE');
+        $notification2 = $service->broadcastSystemMessage(AdminUserNotification::TYPE_GENERAL_MESSAGE, \App::getLocale(), 'BROADCAST MESSAGE');
 
         $this->assertEquals(1, $notification1->getData('test'));
         $this->assertEquals('BROADCAST MESSAGE', $notification2->content);

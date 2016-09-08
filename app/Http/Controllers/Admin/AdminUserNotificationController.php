@@ -72,8 +72,9 @@ class AdminUserNotificationController extends Controller
      */
     public function store(AdminUserNotificationRequest $request)
     {
-        $input = $request->only(['user_id', 'category_type', 'type', 'data', 'locale', 'content']);
-        $input['is_enabled'] = $request->get('is_enabled', 0);
+        $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
+        $input['data'] = json_encode($request->get('data', []));
+
         $model = $this->adminUserNotificationRepository->create($input);
 
         if (empty($model)) {
@@ -81,7 +82,7 @@ class AdminUserNotificationController extends Controller
         }
 
         return redirect()->action('Admin\AdminUserNotificationController@index')->with('message-success',
-                trans('admin.messages.general.create_success'));
+            trans('admin.messages.general.create_success'));
     }
 
     /**
@@ -128,12 +129,12 @@ class AdminUserNotificationController extends Controller
         if (empty($model)) {
             \App::abort(404);
         }
-        $input = $request->only(['user_id', 'category_type', 'type', 'data', 'locale', 'content']);
-        $input['is_enabled'] = $request->get('is_enabled', 0);
+        $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
+        $input['data'] = json_encode($request->get('data', []));
         $this->adminUserNotificationRepository->update($model, $input);
 
         return redirect()->action('Admin\AdminUserNotificationController@show', [$id])->with('message-success',
-                trans('admin.messages.general.update_success'));
+            trans('admin.messages.general.update_success'));
     }
 
     /**
@@ -152,7 +153,7 @@ class AdminUserNotificationController extends Controller
         $this->adminUserNotificationRepository->delete($model);
 
         return redirect()->action('Admin\AdminUserNotificationController@index')->with('message-success',
-                trans('admin.messages.general.delete_success'));
+            trans('admin.messages.general.delete_success'));
     }
 
 }

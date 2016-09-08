@@ -26,17 +26,6 @@ UserNotifications
 @stop
 
 @section('content')
-    @if (count($errors) > 0)
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     @if( $isNew )
         <form action="{!! action('Admin\UserNotificationController@store') !!}" method="POST" enctype="multipart/form-data">
     @else
@@ -76,12 +65,12 @@ UserNotifications
 
                     <div class="form-group @if ($errors->has('data')) has-error @endif">
                         <label for="data">@lang('admin.pages.user-notifications.columns.data')</label>
-                        <textarea name="data" class="form-control" rows="5" placeholder="JSON DATA">{{{ old('data') ? old('data') : $userNotification->data }}}</textarea>
+                        <textarea name="data" class="form-control" rows="5" placeholder="JSON DATA">{{ old('data') ? old('data') : json_encode($userNotification->data) }}</textarea>
                     </div>
 
                     <div class="form-group @if ($errors->has('content')) has-error @endif">
                         <label for="content">@lang('admin.pages.user-notifications.columns.content')</label>
-                        <textarea name="content" class="form-control" rows="5" placeholder="Content">{{{ old('content') ? old('content') : $userNotification->content }}}</textarea>
+                        <textarea name="content" class="form-control" rows="5" placeholder="Content">{{ old('content') ? old('content') : $userNotification->content }}</textarea>
                     </div>
                 </div>
                 <div class="box-footer">

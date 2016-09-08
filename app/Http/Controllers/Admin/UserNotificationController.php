@@ -72,8 +72,8 @@ class UserNotificationController extends Controller
      */
     public function store(UserNotificationRequest $request)
     {
-        $input = $request->only(['user_id', 'category_type', 'type', 'data', 'locale', 'content']);
-        $input['is_enabled'] = $request->get('is_enabled', 0);
+        $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
+        $input['data'] = json_encode($request->get('data', []));
         $model = $this->userNotificationRepository->create($input);
 
         if (empty($model)) {
@@ -128,8 +128,8 @@ class UserNotificationController extends Controller
         if (empty($model)) {
             \App::abort(404);
         }
-        $input = $request->only(['user_id', 'category_type', 'type', 'data', 'locale', 'content']);
-        $input['is_enabled'] = $request->get('is_enabled', 0);
+        $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
+        $input['data'] = json_encode($request->get('data', []));
         $this->userNotificationRepository->update($model, $input);
 
         return redirect()->action('Admin\UserNotificationController@show', [$id])->with('message-success',

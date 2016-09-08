@@ -56,25 +56,13 @@ $factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Models\Notification::class, function (Faker\Generator $faker) {
-    return [
-        'user_id'       => 1,
-        'category_type' => 'notify',
-        'type'          => 'liked',
-        'data'          => '{"id":12345}',
-        'content'       => 'anc',
-        'read'          => false,
-        'sent_at'       => $faker->dateTime,
-    ];
-});
-
 $factory->define(App\Models\UserNotification::class, function (Faker\Generator $faker) {
     return [
         'user_id'       => \App\Models\UserNotification::BROADCAST_USER_ID,
         'category_type' => \App\Models\UserNotification::CATEGORY_TYPE_SYSTEM_MESSAGE,
         'type'          => \App\Models\UserNotification::TYPE_GENERAL_MESSAGE,
         'data'          => [],
-        'locale'        => '',
+        'locale'        => 'en',
         'content'       => 'TEST',
         'read'          => false,
     ];
@@ -86,7 +74,7 @@ $factory->define(App\Models\AdminUserNotification::class, function (Faker\Genera
         'category_type' => \App\Models\AdminUserNotification::CATEGORY_TYPE_SYSTEM_MESSAGE,
         'type'          => \App\Models\AdminUserNotification::TYPE_GENERAL_MESSAGE,
         'data'          => [],
-        'locale'        => '',
+        'locale'        => 'en',
         'content'       => 'TEST',
         'read'          => false,
     ];

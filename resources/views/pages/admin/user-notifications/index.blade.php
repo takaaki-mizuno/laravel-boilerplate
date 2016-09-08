@@ -7,6 +7,7 @@
 @stop
 
 @section('scripts')
+    <script src="{!! \URLHelper::asset('js/sortable.js', 'admin') !!}"></script>
     <script src="{!! \URLHelper::asset('js/delete_item.js', 'admin') !!}"></script>
 @stop
 
@@ -32,7 +33,7 @@
             </h3>
             {!! \PaginationHelper::render($offset, $limit, $count, $baseUrl, []) !!}
         </div>
-        <div class="box-body">
+        <div class="box-body scroll">
             <table class="table table-bordered">
                 <tr>
                     <th style="width: 10px">ID</th>

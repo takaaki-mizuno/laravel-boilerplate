@@ -4,3 +4,4 @@
 <link rel="stylesheet" href="{!! \URLHelper::asset('libs/adminlte/css/AdminLTE.min.css','admin') !!}">
 <link rel="stylesheet" href="{!! \URLHelper::asset('libs/adminlte/css/skins/skin-blue.min.css','admin') !!}">
 <link rel="stylesheet" href="{!! \URLHelper::asset('libs/plugins/iCheck/square/blue.css', 'admin') !!}">
+<link rel="stylesheet" href="{!! \URLHelper::asset('css/style.css', 'admin') !!}">

@@ -7,6 +7,8 @@
 @stop
 
 @section('scripts')
+    <script src="{!! \URLHelper::asset('js/sortable.js', 'admin') !!}"></script>
+    <script src="{!! \URLHelper::asset('js/delete_item.js', 'admin') !!}"></script>
 @stop
 
 @section('title')
@@ -23,11 +25,14 @@
             {!! \PaginationHelper::render($offset, $limit, $count, $baseUrl, []) !!}
         </div>
 
-        <div class="box-body no-padding">
+        <div class="box-body no-padding scroll">
             <table class="table">
                 <tr>
                     <th style="width: 10px">#</th>
-                    <th>Name</th>
+                    <th class="sortable"
+                        data-key="name">@lang('admin.pages.users.columns.name')  @if( $order=="name") @if( $direction=='asc')
+                            <i class="fa fa-sort-amount-asc"></i> @else <i
+                                    class="fa fa-sort-amount-desc"></i> @endif @endif</th>
                     <th>Email</th>
                     <th style="width: 40px"></th>
                 </tr>

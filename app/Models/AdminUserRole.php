@@ -9,11 +9,11 @@
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \App\Models\AdminUser $adminUser
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereAdminUserId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereRole($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUserRole whereId($value)
  * @mixin \Eloquent
  */
 class AdminUserRole extends Base

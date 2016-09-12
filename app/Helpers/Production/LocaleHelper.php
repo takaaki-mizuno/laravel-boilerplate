@@ -1,20 +1,20 @@
-<?php namespace App\Helpers\Production;
+<?php
+
+namespace App\Helpers\Production;
 
 use App\Helpers\LocaleHelperInterface;
 
 class LocaleHelper implements LocaleHelperInterface
 {
-
     public function setLocale($locale = null, $user = null)
     {
         if (isset($locale)) {
             $locale = strtolower($locale);
-            if (array_key_exists($locale, config('locale.languages'))) {
+            if (array_key_exists($locale, \Config::get('locale.languages'))) {
                 if (!empty($user)) {
                     $user->setLocale($locale);
-                } else {
-                    \Session::put('locale', $locale);
                 }
+                \Session::put('locale', $locale);
             } else {
                 $locale = null;
             }
@@ -23,7 +23,8 @@ class LocaleHelper implements LocaleHelperInterface
         if (empty($locale)) {
             if (!empty($user)) {
                 $locale = $user->getLocale();
-            } else {
+            }
+            if (empty($locale)) {
                 $locale = \Session::get('locale');
             }
         }
@@ -32,6 +33,59 @@ class LocaleHelper implements LocaleHelperInterface
         }
 
         return $locale;
+    }
+
+    public function getLocale()
+    {
+        $pieces = explode('.', \Request::getHost());
+        $locale = null;
+        $availableDomains = \Config::get('locale.domains', []);
+
+        if (in_array(strtolower($pieces[0]), $availableDomains)) {
+            $locale = strtolower($pieces[0]);
+        }
+
+        if (empty($locale)) {
+            $locale = \LocaleHelper::setLocale();
+        }
+
+        if (\Request::has('fb_locale')) {
+            $fbLocale = \Request::get('fb_locale');
+            $languages = array_filter(config('locale.languages'), function ($language) use ($fbLocale) {
+                if (array_get($language, 'ogp') === $fbLocale) {
+                    return true;
+                }
+
+                return false;
+            });
+
+            if ($languages) {
+                reset($languages);
+                $locale = key($languages);
+            }
+        }
+
+        return $locale;
+    }
+
+    public function getLocaleSubDomain()
+    {
+        $pieces = explode('.', \Request::getHost());
+        $locale = null;
+        $availableDomains = \Config::get('locale.domains', []);
+
+        if (in_array(strtolower($pieces[0]), $availableDomains)) {
+            $locale = strtolower($pieces[0]);
+        }
+
+        return $locale;
+    }
+
+    public function getEnableLocales()
+    {
+        return array_where(\Config::get('locale.languages'), function ($key, $value) {
+            return $value['status'] == true;
+        });
     }
 
     private function parseAcceptLanguage()
@@ -51,14 +105,13 @@ class LocaleHelper implements LocaleHelperInterface
             }
         }
         foreach ($languages as $lang => $val) {
-            foreach (config('locale.languages') as $langcode => $data) {
-                if (strpos($lang, $langcode) === 0) {
-                    return $langcode;
+            foreach (\Config::get('locale.languages') as $langCode => $data) {
+                if (strpos(strtolower($lang), $langCode) === 0) {
+                    return $langCode;
                 }
             }
         }
 
-        return config('locale.default');
+        return \Config::get('locale.default');
     }
-
 }

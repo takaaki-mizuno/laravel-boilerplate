@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $locale
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereLocale($value)
  */
 class AdminUser extends AuthenticatableBase
 {
@@ -53,6 +55,7 @@ class AdminUser extends AuthenticatableBase
         'name',
         'email',
         'password',
+        'locale',
         'facebook_id',
         'facebook_token',
         'remember_token',

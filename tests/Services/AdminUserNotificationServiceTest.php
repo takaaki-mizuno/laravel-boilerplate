@@ -6,6 +6,7 @@ use Tests\TestCase;
 
 class AdminUserNotificationServiceTest extends TestCase
 {
+    protected $useDatabase = true;
 
     public function testGetInstance()
     {

@@ -17,6 +17,7 @@ class CreateAdminUserRolesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('admin_user_id');
             $table->string('role');
+
             $table->timestamps();
 
             $table->index(['admin_user_id']);

@@ -25,7 +25,7 @@ class LanguageDetectionServiceTest extends TestCase
         $this->assertEquals('ja', $locale);
 
         $locale = $service->normalize('hage');
-        $this->assertEquals('ja', $locale);
+        $this->assertEquals('en', $locale);
     }
 
     public function testDetect()

@@ -20,6 +20,8 @@ class CreateAdminUsersTable extends Migration {
 			$table->string('email')->unique();
 			$table->string('password', 60);
 
+            $table->string('locale')->default('');
+
             $table->bigInteger('last_notification_id')->default(0);
 
             $table->string('api_access_token')->default('');

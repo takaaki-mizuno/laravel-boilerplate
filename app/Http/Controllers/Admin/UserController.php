@@ -35,22 +35,28 @@ class UserController extends Controller
         $offset = $request->offset();
         $limit = $request->limit();
 
-        $users = $this->userRepository->get('id', 'desc', $offset, $limit);
+        $order = $request->order();
+        $direction = $request->direction('desc');
+
+
+        $users = $this->userRepository->get($order, $direction, $offset, $limit);
         $count = $this->userRepository->count();
 
         return view('pages.admin.users.index', [
-            'users'   => $users,
-            'offset'  => $offset,
-            'limit'   => $limit,
-            'count'   => $count,
-            'baseUrl' => action('Admin\UserController@index'),
+            'users'     => $users,
+            'offset'    => $offset,
+            'limit'     => $limit,
+            'count'     => $count,
+            'order'     => $order,
+            'direction' => $direction,
+            'baseUrl'   => action('Admin\UserController@index'),
         ]);
     }
 
     public function show($id)
     {
         $user = $this->userRepository->find($id);
-        if (empty( $user )) {
+        if (empty($user)) {
             abort(404);
         }
 
@@ -75,7 +81,7 @@ class UserController extends Controller
     public function update($id, UserRequest $request)
     {
         $user = $this->userRepository->find($id);
-        if (empty( $user )) {
+        if (empty($user)) {
             abort(404);
         }
 
@@ -88,7 +94,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = $this->userRepository->find($id);
-        if (empty( $user )) {
+        if (empty($user)) {
             abort(404);
         }
         $this->userRepository->delete($user);

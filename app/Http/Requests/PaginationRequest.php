@@ -47,4 +47,24 @@ class PaginationRequest extends BaseRequest
 
         return ($limit > 0 && $limit <= 100) ? $limit : $default;
     }
+
+    public function order($default = 'id')
+    {
+        $order = $this->get('order', $default);
+
+        return strtolower($order);
+
+    }
+
+    public function direction($default = 'asc')
+    {
+        $direction = strtolower($this->get('direction', $default));
+        if (!in_array($direction, ['asc', 'desc'])) {
+            $direction = 'asc';
+        }
+
+        return strtolower($direction);
+
+    }
+
 }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $name
  * @property string $email
  * @property string $password
+ * @property string $locale
  * @property integer $last_notification_id
  * @property string $api_access_token
  * @property integer $profile_image_id
@@ -21,6 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereEmail($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User wherePassword($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereLocale($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereLastNotificationId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereApiAccessToken($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereProfileImageId($value)
@@ -52,6 +54,7 @@ class User extends AuthenticatableBase
         'name',
         'email',
         'password',
+        'locale',
         'facebook_id',
         'facebook_token',
         'remember_token',

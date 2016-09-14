@@ -95,9 +95,14 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
         $bucket = $model->s3_bucket;
         $region = $model->s3_region;
         $key = $model->s3_key;
+
+        if( empty($key) ) {
+            return true;
+        }
+
         $this->deleteS3($region, $bucket, $key);
 
-        $categoryType = $model->file_category;
+        $categoryType = $model->file_category_type;
         $conf = config('file.categories.'.$categoryType);
         if (empty($conf)) {
             return false;

@@ -1,9 +1,9 @@
 <?php namespace App\Http\Requests\Admin;
 
-use App\Http\Requests\Request;
+use App\Http\Requests\BaseRequest;
 use App\Repositories\ImageRepositoryInterface;
 
-class ImageRequest extends Request
+class ImageRequest extends BaseRequest
 {
 
     /** @var \App\Repositories\ImageRepositoryInterface */

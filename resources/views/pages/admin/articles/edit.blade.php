@@ -64,24 +64,24 @@
 <script src="{{ \URLHelper::asset('libs/moment/moment.min.js', 'admin') }}"></script>
 <script src="{{ \URLHelper::asset('libs/datetimepicker/js/bootstrap-datetimepicker.min.js', 'admin') }}"></script>
 <script>
-    Boilerplate.imageUploadUrl = "{!! URL::action('Admin\ImageController@index') !!}";
+    Boilerplate.imageUploadUrl = "{!! URL::action('Admin\ArticleController@postImage') !!}";
     Boilerplate.imageUploadParams = {
         "article_id" : "{!! empty($article->id) ? 0 : $article->id !!}",
         "_token": "{!! csrf_token() !!}"
     };
-    Boilerplate.imagesLoadURL = "{!! URL::action('Admin\ImageController@index') !!}";
+    Boilerplate.imagesLoadURL = "{!! URL::action('Admin\ArticleController@getImages') !!}";
     Boilerplate.imagesLoadParams = {
-        "article_id" : "{!! empty($article->id) ? 0 : $article->id !!}",
+        "article_id" : "{!! empty($article->id) ? 0 : $article->id !!}"
     };
-    Boilerplate.imageDeleteURL = "{!! URL::action('Admin\ImageController@deleteByUrl') !!}";
+    Boilerplate.imageDeleteURL = "{!! URL::action('Admin\ArticleController@deleteImage') !!}";
     Boilerplate.imageDeleteParams = {
         "_token": "{!! csrf_token() !!}"
     };
 </script>
-<script src="{{ \URLHelper::asset('js/pages/articles/edit.js', 'admin') }}"></script>
 <script>
     $.FroalaEditor.DEFAULTS.key = '';
 </script>
+<script src="{{ \URLHelper::asset('js/pages/articles/edit.js', 'admin') }}"></script>
 @stop
 
 @section('title')

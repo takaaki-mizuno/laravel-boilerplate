@@ -80,10 +80,6 @@ class Image extends Base
         'file_size',
         'width',
         'height',
-        'has_alternative',
-        'alternative_media_type',
-        'alternative_format',
-        'alternative_extension',
         'is_enabled',
     ];
 
@@ -197,10 +193,6 @@ class Image extends Base
             'file_size'              => $this->file_size,
             'width'                  => $this->width,
             'height'                 => $this->height,
-            'has_alternative'        => $this->has_alternative,
-            'alternative_media_type' => $this->alternative_media_type,
-            'alternative_format'     => $this->alternative_format,
-            'alternative_extension'  => $this->alternative_extension,
             'is_enabled'             => $this->is_enabled,
         ];
     }

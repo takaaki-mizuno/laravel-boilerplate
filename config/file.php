@@ -44,6 +44,7 @@ return [
             ],
             'size'         => [1440, 0],
             'thumbnails'   => [
+                [400, 300],
             ],
             'seedPrefix'   => 'article',
             'format'       => 'jpeg',

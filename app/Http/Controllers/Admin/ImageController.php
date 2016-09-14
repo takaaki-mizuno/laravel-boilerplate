@@ -4,13 +4,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Repositories\ImageRepositoryInterface;
-use App\Repositories\ArticleRepositoryInterface;
-use App\Http\Requests\PaginationRequest;
 use App\Http\Requests\Admin\ImageRequest;
-
+use App\Http\Requests\PaginationRequest;
 use App\Services\FileUploadServiceInterface;
-use App\Services\ImageServiceInterface;
-use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
@@ -18,66 +14,37 @@ class ImageController extends Controller
     /** @var \App\Repositories\ImageRepositoryInterface */
     protected $imageRepository;
 
-    /** @var ArticleRepositoryInterface */
-    protected $articleRepository;
-
-    /** @var \App\Services\FileUploadServiceInterface */
     protected $fileUploadService;
-
-    /** @var \App\Services\ImageServiceInterface */
-    protected $imageService;
 
     public function __construct(
         ImageRepositoryInterface $imageRepository,
-        ArticleRepositoryInterface $articleRepository,
-        FileUploadServiceInterface $fileUploadService,
-        ImageServiceInterface $imageService
+        FileUploadServiceInterface $fileUploadService
     )
     {
         $this->imageRepository = $imageRepository;
-        $this->articleRepository = $articleRepository;
         $this->fileUploadService = $fileUploadService;
-
-        $this->middleware('admin.has_role.editor');
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @param  Requests\PaginationRequest $request
+     * @param  \App\Http\Requests\PaginationRequest $request
      * @return \Response
      */
     public function index(PaginationRequest $request)
     {
-        $entityId = $request->input('entity_id', null);
-        $type = $request->input('type', '');
-        if ($entityId === null) {
-            $offset = $request->offset();
-            $limit = $request->limit();
-            $count = $this->imageRepository->count();
-            $models = $this->imageRepository->get('id', 'asc', $offset, $limit);
+        $offset = $request->offset();
+        $limit = $request->limit();
+        $count = $this->imageRepository->count();
+        $models = $this->imageRepository->get('id', 'desc', $offset, $limit);
 
-            return response()->json([
-                'models'  => $models,
-                'count'   => $count,
-                'offset'  => $offset,
-                'limit'   => $limit,
-                'baseUrl' => action('Admin\ImageController@index'),
-            ], 200);
-        } else {
-            if ($entityId > 0) {
-                $models = $this->imageRepository->allByTypeAndEntityId($type, $entityId);
-            } else {
-                $ids = $this->image();
-                $models = $this->imageRepository->getByIds($ids);
-            }
-            $ret = [];
-            foreach ($models as $model) {
-                $ret[] = $model->getUrl();
-            }
-
-            return response()->json($ret, 200);
-        }
+        return view('pages.admin.images.index', [
+            'models' => $models,
+            'count' => $count,
+            'offset' => $offset,
+            'limit' => $limit,
+            'baseUrl' => action('Admin\ImageController@index'),
+        ]);
     }
 
     /**
@@ -87,65 +54,70 @@ class ImageController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.images.edit', [
+            'isNew' => true,
+            'image' => $this->imageRepository->getBlankModel(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  ImageRequest $imageRequest
+     * @param  $request
      * @return \Response
      */
-    public function store(ImageRequest $imageRequest)
+    public function store(ImageRequest $request)
     {
-        if (!$imageRequest->hasFile('file')) {
-            // [TODO] ERROR JSON
-            \App::abort(400, 'No Image File');
-        }
-
-        $type = $imageRequest->input('type', '');
-        $entityId = $imageRequest->input('entity_id', 0);
-        $categoryType = $imageRequest->input('file_category_type', '');
-
-        $conf = config('file.categories.'.$categoryType);
-        if (empty($conf)) {
-            \App::abort(400, "Invalid category: ".$categoryType);
-        }
-
-        $file = $imageRequest->file('file');
-        $mediaType = $file->getClientMimeType();
-        $path = $file->getPathname();
-        $image = $this->fileUploadService->upload($categoryType, $path, $mediaType, [
-            'entityType' => $type,
-            'entityId'   => $entityId,
-            'title'      => $imageRequest->input('title', ''),
+        $input = $request->only([
+            'url',
+            'title',
+            'entity_type',
+            'entity_id',
+            'file_category_type',
+            's3_key',
+            's3_bucket',
+            's3_region',
+            's3_extension',
+            'media_type',
+            'format',
+            'file_size',
+            'width',
+            'height',
         ]);
+        $input['is_enabled'] = $request->get('is_enabled', 0);
+        $model = $this->imageRepository->create($input);
 
-        if ($entityId == 0) {
-            $this->imageService->addImageIdToSession($image->id);
+        if (empty($model)) {
+            return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
         }
 
-        return response()->json([
-            'id'   => $image->id,
-            'link' => $image->getUrl(),
-        ]);
+        return redirect()->action('Admin\ImageController@index')->with('message-success',
+                trans('admin.messages.general.create_success'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int       $id
+     * @param  int $id
      * @return \Response
      */
     public function show($id)
     {
-        //
+        $model = $this->imageRepository->find($id);
+        if (empty($model)) {
+            \App::abort(404);
+        }
+
+        return view('pages.admin.images.edit', [
+            'isNew' => false,
+            'image' => $model,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int       $id
+     * @param  int $id
      * @return \Response
      */
     public function edit($id)
@@ -156,56 +128,59 @@ class ImageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int       $id
+     * @param  int $id
+     * @param      $request
      * @return \Response
      */
-    public function update($id)
+    public function update($id, ImageRequest $request)
     {
-        //
+        /** @var \App\Models\Image $model */
+        $model = $this->imageRepository->find($id);
+        if (empty($model)) {
+            \App::abort(404);
+        }
+        $input = $request->only([
+            'url',
+            'title',
+            'entity_type',
+            'entity_id',
+            'file_category_type',
+            's3_key',
+            's3_bucket',
+            's3_region',
+            's3_extension',
+            'media_type',
+            'format',
+            'file_size',
+            'width',
+            'height',
+        ]);
+        $input['is_enabled'] = $request->get('is_enabled', 0);
+        $this->imageRepository->update($model, $input);
+
+        return redirect()->action('Admin\ImageController@show', [$id])->with('message-success',
+                trans('admin.messages.general.update_success'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int       $id
+     * @param  int $id
      * @return \Response
      */
     public function destroy($id)
     {
-        $image = $this->imageRepository->find($id);
-        if (empty($image)) {
+        /** @var \App\Models\Image $model */
+        $model = $this->imageRepository->find($id);
+        if (empty($model)) {
             \App::abort(404);
         }
-    }
 
-    public function deleteByUrl(Request $request)
-    {
-        $url = $request->input('url');
-        if (empty($url)) {
-            \App::abort(400, 'No URL Given');
-        }
-        /** @var \App\Models\Image|null $image */
-        $image = $this->imageRepository->findByUrl($url);
-        if (empty($image)) {
-            \App::abort(404);
-        }
-        $entityId = $request->input('entity_id', 0);
-        if ($entityId != $image->entity_id) {
-            \App::abort(400, 'Article ID Mismatch');
-        } else {
-            if ($entityId == 0 && !$this->imageService->hasImageIdInSession($image->id)) {
-                \App::abort(400, 'Entity ID Mismatch');
-            }
-        }
+        $this->fileUploadService->delete($model);
+        $this->imageRepository->delete($model);
 
-        $this->fileUploadService->delete($image);
-        $this->imageRepository->delete($image);
-
-        if ($entityId == 0) {
-            $this->imageService->removeImageIdFromSession($image->id);
-        }
-
-        return response()->json(['status' => 'ok'], 204);
+        return redirect()->action('Admin\ImageController@index')->with('message-success',
+                trans('admin.messages.general.delete_success'));
     }
 
 }

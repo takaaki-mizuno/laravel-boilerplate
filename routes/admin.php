@@ -24,12 +24,17 @@
         \Route::resource('admin-users', 'Admin\AdminUserController');
         \Route::resource('site-configurations', 'Admin\SiteConfigurationController');
         \Route::post('articles/preview', 'Admin\ArticleController@preview');
+        \Route::get('articles/images', 'Admin\ArticleController@getImages');
+        \Route::post('articles/images', 'Admin\ArticleController@postImage');
+        \Route::delete('articles/images', 'Admin\ArticleController@deleteImage');
+
         \Route::resource('articles', 'Admin\ArticleController');
         \Route::delete('images/delete', 'Admin\ImageController@deleteByUrl');
         \Route::resource('images', 'Admin\ImageController');
 
         \Route::resource('user-notifications', 'Admin\UserNotificationController');
         \Route::resource('admin-user-notifications', 'Admin\AdminUserNotificationController');
-        /* NEW ADMIN RESOURCE ROUTE */
+        \Route::resource('images', 'Admin\ImageController');
+                /* NEW ADMIN RESOURCE ROUTE */
     });
 });

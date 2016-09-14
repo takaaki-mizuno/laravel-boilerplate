@@ -21,7 +21,7 @@ $(function () {
         imageManagerLoadParams: Boilerplate.imagesLoadParams,
         imageManagerDeleteURL: Boilerplate.imageDeleteURL,
         imageManagerDeleteParams: Boilerplate.imageDeleteParams,
-        imageManagerDeleteMethod: "DELETE",
+        imageManagerDeleteMethod: "DELETE"
     }).on('froalaEditor.image.inserted', function (e, editor, img) {
         img.attr("width", "100%");
         console.log(img);

@@ -41,6 +41,28 @@ $factory->define(App\Models\SiteConfiguration::class, function (Faker\Generator 
     ];
 });
 
+$factory->define(App\Models\Image::class, function (Faker\Generator $faker) {
+    return [
+        'url'                    => $faker->imageUrl(),
+        'title'                  => $faker->sentence,
+        'is_local'               => false,
+        'entity_type'            => '',
+        'entity_id'              => 0,
+        'file_category_type'     => '',
+        's3_key'                 => '',
+        's3_bucket'              => '',
+        's3_region'              => '',
+        's3_extension'           => '',
+        'media_type'             => 'image/png',
+        'format'                 => 'png',
+        'file_size'              => 0,
+        'width'                  => 100,
+        'height'                 => 100,
+        'is_enabled'             => true,
+    ];
+});
+
+
 $factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
     return [
         'slug'               => $faker->word,

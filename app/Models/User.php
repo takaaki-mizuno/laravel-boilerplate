@@ -55,8 +55,6 @@ class User extends AuthenticatableBase
         'email',
         'password',
         'locale',
-        'facebook_id',
-        'facebook_token',
         'remember_token',
         'api_access_token',
         'profile_image_id',

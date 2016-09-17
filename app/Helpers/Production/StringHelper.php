@@ -29,6 +29,13 @@ class StringHelper implements StringHelperInterface
         return implode('-', $ret);
     }
 
+    public function snake2Camel($input)
+    {
+        return preg_replace_callback('/(^|_)([a-z])/', function ($match) {
+            return strtoupper($match[2]);
+        }, $input);
+    }
+
     public function pluralize($singular)
     {
         $inflector = Inflector::get('en');

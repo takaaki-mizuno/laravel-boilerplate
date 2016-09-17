@@ -16,6 +16,13 @@ interface StringHelperInterface
     public function camel2Spinal($input);
 
     /**
+     * @param  string $input
+     * @return string
+     */
+    public function snake2Camel($input);
+
+
+    /**
      * @param  string $singular
      * @return string mixed
      */

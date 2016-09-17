@@ -29,6 +29,6 @@ class CreateAdminPasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('admin_password_resets');
+        Schema::dropIfExists('admin_password_resets');
     }
 }

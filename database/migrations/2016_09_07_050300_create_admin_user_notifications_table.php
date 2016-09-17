@@ -51,6 +51,6 @@ class CreateAdminUserNotificationsTable extends Migration
      */
     public function down()
     {
-        \Schema::drop('admin_user_notifications');
+        \Schema::dropIfExists('admin_user_notifications');
     }
 }

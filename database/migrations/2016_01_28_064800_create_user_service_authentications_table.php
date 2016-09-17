@@ -40,6 +40,6 @@ class CreateUserServiceAuthenticationsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_service_authentications');
+        Schema::dropIfExists('user_service_authentications');
     }
 }

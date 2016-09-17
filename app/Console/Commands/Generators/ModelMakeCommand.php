@@ -123,7 +123,7 @@ class ModelMakeCommand extends GeneratorCommandBase
 
     /**
      * @param  string           $className
-     * @return \App\Models\Base
+     * @return string
      */
     protected function getModel($className)
     {
@@ -180,7 +180,7 @@ class ModelMakeCommand extends GeneratorCommandBase
 
     protected function hasSoftDeleteColumn($tableName)
     {
-        $columns = $this->getTableColumns($tableName);
+        $columns = $this->getTableColumns($tableName, false);
         if ($columns) {
             foreach ($columns as $column) {
                 $columnName = $column->getName();
@@ -195,9 +195,10 @@ class ModelMakeCommand extends GeneratorCommandBase
 
     /**
      * @param  string                         $tableName
+     * @param  bool                           $removeDefaultCoulmn
      * @return \Doctrine\DBAL\Schema\Column[]
      */
-    protected function getTableColumns($tableName)
+    protected function getTableColumns($tableName, $removeDefaultCoulmn = true)
     {
         $hasDoctrine = interface_exists('Doctrine\DBAL\Driver');
         if (!$hasDoctrine) {
@@ -209,8 +210,13 @@ class ModelMakeCommand extends GeneratorCommandBase
 
         $schema = \DB::getDoctrineSchemaManager();
 
-        $ret = [];
         $columns = $schema->listTableColumns($tableName);
+
+        if( !$removeDefaultCoulmn ) {
+            return $columns;
+        }
+
+        $ret = [];
         foreach ($columns as $column) {
             if (!in_array($column->getName(), ['created_at', 'updated_at', 'deleted_at'])) {
                 $ret[] = $column;

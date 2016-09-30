@@ -7,7 +7,7 @@ class SignUpRequest extends BaseRequest
     /*
      * Redirect action when validate fail
      * */
-    protected $redirectAction = "User\AuthController@getSignUp";
+    protected $redirectAction = 'User\AuthController@getSignUp';
 
     /**
      * Determine if the user is authorized to make this request.

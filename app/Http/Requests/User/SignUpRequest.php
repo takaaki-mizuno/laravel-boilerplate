@@ -4,6 +4,10 @@ use App\Http\Requests\BaseRequest;
 
 class SignUpRequest extends BaseRequest
 {
+    /*
+     * Redirect action when validate fail
+     * */
+    protected $redirectAction = "User\AuthController@getSignUp";
 
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +27,7 @@ class SignUpRequest extends BaseRequest
     public function rules()
     {
         return [
-            'email'    => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
         ];
     }

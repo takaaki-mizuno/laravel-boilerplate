@@ -17,7 +17,7 @@ class CreateAdminUsersTable extends Migration {
 			$table->bigIncrements('id');
 
 			$table->string('name');
-			$table->string('email')->unique();
+			$table->string('email');
 			$table->string('password', 60);
 
             $table->string('locale')->default('');

@@ -4,7 +4,7 @@ use Illuminate\Support\Arr;
 
 /**
  * App\Models\Notification
- * 
+ *
  * This is Abstract Class for Notifications.
  * No table named 'notifications' exists
  *

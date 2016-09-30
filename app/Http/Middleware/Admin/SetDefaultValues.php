@@ -17,7 +17,7 @@ class SetDefaultValues
     /**
      * Create a new filter instance.
      *
-     * @param AdminUserServiceInterface $adminUserService
+     * @param AdminUserServiceInterface             $adminUserService
      * @param AdminUserNotificationServiceInterface $adminUserNotificationService
      */
     public function __construct(
@@ -33,7 +33,7 @@ class SetDefaultValues
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param  \Closure                 $next
      * @return mixed
      */
     public function handle($request, \Closure $next)
@@ -42,17 +42,16 @@ class SetDefaultValues
         \View::share('authUser', $user);
         \View::share('menu', '');
 
-        if( !empty($user) ) {
+        if ( !empty($user) ) {
             $notificationCount = $this->adminUserNotificationService->getUnreadNotificationCount($user);
             $notifications = $this->adminUserNotificationService->getNotifications($user, 0, 10);
-        }else {
+        } else {
             $notificationCount = 0;
             $notifications = 0;
         }
 
         \View::share('unreadNotificationCount', $notificationCount);
         \View::share('notifications', $notifications);
-
 
         return $next($request);
     }

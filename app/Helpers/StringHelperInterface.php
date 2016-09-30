@@ -21,7 +21,6 @@ interface StringHelperInterface
      */
     public function snake2Camel($input);
 
-
     /**
      * @param  string $singular
      * @return string mixed

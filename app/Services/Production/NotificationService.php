@@ -52,7 +52,7 @@ class NotificationService extends BaseService implements UserNotificationService
 
     public function readUntil($user, $notification)
     {
-        if( $notification->user_id != Notification::BROADCAST_USER_ID && $notification->user_id != $user->id ) {
+        if ($notification->user_id != Notification::BROADCAST_USER_ID && $notification->user_id != $user->id) {
             return false;
         }
 

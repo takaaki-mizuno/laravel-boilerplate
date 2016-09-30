@@ -4,11 +4,11 @@ interface NotificationRepositoryInterface extends SingleKeyModelRepositoryInterf
 {
 
     /**
-     * @param int $userId
-     * @param string $order
-     * @param string $direction
-     * @param int $offset
-     * @param int $limit
+     * @param  int                        $userId
+     * @param  string                     $order
+     * @param  string                     $direction
+     * @param  int                        $offset
+     * @param  int                        $limit
      * @return \App\Models\Notification[]
      */
     public function getByUserId($userId, $order = 'id', $direction = 'desc', $offset, $limit);
@@ -20,12 +20,12 @@ interface NotificationRepositoryInterface extends SingleKeyModelRepositoryInterf
     public function countByUserId($userId);
 
     /**
-     * @param string $categoryType
-     * @param int $userId
-     * @param string $order
-     * @param string $direction
-     * @param int $offset
-     * @param int $limit
+     * @param  string                     $categoryType
+     * @param  int                        $userId
+     * @param  string                     $order
+     * @param  string                     $direction
+     * @param  int                        $offset
+     * @param  int                        $limit
      * @return \App\Models\Notification[]
      */
     public function getByCategoryTypeAndUserId(
@@ -45,8 +45,8 @@ interface NotificationRepositoryInterface extends SingleKeyModelRepositoryInterf
     public function countUnreadByUserId($userId, $lastId);
 
     /**
-     * @param  int $userId
-     * @param  int $lastId
+     * @param  int     $userId
+     * @param  int     $lastId
      * @return boolean
      */
     public function updateReadByUserId($userId, $lastId);

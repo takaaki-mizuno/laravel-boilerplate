@@ -14,7 +14,6 @@ class AdminUserNotificationController extends Controller
     /** @var \App\Repositories\AdminUserNotificationRepositoryInterface */
     protected $adminUserNotificationRepository;
 
-
     public function __construct(
         AdminUserNotificationRepositoryInterface $adminUserNotificationRepository
     )
@@ -47,7 +46,7 @@ class AdminUserNotificationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param BaseRequest $request
+     * @param  BaseRequest $request
      * @return \Response
      */
     public function create(BaseRequest $request)
@@ -55,7 +54,7 @@ class AdminUserNotificationController extends Controller
         $userId = $request->get('admin_user_id');
         $model = $this->adminUserNotificationRepository->getBlankModel();
         if ($userId !== null) {
-            $model->user_id = (int)$userId;
+            $model->user_id = (int) $userId;
         }
 
         return view('pages.admin.admin-user-notifications.edit', [
@@ -88,7 +87,7 @@ class AdminUserNotificationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function show($id)
@@ -107,7 +106,7 @@ class AdminUserNotificationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function edit($id)
@@ -118,8 +117,8 @@ class AdminUserNotificationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
-     * @param      $request
+     * @param  int       $id
+     * @param            $request
      * @return \Response
      */
     public function update($id, AdminUserNotificationRequest $request)
@@ -140,7 +139,7 @@ class AdminUserNotificationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function destroy($id)

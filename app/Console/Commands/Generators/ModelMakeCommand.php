@@ -122,7 +122,7 @@ class ModelMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string           $className
+     * @param  string $className
      * @return string
      */
     protected function getModel($className)
@@ -212,7 +212,7 @@ class ModelMakeCommand extends GeneratorCommandBase
 
         $columns = $schema->listTableColumns($tableName);
 
-        if( !$removeDefaultCoulmn ) {
+        if (!$removeDefaultCoulmn) {
             return $columns;
         }
 

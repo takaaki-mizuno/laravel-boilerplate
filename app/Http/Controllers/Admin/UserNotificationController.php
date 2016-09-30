@@ -14,7 +14,6 @@ class UserNotificationController extends Controller
     /** @var \App\Repositories\UserNotificationRepositoryInterface */
     protected $userNotificationRepository;
 
-
     public function __construct(
         UserNotificationRepositoryInterface $userNotificationRepository
     )
@@ -47,7 +46,7 @@ class UserNotificationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param BaseRequest $request
+     * @param  BaseRequest $request
      * @return \Response
      */
     public function create(BaseRequest $request)
@@ -55,7 +54,7 @@ class UserNotificationController extends Controller
         $userId = $request->get('user_id');
         $model = $this->userNotificationRepository->getBlankModel();
         if ($userId !== null) {
-            $model->user_id = (int)$userId;
+            $model->user_id = (int) $userId;
         }
 
         return view('pages.admin.user-notifications.edit', [
@@ -87,7 +86,7 @@ class UserNotificationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function show($id)
@@ -106,7 +105,7 @@ class UserNotificationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function edit($id)
@@ -117,8 +116,8 @@ class UserNotificationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
-     * @param      $request
+     * @param  int       $id
+     * @param            $request
      * @return \Response
      */
     public function update($id, UserNotificationRequest $request)
@@ -139,7 +138,7 @@ class UserNotificationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function destroy($id)

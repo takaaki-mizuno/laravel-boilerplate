@@ -20,7 +20,6 @@ class MeController extends Controller
     /** @var AdminUserNotificationServiceInterface */
     protected $adminUserNotificationService;
 
-
     public function __construct(
         AdminUserServiceInterface $adminUserService,
         AdminUserRepositoryInterface $adminUserRepository,

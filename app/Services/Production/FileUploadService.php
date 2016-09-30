@@ -96,7 +96,7 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
         $region = $model->s3_region;
         $key = $model->s3_key;
 
-        if( empty($key) ) {
+        if ( empty($key) ) {
             return true;
         }
 

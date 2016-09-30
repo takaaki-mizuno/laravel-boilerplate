@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\ImageRequest;
 use App\Http\Requests\BaseRequest;
 use App\Http\Controllers\Controller;
 
@@ -139,7 +138,7 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function show($id)
@@ -158,7 +157,7 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function edit($id)
@@ -169,7 +168,7 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param  int       $id
      * @param            $request
      * @return \Response
      */
@@ -230,7 +229,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function destroy($id)

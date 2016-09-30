@@ -9,7 +9,7 @@ class UserNotificationPresenter extends BasePresenter
         }
 
         $user = $this->entity->user;
-        if( empty($user) ) {
+        if ( empty($user) ) {
             return "Unknown";
         }
 

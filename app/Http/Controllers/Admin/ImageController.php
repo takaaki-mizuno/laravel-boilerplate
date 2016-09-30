@@ -98,7 +98,7 @@ class ImageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function show($id)
@@ -117,7 +117,7 @@ class ImageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function edit($id)
@@ -128,8 +128,8 @@ class ImageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
-     * @param      $request
+     * @param  int       $id
+     * @param            $request
      * @return \Response
      */
     public function update($id, ImageRequest $request)
@@ -165,7 +165,7 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int       $id
      * @return \Response
      */
     public function destroy($id)

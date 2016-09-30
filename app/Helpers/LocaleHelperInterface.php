@@ -6,7 +6,7 @@ interface LocaleHelperInterface
     /**
      * Set Locale
      *
-     * @param  string $locale
+     * @param  string                         $locale
      * @param  \App\Models\LocaleStorableBase $user
      * @return string
      */

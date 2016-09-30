@@ -87,7 +87,17 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        $input = $request->only(['slug', 'title', 'keywords', 'description', 'content', 'locale', 'is_enabled']);
+        $input = $request->only([
+            'slug',
+            'title',
+            'keywords',
+            'description',
+            'content',
+            'locale',
+            'is_enabled',
+            'publish_started_at',
+            'publish_ended_at',
+        ]);
 
         $dateTimeColumns = ['publish_started_at', 'publish_ended_at'];
         foreach ($dateTimeColumns as $dateTimeColumn) {
@@ -187,6 +197,8 @@ class ArticleController extends Controller
             'content',
             'locale',
             'is_enabled',
+            'publish_started_at',
+            'publish_ended_at',
         ]);
         $input['is_enabled'] = $request->get('is_enabled', 0);
         $dateTimeColumns = ['publish_started_at', 'publish_ended_at'];

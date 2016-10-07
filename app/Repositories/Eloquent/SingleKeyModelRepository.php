@@ -174,7 +174,15 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         $offset = array_get($parameters, 2, 0);
         $limit = array_get($parameters, 3, 10);
 
-        return $query->orderBy($order, $direction)->offset($offset)->limit($limit)->get();
+        if (!empty($order)) {
+            $direction = empty($direction) ? 'asc' : $direction;
+            $query = $query->orderBy($order, $direction);
+        }
+        if (!empty($offset) && !empty($limit)) {
+            $query = $query->offset($offset)->limit($limit);
+        }
+
+        return $query->get();
     }
 
     private function dynamicAll($method, $parameters)

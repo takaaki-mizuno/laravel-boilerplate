@@ -28,10 +28,6 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
         $modelName = $this->getModelName($name);
 
-        if (!$this->generateViews($modelName)) {
-            return false;
-        }
-
         if (!$this->generateController($modelName)) {
             return false;
         }

@@ -28,9 +28,14 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
         $modelName = $this->getModelName($name);
 
+        if (!$this->generateViews($modelName)) {
+            return false;
+        }
+
         if (!$this->generateController($modelName)) {
             return false;
         }
+
         if (!$this->generateRequest($modelName)) {
             return false;
         }
@@ -109,11 +114,41 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
             \StringHelper::camel2Spinal(\StringHelper::pluralize($modelName)));
         $this->replaceTemplateVariable($stub, 'classes-snake',
             \StringHelper::camel2Snake(\StringHelper::pluralize($modelName)));
-        $columns = $this->getColumns($modelName);
+
+        $columns = $this->getColumnNamesAndTypes($modelName);
+        $columnNames = $this->getColumns($modelName);
+        $params = [];
+        $updates = "";
+        foreach( $columns as $column ) {
+            if( !in_array($column['name'], $columnNames ) ) {
+                continue;
+            }
+            if ($column['name'] == 'id' || $column['name'] == 'is_enabled') {
+                continue;
+            }
+            if( \StringHelper::endsWith($column['name'], '_id') ) {
+                continue;
+            }
+            switch( $column['type'] ) {
+                case "BooleanType":
+                    $updates .= '        $input[\'' .$column['name'] . '\'] = $request->get(\'' .$column['name'] . '\', 0);' . PHP_EOL;
+                    break;
+                case "DateTimeType":
+                case "TextType":
+                case "StringType":
+                case "IntegerType":
+                default:
+                    $params[] = $column['name'];
+            }
+        }
+
+
         $list = join(',', array_map(function ($name) {
             return "'".$name."'";
-        }, $columns));
+        }, $params));
+
         $this->replaceTemplateVariable($stub, 'COLUMNS', $list);
+        $this->replaceTemplateVariable($stub, 'COLUMNUPDATES', $updates);
     }
 
     /**
@@ -192,13 +227,19 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
             if ($type == 'index') {
                 $tableHeader = "";
                 $tableContent = "";
-                $columns = $this->getColumns($name);
+                $columns = $this->getColumnNamesAndTypes($name);
                 foreach ($columns as $column) {
-                    if ($column == 'id' || $column == 'is_enabled') {
+                    if ($column['name'] == 'id' || $column['name'] == 'is_enabled') {
                         continue;
                     }
-                    $tableHeader .= '                <th>@lang(\'admin.pages.%%classes-spinal%%.columns.'.$column.'\')</th>'.PHP_EOL;
-                    $tableContent .= '                <td>{{ $model->'.$column.' }}</td>'.PHP_EOL;
+                    if( \StringHelper::endsWith($column['name'], '_id') ) {
+                        continue;
+                    }
+                    if( $column['type'] == 'TextType' ) {
+                        continue;
+                    }
+                    $tableHeader .= '                <th>@lang(\'admin.pages.%%classes-spinal%%.columns.'.$column['name'].'\')</th>'.PHP_EOL;
+                    $tableContent .= '                <td>{{ $model->'.$column['name'].' }}</td>'.PHP_EOL;
                 }
                 $this->replaceTemplateVariable($stub, 'TABLE_HEADER', $tableHeader);
                 $this->replaceTemplateVariable($stub, 'TABLE_CONTENT', $tableContent);
@@ -221,7 +262,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
         $sideMenu = $this->files->get($this->getSideBarViewPath());
 
-        $value = '<li @if( $menu==\'' . \StringHelper::camel2Snake($name). '\') class="active" @endif ><a href="{!! URL::action(\'Admin\\'.$name.'Controller@index\') !!}"><i class="fa fa-users"></i> <span>'.\StringHelper::pluralize($name).'</span></a></li>'.PHP_EOL.'            <!-- %%SIDEMENU%% -->';
+        $value = '<li @if( $menu==\'' . \StringHelper::camel2Snake($name). '\') class="active" @endif ><a href="{!! action(\'Admin\\'.$name.'Controller@index\') !!}"><i class="fa fa-users"></i> <span>'.\StringHelper::pluralize($name).'</span></a></li>'.PHP_EOL.'            <!-- %%SIDEMENU%% -->';
 
         $sideMenu = str_replace('<!-- %%SIDEMENU%% -->', $value, $sideMenu);
         $this->files->put($this->getSideBarViewPath(), $sideMenu);
@@ -298,18 +339,92 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
     protected function generateForm($name)
     {
-        $columns = $this->getColumns($name);
+        $columns = $this->getColumnNamesAndTypes($name);
         $result = "";
         foreach ($columns as $column) {
-            if ($column == 'id' || $column == 'is_enabled') {
+            if ($column['name'] == 'id' || $column['name'] == 'is_enabled') {
                 continue;
             }
-            $template = '                    <div class="form-group @if ($errors->has(\'%%column%%\')) has-error @endif">'.PHP_EOL.'                        <label for="%%column%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'.PHP_EOL.'                        <input type="text" class="form-control" id="%%column%%" name="%%column%%" value="{{ old(\'%%column%%\') ? old(\'%%column%%\') : $%%class%%->%%column%% }}">'.PHP_EOL.'                    </div>';
-            $this->replaceTemplateVariable($template, 'column', $column);
-            $this->replaceTemplateVariable($template, 'class', strtolower(substr($name, 0, 1)).substr($name, 1));
-            $this->replaceTemplateVariable($template, 'classes-spinal',
-                \StringHelper::camel2Spinal(\StringHelper::pluralize($name)));
-            $result = $result.PHP_EOL.$template.PHP_EOL;
+
+            if (\StringHelper::endsWith($column['name'], 'image_id') ) {
+                $fieldName = substr($column['name'], 0 , strlen($column['name'])-3);
+                $relationName = lcfirst(\StringHelper::snake2Camel($fieldName));
+                $idName = \StringHelper::camel2Spinal($relationName);
+
+                $template =  '                    @if( !empty($company->%%relation%%) )'
+                    .PHP_EOL.'                        <img width="400" src="{!! $article->%%relation%%->getThumbnailUrl(480, 300) !!}" alt="" class="margin" />'
+                    .PHP_EOL.'                    @endif'
+                    .PHP_EOL.'                    <div class="form-group">'
+                    .PHP_EOL.'                        <label for="%%field%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'
+                    .PHP_EOL.'                        <input type="file" id="%%id%%-image" name="%%field%%">'
+                    .PHP_EOL.'                        <p class="help-block">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</p>'
+                    .PHP_EOL.'                    </div>';
+                $this->replaceTemplateVariable($template, 'column', $column['name']);
+                $this->replaceTemplateVariable($template, 'field', $fieldName);
+                $this->replaceTemplateVariable($template, 'relation',$relationName);
+                $this->replaceTemplateVariable($template, 'id',$idName);
+                $result = $result.PHP_EOL.$template.PHP_EOL;
+                continue;
+            }
+
+            if (\StringHelper::endsWith($column['name'], '_id') ) {
+                continue;
+            }
+
+            switch( $column['type'] ) {
+                case "TextType":
+                    $template = '                    <div class="form-group @if ($errors->has(\'%%column%%\')) has-error @endif">'
+                        .PHP_EOL.'                        <label for="%%column%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'
+                        .PHP_EOL.'                        <textarea name="%%column%%" class="form-control" rows="5" placeholder="@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')">{{{ old(\'%%column%%\') ? old(\'%%column%%\') : $%%class%%->%%column%% }}}</textarea>'
+                        .PHP_EOL.'                    </div>';
+                    $this->replaceTemplateVariable($template, 'column', $column['name']);
+                    $this->replaceTemplateVariable($template, 'class', strtolower(substr($name, 0, 1)).substr($name, 1));
+                    $this->replaceTemplateVariable($template, 'classes-spinal',
+                        \StringHelper::camel2Spinal(\StringHelper::pluralize($name)));
+                    $result = $result.PHP_EOL.$template.PHP_EOL;
+                    break;
+                case "BooleanType":
+                    $template = '                    <div class="form-group">'
+                        .PHP_EOL.'                        <div class="checkbox">'
+                        .PHP_EOL.'                        <label>'
+                        .PHP_EOL.'                        <input type="checkbox" name="is_enabled" value="1"'
+                        .PHP_EOL.'                        @if( $%%class%%->%%column%%) checked @endif'
+                        .PHP_EOL.'                        > @lang(\'admin.pages.companies.columns.%%column%%\')'
+                        .PHP_EOL.'                        </label>'
+                        .PHP_EOL.'                        </div>'
+                        .PHP_EOL.'                    </div>';
+                    $this->replaceTemplateVariable($template, 'column', $column['name']);
+                    $this->replaceTemplateVariable($template, 'class', strtolower(substr($name, 0, 1)).substr($name, 1));
+                    $result = $result.PHP_EOL.$template.PHP_EOL;
+                    break;
+                case "DateTimeType":
+                    $template = '                    <div class="form-group">'
+                        .PHP_EOL.'                        <label for="%%column%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'
+                        .PHP_EOL.'                        <div class="input-group date datetime-field">'
+                        .PHP_EOL.'                        <input type="text" class="form-control" name="%%column%%"'
+                        .PHP_EOL.'                        value="{{ old(\'%%column%%\') ? old(\'%%column%%\') : \DateTimeHelper::formatDateTime($%%class%%->%%column%%) }}">'
+                        .PHP_EOL.'                        <span class="input-group-addon">'
+                        .PHP_EOL.'                        <span class="glyphicon glyphicon-calendar"></span>'
+                        .PHP_EOL.'                        </span>'
+                        .PHP_EOL.'                        </div>'
+                        .PHP_EOL.'                    </div>';
+                    $this->replaceTemplateVariable($template, 'column', $column['name']);
+                    $this->replaceTemplateVariable($template, 'class', strtolower(substr($name, 0, 1)).substr($name, 1));
+                    $result = $result.PHP_EOL.$template.PHP_EOL;
+                    break;
+                case "StringType":
+                case "IntegerType":
+                default:
+                    $template = '                    <div class="form-group @if ($errors->has(\'%%column%%\')) has-error @endif">'
+                        .PHP_EOL.'                        <label for="%%column%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'
+                        .PHP_EOL.'                        <input type="text" class="form-control" id="%%column%%" name="%%column%%" value="{{ old(\'%%column%%\') ? old(\'%%column%%\') : $%%class%%->%%column%% }}">'
+                        .PHP_EOL.'                    </div>';
+                    $this->replaceTemplateVariable($template, 'column', $column['name']);
+                    $this->replaceTemplateVariable($template, 'class', strtolower(substr($name, 0, 1)).substr($name, 1));
+                    $this->replaceTemplateVariable($template, 'classes-spinal',
+                        \StringHelper::camel2Spinal(\StringHelper::pluralize($name)));
+                    $result = $result.PHP_EOL.$template.PHP_EOL;
+            }
         }
 
         return $result;
@@ -353,6 +468,44 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     protected function getStubForUnitTest()
     {
         return __DIR__.'/stubs/admin-crud-controller-unittest.stub';
+    }
+
+    protected function getColumnNamesAndTypes($name)
+    {
+
+        $columNames = $this->getColumns($name);
+        $tableName = $this->getTableName($name);
+
+        $hasDoctrine = interface_exists('Doctrine\DBAL\Driver');
+        if (!$hasDoctrine) {
+            return [];
+        }
+        $ret = [];
+        $schema = \DB::getDoctrineSchemaManager();
+        $columns = $schema->listTableColumns($tableName);
+        if ($columns) {
+            foreach ($columns as $column) {
+                if ($column->getAutoincrement()) {
+                    continue;
+                }
+                $columnName = $column->getName();
+                $columnType = array_slice(explode('\\', get_class($column->getType())), -1)[0];
+
+                if( in_array($columnName, $columNames) ) {
+                    $ret[] = [
+                        'name' => $columnName,
+                        'type' => $columnType,
+                    ];
+                }
+            }
+        }
+
+        return $ret;
+    }
+
+    protected function getTableName($name)
+    {
+        return \StringHelper::pluralize(\StringHelper::camel2Snake($name));
     }
 
 }

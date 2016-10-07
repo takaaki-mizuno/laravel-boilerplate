@@ -65,6 +65,7 @@ class %%CLASS%%Controller extends Controller
     public function store(%%CLASS%%Request $request)
     {
         $input = $request->only([%%COLUMNS%%]);
+        %%COLUMNUPDATES%%
         $input['is_enabled'] = $request->get('is_enabled', 0);
         $model = $this->%%class%%Repository->create($input);
 
@@ -121,6 +122,7 @@ class %%CLASS%%Controller extends Controller
             \App::abort(404);
         }
         $input = $request->only([%%COLUMNS%%]);
+        %%COLUMNUPDATES%%
         $input['is_enabled'] = $request->get('is_enabled', 0);
         $this->%%class%%Repository->update($model, $input);
 

@@ -56,9 +56,21 @@ class StringHelper implements StringHelperInterface
         $characters = array_merge(range('a', 'z'), range('0', '9'), range('A', 'Z'));
         $result = "";
         for ($i = 0; $i < $length; $i++) {
-            $result .= $characters[mt_rand(0, count($characters) - 1)];
+            $result .= $characters[ mt_rand(0, count($characters) - 1) ];
         }
 
         return $result;
+    }
+
+    // Ref: http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php
+    function startsWith($haystack, $needle)
+    {
+        return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
+    }
+
+    function endsWith($haystack, $needle)
+    {
+        return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle,
+                $temp) !== false);
     }
 }

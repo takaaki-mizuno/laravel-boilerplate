@@ -38,4 +38,19 @@ interface StringHelperInterface
      * @return string
      */
     public function randomString($length);
+
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return boolean
+     */
+    function startsWith($haystack, $needle);
+
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return boolean
+     */
+    function endsWith($haystack, $needle);
+
 }

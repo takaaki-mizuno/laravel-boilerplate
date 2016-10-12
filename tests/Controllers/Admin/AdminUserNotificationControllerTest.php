@@ -1,10 +1,10 @@
-<?php  namespace Tests\Controllers\Admin;
+<?php
+namespace Tests\Controllers\Admin;
 
 use Tests\TestCase;
 
 class AdminUserNotificationControllerTest extends TestCase
 {
-
     protected $useDatabase = true;
 
     public function testGetInstance()
@@ -84,5 +84,4 @@ class AdminUserNotificationControllerTest extends TestCase
         $checkAdminUserNotification = \App\Models\AdminUserNotification::find($id);
         $this->assertNull($checkAdminUserNotification);
     }
-
 }

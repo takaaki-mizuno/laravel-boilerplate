@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php
+
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\AdminUserServiceInterface;
@@ -6,7 +8,6 @@ use App\Http\Requests\Admin\SignInRequest;
 
 class AuthController extends Controller
 {
-
     /** @var \App\Services\AdminUserServiceInterface AdminUserService */
     protected $adminUserService;
 
@@ -37,5 +38,4 @@ class AuthController extends Controller
 
         return redirect()->action('Admin\AuthController@getSignIn');
     }
-
 }

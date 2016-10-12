@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Generators;
 
 use Illuminate\Console\Command;
-
 use Illuminate\Support\Str;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Input\InputArgument;
@@ -177,5 +176,4 @@ abstract class GeneratorCommandBase extends Command
             ['name', InputArgument::REQUIRED, 'The name of the class'],
         ];
     }
-
 }

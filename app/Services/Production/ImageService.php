@@ -1,15 +1,17 @@
-<?php namespace App\Services\Production;
+<?php
+
+namespace App\Services\Production;
 
 use App\Services\ImageServiceInterface;
 
 class ImageService extends BaseService implements ImageServiceInterface
 {
-
     /**
-     * @param  string      $src    file path
-     * @param  string      $dst    file path
-     * @param  string|null $format file format
-     * @param  array       $size   [ width, height ]
+     * @param string      $src    file path
+     * @param string      $dst    file path
+     * @param string|null $format file format
+     * @param array       $size   [ width, height ]
+     *
      * @return array
      */
     public function convert($src, $dst, $format, $size)
@@ -24,19 +26,19 @@ class ImageService extends BaseService implements ImageServiceInterface
 
         return [
             'height' => $image->getImageHeight(),
-            'width'  => $image->getImageWidth(),
+            'width' => $image->getImageWidth(),
         ];
     }
 
     /**
      * @ref http://www.b-prep.com/blog/?p=1764
      *
-     * @param  \Imagick $image
+     * @param \Imagick $image
+     *
      * @return \Imagick
      */
     private function fixImageOrientation($image)
     {
-
         $orientation = $image->getImageOrientation();
         switch ($orientation) {
             case \Imagick::ORIENTATION_UNDEFINED:
@@ -80,8 +82,9 @@ class ImageService extends BaseService implements ImageServiceInterface
     }
 
     /**
-     * @param  \Imagick $image
-     * @param  string   $format
+     * @param \Imagick $image
+     * @param string   $format
+     *
      * @return \Imagick
      */
     private function setImageFormat($image, $format)
@@ -97,8 +100,9 @@ class ImageService extends BaseService implements ImageServiceInterface
     }
 
     /**
-     * @param  \Imagick $image
-     * @param  array    $size
+     * @param \Imagick $image
+     * @param array    $size
+     *
      * @return \Imagick
      */
     private function setImageSize($image, $size)
@@ -113,5 +117,4 @@ class ImageService extends BaseService implements ImageServiceInterface
 
         return $image;
     }
-
 }

@@ -1,4 +1,6 @@
-<?php namespace App\Console\Commands\Generators;
+<?php
+
+namespace App\Console\Commands\Generators;
 
 class AdminCRUDMakeCommand extends GeneratorCommandBase
 {
@@ -25,7 +27,6 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
     protected function generate($name)
     {
-
         $modelName = $this->getModelName($name);
 
         if (!$this->generateController($modelName)) {
@@ -40,20 +41,18 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
         }
 
         if (!$this->generateUnitTest($modelName)) {
-
         }
 
         if (!$this->addItemToSubMenu($modelName)) {
-
         }
         $this->generateLanguageFile($modelName);
 
         return $this->addRoute($modelName);
-
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function generateController($name)
@@ -75,7 +74,8 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getModelName($name)
@@ -91,7 +91,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     {
         $modelFullName = '\\App\\Models\\'.$name;
         /** @var \App\Models\Base $model */
-        $model = new $modelFullName;
+        $model = new $modelFullName();
 
         return $model->getFillableColumns();
     }
@@ -114,32 +114,31 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
         $columns = $this->getColumnNamesAndTypes($modelName);
         $columnNames = $this->getColumns($modelName);
         $params = [];
-        $updates = "";
-        foreach( $columns as $column ) {
-            if( !in_array($column['name'], $columnNames ) ) {
+        $updates = '';
+        foreach ($columns as $column) {
+            if (!in_array($column['name'], $columnNames)) {
                 continue;
             }
             if ($column['name'] == 'id' || $column['name'] == 'is_enabled') {
                 continue;
             }
-            if( \StringHelper::endsWith($column['name'], '_id') ) {
+            if (\StringHelper::endsWith($column['name'], '_id')) {
                 continue;
             }
-            switch( $column['type'] ) {
-                case "BooleanType":
-                    $updates .= '        $input[\'' .$column['name'] . '\'] = $request->get(\'' .$column['name'] . '\', 0);' . PHP_EOL;
+            switch ($column['type']) {
+                case 'BooleanType':
+                    $updates .= '        $input[\''.$column['name'].'\'] = $request->get(\''.$column['name'].'\', 0);'.PHP_EOL;
                     break;
-                case "DateTimeType":
-                case "TextType":
-                case "StringType":
-                case "IntegerType":
+                case 'DateTimeType':
+                case 'TextType':
+                case 'StringType':
+                case 'IntegerType':
                 default:
                     $params[] = $column['name'];
             }
         }
 
-
-        $list = join(',', array_map(function ($name) {
+        $list = implode(',', array_map(function ($name) {
             return "'".$name."'";
         }, $params));
 
@@ -148,7 +147,8 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getControllerPath($name)
@@ -165,7 +165,8 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function generateRequest($name)
@@ -187,7 +188,8 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getRequestPath($name)
@@ -204,7 +206,8 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function generateViews($name)
@@ -221,17 +224,17 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
             $stub = $this->files->get($this->getStubForView($type));
             if ($type == 'index') {
-                $tableHeader = "";
-                $tableContent = "";
+                $tableHeader = '';
+                $tableContent = '';
                 $columns = $this->getColumnNamesAndTypes($name);
                 foreach ($columns as $column) {
                     if ($column['name'] == 'id' || $column['name'] == 'is_enabled') {
                         continue;
                     }
-                    if( \StringHelper::endsWith($column['name'], '_id') ) {
+                    if (\StringHelper::endsWith($column['name'], '_id')) {
                         continue;
                     }
-                    if( $column['type'] == 'TextType' ) {
+                    if ($column['type'] == 'TextType') {
                         continue;
                     }
                     $tableHeader .= '                <th>@lang(\'admin.pages.%%classes-spinal%%.columns.'.$column['name'].'\')</th>'.PHP_EOL;
@@ -239,7 +242,6 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
                 }
                 $this->replaceTemplateVariable($stub, 'TABLE_HEADER', $tableHeader);
                 $this->replaceTemplateVariable($stub, 'TABLE_CONTENT', $tableContent);
-
             } elseif ($type == 'edit') {
                 $inputs = $this->generateForm($name);
                 $this->replaceTemplateVariable($stub, 'FORM', $inputs);
@@ -247,7 +249,6 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
             $this->replaceTemplateVariables($stub, $name);
             $this->files->put($path, $stub);
-
         }
 
         return true;
@@ -255,10 +256,9 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
     protected function addItemToSubMenu($name)
     {
-
         $sideMenu = $this->files->get($this->getSideBarViewPath());
 
-        $value = '<li @if( $menu==\'' . \StringHelper::camel2Snake($name). '\') class="active" @endif ><a href="{!! action(\'Admin\\'.$name.'Controller@index\') !!}"><i class="fa fa-users"></i> <span>'.\StringHelper::pluralize($name).'</span></a></li>'.PHP_EOL.'            <!-- %%SIDEMENU%% -->';
+        $value = '<li @if( $menu==\''.\StringHelper::camel2Snake($name).'\') class="active" @endif ><a href="{!! action(\'Admin\\'.$name.'Controller@index\') !!}"><i class="fa fa-users"></i> <span>'.\StringHelper::pluralize($name).'</span></a></li>'.PHP_EOL.'            <!-- %%SIDEMENU%% -->';
 
         $sideMenu = str_replace('<!-- %%SIDEMENU%% -->', $value, $sideMenu);
         $this->files->put($this->getSideBarViewPath(), $sideMenu);
@@ -270,8 +270,9 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
-     * @param  string $type
+     * @param string $name
+     * @param string $type
+     *
      * @return string
      */
     protected function getViewPath($name, $type)
@@ -283,6 +284,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
     /**
      * @param  string
+     *
      * @return string
      */
     protected function getStubForView($type)
@@ -291,7 +293,8 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function addRoute($name)
@@ -324,30 +327,29 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
         foreach ($columns as $column) {
             $data .= "                '".$column."' => '',".PHP_EOL;
         }
-        $data .= "            ],".PHP_EOL."        ],".PHP_EOL.'        '.$key;
+        $data .= '            ],'.PHP_EOL.'        ],'.PHP_EOL.'        '.$key;
 
         $languages = str_replace($key, $data, $languages);
         $this->files->put($this->getLanguageFilePath(), $languages);
 
         return true;
-
     }
 
     protected function generateForm($name)
     {
         $columns = $this->getColumnNamesAndTypes($name);
-        $result = "";
+        $result = '';
         foreach ($columns as $column) {
             if ($column['name'] == 'id' || $column['name'] == 'is_enabled') {
                 continue;
             }
 
-            if (\StringHelper::endsWith($column['name'], 'image_id') ) {
-                $fieldName = substr($column['name'], 0 , strlen($column['name'])-3);
+            if (\StringHelper::endsWith($column['name'], 'image_id')) {
+                $fieldName = substr($column['name'], 0, strlen($column['name']) - 3);
                 $relationName = lcfirst(\StringHelper::snake2Camel($fieldName));
                 $idName = \StringHelper::camel2Spinal($relationName);
 
-                $template =  '                    @if( !empty($company->%%relation%%) )'
+                $template = '                    @if( !empty($company->%%relation%%) )'
                     .PHP_EOL.'                        <img width="400" src="{!! $article->%%relation%%->getThumbnailUrl(480, 300) !!}" alt="" class="margin" />'
                     .PHP_EOL.'                    @endif'
                     .PHP_EOL.'                    <div class="form-group">'
@@ -357,18 +359,18 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
                     .PHP_EOL.'                    </div>';
                 $this->replaceTemplateVariable($template, 'column', $column['name']);
                 $this->replaceTemplateVariable($template, 'field', $fieldName);
-                $this->replaceTemplateVariable($template, 'relation',$relationName);
-                $this->replaceTemplateVariable($template, 'id',$idName);
+                $this->replaceTemplateVariable($template, 'relation', $relationName);
+                $this->replaceTemplateVariable($template, 'id', $idName);
                 $result = $result.PHP_EOL.$template.PHP_EOL;
                 continue;
             }
 
-            if (\StringHelper::endsWith($column['name'], '_id') ) {
+            if (\StringHelper::endsWith($column['name'], '_id')) {
                 continue;
             }
 
-            switch( $column['type'] ) {
-                case "TextType":
+            switch ($column['type']) {
+                case 'TextType':
                     $template = '                    <div class="form-group @if ($errors->has(\'%%column%%\')) has-error @endif">'
                         .PHP_EOL.'                        <label for="%%column%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'
                         .PHP_EOL.'                        <textarea name="%%column%%" class="form-control" rows="5" placeholder="@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')">{{{ old(\'%%column%%\') ? old(\'%%column%%\') : $%%class%%->%%column%% }}}</textarea>'
@@ -379,7 +381,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
                         \StringHelper::camel2Spinal(\StringHelper::pluralize($name)));
                     $result = $result.PHP_EOL.$template.PHP_EOL;
                     break;
-                case "BooleanType":
+                case 'BooleanType':
                     $template = '                    <div class="form-group">'
                         .PHP_EOL.'                        <div class="checkbox">'
                         .PHP_EOL.'                        <label>'
@@ -393,7 +395,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
                     $this->replaceTemplateVariable($template, 'class', strtolower(substr($name, 0, 1)).substr($name, 1));
                     $result = $result.PHP_EOL.$template.PHP_EOL;
                     break;
-                case "DateTimeType":
+                case 'DateTimeType':
                     $template = '                    <div class="form-group">'
                         .PHP_EOL.'                        <label for="%%column%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'
                         .PHP_EOL.'                        <div class="input-group date datetime-field">'
@@ -408,8 +410,8 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
                     $this->replaceTemplateVariable($template, 'class', strtolower(substr($name, 0, 1)).substr($name, 1));
                     $result = $result.PHP_EOL.$template.PHP_EOL;
                     break;
-                case "StringType":
-                case "IntegerType":
+                case 'StringType':
+                case 'IntegerType':
                 default:
                     $template = '                    <div class="form-group @if ($errors->has(\'%%column%%\')) has-error @endif">'
                         .PHP_EOL.'                        <label for="%%column%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'
@@ -450,7 +452,8 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getUnitTestPath($name)
@@ -468,7 +471,6 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
     protected function getColumnNamesAndTypes($name)
     {
-
         $columNames = $this->getColumns($name);
         $tableName = $this->getTableName($name);
 
@@ -487,7 +489,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
                 $columnName = $column->getName();
                 $columnType = array_slice(explode('\\', get_class($column->getType())), -1)[0];
 
-                if( in_array($columnName, $columNames) ) {
+                if (in_array($columnName, $columNames)) {
                     $ret[] = [
                         'name' => $columnName,
                         'type' => $columnType,
@@ -503,5 +505,4 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     {
         return \StringHelper::pluralize(\StringHelper::camel2Snake($name));
     }
-
 }

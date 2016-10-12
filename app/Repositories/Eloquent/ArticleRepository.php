@@ -1,11 +1,12 @@
-<?php namespace App\Repositories\Eloquent;
+<?php
 
-use \App\Repositories\ArticleRepositoryInterface;
-use \App\Models\Article;
+namespace App\Repositories\Eloquent;
+
+use App\Repositories\ArticleRepositoryInterface;
+use App\Models\Article;
 
 class ArticleRepository extends SingleKeyModelRepository implements ArticleRepositoryInterface
 {
-
     public function getBlankModel()
     {
         return new Article();
@@ -27,5 +28,4 @@ class ArticleRepository extends SingleKeyModelRepository implements ArticleRepos
     {
         return Article::whereSlug($slug)->first();
     }
-
 }

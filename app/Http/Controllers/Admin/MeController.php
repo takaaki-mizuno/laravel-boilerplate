@@ -24,8 +24,7 @@ class MeController extends Controller
         AdminUserServiceInterface $adminUserService,
         AdminUserRepositoryInterface $adminUserRepository,
         AdminUserNotificationServiceInterface $adminUserNotificationService
-    )
-    {
+    ) {
         $this->adminUserService = $adminUserService;
         $this->adminUserRepository = $adminUserRepository;
         $this->adminUserNotificationService = $adminUserNotificationService;
@@ -38,13 +37,12 @@ class MeController extends Controller
 
     public function update(MeUpdateRequest $request)
     {
-
         $adminUser = $this->adminUserService->getUser();
 
         $password = $request->get('password');
 
         $update = [
-            'name'  => $request->get('name', ''),
+            'name' => $request->get('name', ''),
             'email' => $request->get('email', ''),
         ];
 
@@ -74,12 +72,11 @@ class MeController extends Controller
         }
 
         return view('pages.admin.me.notifications', [
-            'models'  => $notifications,
-            'offset'  => $offset,
-            'limit'   => $limit,
-            'count'   => $count,
+            'models' => $notifications,
+            'offset' => $offset,
+            'limit' => $limit,
+            'count' => $count,
             'baseUrl' => action('Admin\MeController@notifications'),
         ]);
-
     }
 }

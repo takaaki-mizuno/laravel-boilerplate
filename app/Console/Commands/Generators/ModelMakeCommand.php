@@ -1,4 +1,6 @@
-<?php namespace App\Console\Commands\Generators;
+<?php
+
+namespace App\Console\Commands\Generators;
 
 use Symfony\Component\Console\Input\InputOption;
 
@@ -34,7 +36,6 @@ class ModelMakeCommand extends GeneratorCommandBase
 
     protected function generateModel($name)
     {
-
         $path = $this->getPath($name);
         if ($this->alreadyExists($path)) {
             $this->error($name.' already exists.');
@@ -51,16 +52,16 @@ class ModelMakeCommand extends GeneratorCommandBase
         $this->replaceTemplateVariable($stub, 'TABLE', $tableName);
 
         $columns = $this->getFillableColumns($tableName);
-        $fillables = count($columns) > 0 ? "'".join("',".PHP_EOL."        '", $columns)."'," : '';
+        $fillables = count($columns) > 0 ? "'".implode("',".PHP_EOL."        '", $columns)."'," : '';
         $this->replaceTemplateVariable($stub, 'FILLABLES', $fillables);
 
-        $api = count($columns) > 0 ? join(','.PHP_EOL.'            ', array_map(function ($column) {
+        $api = count($columns) > 0 ? implode(','.PHP_EOL.'            ', array_map(function ($column) {
                 return "'".$column."'".' => $this->'.$column;
             }, $columns)).',' : '';
         $this->replaceTemplateVariable($stub, 'API', $api);
 
         $columns = $this->getDateTimeColumns($tableName);
-        $datetimes = count($columns) > 0 ? "'".join("','", $columns)."'" : '';
+        $datetimes = count($columns) > 0 ? "'".implode("','", $columns)."'" : '';
         $this->replaceTemplateVariable($stub, 'DATETIMES', $datetimes);
 
         $hasSoftDelete = $this->hasSoftDeleteColumn($tableName);
@@ -87,7 +88,6 @@ class ModelMakeCommand extends GeneratorCommandBase
 
     protected function getTableName($name)
     {
-
         $options = $this->option();
         if (array_key_exists('name', $options)) {
             return $optionName = $this->option('name');
@@ -113,7 +113,8 @@ class ModelMakeCommand extends GeneratorCommandBase
     /**
      * Get the default namespace for the class.
      *
-     * @param  string $rootNamespace
+     * @param string $rootNamespace
+     *
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
@@ -122,7 +123,8 @@ class ModelMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $className
+     * @param string $className
+     *
      * @return string
      */
     protected function getModel($className)
@@ -194,8 +196,9 @@ class ModelMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string                         $tableName
-     * @param  bool                           $removeDefaultCoulmn
+     * @param string $tableName
+     * @param bool   $removeDefaultCoulmn
+     *
      * @return \Doctrine\DBAL\Schema\Column[]
      */
     protected function getTableColumns($tableName, $removeDefaultCoulmn = true)
@@ -240,7 +243,7 @@ class ModelMakeCommand extends GeneratorCommandBase
         foreach ($columns as $column) {
             $data .= "        '".$column->getName()."' => '',".PHP_EOL;
         }
-        $data .= "    ];".PHP_EOL."});".PHP_EOL.PHP_EOL.$key;
+        $data .= '    ];'.PHP_EOL.'});'.PHP_EOL.PHP_EOL.$key;
 
         $factory = str_replace($key, $data, $factory);
         $this->files->put($this->getFactoryPath(), $factory);
@@ -277,7 +280,8 @@ class ModelMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getUnitTestPath($name)
@@ -306,5 +310,4 @@ class ModelMakeCommand extends GeneratorCommandBase
             ['table', '-t', InputOption::VALUE_OPTIONAL, 'Table Name', null],
         ];
     }
-
 }

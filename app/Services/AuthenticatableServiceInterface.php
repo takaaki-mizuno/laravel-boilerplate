@@ -1,28 +1,33 @@
-<?php namespace App\Services;
+<?php
+
+namespace App\Services;
 
 interface AuthenticatableServiceInterface extends BaseServiceInterface
 {
-
     /**
-     * @param  int                             $id
+     * @param int $id
+     *
      * @return \App\Models\AuthenticatableBase
      */
     public function signInById($id);
 
     /**
-     * @param  array                           $input
+     * @param array $input
+     *
      * @return \App\Models\AuthenticatableBase
      */
     public function signIn($input);
 
     /**
-     * @param  array                           $input
+     * @param array $input
+     *
      * @return \App\Models\AuthenticatableBase
      */
     public function signUp($input);
 
     /**
-     * @param  string $email
+     * @param string $email
+     *
      * @return bool
      */
     public function sendPasswordReset($email);
@@ -53,15 +58,17 @@ interface AuthenticatableServiceInterface extends BaseServiceInterface
     public function sendPasswordResetEmail($email);
 
     /**
-     * @param  string                               $token
+     * @param string $token
+     *
      * @return null|\App\Models\AuthenticatableBase
      */
     public function getUserByPasswordResetToken($token);
 
     /**
-     * @param  string $email
-     * @param  string $password
-     * @param  string $token
+     * @param string $email
+     * @param string $password
+     * @param string $token
+     *
      * @return bool
      */
     public function resetPassword($email, $password, $token);
@@ -73,20 +80,22 @@ interface AuthenticatableServiceInterface extends BaseServiceInterface
 
     /**
      * @param  $input
+     *
      * @return \App\Models\AuthenticatableBase
      */
     public function signInByAPI($input);
 
     /**
      * @param  $input
+     *
      * @return \App\Models\AuthenticatableBase
      */
     public function signUpByAPI($input);
 
     /**
-     * @param  \App\Models\AuthenticatableBase $user
+     * @param \App\Models\AuthenticatableBase $user
+     *
      * @return \App\Models\AuthenticatableBase
      */
     public function setAPIAccessToken($user);
-
 }

@@ -1,23 +1,24 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use App\Presenters\BasePresenter;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Base
+ * App\Models\Base.
  *
  * @mixin \Eloquent
  */
 class Base extends Model
 {
-
     protected $presenterInstance;
 
     protected $presenter = BasePresenter::class;
 
     public function present()
     {
-        if (! $this->presenterInstance) {
+        if (!$this->presenterInstance) {
             $this->presenterInstance = new $this->presenter($this);
         }
 
@@ -29,7 +30,7 @@ class Base extends Model
      */
     public static function getTableName()
     {
-        return with(new static)->getTable();
+        return with(new static())->getTable();
     }
 
     public function getEditableColumns()
@@ -48,10 +49,10 @@ class Base extends Model
         if (empty($locale)) {
             $locale = 'en';
         }
-        $localizedKey = $key . '_' . strtolower($locale);
+        $localizedKey = $key.'_'.strtolower($locale);
         $value = $this->$localizedKey;
         if (empty($value)) {
-            $localizedKey = $key . '_en';
+            $localizedKey = $key.'_en';
             $value = $this->$localizedKey;
         }
 

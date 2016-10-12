@@ -15,7 +15,7 @@ class PaginationHelper implements PaginationHelperInterface
         $offset = $limit * $page;
 
         return [
-            'limit'  => $limit,
+            'limit' => $limit,
             'offset' => $offset,
         ];
     }
@@ -27,8 +27,7 @@ class PaginationHelper implements PaginationHelperInterface
         $path,
         $query,
         $paginationNumber = 5
-    )
-    {
+    ) {
         if (empty($query) || !is_array($query)) {
             $query = [];
         }
@@ -53,13 +52,13 @@ class PaginationHelper implements PaginationHelperInterface
         $data['pageListContainLastPage'] = false;
 
         $data['pages'] = [];
-        for ($i = $minPage; $i < ($minPage + $paginationNumber); $i++) {
+        for ($i = $minPage; $i < ($minPage + $paginationNumber); ++$i) {
             if ($i > $lastPage) {
                 break;
             }
             $data['pages'][] = [
-                'number'  => $i,
-                'link'    => $this->generateLink($i, $path, $query, $limit),
+                'number' => $i,
+                'link' => $this->generateLink($i, $path, $query, $limit),
                 'current' => ($i == $page) ? true : false,
             ];
             if ($i == $lastPage) {
@@ -81,9 +80,8 @@ class PaginationHelper implements PaginationHelperInterface
         $query,
         $paginationNumber = 5,
         $template = 'shared.pagination'
-    )
-    {
-        $data = $this->data($offset,$limit, $count, $path, $query, $paginationNumber);
+    ) {
+        $data = $this->data($offset, $limit, $count, $path, $query, $paginationNumber);
 
         return view($template, $data);
     }

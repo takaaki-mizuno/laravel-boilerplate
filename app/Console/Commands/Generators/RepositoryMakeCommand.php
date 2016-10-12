@@ -1,4 +1,6 @@
-<?php namespace App\Console\Commands\Generators;
+<?php
+
+namespace App\Console\Commands\Generators;
 
 class RepositoryMakeCommand extends GeneratorCommandBase
 {
@@ -33,7 +35,8 @@ class RepositoryMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function generateInterface($name)
@@ -58,7 +61,8 @@ class RepositoryMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function generateRepository($name)
@@ -77,14 +81,15 @@ class RepositoryMakeCommand extends GeneratorCommandBase
         $repositoryStab = $this->files->get($this->getStubForRepository($name));
         $this->replaceTemplateVariable($repositoryStab, 'CLASS', $className);
         $this->replaceTemplateVariable($repositoryStab, 'MODEL',
-            str_replace("\\App\\Models\\", "", $this->getModel($className)));
+            str_replace('\\App\\Models\\', '', $this->getModel($className)));
         $this->files->put($repositoryPath, $repositoryStab);
 
         return true;
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function bindInterface($name)
@@ -93,7 +98,7 @@ class RepositoryMakeCommand extends GeneratorCommandBase
 
         $bindService = $this->files->get($this->getBindServiceProviderPath());
         $key = '/* NEW BINDING */';
-        $bind = '$this->app->singleton('.PHP_EOL."            'App\\Repositories\\".$className."Interface',".PHP_EOL."            'App\\Repositories\\Eloquent\\".$className."'".PHP_EOL."        );".PHP_EOL.PHP_EOL.'        '.$key;
+        $bind = '$this->app->singleton('.PHP_EOL."            'App\\Repositories\\".$className."Interface',".PHP_EOL."            'App\\Repositories\\Eloquent\\".$className."'".PHP_EOL.'        );'.PHP_EOL.PHP_EOL.'        '.$key;
         $bindService = str_replace($key, $bind, $bindService);
         $this->files->put($this->getBindServiceProviderPath(), $bindService);
 
@@ -165,7 +170,8 @@ class RepositoryMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getUnitTestPath($name)
@@ -186,7 +192,8 @@ class RepositoryMakeCommand extends GeneratorCommandBase
     /**
      * Get the default namespace for the class.
      *
-     * @param  string $rootNamespace
+     * @param string $rootNamespace
+     *
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
@@ -195,25 +202,26 @@ class RepositoryMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string           $className
+     * @param string $className
+     *
      * @return \App\Models\Base
      */
     protected function getModel($className)
     {
-        $modelName = str_replace("Repository", "", $className);
+        $modelName = str_replace('Repository', '', $className);
 
-        return "\\App\\Models\\".$modelName;
+        return '\\App\\Models\\'.$modelName;
     }
 
     /**
-     * @param  string           $className
+     * @param string $className
+     *
      * @return \App\Models\Base
      */
     protected function getModelClass($className)
     {
-        $modelName = str_replace("Repository", "", $className);
+        $modelName = str_replace('Repository', '', $className);
 
         return $modelName;
     }
-
 }

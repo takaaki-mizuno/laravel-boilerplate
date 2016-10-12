@@ -1,16 +1,19 @@
-<?php namespace App\Services;
+<?php
+
+namespace App\Services;
 
 interface AsyncServiceInterface extends BaseServiceInterface
 {
-
     /**
-     * @param  array               $jobs
+     * @param array $jobs
+     *
      * @return \App\Async\Jobs\Job
      */
     public function getJob($jobs);
 
     /**
-     * @param  \App\Async\Jobs\Job       $job
+     * @param \App\Async\Jobs\Job $job
+     *
      * @return \App\Async\Workers\Worker
      */
     public function getWorker($job);

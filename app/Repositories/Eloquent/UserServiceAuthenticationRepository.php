@@ -1,12 +1,13 @@
-<?php namespace App\Repositories\Eloquent;
+<?php
 
-use \App\Repositories\UserServiceAuthenticationRepositoryInterface;
-use \App\Models\UserServiceAuthentication;
+namespace App\Repositories\Eloquent;
+
+use App\Repositories\UserServiceAuthenticationRepositoryInterface;
+use App\Models\UserServiceAuthentication;
 
 class UserServiceAuthenticationRepository extends ServiceAuthenticationRepository implements UserServiceAuthenticationRepositoryInterface
 {
-
-    public $authModelColumn = "user_id";
+    public $authModelColumn = 'user_id';
 
     public function getBlankModel()
     {
@@ -24,5 +25,4 @@ class UserServiceAuthenticationRepository extends ServiceAuthenticationRepositor
         return [
         ];
     }
-
 }

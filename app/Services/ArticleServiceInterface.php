@@ -1,11 +1,13 @@
-<?php namespace App\Services;
+<?php
+
+namespace App\Services;
 
 interface ArticleServiceInterface extends BaseServiceInterface
 {
-
     /**
-     * @param  string $content
-     * @param  string $locale
+     * @param string $content
+     * @param string $locale
+     *
      * @return string
      */
     public function filterContent($content, $locale = null);
@@ -31,9 +33,9 @@ interface ArticleServiceInterface extends BaseServiceInterface
     public function getImageIdsFromSession();
 
     /**
-     * @param  int  $imageId
+     * @param int $imageId
+     *
      * @return bool
      */
     public function hasImageIdInSession($imageId);
-
 }

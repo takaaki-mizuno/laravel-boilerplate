@@ -1,9 +1,11 @@
-<?php namespace App\Services;
+<?php
+
+namespace App\Services;
 
 interface SlackServiceInterface extends BaseServiceInterface
 {
     /**
-     * Report an exception to slack
+     * Report an exception to slack.
      *
      * @param \Exception $e
      */
@@ -14,6 +16,5 @@ interface SlackServiceInterface extends BaseServiceInterface
      * @param string $type
      * @param array  $attachment
      */
-    public function post($message, $type, $attachment = [ ]);
-
+    public function post($message, $type, $attachment = []);
 }

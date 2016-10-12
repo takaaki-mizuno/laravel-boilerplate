@@ -1,10 +1,11 @@
-<?php namespace Tests\Helpers;
+<?php
+
+namespace Tests\Helpers;
 
 use Tests\TestCase;
 
 class PaginationHelperTest extends TestCase
 {
-
     public function testGetInstance()
     {
         /** @var  \App\Helpers\PaginationHelperInterface $helper */
@@ -23,5 +24,4 @@ class PaginationHelperTest extends TestCase
         $this->assertEquals($data['previousPageLink'], '/abc?offset=0&limit=100');
         $this->assertEquals($data['nextPageLink'], '/abc?offset=200&limit=100');
     }
-
 }

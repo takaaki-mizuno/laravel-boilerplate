@@ -7,8 +7,6 @@ class CreateArticlesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -39,18 +37,13 @@ class CreateArticlesTable extends Migration
 
         });
 
-        DB::statement("ALTER TABLE articles MODIFY created_at " .
-            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+        DB::statement('ALTER TABLE articles MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
 
-        DB::statement("ALTER TABLE articles MODIFY updated_at " .
-            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-
+        DB::statement('ALTER TABLE articles MODIFY updated_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

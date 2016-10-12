@@ -1,11 +1,12 @@
-<?php namespace App\Repositories\Eloquent;
+<?php
+
+namespace App\Repositories\Eloquent;
 
 use App\Repositories\AuthenticatableRepositoryInterface;
 use App\Models\AuthenticatableBase;
 
 class AuthenticatableRepository extends SingleKeyModelRepository implements AuthenticatableRepositoryInterface
 {
-
     public function getBlankModel()
     {
         return new AuthenticatableBase();

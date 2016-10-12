@@ -1,28 +1,31 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\File
+ * App\Models\File.
  *
- * @property integer $id
+ * @property int $id
  * @property string $url
  * @property string $title
  * @property string $entity_type
- * @property integer $entity_id
- * @property boolean $is_local
- * @property integer $file_category_type
+ * @property int $entity_id
+ * @property bool $is_local
+ * @property int $file_category_type
  * @property string $s3_key
  * @property string $s3_bucket
  * @property string $s3_region
  * @property string $s3_extension
  * @property string $media_type
  * @property string $format
- * @property integer $file_size
- * @property boolean $is_enabled
+ * @property int $file_size
+ * @property bool $is_enabled
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $deleted_at
+ *
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereUrl($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\File whereTitle($value)
@@ -45,7 +48,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class File extends Base
 {
-
     use SoftDeletes;
 
     /**
@@ -84,7 +86,7 @@ class File extends Base
      */
     protected $hidden = [];
 
-    protected $dates  = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 
     protected $presenter = \App\Presenters\FilePresenter::class;
 
@@ -98,5 +100,4 @@ class File extends Base
             'id' => $this->id,
         ];
     }
-
 }

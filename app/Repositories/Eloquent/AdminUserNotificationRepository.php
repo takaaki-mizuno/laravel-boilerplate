@@ -1,11 +1,12 @@
-<?php namespace App\Repositories\Eloquent;
+<?php
 
-use \App\Repositories\AdminUserNotificationRepositoryInterface;
-use \App\Models\AdminUserNotification;
+namespace App\Repositories\Eloquent;
+
+use App\Repositories\AdminUserNotificationRepositoryInterface;
+use App\Models\AdminUserNotification;
 
 class AdminUserNotificationRepository extends NotificationRepository implements AdminUserNotificationRepositoryInterface
 {
-
     public function getBlankModel()
     {
         return new AdminUserNotification();
@@ -22,5 +23,4 @@ class AdminUserNotificationRepository extends NotificationRepository implements 
         return [
         ];
     }
-
 }

@@ -1,4 +1,6 @@
-<?php namespace App\Services\Production;
+<?php
+
+namespace App\Services\Production;
 
 use App\Repositories\ServiceAuthenticationRepositoryInterface;
 use App\Repositories\AuthenticatableRepositoryInterface;
@@ -6,7 +8,6 @@ use App\Services\ServiceAuthenticationServiceInterface;
 
 class ServiceAuthenticationService extends BaseService implements ServiceAuthenticationServiceInterface
 {
-
     /** @var \App\Repositories\ServiceAuthenticationRepositoryInterface */
     protected $serviceAuthenticationRepository;
 
@@ -16,15 +17,15 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
     public function __construct(
         AuthenticatableRepositoryInterface $authenticatableRepository,
         ServiceAuthenticationRepositoryInterface $serviceAuthenticationRepository
-    )
-    {
+    ) {
         $this->authenticatableRepository = $authenticatableRepository;
         $this->serviceAuthenticationRepository = $serviceAuthenticationRepository;
     }
 
     /**
-     * @param  string                          $service
-     * @param  array                           $input
+     * @param string $service
+     * @param array  $input
+     *
      * @return \App\Models\AuthenticatableBase
      */
     public function getAuthModelId($service, $input)
@@ -52,5 +53,4 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
 
         return $authUser->id;
     }
-
 }

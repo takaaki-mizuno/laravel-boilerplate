@@ -8,8 +8,6 @@ class ServiceBindServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -18,12 +16,9 @@ class ServiceBindServiceProvider extends ServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register()
     {
-
         $this->app->singleton(\App\Services\AdminUserServiceInterface::class,
             \App\Services\Production\AdminUserService::class);
 
@@ -78,6 +73,5 @@ class ServiceBindServiceProvider extends ServiceProvider
         );
 
         /* NEW BINDING */
-
     }
 }

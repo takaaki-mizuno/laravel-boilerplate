@@ -1,11 +1,12 @@
-<?php namespace Tests\Models;
+<?php
+
+namespace Tests\Models;
 
 use App\Models\User;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-
     protected $useDatabase = true;
 
     public function testGetInstance()
@@ -17,16 +18,15 @@ class UserTest extends TestCase
 
     public function testStoreNew()
     {
-        /** @var  \App\Models\User $user */
+        /* @var  \App\Models\User $user */
         $userModel = new User();
 
         $userData = factory(User::class)->make();
-        foreach( $userData->toArray() as $key => $value ) {
+        foreach ($userData->toArray() as $key => $value) {
             $userModel->$key = $value;
         }
         $userModel->save();
 
         $this->assertNotNull(User::find($userModel->id));
     }
-
 }

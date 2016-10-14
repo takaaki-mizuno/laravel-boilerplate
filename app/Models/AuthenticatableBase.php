@@ -1,6 +1,8 @@
-<?php namespace App\Models;
+<?php
 
-/**
+namespace App\Models;
+
+/*
  * App\Models\AuthenticatableBase
  *
  * @property string $password
@@ -21,7 +23,7 @@ class AuthenticatableBase extends LocaleStorableBase implements AuthenticatableC
 
     public function setPasswordAttribute($password)
     {
-        if ( empty($password) ) {
+        if (empty($password)) {
             $this->attributes['password'] = '';
         } else {
             $this->attributes['password'] = \Hash::make($password);
@@ -32,7 +34,7 @@ class AuthenticatableBase extends LocaleStorableBase implements AuthenticatableC
     {
         $user = null;
         do {
-            $code = md5(\Hash::make($this->id . $this->email . $this->password . time() . mt_rand()));
+            $code = md5(\Hash::make($this->id.$this->email.$this->password.time().mt_rand()));
             $user = static::whereApiAccessToken($code)->first();
         } while (isset($user));
         $this->api_access_token = $code;

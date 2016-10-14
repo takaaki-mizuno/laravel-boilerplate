@@ -1,10 +1,10 @@
-<?php  namespace Tests\Controllers\Admin;
+<?php
+namespace Tests\Controllers\Admin;
 
 use Tests\TestCase;
 
 class ArticleControllerTest extends TestCase
 {
-
     protected $useDatabase = true;
 
     public function testGetInstance()
@@ -83,5 +83,4 @@ class ArticleControllerTest extends TestCase
         $checkArticle = \App\Models\Article::find($id);
         $this->assertNull($checkArticle);
     }
-
 }

@@ -1,4 +1,6 @@
-<?php namespace App\Presenters;
+<?php
+
+namespace App\Presenters;
 
 class FilePresenter extends BasePresenter
 {
@@ -10,5 +12,4 @@ class FilePresenter extends BasePresenter
 
         return \URL::to($this->entity->url);
     }
-
 }

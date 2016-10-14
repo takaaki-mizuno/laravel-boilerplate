@@ -1,8 +1,9 @@
-<?php namespace App\Http\Requests;
+<?php
+
+namespace App\Http\Requests;
 
 class ForgotPasswordRequest extends BaseRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,7 +30,7 @@ class ForgotPasswordRequest extends BaseRequest
     {
         return [
             'email.required' => '',
-            'email.email'    => '',
+            'email.email' => '',
         ];
     }
 }

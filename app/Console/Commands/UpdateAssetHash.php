@@ -43,7 +43,7 @@ class UpdateAssetHash extends Command
         $config = $this->files->get($configPath);
         $newVersionNumber = $this->getNewVersionNumber();
         $newConfig = $this->replaceVersionNumber($config, $newVersionNumber);
-        print "new version: $newVersionNumber" . PHP_EOL;
+        echo "new version: $newVersionNumber".PHP_EOL;
         $this->files->put($configPath, $newConfig);
     }
 
@@ -52,7 +52,7 @@ class UpdateAssetHash extends Command
      */
     private function getConfigFilePath()
     {
-        return $this->laravel['path.config'] . '/asset.php';
+        return $this->laravel['path.config'].'/asset.php';
     }
 
     /**
@@ -69,5 +69,4 @@ class UpdateAssetHash extends Command
 
         return $file;
     }
-
 }

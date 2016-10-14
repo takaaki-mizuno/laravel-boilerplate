@@ -1,8 +1,9 @@
-<?php namespace App\Presenters;
+<?php
+
+namespace App\Presenters;
 
 class BasePresenter
 {
-
     /**
      * @var \App\Models\Base
      */
@@ -17,7 +18,8 @@ class BasePresenter
     }
 
     /**
-     * @param  string $property
+     * @param string $property
+     *
      * @return mixed
      */
     public function __get($property)
@@ -28,5 +30,4 @@ class BasePresenter
 
         return $this->entity->$property;
     }
-
 }

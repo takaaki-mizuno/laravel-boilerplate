@@ -1,11 +1,12 @@
-<?php namespace Tests\Models;
+<?php
+
+namespace Tests\Models;
 
 use App\Models\AdminUserNotification;
 use Tests\TestCase;
 
 class AdminUserNotificationTest extends TestCase
 {
-
     protected $useDatabase = true;
 
     public function testGetInstance()
@@ -17,16 +18,15 @@ class AdminUserNotificationTest extends TestCase
 
     public function testStoreNew()
     {
-        /** @var  \App\Models\AdminUserNotification $adminUserNotification */
+        /* @var  \App\Models\AdminUserNotification $adminUserNotification */
         $adminUserNotificationModel = new AdminUserNotification();
 
         $adminUserNotificationData = factory(AdminUserNotification::class)->make();
-        foreach( $adminUserNotificationData->toArray() as $key => $value ) {
+        foreach ($adminUserNotificationData->toArray() as $key => $value) {
             $adminUserNotificationModel->$key = $value;
         }
         $adminUserNotificationModel->save();
 
         $this->assertNotNull(AdminUserNotification::find($adminUserNotificationModel->id));
     }
-
 }

@@ -1,4 +1,6 @@
-<?php namespace App\Services\Production;
+<?php
+
+namespace App\Services\Production;
 
 use App\Repositories\FileRepositoryInterface;
 use App\Repositories\ImageRepositoryInterface;
@@ -8,7 +10,6 @@ use Aws\S3\S3Client;
 
 class FileUploadService extends BaseService implements FileUploadServiceInterface
 {
-
     const IMAGE_ID_SESSION_KEY = 'image-id-session-key';
 
     /** @var \App\Repositories\FileRepositoryInterface */
@@ -24,24 +25,24 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
         FileRepositoryInterface $fileRepository,
         ImageRepositoryInterface $imageRepository,
         ImageServiceInterface $imageService
-    )
-    {
+    ) {
         $this->fileRepository = $fileRepository;
         $this->imageRepository = $imageRepository;
         $this->imageService = $imageService;
     }
 
     /**
-     * @param  string                                  $categoryType
-     * @param  string                                  $text
-     * @param  string                                  $mediaType
-     * @param  array                                   $metaInputs
+     * @param string $categoryType
+     * @param string $text
+     * @param string $mediaType
+     * @param array  $metaInputs
+     *
      * @return \App\Models\Image|\App\Models\File|null
      */
     public function uploadFromText($categoryType, $text, $mediaType, $metaInputs)
     {
         $tempFile = tempnam(sys_get_temp_dir(), 'upload');
-        $handle = fopen($tempFile, "w");
+        $handle = fopen($tempFile, 'w');
         fwrite($handle, $text);
         fclose($handle);
 
@@ -53,31 +54,32 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
     }
 
     /**
-     * @param  string                                  $categoryType
-     * @param  string                                  $path
-     * @param  string                                  $mediaType
-     * @param  array                                   $metaInputs
+     * @param string $categoryType
+     * @param string $path
+     * @param string $mediaType
+     * @param array  $metaInputs
+     *
      * @return \App\Models\Image|\App\Models\File|null
      */
     public function upload($categoryType, $path, $mediaType, $metaInputs)
     {
         $conf = config('file.categories.'.$categoryType);
         if (empty($conf)) {
-            return null;
+            return;
         }
 
         $acceptableFileList = config('file.acceptable.'.$conf['type']);
         if (!array_key_exists($mediaType, $acceptableFileList)) {
-            return null;
+            return;
         }
         $ext = array_get($acceptableFileList, $mediaType);
 
         $model = null;
         switch ($conf['type']) {
-            case "image":
+            case 'image':
                 $model = $this->uploadImage($conf, $ext, $categoryType, $path, $mediaType, $metaInputs);
                 break;
-            case "file":
+            case 'file':
                 $model = $this->uploadFile($conf, $ext, $categoryType, $path, $mediaType, $metaInputs);
                 break;
         }
@@ -86,17 +88,17 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
     }
 
     /**
-     * @param  \App\Models\Image|\App\Models\File $model
+     * @param \App\Models\Image|\App\Models\File $model
+     *
      * @return bool|null
      */
     public function delete($model)
     {
-
         $bucket = $model->s3_bucket;
         $region = $model->s3_region;
         $key = $model->s3_key;
 
-        if ( empty($key) ) {
+        if (empty($key)) {
             return true;
         }
 
@@ -109,7 +111,7 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
         }
 
         switch ($conf['type']) {
-            case "image":
+            case 'image':
                 foreach (array_get($conf, 'thumbnails', []) as $thumbnail) {
                     $thumbnailKey = $this->getThumbnailKeyFromKey($key, $thumbnail);
                     if (!empty($thumbnailKey)) {
@@ -117,7 +119,7 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
                     }
                 }
                 break;
-            case "file":
+            case 'file':
                 break;
         }
 
@@ -164,7 +166,8 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
     }
 
     /**
-     * @param  int  $imageId
+     * @param int $imageId
+     *
      * @return bool
      */
     public function hasImageIdInSession($imageId)
@@ -175,8 +178,9 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
     }
 
     /**
-     * @param  string      $key
-     * @param  array       $size
+     * @param string $key
+     * @param array  $size
+     *
      * @return null|string
      */
     private function getThumbnailKeyFromKey($key, $size)
@@ -185,13 +189,14 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
             return $match[1].'_'.$size[0].'_'.$size[1].'.'.$match[2];
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @param  string      $seed
-     * @param  string|null $postFix
-     * @param  string|null $ext
+     * @param string      $seed
+     * @param string|null $postFix
+     * @param string|null $ext
+     *
      * @return string
      */
     private function generateFileName($seed, $postFix, $ext)
@@ -208,12 +213,13 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
     }
 
     /**
-     * @param  array                 $conf
-     * @param  string                $ext
-     * @param  int                   $categoryType
-     * @param  string                $path
-     * @param  string                $mediaType
-     * @param  array                 $metaInputs
+     * @param array  $conf
+     * @param string $ext
+     * @param int    $categoryType
+     * @param string $path
+     * @param string $mediaType
+     * @param array  $metaInputs
+     *
      * @return \App\Models\File|null
      */
     private function uploadFile($conf, $ext, $categoryType, $path, $mediaType, $metaInputs)
@@ -227,39 +233,39 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
 
         /** @var  \App\Models\File|null $file */
         $file = $this->fileRepository->create([
-            'url'                => $url,
-            'title'              => array_get($metaInputs, 'title', ''),
+            'url' => $url,
+            'title' => array_get($metaInputs, 'title', ''),
             'file_category_type' => $categoryType,
-            's3_key'             => $key,
-            's3_bucket'          => $bucket,
-            's3_region'          => $region,
-            's3_extension'       => $ext,
-            'media_type'         => $mediaType,
-            'format'             => $mediaType,
-            'file_size'          => $fileSize,
-            'is_enabled'         => true,
+            's3_key' => $key,
+            's3_bucket' => $bucket,
+            's3_region' => $region,
+            's3_extension' => $ext,
+            'media_type' => $mediaType,
+            'format' => $mediaType,
+            'file_size' => $fileSize,
+            'is_enabled' => true,
         ]);
 
         return $file;
     }
 
     /**
-     * @param  array                  $conf
-     * @param  string                 $ext
-     * @param  int                    $categoryType
-     * @param  string                 $path
-     * @param  string                 $mediaType
-     * @param  array                  $metaInputs
+     * @param array  $conf
+     * @param string $ext
+     * @param int    $categoryType
+     * @param string $path
+     * @param string $mediaType
+     * @param array  $metaInputs
+     *
      * @return \App\Models\Image|null
      */
     private function uploadImage($conf, $ext, $categoryType, $path, $mediaType, $metaInputs)
     {
-
         $dstPath = $path.'.converted';
         $format = array_get($conf, 'format', 'jpeg');
         $size = $this->imageService->convert($path, $dstPath, $format, array_get($conf, 'size'));
         if (!file_exists($dstPath)) {
-            return null;
+            return;
         }
 
         $fileSize = filesize($dstPath);
@@ -271,21 +277,21 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
 
         /** @var  \App\Models\Image|null $image */
         $image = $this->imageRepository->create([
-            'url'                => $url,
-            'title'              => array_get($metaInputs, 'title', ''),
+            'url' => $url,
+            'title' => array_get($metaInputs, 'title', ''),
             'file_category_type' => $categoryType,
-            'entity_type'        => array_get($metaInputs, 'entityType', ''),
-            'entity_id'          => array_get($metaInputs, 'entityId', ''),
-            's3_key'             => $key,
-            's3_bucket'          => $bucket,
-            's3_region'          => $region,
-            's3_extension'       => $ext,
-            'media_type'         => $mediaType,
-            'format'             => $mediaType,
-            'file_size'          => $fileSize,
-            'width'              => array_get($size, 'width', 0),
-            'height'             => array_get($size, 'height', 0),
-            'is_enabled'         => true,
+            'entity_type' => array_get($metaInputs, 'entityType', ''),
+            'entity_id' => array_get($metaInputs, 'entityId', ''),
+            's3_key' => $key,
+            's3_bucket' => $bucket,
+            's3_region' => $region,
+            's3_extension' => $ext,
+            'media_type' => $mediaType,
+            'format' => $mediaType,
+            'file_size' => $fileSize,
+            'width' => array_get($size, 'width', 0),
+            'height' => array_get($size, 'height', 0),
+            'is_enabled' => true,
         ]);
 
         foreach (array_get($conf, 'thumbnails', []) as $thumbnail) {
@@ -298,11 +304,12 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
     }
 
     /**
-     * @param  string      $path
-     * @param  string      $region
-     * @param  string      $bucket
-     * @param  string      $key
-     * @param  string      $mediaType
+     * @param string $path
+     * @param string $region
+     * @param string $bucket
+     * @param string $key
+     * @param string $mediaType
+     *
      * @return null|string
      */
     private function uploadToS3($path, $region, $bucket, $key, $mediaType = 'binary/octet-stream')
@@ -310,15 +317,15 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
         $client = $this->getS3Client($region);
 
         if (!file_exists($path)) {
-            return null;
+            return;
         }
 
         $client->putObject([
-            'Bucket'      => $bucket,
-            'Key'         => $key,
-            'SourceFile'  => $path,
+            'Bucket' => $bucket,
+            'Key' => $key,
+            'SourceFile' => $path,
             'ContentType' => $mediaType,
-            'ACL'         => 'public-read',
+            'ACL' => 'public-read',
         ]);
 
         unlink($path);
@@ -327,7 +334,8 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
     }
 
     /**
-     * @param  array  $candidates
+     * @param array $candidates
+     *
      * @return string
      */
     private function decideBucket($candidates)
@@ -348,12 +356,13 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
 
         $client->deleteObject([
             'Bucket' => $bucket,
-            'Key'    => $key,
+            'Key' => $key,
         ]);
     }
 
     /**
-     * @param  string   $region
+     * @param string $region
+     *
      * @return S3Client
      */
     private function getS3Client($region)
@@ -362,12 +371,11 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
 
         return new S3Client([
             'credentials' => [
-                'key'    => array_get($config, 'key'),
+                'key' => array_get($config, 'key'),
                 'secret' => array_get($config, 'secret'),
             ],
-            'region'      => $region,
-            'version'     => 'latest',
+            'region' => $region,
+            'version' => 'latest',
         ]);
     }
-
 }

@@ -1,8 +1,8 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php
 
-use App\Http\Requests;
+namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
-
 use App\Repositories\AdminUserNotificationRepositoryInterface;
 use App\Http\Requests\Admin\AdminUserNotificationRequest;
 use App\Http\Requests\PaginationRequest;
@@ -10,21 +10,20 @@ use App\Http\Requests\BaseRequest;
 
 class AdminUserNotificationController extends Controller
 {
-
     /** @var \App\Repositories\AdminUserNotificationRepositoryInterface */
     protected $adminUserNotificationRepository;
 
     public function __construct(
         AdminUserNotificationRepositoryInterface $adminUserNotificationRepository
-    )
-    {
+    ) {
         $this->adminUserNotificationRepository = $adminUserNotificationRepository;
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @param  \App\Http\Requests\PaginationRequest $request
+     * @param \App\Http\Requests\PaginationRequest $request
+     *
      * @return \Response
      */
     public function index(PaginationRequest $request)
@@ -35,10 +34,10 @@ class AdminUserNotificationController extends Controller
         $models = $this->adminUserNotificationRepository->get('id', 'desc', $offset, $limit);
 
         return view('pages.admin.admin-user-notifications.index', [
-            'models'  => $models,
-            'count'   => $count,
-            'offset'  => $offset,
-            'limit'   => $limit,
+            'models' => $models,
+            'count' => $count,
+            'offset' => $offset,
+            'limit' => $limit,
             'baseUrl' => action('Admin\AdminUserNotificationController@index'),
         ]);
     }
@@ -46,7 +45,8 @@ class AdminUserNotificationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  BaseRequest $request
+     * @param BaseRequest $request
+     *
      * @return \Response
      */
     public function create(BaseRequest $request)
@@ -58,7 +58,7 @@ class AdminUserNotificationController extends Controller
         }
 
         return view('pages.admin.admin-user-notifications.edit', [
-            'isNew'                 => true,
+            'isNew' => true,
             'adminUserNotification' => $model,
         ]);
     }
@@ -67,6 +67,7 @@ class AdminUserNotificationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  $request
+     *
      * @return \Response
      */
     public function store(AdminUserNotificationRequest $request)
@@ -87,7 +88,8 @@ class AdminUserNotificationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function show($id)
@@ -98,7 +100,7 @@ class AdminUserNotificationController extends Controller
         }
 
         return view('pages.admin.admin-user-notifications.edit', [
-            'isNew'                 => false,
+            'isNew' => false,
             'adminUserNotification' => $model,
         ]);
     }
@@ -106,7 +108,8 @@ class AdminUserNotificationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function edit($id)
@@ -117,8 +120,9 @@ class AdminUserNotificationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int       $id
-     * @param            $request
+     * @param int $id
+     * @param     $request
+     *
      * @return \Response
      */
     public function update($id, AdminUserNotificationRequest $request)
@@ -139,7 +143,8 @@ class AdminUserNotificationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function destroy($id)
@@ -154,5 +159,4 @@ class AdminUserNotificationController extends Controller
         return redirect()->action('Admin\AdminUserNotificationController@index')->with('message-success',
             trans('admin.messages.general.delete_success'));
     }
-
 }

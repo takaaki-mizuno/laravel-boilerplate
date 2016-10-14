@@ -1,8 +1,8 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php
 
-use App\Http\Requests;
+namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
-
 use App\Repositories\UserNotificationRepositoryInterface;
 use App\Http\Requests\Admin\UserNotificationRequest;
 use App\Http\Requests\PaginationRequest;
@@ -10,21 +10,20 @@ use App\Http\Requests\BaseRequest;
 
 class UserNotificationController extends Controller
 {
-
     /** @var \App\Repositories\UserNotificationRepositoryInterface */
     protected $userNotificationRepository;
 
     public function __construct(
         UserNotificationRepositoryInterface $userNotificationRepository
-    )
-    {
+    ) {
         $this->userNotificationRepository = $userNotificationRepository;
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @param  \App\Http\Requests\PaginationRequest $request
+     * @param \App\Http\Requests\PaginationRequest $request
+     *
      * @return \Response
      */
     public function index(PaginationRequest $request)
@@ -35,10 +34,10 @@ class UserNotificationController extends Controller
         $models = $this->userNotificationRepository->get('id', 'desc', $offset, $limit);
 
         return view('pages.admin.user-notifications.index', [
-            'models'  => $models,
-            'count'   => $count,
-            'offset'  => $offset,
-            'limit'   => $limit,
+            'models' => $models,
+            'count' => $count,
+            'offset' => $offset,
+            'limit' => $limit,
             'baseUrl' => action('Admin\UserNotificationController@index'),
         ]);
     }
@@ -46,7 +45,8 @@ class UserNotificationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  BaseRequest $request
+     * @param BaseRequest $request
+     *
      * @return \Response
      */
     public function create(BaseRequest $request)
@@ -58,7 +58,7 @@ class UserNotificationController extends Controller
         }
 
         return view('pages.admin.user-notifications.edit', [
-            'isNew'            => true,
+            'isNew' => true,
             'userNotification' => $model,
         ]);
     }
@@ -67,6 +67,7 @@ class UserNotificationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  $request
+     *
      * @return \Response
      */
     public function store(UserNotificationRequest $request)
@@ -86,7 +87,8 @@ class UserNotificationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function show($id)
@@ -97,7 +99,7 @@ class UserNotificationController extends Controller
         }
 
         return view('pages.admin.user-notifications.edit', [
-            'isNew'            => false,
+            'isNew' => false,
             'userNotification' => $model,
         ]);
     }
@@ -105,7 +107,8 @@ class UserNotificationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function edit($id)
@@ -116,8 +119,9 @@ class UserNotificationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int       $id
-     * @param            $request
+     * @param int $id
+     * @param     $request
+     *
      * @return \Response
      */
     public function update($id, UserNotificationRequest $request)
@@ -138,7 +142,8 @@ class UserNotificationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function destroy($id)
@@ -153,5 +158,4 @@ class UserNotificationController extends Controller
         return redirect()->action('Admin\UserNotificationController@index')->with('message-success',
                 trans('admin.messages.general.delete_success'));
     }
-
 }

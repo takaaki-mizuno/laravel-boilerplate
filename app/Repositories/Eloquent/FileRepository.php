@@ -1,11 +1,12 @@
-<?php namespace App\Repositories\Eloquent;
+<?php
+
+namespace App\Repositories\Eloquent;
 
 use App\Repositories\FileRepositoryInterface;
 use App\Models\File;
 
 class FileRepository extends SingleKeyModelRepository implements FileRepositoryInterface
 {
-
     public function getBlankModel()
     {
         return new File();
@@ -29,5 +30,4 @@ class FileRepository extends SingleKeyModelRepository implements FileRepositoryI
         return [
         ];
     }
-
 }

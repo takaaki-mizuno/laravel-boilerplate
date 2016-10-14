@@ -1,11 +1,11 @@
-<?php namespace App\Repositories\Eloquent;
+<?php
+
+namespace App\Repositories\Eloquent;
 
 use App\Repositories\CompositeKeyModelRepositoryInterface;
-use Illuminate\Database\Eloquent\Collection;
 
 class CompositeKeyModelRepository extends BaseRepository implements CompositeKeyModelRepositoryInterface
 {
-
     public function getPrimaryKeys()
     {
         $model = $this->getBlankModel();
@@ -18,13 +18,13 @@ class CompositeKeyModelRepository extends BaseRepository implements CompositeKey
     {
         $primaryKeys = $this->getPrimaryKeys();
         if (!is_array($primaryKeys) || count($primaryKeys) == 0) {
-            return null;
+            return;
         }
         $modelClass = $this->getModelClassName();
         /** @var \Illuminate\Database\Eloquent\Collection $query */
         $query = $modelClass::where($primaryKeys[0], '=', array_get($conditions, $primaryKeys[0]));
         if (count($primaryKeys) > 1) {
-            for ($i = 1; $i < count($primaryKeys); $i++) {
+            for ($i = 1; $i < count($primaryKeys); ++$i) {
                 $query->where($primaryKeys[ $i ], '=', array_get($conditions, $primaryKeys[ $i ]));
             }
         }
@@ -42,7 +42,7 @@ class CompositeKeyModelRepository extends BaseRepository implements CompositeKey
 
         foreach ($primaryKeys as $primaryKey) {
             if (!array_key_exists($primaryKey, $input)) {
-                return null;
+                return;
             }
         }
 
@@ -74,13 +74,13 @@ class CompositeKeyModelRepository extends BaseRepository implements CompositeKey
     {
         $primaryKeys = $this->getPrimaryKeys();
         if (!is_array($primaryKeys) || count($primaryKeys) == 0) {
-            return null;
+            return;
         }
         $modelClass = $this->getModelClassName();
         /** @var \Illuminate\Database\Eloquent\Collection $query */
         $query = $modelClass::where($primaryKeys[0], '=', $model->$primaryKeys[0]);
         if (count($primaryKeys) > 1) {
-            for ($i = 1; $i < count($primaryKeys); $i++) {
+            for ($i = 1; $i < count($primaryKeys); ++$i) {
                 $query->where($primaryKeys[ $i ], '=', $model->$primaryKeys[ $i ]);
             }
         }
@@ -88,5 +88,4 @@ class CompositeKeyModelRepository extends BaseRepository implements CompositeKey
 
         return true;
     }
-
 }

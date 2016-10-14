@@ -1,11 +1,12 @@
-<?php namespace App\Http\Requests\Admin;
+<?php
+
+namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\BaseRequest;
 use App\Repositories\AdminUserNotificationRepositoryInterface;
 
 class AdminUserNotificationRequest extends BaseRequest
 {
-
     /** @var \App\Repositories\AdminUserNotificationRepositoryInterface */
     protected $adminUserNotificationRepository;
 
@@ -38,5 +39,4 @@ class AdminUserNotificationRequest extends BaseRequest
     {
         return $this->adminUserNotificationRepository->messages();
     }
-
 }

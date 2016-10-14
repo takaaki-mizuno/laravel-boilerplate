@@ -1,10 +1,11 @@
-<?php namespace Tests\Services;
+<?php
+
+namespace Tests\Services;
 
 use Tests\TestCase;
 
 class APIServiceTest extends TestCase
 {
-
     public function testGetInstance()
     {
         /** @var  \App\Services\APIServiceInterface $service */
@@ -53,5 +54,4 @@ class APIServiceTest extends TestCase
         $response = $service->listResponse($users, 'users', 30, 10, 20, 201);
         $this->assertEquals($response->getStatusCode(), 201);
     }
-
 }

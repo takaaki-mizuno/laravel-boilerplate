@@ -9,5 +9,5 @@ return [
             'name' => 'config.locale.languages.en.name',
         ],
     ],
-    'default'   => 'en',
+    'default' => 'en',
 ];

@@ -1,20 +1,23 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 /**
- * App\Models\SiteConfiguration
+ * App\Models\SiteConfiguration.
  *
- * @property integer $id
+ * @property int $id
  * @property string $locale
  * @property string $name
  * @property string $title
  * @property string $keywords
  * @property string $description
- * @property integer $ogp_image_id
- * @property integer $twitter_card_image_id
+ * @property int $ogp_image_id
+ * @property int $twitter_card_image_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \App\Models\Image $ogpImage
  * @property-read \App\Models\Image $twitterCardImage
+ *
  * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereLocale($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereName($value)
@@ -29,7 +32,6 @@
  */
 class SiteConfiguration extends Base
 {
-
     /**
      * The database table used by the model.
      *
@@ -91,5 +93,4 @@ class SiteConfiguration extends Base
     {
         return $this->hasOne('App\Models\Image', 'id', 'twitter_card_image_id');
     }
-
 }

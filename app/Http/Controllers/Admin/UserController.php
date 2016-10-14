@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Repositories\UserRepositoryInterface;
 use App\Http\Requests\PaginationRequest;
 use App\Http\Requests\Admin\UserRequest;
-
 use Illuminate\Support\MessageBag;
 
 class UserController extends Controller
@@ -24,8 +19,7 @@ class UserController extends Controller
     public function __construct(
         UserRepositoryInterface $userRepositoryInterface,
         MessageBag $messageBag
-    )
-    {
+    ) {
         $this->userRepository = $userRepositoryInterface;
         $this->messageBag = $messageBag;
     }
@@ -42,13 +36,13 @@ class UserController extends Controller
         $count = $this->userRepository->count();
 
         return view('pages.admin.users.index', [
-            'users'     => $users,
-            'offset'    => $offset,
-            'limit'     => $limit,
-            'count'     => $count,
-            'order'     => $order,
+            'users' => $users,
+            'offset' => $offset,
+            'limit' => $limit,
+            'count' => $count,
+            'order' => $order,
             'direction' => $direction,
-            'baseUrl'   => action('Admin\UserController@index'),
+            'baseUrl' => action('Admin\UserController@index'),
         ]);
     }
 
@@ -66,7 +60,6 @@ class UserController extends Controller
 
     public function create()
     {
-
     }
 
     public function store(UserRequest $request)
@@ -101,5 +94,4 @@ class UserController extends Controller
         return redirect()->action('Admin\UserController@index')->with('message-success',
             trans('admin.messages.general.delete_success'));
     }
-
 }

@@ -1,14 +1,15 @@
-<?php namespace App\Helpers\Production;
+<?php
+
+namespace App\Helpers\Production;
 
 use App\Helpers\MetaInformationHelperInterface;
 use App\Services\MetaInformationServiceInterface;
 use App\Repositories\SiteConfigurationRepositoryInterface;
 use App\Repositories\ImageRepositoryInterface;
-use \URLHelper as URLHelperFacade;
+use URLHelper as URLHelperFacade;
 
 class MetaInformationHelper implements MetaInformationHelperInterface
 {
-
     /** @var \App\Services\MetaInformationServiceInterface */
     protected $metaInformationService;
 
@@ -22,8 +23,7 @@ class MetaInformationHelper implements MetaInformationHelperInterface
         MetaInformationServiceInterface $metaInformationService,
         SiteConfigurationRepositoryInterface $siteConfigurationRepository,
         ImageRepositoryInterface $imageRepository
-    )
-    {
+    ) {
         $this->metaInformationService = $metaInformationService;
         $this->siteConfigurationRepository = $siteConfigurationRepository;
         $this->imageRepository = $imageRepository;
@@ -39,7 +39,7 @@ class MetaInformationHelper implements MetaInformationHelperInterface
             return $siteConfiguration->keywords;
         }
 
-        return "";
+        return '';
     }
 
     public function getMetaDescription($description = null)
@@ -52,7 +52,7 @@ class MetaInformationHelper implements MetaInformationHelperInterface
             return $siteConfiguration->description;
         }
 
-        return "";
+        return '';
     }
 
     public function getTitle($title = null)
@@ -63,7 +63,7 @@ class MetaInformationHelper implements MetaInformationHelperInterface
             return $postfix;
         }
 
-        return $title . ' | ' . $postfix;
+        return $title.' | '.$postfix;
     }
 
     public function getOGPImage($url = null)
@@ -113,5 +113,4 @@ class MetaInformationHelper implements MetaInformationHelperInterface
 
         return $this->siteConfigurationRepository->findByLocale($locale);
     }
-
 }

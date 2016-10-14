@@ -1,4 +1,6 @@
-<?php namespace App\Repositories;
+<?php
+
+namespace App\Repositories;
 
 interface UserServiceAuthenticationRepositoryInterface extends ServiceAuthenticationRepositoryInterface
 {

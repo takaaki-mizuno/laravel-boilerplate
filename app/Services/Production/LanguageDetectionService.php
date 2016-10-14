@@ -1,10 +1,11 @@
-<?php namespace App\Services\Production;
+<?php
+
+namespace App\Services\Production;
 
 use App\Services\LanguageDetectionServiceInterface;
 
 class LanguageDetectionService extends BaseService implements LanguageDetectionServiceInterface
 {
-
     public function normalize($language)
     {
         $language = strtolower($language);
@@ -17,7 +18,6 @@ class LanguageDetectionService extends BaseService implements LanguageDetectionS
 
     public function detect($language = null)
     {
-
         if (isset($language)) {
             $language = strtolower($language);
             if (in_array($language, array_keys(config('locale.languages')))) {

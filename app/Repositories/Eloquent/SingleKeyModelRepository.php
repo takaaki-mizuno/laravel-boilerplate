@@ -1,11 +1,12 @@
-<?php namespace App\Repositories\Eloquent;
+<?php
+
+namespace App\Repositories\Eloquent;
 
 use App\Repositories\SingleKeyModelRepositoryInterface;
 use Illuminate\Support\Str;
 
 class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelRepositoryInterface
 {
-
     public function getPrimaryKey()
     {
         $model = $this->getBlankModel();
@@ -90,7 +91,7 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
             $direction = empty($direction) ? 'asc' : $direction;
             $query = $query->orderBy($order, $direction);
         }
-        if (!empty($offset) && !empty($limit)) {
+        if (!is_null($offset) && !is_null($limit)) {
             $query = $query->offset($offset)->limit($limit);
         }
 
@@ -120,7 +121,6 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         }
 
         return $this->save($model);
-
     }
 
     public function save($model)
@@ -167,7 +167,7 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         $conditionParams = array_splice($parameters, 0, $conditionCount);
         $model = $this->getBlankModel();
         $whereMethod = 'where'.$finder;
-        $query = call_user_func_array([$model,$whereMethod], $conditionParams);
+        $query = call_user_func_array([$model, $whereMethod], $conditionParams);
 
         $order = array_get($parameters, 0, 'id');
         $direction = array_get($parameters, 1, 'asc');
@@ -178,7 +178,7 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
             $direction = empty($direction) ? 'asc' : $direction;
             $query = $query->orderBy($order, $direction);
         }
-        if (!empty($offset) && !empty($limit)) {
+        if (!is_null($offset) && !is_null($limit)) {
             $query = $query->offset($offset)->limit($limit);
         }
 
@@ -193,7 +193,7 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         $conditionParams = array_splice($parameters, 0, $conditionCount);
         $model = $this->getBlankModel();
         $whereMethod = 'where'.$finder;
-        $query = call_user_func_array([$model,$whereMethod], $conditionParams);
+        $query = call_user_func_array([$model, $whereMethod], $conditionParams);
 
         $order = array_get($parameters, 0, 'id');
         $direction = array_get($parameters, 1, 'asc');
@@ -209,7 +209,7 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         $conditionParams = array_splice($parameters, 0, $conditionCount);
         $model = $this->getBlankModel();
         $whereMethod = 'where'.$finder;
-        $query = call_user_func_array([$model,$whereMethod], $conditionParams);
+        $query = call_user_func_array([$model, $whereMethod], $conditionParams);
 
         return $query->count();
     }
@@ -222,7 +222,7 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         $conditionParams = array_splice($parameters, 0, $conditionCount);
         $model = $this->getBlankModel();
         $whereMethod = 'where'.$finder;
-        $query = call_user_func_array([$model,$whereMethod], $conditionParams);
+        $query = call_user_func_array([$model, $whereMethod], $conditionParams);
 
         return $query->first();
     }

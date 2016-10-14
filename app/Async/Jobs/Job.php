@@ -1,11 +1,12 @@
-<?php namespace App\Async\Jobs;
+<?php
+
+namespace App\Async\Jobs;
 
 class Job
 {
-
     const ID_REGISTER = 1;
 
-    /** @var integer $id */
+    /** @var int $id */
     public $id;
 
     /**
@@ -18,12 +19,12 @@ class Job
     }
 
     /**
-     * @param  string $key
+     * @param string $key
+     *
      * @return mixed
      */
     public function __get($key)
     {
         return array_get($this->_data, $key, null);
     }
-
 }

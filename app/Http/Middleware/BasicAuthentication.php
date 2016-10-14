@@ -2,16 +2,14 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
-
 class BasicAuthentication
 {
-
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, \Closure $next)
@@ -26,7 +24,6 @@ class BasicAuthentication
                 return response('Please enter username and password', 401,
                     ['WWW-Authenticate' => 'Basic realm="RESTRICTED"']);
             }
-
         }
 
         return $next($request);

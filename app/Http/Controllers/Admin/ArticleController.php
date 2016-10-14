@@ -1,8 +1,9 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php
+
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\BaseRequest;
 use App\Http\Controllers\Controller;
-
 use App\Repositories\ArticleRepositoryInterface;
 use App\Http\Requests\Admin\ArticleRequest;
 use App\Http\Requests\PaginationRequest;
@@ -13,7 +14,6 @@ use App\Services\ImageServiceInterface;
 
 class ArticleController extends Controller
 {
-
     /** @var \App\Repositories\ArticleRepositoryInterface */
     protected $articleRepository;
 
@@ -35,8 +35,7 @@ class ArticleController extends Controller
         FileUploadServiceInterface $fileUploadService,
         ImageRepositoryInterface $imageRepository,
         ImageServiceInterface $imageService
-    )
-    {
+    ) {
         $this->articleRepository = $articleRepository;
         $this->articleService = $articleService;
         $this->fileUploadService = $fileUploadService;
@@ -47,7 +46,8 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \App\Http\Requests\PaginationRequest $request
+     * @param \App\Http\Requests\PaginationRequest $request
+     *
      * @return \Response
      */
     public function index(PaginationRequest $request)
@@ -58,10 +58,10 @@ class ArticleController extends Controller
         $models = $this->articleRepository->get('id', 'desc', $offset, $limit);
 
         return view('pages.admin.articles.index', [
-            'models'  => $models,
-            'count'   => $count,
-            'offset'  => $offset,
-            'limit'   => $limit,
+            'models' => $models,
+            'count' => $count,
+            'offset' => $offset,
+            'limit' => $limit,
             'baseUrl' => action('Admin\ArticleController@index'),
         ]);
     }
@@ -74,7 +74,7 @@ class ArticleController extends Controller
     public function create()
     {
         return view('pages.admin.articles.edit', [
-            'isNew'   => true,
+            'isNew' => true,
             'article' => $this->articleRepository->getBlankModel(),
         ]);
     }
@@ -83,6 +83,7 @@ class ArticleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  $request
+     *
      * @return \Response
      */
     public function store(ArticleRequest $request)
@@ -121,8 +122,8 @@ class ArticleController extends Controller
             $path = $file->getPathname();
             $image = $this->fileUploadService->upload('article-cover-image', $path, $mediaType, [
                 'entityType' => 'article',
-                'entityId'   => $model->id,
-                'title'      => $request->input('title', ''),
+                'entityId' => $model->id,
+                'title' => $request->input('title', ''),
             ]);
 
             if (!empty($image)) {
@@ -130,7 +131,6 @@ class ArticleController extends Controller
                     'cover_image_id' => $image->id,
                 ]);
             }
-
         }
 
         $imageIds = $this->articleService->getImageIdsFromSession();
@@ -148,7 +148,8 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function show($id)
@@ -159,7 +160,7 @@ class ArticleController extends Controller
         }
 
         return view('pages.admin.articles.edit', [
-            'isNew'   => false,
+            'isNew' => false,
             'article' => $model,
         ]);
     }
@@ -167,7 +168,8 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function edit($id)
@@ -178,8 +180,9 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int       $id
-     * @param            $request
+     * @param int $id
+     * @param     $request
+     *
      * @return \Response
      */
     public function update($id, ArticleRequest $request)
@@ -213,7 +216,6 @@ class ArticleController extends Controller
         $this->articleRepository->update($model, $input);
 
         if ($request->hasFile('cover_image')) {
-
             $image = $model->coverImage;
             if (!empty($image)) {
                 $this->fileUploadService->delete($image);
@@ -225,8 +227,8 @@ class ArticleController extends Controller
             $path = $file->getPathname();
             $image = $this->fileUploadService->upload('article-cover-image', $path, $mediaType, [
                 'entityType' => 'article',
-                'entityId'   => $model->id,
-                'title'      => $request->input('title', ''),
+                'entityId' => $model->id,
+                'title' => $request->input('title', ''),
             ]);
 
             if (!empty($image)) {
@@ -241,7 +243,8 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function destroy($id)
@@ -258,7 +261,8 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param  BaseRequest $request
+     * @param BaseRequest $request
+     *
      * @return \Response
      */
     public function preview(BaseRequest $request)
@@ -269,10 +273,10 @@ class ArticleController extends Controller
         $title = $request->input('title');
         $response = response()->view('pages.admin.articles.preview', [
             'content' => $content,
-            'title'   => $title,
+            'title' => $title,
         ]);
         //        $response->headers->set('Content-Security-Policy', "default-src 'self' 'unsafe-inline'");
-        $response->headers->set('X-XSS-Protection', "0");
+        $response->headers->set('X-XSS-Protection', '0');
 
         return $response;
     }
@@ -295,8 +299,8 @@ class ArticleController extends Controller
         $result = [];
         foreach ($models as $model) {
             $result[] = [
-                'id'    => $model->id,
-                'url'   => $model->url,
+                'id' => $model->id,
+                'url' => $model->url,
                 'thumb' => $model->getThumbnailUrl(400, 300),
             ];
         }
@@ -316,7 +320,7 @@ class ArticleController extends Controller
 
         $conf = config('file.categories.'.$type);
         if (empty($conf)) {
-            \App::abort(400, "Invalid type: ".$type);
+            \App::abort(400, 'Invalid type: '.$type);
         }
 
         $file = $request->file('file');
@@ -324,8 +328,8 @@ class ArticleController extends Controller
         $path = $file->getPathname();
         $image = $this->fileUploadService->upload($type, $path, $mediaType, [
             'entityType' => 'article',
-            'entityId'   => $entityId,
-            'title'      => $request->input('title', ''),
+            'entityId' => $entityId,
+            'title' => $request->input('title', ''),
         ]);
 
         if ($entityId == 0) {
@@ -333,7 +337,7 @@ class ArticleController extends Controller
         }
 
         return response()->json([
-            'id'   => $image->id,
+            'id' => $image->id,
             'link' => $image->getUrl(),
         ]);
     }
@@ -367,5 +371,4 @@ class ArticleController extends Controller
 
         return response()->json(['status' => 'ok'], 204);
     }
-
 }

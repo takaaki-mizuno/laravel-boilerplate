@@ -1,4 +1,6 @@
-<?php namespace App\Console\Commands\Generators;
+<?php
+
+namespace App\Console\Commands\Generators;
 
 class HelperMakeCommand extends GeneratorCommandBase
 {
@@ -45,7 +47,8 @@ class HelperMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function generateInterface($name)
@@ -69,7 +72,8 @@ class HelperMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function generateHelper($name)
@@ -93,7 +97,8 @@ class HelperMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function generateFacade($name)
@@ -117,7 +122,8 @@ class HelperMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function generateUnitTest($name)
@@ -141,7 +147,8 @@ class HelperMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function bindInterface($name)
@@ -150,7 +157,7 @@ class HelperMakeCommand extends GeneratorCommandBase
 
         $bindService = $this->files->get($this->getBindServiceProviderPath());
         $key = '/* NEW BINDING */';
-        $bind = '$this->app->singleton('.PHP_EOL."            'App\\Helpers\\".$className."Interface',".PHP_EOL."            'App\\Helpers\\Production\\".$className."'".PHP_EOL."        );".PHP_EOL.PHP_EOL.'        '.$key;
+        $bind = '$this->app->singleton('.PHP_EOL."            'App\\Helpers\\".$className."Interface',".PHP_EOL."            'App\\Helpers\\Production\\".$className."'".PHP_EOL.'        );'.PHP_EOL.PHP_EOL.'        '.$key;
         $bindService = str_replace($key, $bind, $bindService);
         $this->files->put($this->getBindServiceProviderPath(), $bindService);
 
@@ -163,7 +170,7 @@ class HelperMakeCommand extends GeneratorCommandBase
 
         $appConfig = $this->files->get($this->getAppConfigPath());
         $key = '/* NEW FACADE */';
-        $facade = "'".$className."'  => App\\Facades\\".$className."::class,".PHP_EOL."        ".$key;
+        $facade = "'".$className."'  => App\\Facades\\".$className.'::class,'.PHP_EOL.'        '.$key;
         $appConfig = str_replace($key, $facade, $appConfig);
         $this->files->put($this->getAppConfigPath(), $appConfig);
 
@@ -231,12 +238,12 @@ class HelperMakeCommand extends GeneratorCommandBase
     /**
      * Get the default namespace for the class.
      *
-     * @param  string $rootNamespace
+     * @param string $rootNamespace
+     *
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
     {
         return $rootNamespace.'\Helpers';
     }
-
 }

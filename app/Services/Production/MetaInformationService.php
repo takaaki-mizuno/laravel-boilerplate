@@ -1,12 +1,14 @@
-<?php namespace App\Services\Production;
+<?php
+
+namespace App\Services\Production;
 
 use App\Services\MetaInformationServiceInterface;
 
 class MetaInformationService extends BaseService implements MetaInformationServiceInterface
 {
-
     /**
-     * @param  string $string
+     * @param string $string
+     *
      * @return array
      */
     public function getKeywordArray($string)
@@ -23,12 +25,12 @@ class MetaInformationService extends BaseService implements MetaInformationServi
     }
 
     /**
-     * @param  array  $keywords
+     * @param array $keywords
+     *
      * @return string
      */
     public function generateKeywordString($keywords)
     {
-        return join(',', $keywords);
+        return implode(',', $keywords);
     }
-
 }

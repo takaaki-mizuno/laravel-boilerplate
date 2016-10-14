@@ -90,7 +90,7 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
             $direction = empty($direction) ? 'asc' : $direction;
             $query = $query->orderBy($order, $direction);
         }
-        if (!empty($offset) && !empty($limit)) {
+        if (!is_null($offset) && !is_null($limit)) {
             $query = $query->offset($offset)->limit($limit);
         }
 
@@ -178,7 +178,7 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
             $direction = empty($direction) ? 'asc' : $direction;
             $query = $query->orderBy($order, $direction);
         }
-        if (!empty($offset) && !empty($limit)) {
+        if (!is_null($offset) && !is_null($limit)) {
             $query = $query->offset($offset)->limit($limit);
         }
 

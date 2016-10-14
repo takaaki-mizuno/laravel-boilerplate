@@ -34,11 +34,11 @@ class CreateAdminUserNotificationsTable extends Migration
             $table->index(['read', 'user_id', 'locale', 'sent_at']);
         });
 
-        DB::statement('ALTER TABLE user_notifications MODIFY sent_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
+        DB::statement('ALTER TABLE admin_user_notifications MODIFY sent_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
 
-        DB::statement('ALTER TABLE user_notifications MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
+        DB::statement('ALTER TABLE admin_user_notifications MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
 
-        DB::statement('ALTER TABLE user_notifications MODIFY updated_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
+        DB::statement('ALTER TABLE admin_user_notifications MODIFY updated_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
     }
 
     /**

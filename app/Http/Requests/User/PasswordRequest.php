@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\User;
+<?php
+
+namespace App\Http\Requests\User;
 
 use App\Http\Requests\BaseRequest;
 
 class PasswordRequest extends BaseRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -31,8 +32,7 @@ class PasswordRequest extends BaseRequest
     {
         return [
             'email.required' => '',
-            'email.email'    => '',
+            'email.email' => '',
         ];
     }
-
 }

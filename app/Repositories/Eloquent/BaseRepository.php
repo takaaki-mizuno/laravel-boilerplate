@@ -1,4 +1,6 @@
-<?php namespace App\Repositories\Eloquent;
+<?php
+
+namespace App\Repositories\Eloquent;
 
 use App\Repositories\BaseRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -6,10 +8,9 @@ use App\Models\Base;
 
 class BaseRepository implements BaseRepositoryInterface
 {
+    protected $cacheEnabled = false;
 
-    protected $cacheEnabled  = false;
-
-    protected $cachePrefix   = "model";
+    protected $cachePrefix = 'model';
 
     protected $cacheLifeTime = 60; // Minutes
 
@@ -50,7 +51,7 @@ class BaseRepository implements BaseRepositoryInterface
     public function all($order = null, $direction = null)
     {
         $model = $this->getModelClassName();
-        if ( !empty($order) ) {
+        if (!empty($order)) {
             $direction = empty($direction) ? 'asc' : $direction;
 
             return $model::orderBy($order, $direction)->get();
@@ -63,7 +64,7 @@ class BaseRepository implements BaseRepositoryInterface
     {
         $model = $this->getModelClassName();
         $query = $model::where('is_enabled', '=', true);
-        if ( !empty($order) ) {
+        if (!empty($order)) {
             $direction = empty($direction) ? 'asc' : $direction;
             $query = $query->orderBy($order, $direction);
         }
@@ -124,40 +125,40 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param  array  $ids
+     * @param array $ids
+     *
      * @return string
      */
     protected function getCacheKey($ids)
     {
         $key = $this->cachePrefix;
         foreach ($ids as $id) {
-            $key .= '-' . $id;
+            $key .= '-'.$id;
         }
 
         return $key;
     }
 
     /**
-     * @param  \Illuminate\Database\Query\Builder $query
-     * @param  array                              $orderCandidates
-     * @param  string                             $orderDefault
-     * @param  string                             $order
-     * @param  string                             $direction
-     * @param  integer                            $offset
-     * @param  integer                            $limit
+     * @param \Illuminate\Database\Query\Builder $query
+     * @param array                              $orderCandidates
+     * @param string                             $orderDefault
+     * @param string                             $order
+     * @param string                             $direction
+     * @param int                                $offset
+     * @param int                                $limit
+     *
      * @return array
      */
     protected function getWithQueryBuilder(
         $query,
         $orderCandidates = [],
-        $orderDefault = "id",
+        $orderDefault = 'id',
         $order,
         $direction,
         $offset,
         $limit
-    )
-    {
-
+    ) {
         $order = strtolower($order);
         $direction = strtolower($direction);
         $offset = intval($offset);
@@ -174,5 +175,4 @@ class BaseRepository implements BaseRepositoryInterface
 
         return $query->orderBy($order, $direction)->offset($offset)->limit($limit)->get();
     }
-
 }

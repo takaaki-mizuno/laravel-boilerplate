@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Admin;
+<?php
+
+namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\BaseRequest;
 
 class UserRequest extends BaseRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,7 +24,7 @@ class UserRequest extends BaseRequest
     public function rules()
     {
         return [
-            'email'    => 'email',
+            'email' => 'email',
             'password' => 'min:6',
         ];
     }
@@ -31,9 +32,8 @@ class UserRequest extends BaseRequest
     public function messages()
     {
         return [
-            'email.email'  => '',
+            'email.email' => '',
             'password.min' => '',
         ];
     }
-
 }

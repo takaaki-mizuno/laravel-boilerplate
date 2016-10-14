@@ -7,8 +7,6 @@ class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -18,7 +16,7 @@ class CreateImagesTable extends Migration
             $table->string('url')->default('');
             $table->text('title')->nullable();
 
-            $table->string('entity_type')->default("");
+            $table->string('entity_type')->default('');
             $table->bigInteger('entity_id')->default(0);
 
             $table->boolean('is_local')->default(false);
@@ -48,18 +46,13 @@ class CreateImagesTable extends Migration
             $table->index(['entity_type', 'entity_id', 'deleted_at']);
         });
 
-        DB::statement("ALTER TABLE images MODIFY created_at " .
-            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+        DB::statement('ALTER TABLE images MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
 
-        DB::statement("ALTER TABLE images MODIFY updated_at " .
-            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-
+        DB::statement('ALTER TABLE images MODIFY updated_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

@@ -1,6 +1,7 @@
-<?php namespace App\Services;
+<?php
+
+namespace App\Services;
 
 interface UserServiceAuthenticationServiceInterface extends ServiceAuthenticationServiceInterface
 {
-
 }

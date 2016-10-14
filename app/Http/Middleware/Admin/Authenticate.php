@@ -1,11 +1,12 @@
-<?php namespace App\Http\Middleware\Admin;
+<?php
+
+namespace App\Http\Middleware\Admin;
 
 use Closure;
 use App\Services\AdminUserServiceInterface;
 
 class Authenticate
 {
-
     /** @var AdminUserServiceInterface */
     protected $adminUserService;
 
@@ -22,8 +23,9 @@ class Authenticate
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -39,5 +41,4 @@ class Authenticate
 
         return $next($request);
     }
-
 }

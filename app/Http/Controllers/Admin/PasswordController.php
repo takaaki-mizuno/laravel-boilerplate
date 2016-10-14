@@ -1,11 +1,12 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php
+
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\PasswordController as PasswordControllerBase;
 use App\Services\AdminUserServiceInterface;
 
 class PasswordController extends PasswordControllerBase
 {
-
     /** @var string $emailSetPageView */
     protected $emailSetPageView = 'pages.admin.auth.forgot-password';
 
@@ -19,5 +20,4 @@ class PasswordController extends PasswordControllerBase
     {
         $this->authenticatableService = $adminUserService;
     }
-
 }

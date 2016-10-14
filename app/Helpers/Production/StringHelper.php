@@ -1,11 +1,12 @@
-<?php namespace App\Helpers\Production;
+<?php
+
+namespace App\Helpers\Production;
 
 use App\Helpers\StringHelperInterface;
 use ICanBoogie\Inflector;
 
 class StringHelper implements StringHelperInterface
 {
-
     // Ref: http://stackoverflow.com/questions/1993721/how-to-convert-camelcase-to-camel-case
     public function camel2Snake($input)
     {
@@ -54,8 +55,8 @@ class StringHelper implements StringHelperInterface
     {
         mt_rand();
         $characters = array_merge(range('a', 'z'), range('0', '9'), range('A', 'Z'));
-        $result = "";
-        for ($i = 0; $i < $length; $i++) {
+        $result = '';
+        for ($i = 0; $i < $length; ++$i) {
             $result .= $characters[ mt_rand(0, count($characters) - 1) ];
         }
 
@@ -63,14 +64,14 @@ class StringHelper implements StringHelperInterface
     }
 
     // Ref: http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php
-    function startsWith($haystack, $needle)
+    public function startsWith($haystack, $needle)
     {
-        return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
+        return $needle === '' || strrpos($haystack, $needle, -strlen($haystack)) !== false;
     }
 
-    function endsWith($haystack, $needle)
+    public function endsWith($haystack, $needle)
     {
-        return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle,
+        return $needle === '' || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle,
                 $temp) !== false);
     }
 }

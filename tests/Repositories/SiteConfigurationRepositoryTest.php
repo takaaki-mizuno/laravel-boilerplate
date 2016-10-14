@@ -1,4 +1,6 @@
-<?php namespace Tests\Repositories;
+<?php
+
+namespace Tests\Repositories;
 
 use App\Models\SiteConfiguration;
 use Tests\TestCase;
@@ -80,5 +82,4 @@ class SiteConfigurationRepositoryTest extends TestCase
         $siteConfigurationCheck = $repository->find($siteConfigurationData->id);
         $this->assertNull($siteConfigurationCheck);
     }
-
 }

@@ -2,6 +2,6 @@
 
 return [
     'serviceAccountEmail' => '',
-    'keyFileLocation'     => base_path(''),
-    'appName'             => '',
+    'keyFileLocation' => base_path(''),
+    'appName' => '',
 ];

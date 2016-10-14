@@ -1,13 +1,13 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\ResetPasswordRequest;
-
 use App\Services\AuthenticatableServiceInterface;
 
 class PasswordController extends Controller
 {
-
     /** @var \App\Services\AuthenticatableServiceInterface $authenticatableService */
     protected $authenticatableService;
 
@@ -39,32 +39,33 @@ class PasswordController extends Controller
     /**
      * Send a reset link to the given user.
      *
-     * @param  \App\Http\Requests\ForgotPasswordRequest $request
+     * @param \App\Http\Requests\ForgotPasswordRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function postForgotPassword(ForgotPasswordRequest $request)
     {
-
         $email = $request->get('email');
         $this->authenticatableService->sendPasswordResetEmail($email);
 
-        return redirect()->back()->with('status', "success");
+        return redirect()->back()->with('status', 'success');
     }
 
     /**
      * Display the password reset view for the given token.
      *
-     * @param  string                    $token
+     * @param string $token
+     *
      * @return \Illuminate\Http\Response
      */
     public function getResetPassword($token = null)
     {
-        if (empty( $token )) {
+        if (empty($token)) {
             \App::abort(404);
         }
 
         $user = $this->authenticatableService->getUserByPasswordResetToken($token);
-        if (empty( $user )) {
+        if (empty($user)) {
             \App::abort(404);
         }
 
@@ -76,7 +77,8 @@ class PasswordController extends Controller
     /**
      * Reset the given user's password.
      *
-     * @param  \App\Http\Requests\ResetPasswordRequest $request
+     * @param \App\Http\Requests\ResetPasswordRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function postResetPassword(ResetPasswordRequest $request)
@@ -91,7 +93,5 @@ class PasswordController extends Controller
         }
 
         return redirect()->back()->withInput($request->only('email'));
-
     }
-
 }

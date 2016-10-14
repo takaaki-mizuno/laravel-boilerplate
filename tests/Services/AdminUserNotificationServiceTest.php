@@ -1,4 +1,6 @@
-<?php namespace Tests\Services;
+<?php
+
+namespace Tests\Services;
 
 use App\Models\AdminUser;
 use App\Models\AdminUserNotification;
@@ -27,7 +29,7 @@ class AdminUserNotificationServiceTest extends TestCase
 
         $user = factory(AdminUser::class)->create();
 
-        $notification1 = $service->sendNotification($user->id, 'somecategory', 'sometype', '', 'TEST MESSAGE', ['test'=>1]);
+        $notification1 = $service->sendNotification($user->id, 'somecategory', 'sometype', '', 'TEST MESSAGE', ['test' => 1]);
         $notification2 = $service->broadcastSystemMessage(AdminUserNotification::TYPE_GENERAL_MESSAGE, \App::getLocale(), 'BROADCAST MESSAGE');
 
         $this->assertEquals(1, $notification1->getData('test'));

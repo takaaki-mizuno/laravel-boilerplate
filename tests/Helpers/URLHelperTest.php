@@ -1,10 +1,11 @@
-<?php namespace Tests\Helpers;
+<?php
+
+namespace Tests\Helpers;
 
 use Tests\TestCase;
 
 class URLHelperTest extends TestCase
 {
-
     public function testGetInstance()
     {
         /** @var  \App\Helpers\URLHelperInterface $helper */
@@ -34,10 +35,9 @@ class URLHelperTest extends TestCase
         $helper = \App::make(\App\Helpers\URLHelperInterface::class);
         $hash = \Config::get('asset.hash');
         $result = $helper->asset('img/test.png');
-        $this->assertEquals('http://localhost/static/user/img/test.png?' . $hash, $result);
+        $this->assertEquals('http://localhost/static/user/img/test.png?'.$hash, $result);
 
         $result = $helper->asset('img/test.png', 'common');
-        $this->assertEquals('http://localhost/static/common/img/test.png?' . $hash, $result);
+        $this->assertEquals('http://localhost/static/common/img/test.png?'.$hash, $result);
     }
-
 }

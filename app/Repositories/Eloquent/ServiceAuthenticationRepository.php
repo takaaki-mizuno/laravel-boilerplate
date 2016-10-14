@@ -1,12 +1,13 @@
-<?php namespace App\Repositories\Eloquent;
+<?php
 
-use \App\Repositories\ServiceAuthenticationRepositoryInterface;
-use \App\Models\ServiceAuthenticationBase;
+namespace App\Repositories\Eloquent;
+
+use App\Repositories\ServiceAuthenticationRepositoryInterface;
+use App\Models\ServiceAuthenticationBase;
 
 class ServiceAuthenticationRepository extends SingleKeyModelRepository implements ServiceAuthenticationRepositoryInterface
 {
-
-    public $authModelColumn = "";
+    public $authModelColumn = '';
 
     public function getAuthModelColumn()
     {
@@ -43,5 +44,4 @@ class ServiceAuthenticationRepository extends SingleKeyModelRepository implement
 
         return $class::whereService($service)->where("$this->authModelColumn", $authModelId)->first();
     }
-
 }

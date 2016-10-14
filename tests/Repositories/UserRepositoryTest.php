@@ -1,4 +1,6 @@
-<?php namespace Tests\Repositories;
+<?php
+
+namespace Tests\Repositories;
 
 use App\Models\User;
 use Tests\TestCase;
@@ -80,5 +82,4 @@ class UserRepositoryTest extends TestCase
         $userCheck = $repository->find($userData->id);
         $this->assertNull($userCheck);
     }
-
 }

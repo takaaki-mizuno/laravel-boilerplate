@@ -7,8 +7,6 @@ class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -31,17 +29,13 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        DB::statement("ALTER TABLE users MODIFY created_at " .
-            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+        DB::statement('ALTER TABLE users MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
 
-        DB::statement("ALTER TABLE users MODIFY updated_at " .
-            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+        DB::statement('ALTER TABLE users MODIFY updated_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

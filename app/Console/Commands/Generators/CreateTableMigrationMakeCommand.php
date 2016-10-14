@@ -1,4 +1,6 @@
-<?php namespace App\Console\Commands\Generators;
+<?php
+
+namespace App\Console\Commands\Generators;
 
 class CreateTableMigrationMakeCommand extends GeneratorCommandBase
 {
@@ -30,7 +32,6 @@ class CreateTableMigrationMakeCommand extends GeneratorCommandBase
 
     protected function generateMigration($name)
     {
-
         $name = $this->getTableName($name);
 
         if (class_exists($className = $this->getClassName($name))) {
@@ -53,13 +54,11 @@ class CreateTableMigrationMakeCommand extends GeneratorCommandBase
         $name = str_replace('App\\', '', $name);
 
         return \StringHelper::pluralize(\StringHelper::camel2Snake($name));
-
     }
 
     protected function getClassName($name)
     {
         return 'Create'.\StringHelper::snake2Camel($name).'Table';
-
     }
 
     protected function getPath($name)
@@ -83,5 +82,4 @@ class CreateTableMigrationMakeCommand extends GeneratorCommandBase
     {
         return [];
     }
-
 }

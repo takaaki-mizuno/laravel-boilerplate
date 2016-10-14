@@ -1,16 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
-use App\Repositories\AdminUserRepositoryInterface;
 use App\Models\AdminUserRole;
 
 class AdminUserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
@@ -22,16 +18,14 @@ class AdminUserTableSeeder extends Seeder
 
         /** @var \App\Models\AdminUser $adminUser */
         $adminUser = $adminUserRepository->create([
-            'name'     => 'TestUser',
-            'email'    => 'test@example.com',
+            'name' => 'TestUser',
+            'email' => 'test@example.com',
             'password' => 'test',
         ]);
 
         $adminUserRoleRepository->create([
             'admin_user_id' => $adminUser->id,
-            'role'          => AdminUserRole::ROLE_SUPER_USER,
+            'role' => AdminUserRole::ROLE_SUPER_USER,
         ]);
-
     }
-
 }

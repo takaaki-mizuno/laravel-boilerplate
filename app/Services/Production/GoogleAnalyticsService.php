@@ -64,8 +64,8 @@ class GoogleAnalyticsService
 
         while (!$finish) {
             $optParams = [
-                'dimensions'  => 'ga:pagePath',
-                'sort'        => '-ga:pageviews',
+                'dimensions' => 'ga:pagePath',
+                'sort' => '-ga:pageviews',
                 'max-results' => '10000',
                 'start-index' => $startIndex,
             ];
@@ -78,12 +78,12 @@ class GoogleAnalyticsService
             }
             foreach ($rows as $row) {
                 $resultHash[$row[0]] = [
-                    'pv'         => $row[1],
-                    'uniquePv'   => $row[2],
+                    'pv' => $row[1],
+                    'uniquePv' => $row[2],
                     'timeOnPage' => $row[3],
-                    'bounce'     => $row[4],
-                    'entrance'   => $row[5],
-                    'exit'       => $row[6],
+                    'bounce' => $row[4],
+                    'entrance' => $row[5],
+                    'exit' => $row[6],
                 ];
             }
             $startIndex += 10000;

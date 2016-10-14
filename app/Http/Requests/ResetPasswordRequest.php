@@ -1,8 +1,9 @@
-<?php namespace App\Http\Requests;
+<?php
+
+namespace App\Http\Requests;
 
 class ResetPasswordRequest extends BaseRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -21,20 +22,20 @@ class ResetPasswordRequest extends BaseRequest
     public function rules()
     {
         return [
-            'email'                 => 'required|email',
-            'password'              => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
             'password_confirmation' => 'required',
-            'token'                 => 'required',
+            'token' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'token.required'                 => '',
-            'email.required'                 => '',
-            'email.email'                    => '',
-            'password.required'              => '',
+            'token.required' => '',
+            'email.required' => '',
+            'email.email' => '',
+            'password.required' => '',
             'password_confirmation.required' => '',
         ];
     }

@@ -1,10 +1,11 @@
-<?php namespace App\Services\Production;
+<?php
 
-use \App\Services\ArticleServiceInterface;
+namespace App\Services\Production;
+
+use App\Services\ArticleServiceInterface;
 
 class ArticleService extends BaseService implements ArticleServiceInterface
 {
-
     const IMAGE_ID_SESSION_KEY = 'article-image-id-session-key';
 
     public function filterContent($content, $locale = null)

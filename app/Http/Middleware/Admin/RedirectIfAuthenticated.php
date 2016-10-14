@@ -1,7 +1,8 @@
-<?php namespace App\Http\Middleware\Admin;
+<?php
+
+namespace App\Http\Middleware\Admin;
 
 use App\Services\AdminUserServiceInterface;
-use Closure;
 
 class RedirectIfAuthenticated
 {
@@ -21,8 +22,9 @@ class RedirectIfAuthenticated
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, \Closure $next)

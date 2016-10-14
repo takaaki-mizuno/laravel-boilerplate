@@ -1,4 +1,6 @@
-<?php namespace App\Console\Commands\Generators;
+<?php
+
+namespace App\Console\Commands\Generators;
 
 class ServiceMakeCommand extends GeneratorCommandBase
 {
@@ -39,7 +41,8 @@ class ServiceMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function generateInterface($name)
@@ -64,7 +67,6 @@ class ServiceMakeCommand extends GeneratorCommandBase
 
     protected function generateService($name)
     {
-
         $path = $this->getPath($name);
         if ($this->alreadyExists($path)) {
             $this->error($name.' already exists.');
@@ -83,7 +85,8 @@ class ServiceMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function generateUnitTest($name)
@@ -107,7 +110,8 @@ class ServiceMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return bool
      */
     protected function bindInterface($name)
@@ -116,7 +120,7 @@ class ServiceMakeCommand extends GeneratorCommandBase
 
         $bindService = $this->files->get($this->getBindServiceProviderPath());
         $key = '/* NEW BINDING */';
-        $bind = '$this->app->singleton('.PHP_EOL."            \\App\\Services\\".$className."Interface::class,".PHP_EOL."            \\App\\Services\\Production\\".$className."::class".PHP_EOL."        );".PHP_EOL.PHP_EOL.'        '.$key;
+        $bind = '$this->app->singleton('.PHP_EOL.'            \\App\\Services\\'.$className.'Interface::class,'.PHP_EOL.'            \\App\\Services\\Production\\'.$className.'::class'.PHP_EOL.'        );'.PHP_EOL.PHP_EOL.'        '.$key;
         $bindService = str_replace($key, $bind, $bindService);
         $this->files->put($this->getBindServiceProviderPath(), $bindService);
 
@@ -171,7 +175,8 @@ class ServiceMakeCommand extends GeneratorCommandBase
     /**
      * Get the default namespace for the class.
      *
-     * @param  string $rootNamespace
+     * @param string $rootNamespace
+     *
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
@@ -183,5 +188,4 @@ class ServiceMakeCommand extends GeneratorCommandBase
     {
         return $this->laravel['path'].'/Providers/ServiceBindServiceProvider.php';
     }
-
 }

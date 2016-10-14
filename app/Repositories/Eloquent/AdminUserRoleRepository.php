@@ -1,11 +1,12 @@
-<?php namespace App\Repositories\Eloquent;
+<?php
+
+namespace App\Repositories\Eloquent;
 
 use App\Repositories\AdminUserRoleRepositoryInterface;
 use App\Models\AdminUserRole;
 
 class AdminUserRoleRepository extends SingleKeyModelRepository implements AdminUserRoleRepositoryInterface
 {
-
     public function getBlankModel()
     {
         return new AdminUserRole();
@@ -21,7 +22,7 @@ class AdminUserRoleRepository extends SingleKeyModelRepository implements AdminU
     {
         $role = array_get($input, 'role', '');
         if (!array_key_exists($role, config('admin_user.roles', []))) {
-            return null;
+            return;
         }
 
         return parent::create($input);
@@ -41,9 +42,8 @@ class AdminUserRoleRepository extends SingleKeyModelRepository implements AdminU
         foreach ($roles as $role) {
             $this->create([
                 'admin_user_id' => $adminUserId,
-                'role'          => $role,
+                'role' => $role,
             ]);
         }
     }
-
 }

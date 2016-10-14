@@ -1,11 +1,12 @@
-<?php namespace Tests\Models;
+<?php
+
+namespace Tests\Models;
 
 use App\Models\SiteConfiguration;
 use Tests\TestCase;
 
 class SiteConfigurationTest extends TestCase
 {
-
     protected $useDatabase = true;
 
     public function testGetInstance()
@@ -17,16 +18,15 @@ class SiteConfigurationTest extends TestCase
 
     public function testStoreNew()
     {
-        /** @var  \App\Models\SiteConfiguration $siteConfiguration */
+        /* @var  \App\Models\SiteConfiguration $siteConfiguration */
         $siteConfigurationModel = new SiteConfiguration();
 
         $siteConfigurationData = factory(SiteConfiguration::class)->make();
-        foreach( $siteConfigurationData->toArray() as $key => $value ) {
+        foreach ($siteConfigurationData->toArray() as $key => $value) {
             $siteConfigurationModel->$key = $value;
         }
         $siteConfigurationModel->save();
 
         $this->assertNotNull(SiteConfiguration::find($siteConfigurationModel->id));
     }
-
 }

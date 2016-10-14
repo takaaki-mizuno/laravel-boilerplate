@@ -1,8 +1,8 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php
 
-use App\Http\Requests;
+namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
-
 use App\Repositories\ImageRepositoryInterface;
 use App\Repositories\SiteConfigurationRepositoryInterface;
 use App\Http\Requests\Admin\SiteConfigurationRequest;
@@ -11,7 +11,6 @@ use App\Services\FileUploadServiceInterface;
 
 class SiteConfigurationController extends Controller
 {
-
     /** @var \App\Repositories\SiteConfigurationRepositoryInterface */
     protected $siteConfigurationRepository;
 
@@ -25,8 +24,7 @@ class SiteConfigurationController extends Controller
         SiteConfigurationRepositoryInterface $siteConfigurationRepository,
         FileUploadServiceInterface $fileUploadService,
         ImageRepositoryInterface $imageRepository
-    )
-    {
+    ) {
         $this->siteConfigurationRepository = $siteConfigurationRepository;
         $this->fileUploadService = $fileUploadService;
         $this->imageRepository = $imageRepository;
@@ -35,7 +33,8 @@ class SiteConfigurationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \App\Http\Requests\PaginationRequest $request
+     * @param \App\Http\Requests\PaginationRequest $request
+     *
      * @return \Response
      */
     public function index(PaginationRequest $request)
@@ -46,10 +45,10 @@ class SiteConfigurationController extends Controller
         $models = $this->siteConfigurationRepository->get('id', 'desc', $offset, $limit);
 
         return view('pages.admin.site-configurations.index', [
-            'models'  => $models,
-            'count'   => $count,
-            'offset'  => $offset,
-            'limit'   => $limit,
+            'models' => $models,
+            'count' => $count,
+            'offset' => $offset,
+            'limit' => $limit,
             'baseUrl' => action('Admin\SiteConfigurationController@index'),
         ]);
     }
@@ -62,7 +61,7 @@ class SiteConfigurationController extends Controller
     public function create()
     {
         return view('pages.admin.site-configurations.edit', [
-            'isNew'             => true,
+            'isNew' => true,
             'siteConfiguration' => $this->siteConfigurationRepository->getBlankModel(),
         ]);
     }
@@ -71,6 +70,7 @@ class SiteConfigurationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  $request
+     *
      * @return \Response
      */
     public function store(SiteConfigurationRequest $request)
@@ -84,7 +84,7 @@ class SiteConfigurationController extends Controller
         ]);
         $model = $this->siteConfigurationRepository->create($input);
 
-        if (empty( $model )) {
+        if (empty($model)) {
             return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
         }
 
@@ -111,18 +111,19 @@ class SiteConfigurationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function show($id)
     {
         $model = $this->siteConfigurationRepository->find($id);
-        if (empty( $model )) {
+        if (empty($model)) {
             \App::abort(404);
         }
 
         return view('pages.admin.site-configurations.edit', [
-            'isNew'             => false,
+            'isNew' => false,
             'siteConfiguration' => $model,
         ]);
     }
@@ -130,7 +131,8 @@ class SiteConfigurationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function edit($id)
@@ -141,15 +143,16 @@ class SiteConfigurationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int       $id
-     * @param            $request
+     * @param int $id
+     * @param     $request
+     *
      * @return \Response
      */
     public function update($id, SiteConfigurationRequest $request)
     {
         /** @var \App\Models\SiteConfiguration $model */
         $model = $this->siteConfigurationRepository->find($id);
-        if (empty( $model )) {
+        if (empty($model)) {
             \App::abort(404);
         }
         $input = $request->only([
@@ -165,7 +168,6 @@ class SiteConfigurationController extends Controller
         $this->siteConfigurationRepository->update($model, $input);
 
         if ($request->hasFile('ogp_image')) {
-
             $image = $model->ogpImage;
             if (!empty($image)) {
                 $this->fileUploadService->delete($image);
@@ -180,7 +182,6 @@ class SiteConfigurationController extends Controller
         }
 
         if ($request->hasFile('twitter_card_image')) {
-
             $image = $model->ogpImage;
             if (!empty($image)) {
                 $this->fileUploadService->delete($image);
@@ -201,14 +202,15 @@ class SiteConfigurationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function destroy($id)
     {
         /** @var \App\Models\SiteConfiguration $model */
         $model = $this->siteConfigurationRepository->find($id);
-        if (empty( $model )) {
+        if (empty($model)) {
             \App::abort(404);
         }
         $this->siteConfigurationRepository->delete($model);
@@ -216,5 +218,4 @@ class SiteConfigurationController extends Controller
         return redirect()->action('Admin\SiteConfigurationController@index')->with('message-success',
             trans('admin.messages.general.delete_success'));
     }
-
 }

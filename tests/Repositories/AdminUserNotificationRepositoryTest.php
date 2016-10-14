@@ -1,4 +1,6 @@
-<?php namespace Tests\Repositories;
+<?php
+
+namespace Tests\Repositories;
 
 use App\Models\AdminUserNotification;
 use Tests\TestCase;
@@ -80,5 +82,4 @@ class AdminUserNotificationRepositoryTest extends TestCase
         $adminUserNotificationCheck = $repository->find($adminUserNotificationData->id);
         $this->assertNull($adminUserNotificationCheck);
     }
-
 }

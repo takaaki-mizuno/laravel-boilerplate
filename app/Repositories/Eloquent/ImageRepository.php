@@ -1,11 +1,12 @@
-<?php namespace App\Repositories\Eloquent;
+<?php
+
+namespace App\Repositories\Eloquent;
 
 use App\Repositories\ImageRepositoryInterface;
 use App\Models\Image;
 
 class ImageRepository extends SingleKeyModelRepository implements ImageRepositoryInterface
 {
-
     public function getBlankModel()
     {
         return new Image();
@@ -39,5 +40,4 @@ class ImageRepository extends SingleKeyModelRepository implements ImageRepositor
     {
         return Image::whereEntityType($type)->whereEntityId($entityId)->get();
     }
-
 }

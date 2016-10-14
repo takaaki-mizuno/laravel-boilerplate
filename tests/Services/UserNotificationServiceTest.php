@@ -1,4 +1,6 @@
-<?php namespace Tests\Services;
+<?php
+
+namespace Tests\Services;
 
 use App\Models\User;
 use App\Models\UserNotification;
@@ -21,14 +23,13 @@ class UserNotificationServiceTest extends TestCase
         $service = \App::make(\App\Services\UserNotificationServiceInterface::class);
         $this->assertNotNull($service);
 
-
         /** @var  \App\Repositories\UserNotificationRepositoryInterface $repository */
         $repository = \App::make(\App\Repositories\UserNotificationRepositoryInterface::class);
         $this->assertNotNull($repository);
 
         $user = factory(User::class)->create();
 
-        $notification1 = $service->sendNotification($user->id, 'somecategory', 'sometype', '', 'TEST MESSAGE', ['test'=>1]);
+        $notification1 = $service->sendNotification($user->id, 'somecategory', 'sometype', '', 'TEST MESSAGE', ['test' => 1]);
         $notification2 = $service->broadcastSystemMessage(UserNotification::TYPE_GENERAL_MESSAGE, \App::getLocale(), 'BROADCAST MESSAGE');
 
         $this->assertEquals(1, $notification1->getData('test'));
@@ -46,5 +47,4 @@ class UserNotificationServiceTest extends TestCase
 
         $this->assertEquals(0, $count);
     }
-
 }

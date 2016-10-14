@@ -1,16 +1,17 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 /**
- * App\Models\LocaleStorableBase
+ * App\Models\LocaleStorableBase.
  *
  * @property string $locale
+ *
  * @method static \Illuminate\Database\Query\Builder|\App\Models\LocaleStorableBase whereLocale($value)
  * @mixin \Eloquent
  */
-
 class LocaleStorableBase extends Base
 {
-
     public function getLocale()
     {
         return $this->locale;
@@ -21,5 +22,4 @@ class LocaleStorableBase extends Base
         $this->locale = strtolower($locale);
         $this->save();
     }
-
 }

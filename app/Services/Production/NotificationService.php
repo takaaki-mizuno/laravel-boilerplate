@@ -1,13 +1,14 @@
-<?php namespace App\Services\Production;
+<?php
+
+namespace App\Services\Production;
 
 use App\Models\Notification;
 use App\Repositories\AuthenticatableRepositoryInterface;
 use App\Repositories\NotificationRepositoryInterface;
-use \App\Services\UserNotificationServiceInterface;
+use App\Services\UserNotificationServiceInterface;
 
 class NotificationService extends BaseService implements UserNotificationServiceInterface
 {
-
     /** @var \App\Repositories\NotificationRepositoryInterface */
     protected $notificationRepository;
 
@@ -17,8 +18,7 @@ class NotificationService extends BaseService implements UserNotificationService
     public function __construct(
         NotificationRepositoryInterface $notificationRepository,
         AuthenticatableRepositoryInterface $authenticatableRepository
-    )
-    {
+    ) {
         $this->notificationRepository = $notificationRepository;
         $this->authenticatableRepository = $authenticatableRepository;
     }
@@ -33,18 +33,18 @@ class NotificationService extends BaseService implements UserNotificationService
     {
         if ($userId == Notification::BROADCAST_USER_ID) {
             if (empty($locale)) {
-                return null;
+                return;
             }
         } else {
             $locale = '';
         }
         $notification = $this->notificationRepository->create([
-            'user_id'       => $userId,
+            'user_id' => $userId,
             'category_type' => $categoryType,
-            'type'          => $type,
-            'locale'        => $locale,
-            'content'       => $content,
-            'data'          => $data,
+            'type' => $type,
+            'locale' => $locale,
+            'content' => $content,
+            'data' => $data,
         ]);
 
         return $notification;

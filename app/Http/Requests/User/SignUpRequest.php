@@ -1,4 +1,6 @@
-<?php namespace App\Http\Requests\User;
+<?php
+
+namespace App\Http\Requests\User;
 
 use App\Http\Requests\BaseRequest;
 
@@ -35,11 +37,10 @@ class SignUpRequest extends BaseRequest
     public function messages()
     {
         return [
-            'email.required'    => '',
-            'email.email'       => '',
+            'email.required' => '',
+            'email.email' => '',
             'password.required' => '',
-            'password.min'      => '',
+            'password.min' => '',
         ];
     }
-
 }

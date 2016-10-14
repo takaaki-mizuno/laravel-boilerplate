@@ -1,8 +1,9 @@
-<?php namespace Tests;
+<?php
+
+namespace Tests;
 
 abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
-
     /** @var bool */
     protected $useDatabase = false;
 
@@ -23,9 +24,10 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
      */
     public function createApplication()
     {
-        $app = require __DIR__ . '/../bootstrap/app.php';
+        $app = require __DIR__.'/../bootstrap/app.php';
         $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
         $this->faker = \Faker\Factory::create();
+
         return $app;
     }
 
@@ -47,5 +49,4 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
         }
         parent::tearDown();
     }
-
 }

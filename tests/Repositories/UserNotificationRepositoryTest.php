@@ -1,4 +1,6 @@
-<?php namespace Tests\Repositories;
+<?php
+
+namespace Tests\Repositories;
 
 use App\Models\UserNotification;
 use Tests\TestCase;
@@ -80,5 +82,4 @@ class UserNotificationRepositoryTest extends TestCase
         $userNotificationCheck = $repository->find($userNotificationData->id);
         $this->assertNull($userNotificationCheck);
     }
-
 }

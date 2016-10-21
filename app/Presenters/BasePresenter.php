@@ -22,7 +22,6 @@ class BasePresenter
      */
     protected $imageFields = [];
 
-
     /**
      * @param \App\Models\Base $entity
      */
@@ -77,7 +76,6 @@ class BasePresenter
             return $this->getImageUrl($name, $width, $height);
         }
     }
-
 
     protected function getImageUrl($property, $width = 0, $height = 0)
     {

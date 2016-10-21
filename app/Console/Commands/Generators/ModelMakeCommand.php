@@ -71,7 +71,7 @@ class ModelMakeCommand extends GeneratorCommandBase
                 $key = $matches[1];
                 $relationName = \StringHelper::snake2Camel($key);
                 $relations .= '    public function '.$relationName.'()'.PHP_EOL.'    {'.PHP_EOL.'        return $this->hasOne(\App\Models\Image::class, \'id\', \''.$column.'\');'.PHP_EOL.'    }'.PHP_EOL.PHP_EOL;
-            }elseif (preg_match('/^(.*)_id$/', $column, $matches)) {
+            } elseif (preg_match('/^(.*)_id$/', $column, $matches)) {
                 $key = $matches[1];
                 $relationName = \StringHelper::snake2Camel($key);
                 $relatedModelName = ucfirst($relationName);

@@ -9,9 +9,17 @@ Any suggestions, feedback, or push requests are really welcome.
 
 ## How To Start Your Project
 
-After you clone this repository, you can change origin url to your own remote repository.
+First, you can clone this repository.
 
-`git remote set-url origin  XXXXX`
+`git clone git@github.com:takaaki-mizuno/laravel-boilerplate.git`
+
+Then, change the directory name to your own project name.
+
+`mv laravel-boilerplate [your-own-project-name]`
+
+Create your own repository on GitHub.And you can change origin url to your own remote repository.
+
+`git remote set-url origin [your-git-url]`
 
 And after that, you can add this boilerplate remote repository as another remote url.
 

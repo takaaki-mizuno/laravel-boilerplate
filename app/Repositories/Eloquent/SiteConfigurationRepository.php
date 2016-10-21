@@ -1,14 +1,15 @@
-<?php namespace App\Repositories\Eloquent;
+<?php
+
+namespace App\Repositories\Eloquent;
 
 use App\Repositories\SiteConfigurationRepositoryInterface;
 use App\Models\SiteConfiguration;
 
 class SiteConfigurationRepository extends SingleKeyModelRepository implements SiteConfigurationRepositoryInterface
 {
+    protected $cacheEnabled = true;
 
-    protected $cacheEnabled  = true;
-
-    protected $cachePrefix   = "site-configuration";
+    protected $cachePrefix = 'site-configuration';
 
     protected $cacheLifeTime = 1440; // Minutes
 
@@ -33,7 +34,6 @@ class SiteConfigurationRepository extends SingleKeyModelRepository implements Si
 
     public function findByLocale($locale)
     {
-
         if ($this->cacheEnabled) {
             $data = \Cache::get($this->getLocaleCacheKey($locale));
             if (!empty($data)) {
@@ -68,7 +68,7 @@ class SiteConfigurationRepository extends SingleKeyModelRepository implements Si
 
     private function getLocaleCacheKey($locale)
     {
-        return join('-', [$this->cachePrefix, $locale]);
+        return implode('-', [$this->cachePrefix, $locale]);
     }
 
     public function update($model, $input)
@@ -79,5 +79,4 @@ class SiteConfigurationRepository extends SingleKeyModelRepository implements Si
 
         return parent::update($model, $input);
     }
-
 }

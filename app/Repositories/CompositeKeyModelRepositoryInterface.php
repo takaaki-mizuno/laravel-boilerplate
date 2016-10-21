@@ -1,4 +1,6 @@
-<?php namespace App\Repositories;
+<?php
+
+namespace App\Repositories;
 
 interface CompositeKeyModelRepositoryInterface extends BaseRepositoryInterface
 {
@@ -8,28 +10,31 @@ interface CompositeKeyModelRepositoryInterface extends BaseRepositoryInterface
     public function getPrimaryKeys();
 
     /**
-     * @param  array                 $conditions
+     * @param array $conditions
+     *
      * @return \App\Models\Base|null
      */
     public function find(array $conditions);
 
     /**
-     * @param  array            $input
+     * @param array $input
+     *
      * @return \App\Models\Base
      */
     public function create($input);
 
     /**
-     * @param  \App\Models\Base $model
-     * @param  array            $input
+     * @param \App\Models\Base $model
+     * @param array            $input
+     *
      * @return \App\Models\Base
      */
     public function update($model, $input);
 
     /**
-     * @param  \App\Models\Base $model
-     * @return boolean
+     * @param \App\Models\Base $model
+     *
+     * @return bool
      */
     public function delete($model);
-
 }

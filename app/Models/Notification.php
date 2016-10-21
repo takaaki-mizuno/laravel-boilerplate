@@ -1,24 +1,27 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Illuminate\Support\Arr;
 
 /**
- * App\Models\Notification
+ * App\Models\Notification.
  *
  * This is Abstract Class for Notifications.
  * No table named 'notifications' exists
  *
- * @property integer $id
- * @property integer $user_id
+ * @property int $id
+ * @property int $user_id
  * @property string $category_type
  * @property string $type
  * @property string $data
  * @property string $content
  * @property string $locale
- * @property boolean $read
+ * @property bool $read
  * @property \Carbon\Carbon $sent_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ *
  * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereCategoryType($value)
@@ -34,13 +37,12 @@ use Illuminate\Support\Arr;
  */
 class Notification extends Base
 {
-
     const BROADCAST_USER_ID = 0;
 
     const CATEGORY_TYPE_SYSTEM_MESSAGE = 'system';
 
-    const TYPE_GENERAL_MESSAGE = "general_message";
-    const TYPE_GENERAL_ALERT = "general_alert";
+    const TYPE_GENERAL_MESSAGE = 'general_message';
+    const TYPE_GENERAL_ALERT = 'general_alert';
 
     /**
      * The attributes that are mass assignable.
@@ -68,7 +70,7 @@ class Notification extends Base
      */
     protected $hidden = [];
 
-    protected $dates  = ['sent_at'];
+    protected $dates = ['sent_at'];
 
     // Relations
 
@@ -91,7 +93,7 @@ class Notification extends Base
 
     public function isBroadcast()
     {
-        return ( $this->user_id == static::BROADCAST_USER_ID );
+        return  $this->user_id == static::BROADCAST_USER_ID;
     }
 
     /*
@@ -100,15 +102,14 @@ class Notification extends Base
     public function toAPIArray()
     {
         return [
-            'id'            => $this->id,
-            'user_id'       => $this->user_id,
+            'id' => $this->id,
+            'user_id' => $this->user_id,
             'category_type' => $this->category_type,
-            'type'          => $this->type,
-            'data'          => $this->data,
-            'content'       => $this->content,
-            'read'          => $this->read,
-            'sent_at'       => $this->sent_at,
+            'type' => $this->type,
+            'data' => $this->data,
+            'content' => $this->content,
+            'read' => $this->read,
+            'sent_at' => $this->sent_at,
         ];
     }
-
 }

@@ -1,23 +1,26 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\AdminUser
+ * App\Models\AdminUser.
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $email
  * @property string $password
- * @property integer $last_notification_id
+ * @property int $last_notification_id
  * @property string $api_access_token
- * @property integer $profile_image_id
+ * @property int $profile_image_id
  * @property string $remember_token
  * @property \Carbon\Carbon $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \App\Models\Image $profileImage
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AdminUserRole[] $roles
+ *
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereEmail($value)
@@ -30,7 +33,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereUpdatedAt($value)
  * @mixin \Eloquent
+ *
  * @property string $locale
+ *
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AdminUser whereLocale($value)
  */
 class AdminUser extends AuthenticatableBase
@@ -71,7 +76,7 @@ class AdminUser extends AuthenticatableBase
      */
     protected $hidden = ['password', 'remember_token', 'facebook_token'];
 
-    protected $dates  = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 
     // Relation
 
@@ -88,8 +93,9 @@ class AdminUser extends AuthenticatableBase
     // Utility Functions
 
     /**
-     * @param  string $targetRole
-     * @param  bool   $checkSubRoles
+     * @param string $targetRole
+     * @param bool   $checkSubRoles
+     *
      * @return bool
      */
     public function hasRole($targetRole, $checkSubRoles = true)
@@ -114,5 +120,4 @@ class AdminUser extends AuthenticatableBase
 
         return false;
     }
-
 }

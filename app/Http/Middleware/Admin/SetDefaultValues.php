@@ -4,7 +4,6 @@ namespace App\Http\Middleware\Admin;
 
 use App\Services\AdminUserNotificationServiceInterface;
 use App\Services\AdminUserServiceInterface;
-use Closure;
 
 class SetDefaultValues
 {
@@ -23,8 +22,7 @@ class SetDefaultValues
     public function __construct(
         AdminUserServiceInterface $adminUserService,
         AdminUserNotificationServiceInterface $adminUserNotificationService
-    )
-    {
+    ) {
         $this->adminUserService = $adminUserService;
         $this->adminUserNotificationService = $adminUserNotificationService;
     }
@@ -32,8 +30,9 @@ class SetDefaultValues
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, \Closure $next)
@@ -42,7 +41,7 @@ class SetDefaultValues
         \View::share('authUser', $user);
         \View::share('menu', '');
 
-        if ( !empty($user) ) {
+        if (!empty($user)) {
             $notificationCount = $this->adminUserNotificationService->getUnreadNotificationCount($user);
             $notifications = $this->adminUserNotificationService->getNotifications($user, 0, 10);
         } else {

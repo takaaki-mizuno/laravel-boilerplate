@@ -1,11 +1,12 @@
-<?php namespace App\Helpers\Production;
+<?php
+
+namespace App\Helpers\Production;
 
 use App\Helpers\DateTimeHelperInterface;
-use \Carbon\Carbon;
+use Carbon\Carbon;
 
 class DateTimeHelper implements DateTimeHelperInterface
 {
-
     const PRESENTATION_TIME_ZONE_SESSION_KEY = 'presentation-time-zone';
 
     public function timezoneForStorage()
@@ -15,7 +16,7 @@ class DateTimeHelper implements DateTimeHelperInterface
 
     public function setPresentationTimeZone($timezone = null)
     {
-        \Session::set(static::PRESENTATION_TIME_ZONE_SESSION_KEY,$timezone);
+        \Session::set(static::PRESENTATION_TIME_ZONE_SESSION_KEY, $timezone);
     }
 
     public function clearPresentationTimeZone()
@@ -26,7 +27,7 @@ class DateTimeHelper implements DateTimeHelperInterface
     public function getPresentationTimeZoneString()
     {
         $timezone = \Session::get(static::PRESENTATION_TIME_ZONE_SESSION_KEY);
-        if ( empty($timezone) ) {
+        if (empty($timezone)) {
             $timezone = config('app.default_presentation_timezone');
         }
 
@@ -47,8 +48,8 @@ class DateTimeHelper implements DateTimeHelperInterface
 
     public function dateTime($dateTimeStr, \DateTimeZone $timezoneFrom = null, \DateTimeZone $timezoneTo = null)
     {
-        $timezoneFrom = empty( $timezoneFrom ) ? $this->timezoneForPresentation() : $timezoneFrom;
-        $timezoneTo   = empty( $timezoneTo ) ? $this->timezoneForStorage() : $timezoneTo;
+        $timezoneFrom = empty($timezoneFrom) ? $this->timezoneForPresentation() : $timezoneFrom;
+        $timezoneTo = empty($timezoneTo) ? $this->timezoneForStorage() : $timezoneTo;
 
         return Carbon::parse($dateTimeStr, $timezoneFrom)->setTimezone($timezoneTo);
     }
@@ -81,7 +82,7 @@ class DateTimeHelper implements DateTimeHelperInterface
         return $viewDateTime->format('H:i');
     }
 
-    public function formatDateTime($dateTime, $format = "Y-m-d H:i", \DateTimeZone $timezone = null)
+    public function formatDateTime($dateTime, $format = 'Y-m-d H:i', \DateTimeZone $timezone = null)
     {
         if (empty($dateTime)) {
             $dateTime = $this->now();

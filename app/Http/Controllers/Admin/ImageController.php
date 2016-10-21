@@ -1,8 +1,8 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php
 
-use App\Http\Requests;
+namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
-
 use App\Repositories\ImageRepositoryInterface;
 use App\Http\Requests\Admin\ImageRequest;
 use App\Http\Requests\PaginationRequest;
@@ -10,7 +10,6 @@ use App\Services\FileUploadServiceInterface;
 
 class ImageController extends Controller
 {
-
     /** @var \App\Repositories\ImageRepositoryInterface */
     protected $imageRepository;
 
@@ -19,8 +18,7 @@ class ImageController extends Controller
     public function __construct(
         ImageRepositoryInterface $imageRepository,
         FileUploadServiceInterface $fileUploadService
-    )
-    {
+    ) {
         $this->imageRepository = $imageRepository;
         $this->fileUploadService = $fileUploadService;
     }
@@ -28,7 +26,8 @@ class ImageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \App\Http\Requests\PaginationRequest $request
+     * @param \App\Http\Requests\PaginationRequest $request
+     *
      * @return \Response
      */
     public function index(PaginationRequest $request)
@@ -64,6 +63,7 @@ class ImageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  $request
+     *
      * @return \Response
      */
     public function store(ImageRequest $request)
@@ -98,7 +98,8 @@ class ImageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function show($id)
@@ -117,7 +118,8 @@ class ImageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function edit($id)
@@ -128,8 +130,9 @@ class ImageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int       $id
-     * @param            $request
+     * @param int $id
+     * @param     $request
+     *
      * @return \Response
      */
     public function update($id, ImageRequest $request)
@@ -165,7 +168,8 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int       $id
+     * @param int $id
+     *
      * @return \Response
      */
     public function destroy($id)
@@ -182,5 +186,4 @@ class ImageController extends Controller
         return redirect()->action('Admin\ImageController@index')->with('message-success',
                 trans('admin.messages.general.delete_success'));
     }
-
 }

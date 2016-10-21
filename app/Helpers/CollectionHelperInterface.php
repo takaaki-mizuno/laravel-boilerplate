@@ -1,14 +1,15 @@
-<?php namespace App\Helpers;
+<?php
+
+namespace App\Helpers;
 
 interface CollectionHelperInterface
 {
-
     /**
-     * Set Locale
+     * Set Locale.
      *
-     * @param  \Illuminate\Database\Eloquent\Collection $collection
+     * @param \Illuminate\Database\Eloquent\Collection $collection
+     *
      * @return array
      */
     public function getSelectOptions($collection);
-
 }

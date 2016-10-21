@@ -1,16 +1,17 @@
-<?php namespace App\Services\Production;
+<?php
 
-use \App\Async\Jobs\Job;
+namespace App\Services\Production;
+
+use App\Async\Jobs\Job;
 use App\Services\AsyncServiceInterface;
-use \Aws\Sqs\SqsClient;
+use Aws\Sqs\SqsClient;
 
 class AsyncService extends BaseService implements AsyncServiceInterface
 {
-
     public function getJob($jobs)
     {
         if (array_get($jobs, 'id', 0) == 0) {
-            return null;
+            return;
         }
 
         return new Job($jobs);
@@ -23,7 +24,7 @@ class AsyncService extends BaseService implements AsyncServiceInterface
                 return \App::make('\App\Async\Workers\UserRegistrationWorker');
         }
 
-        return null;
+        return;
     }
 
     public function executeJob($jobObject)
@@ -45,23 +46,23 @@ class AsyncService extends BaseService implements AsyncServiceInterface
     public function registerJob($jobId, $jobInfo)
     {
         $queueData = [
-            'key'  => config('async.key'),
+            'key' => config('async.key'),
             'jobs' => [
                 [
-                    'id'   => $jobId,
+                    'id' => $jobId,
                     'data' => $jobInfo,
                 ],
             ],
         ];
         if (config('async.enable', false) == true) {
             $auth = [
-                "key"    => config('aws.accounts.key'),
-                "secret" => config('aws.accounts.secret'),
-                "region" => config('aws.accounts.region'),
+                'key' => config('aws.accounts.key'),
+                'secret' => config('aws.accounts.secret'),
+                'region' => config('aws.accounts.region'),
             ];
             $sqs = new SqsClient($auth);
             $sqs->$sqs->sendMessage([
-                'QueueUrl'    => config('async.worker.queue'),
+                'QueueUrl' => config('async.worker.queue'),
                 'MessageBody' => json_encode($queueData),
             ]);
             // Log::info('Add Queue:' . json_encode($queueData));
@@ -76,5 +77,4 @@ class AsyncService extends BaseService implements AsyncServiceInterface
             'user_id' => $userId,
         ]);
     }
-
 }

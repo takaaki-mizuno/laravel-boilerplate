@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\User;
+<?php
+
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\SignUpRequest;
@@ -7,7 +9,6 @@ use App\Http\Requests\User\SignInRequest;
 
 class AuthController extends Controller
 {
-
     /** @var \App\Services\UserServiceInterface UserService */
     protected $userService;
 
@@ -30,7 +31,7 @@ class AuthController extends Controller
         }
 
         return redirect()->intended(action('User\IndexController@index'));
-   }
+    }
 
     public function getSignUp()
     {

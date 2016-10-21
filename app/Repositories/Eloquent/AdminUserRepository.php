@@ -1,11 +1,12 @@
-<?php namespace App\Repositories\Eloquent;
+<?php
+
+namespace App\Repositories\Eloquent;
 
 use App\Repositories\AdminUserRepositoryInterface;
 use App\Models\AdminUser;
 
 class AdminUserRepository extends AuthenticatableRepository implements AdminUserRepositoryInterface
 {
-
     public function getBlankModel()
     {
         return new AdminUser();
@@ -22,5 +23,4 @@ class AdminUserRepository extends AuthenticatableRepository implements AdminUser
         return [
         ];
     }
-
 }

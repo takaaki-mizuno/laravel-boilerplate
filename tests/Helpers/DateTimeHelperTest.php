@@ -1,10 +1,11 @@
-<?php namespace Tests\Helpers;
+<?php
+
+namespace Tests\Helpers;
 
 use Tests\TestCase;
 
 class DateTimeHelperTest extends TestCase
 {
-
     public function testGetInstance()
     {
         /** @var  \App\Helpers\DateTimeHelperInterface $helper */
@@ -55,7 +56,6 @@ class DateTimeHelperTest extends TestCase
         $this->assertEquals($defaultNow->format('Y-m-d'), $helper->formatDate($fromTimestamp));
         $this->assertEquals($defaultNow->format('Y-m-d'), $helper->formatDate($fromTimestamp));
         $this->assertEquals($defaultNow->format('H:i'), $helper->formatTime($fromTimestamp));
-
     }
 
     public function testTimeZoneForStorage()
@@ -76,5 +76,4 @@ class DateTimeHelperTest extends TestCase
         $time = $helper->dateTime('2018-01-01 10:10:10', new \DateTimeZone($newTimeZone), new \DateTimeZone($newTimeZone));
         $this->assertEquals($newTimeZone, $time->getTimezone()->getName());
     }
-
 }

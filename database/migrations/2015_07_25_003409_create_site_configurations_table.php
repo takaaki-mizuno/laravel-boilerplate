@@ -7,8 +7,6 @@ class CreateSiteConfigurationsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -32,18 +30,13 @@ class CreateSiteConfigurationsTable extends Migration
             $table->index(['locale']);
         });
 
-        DB::statement("ALTER TABLE site_configurations MODIFY created_at " .
-            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+        DB::statement('ALTER TABLE site_configurations MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
 
-        DB::statement("ALTER TABLE site_configurations MODIFY updated_at " .
-            "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-
+        DB::statement('ALTER TABLE site_configurations MODIFY updated_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

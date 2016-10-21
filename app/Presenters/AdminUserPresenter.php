@@ -1,4 +1,6 @@
-<?php namespace App\Presenters;
+<?php
+
+namespace App\Presenters;
 
 class AdminUserPresenter extends BasePresenter
 {

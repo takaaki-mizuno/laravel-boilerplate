@@ -1,13 +1,14 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 /**
- * App\Models\ServiceAuthenticationBase
+ * App\Models\ServiceAuthenticationBase.
  *
  * @mixin \Eloquent
  */
 class ServiceAuthenticationBase extends Base
 {
-
     /**
      * The attributes that are mass assignable.
      *
@@ -28,6 +29,5 @@ class ServiceAuthenticationBase extends Base
      */
     protected $hidden = [];
 
-    protected $dates  = [];
-
+    protected $dates = [];
 }

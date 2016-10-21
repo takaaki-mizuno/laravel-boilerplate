@@ -1,4 +1,6 @@
-<?php namespace Tests\Repositories;
+<?php
+
+namespace Tests\Repositories;
 
 use App\Models\Article;
 use Tests\TestCase;
@@ -93,7 +95,6 @@ class ArticleRepositoryTest extends TestCase
         $articles = $repository->allByLocale('ja');
         $this->assertEquals(2, count($articles));
 
-
         $count = $repository->countByLocale('en');
         $this->assertEquals(3, $count);
 
@@ -102,8 +103,5 @@ class ArticleRepositoryTest extends TestCase
 
         $article = $repository->findByLocale('th');
         $this->assertEquals('th', $article->locale);
-
     }
-
-
 }

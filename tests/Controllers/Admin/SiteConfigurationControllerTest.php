@@ -1,10 +1,10 @@
-<?php  namespace Tests\Controllers\Admin;
+<?php
+namespace Tests\Controllers\Admin;
 
 use Tests\TestCase;
 
 class SiteConfigurationControllerTest extends TestCase
 {
-
     protected $useDatabase = true;
 
     public function testGetInstance()
@@ -84,5 +84,4 @@ class SiteConfigurationControllerTest extends TestCase
         $checkSiteConfiguration = \App\Models\SiteConfiguration::find($id);
         $this->assertNull($checkSiteConfiguration);
     }
-
 }

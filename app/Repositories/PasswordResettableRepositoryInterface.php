@@ -1,4 +1,6 @@
-<?php namespace App\Repositories;
+<?php
+
+namespace App\Repositories;
 
 use Illuminate\Auth\Passwords\TokenRepositoryInterface;
 
@@ -6,8 +8,8 @@ interface PasswordResettableRepositoryInterface extends TokenRepositoryInterface
 {
     /**
      * @param $token
-     * @return integer
+     *
+     * @return int
      */
     public function findEmailByToken($token);
-
 }

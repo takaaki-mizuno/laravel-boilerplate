@@ -1,6 +1,7 @@
-<?php namespace App\Helpers;
+<?php
+
+namespace App\Helpers;
 
 interface UserNotificationHelperInterface
 {
-
 }

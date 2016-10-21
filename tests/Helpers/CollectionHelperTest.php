@@ -1,10 +1,11 @@
-<?php namespace Tests\Helpers;
+<?php
+
+namespace Tests\Helpers;
 
 use Tests\TestCase;
 
 class CollectionHelperTest extends TestCase
 {
-
     protected $useDatabase = true;
 
     public function testGetInstance()
@@ -25,12 +26,11 @@ class CollectionHelperTest extends TestCase
 
         $expects = [];
         foreach ($adminUsers as $adminUser) {
-            /** @var \App\Models\AdminUser $adminUser */
+            /* @var \App\Models\AdminUser $adminUser */
             $expects[ $adminUser->id ] = $adminUser->name;
         }
 
         $result = $helper->getSelectOptions($adminUsers);
         $this->assertEquals($expects, $result);
     }
-
 }

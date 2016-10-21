@@ -1,10 +1,11 @@
-<?php namespace Tests\Helpers;
+<?php
+
+namespace Tests\Helpers;
 
 use Tests\TestCase;
 
 class StringHelperTest extends TestCase
 {
-
     public function testGetInstance()
     {
         /** @var  \App\Helpers\StringHelperInterface $helper */
@@ -22,5 +23,4 @@ class StringHelperTest extends TestCase
         $anotherString = $helper->randomString(10);
         $this->assertNotEquals($anotherString, $string);
     }
-
 }

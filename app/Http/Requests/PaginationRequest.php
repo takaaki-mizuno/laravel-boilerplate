@@ -1,4 +1,6 @@
-<?php namespace App\Http\Requests;
+<?php
+
+namespace App\Http\Requests;
 
 class PaginationRequest extends BaseRequest
 {
@@ -38,7 +40,8 @@ class PaginationRequest extends BaseRequest
     }
 
     /**
-     * @param  int $default
+     * @param int $default
+     *
      * @return int
      */
     public function limit($default = 10)
@@ -53,7 +56,6 @@ class PaginationRequest extends BaseRequest
         $order = $this->get('order', $default);
 
         return strtolower($order);
-
     }
 
     public function direction($default = 'asc')
@@ -64,7 +66,5 @@ class PaginationRequest extends BaseRequest
         }
 
         return strtolower($direction);
-
     }
-
 }

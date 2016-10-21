@@ -24,7 +24,7 @@ return [
     ],
 
     'ses' => [
-        'key'    => env('SES_KEY'),
+        'key' => env('SES_KEY'),
         'secret' => env('SES_SECRET'),
         'region' => 'us-east-1',
     ],
@@ -34,32 +34,32 @@ return [
     ],
 
     'stripe' => [
-        'model'  => \App\Models\User::class,
-        'key'    => env('STRIPE_KEY'),
+        'model' => \App\Models\User::class,
+        'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
 
     'facebook' => [
-        'client_id'       => env('FACEBOOK_APP_ID'),
-        'client_secret'   => env('FACEBOOK_SECRET'),
+        'client_id' => env('FACEBOOK_APP_ID'),
+        'client_secret' => env('FACEBOOK_SECRET'),
         'redirect_action' => 'User\FacebookServiceAuthController@callback',
     ],
 
     'twitter' => [
-        'client_id'       => '',
-        'client_secret'   => '',
+        'client_id' => '',
+        'client_secret' => '',
         'redirect_action' => '',
     ],
 
     'google' => [
-        'client_id'       => '',
-        'client_secret'   => '',
+        'client_id' => '',
+        'client_secret' => '',
         'redirect_action' => '',
     ],
 
     'github' => [
-        'client_id'       => '',
-        'client_secret'   => '',
+        'client_id' => '',
+        'client_secret' => '',
         'redirect_action' => '',
     ],
 

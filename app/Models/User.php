@@ -1,23 +1,26 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\User
+ * App\Models\User.
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $email
  * @property string $password
  * @property string $locale
- * @property integer $last_notification_id
+ * @property int $last_notification_id
  * @property string $api_access_token
- * @property integer $profile_image_id
+ * @property int $profile_image_id
  * @property \Carbon\Carbon $deleted_at
  * @property string $remember_token
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \App\Models\Image $profileImage
+ *
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereEmail($value)
@@ -68,7 +71,7 @@ class User extends AuthenticatableBase
      */
     protected $hidden = ['password', 'remember_token', 'facebook_token'];
 
-    protected $dates  = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 
     /*
      * API Presentation
@@ -77,7 +80,7 @@ class User extends AuthenticatableBase
     public function toAPIArray()
     {
         return [
-            'id'   => $this->id,
+            'id' => $this->id,
             'name' => $this->name,
         ];
     }

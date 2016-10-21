@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Repositories\AdminUserRepositoryInterface;
 use App\Repositories\AdminUserRoleRepositoryInterface;
 use App\Http\Requests\PaginationRequest;
@@ -15,7 +11,6 @@ use Illuminate\Support\MessageBag;
 
 class AdminUserController extends Controller
 {
-
     /** @var \App\Repositories\AdminUserRepositoryInterface */
     protected $adminUserRepository;
 
@@ -29,8 +24,7 @@ class AdminUserController extends Controller
         AdminUserRepositoryInterface $adminUserRepositoryInterface,
         AdminUserRoleRepositoryInterface $adminUserRoleRepositoryInterface,
         MessageBag $messageBag
-    )
-    {
+    ) {
         $this->adminUserRepository = $adminUserRepositoryInterface;
         $this->adminUserRoleRepository = $adminUserRoleRepositoryInterface;
         $this->messageBag = $messageBag;
@@ -46,22 +40,22 @@ class AdminUserController extends Controller
 
         return view('pages.admin.admin-users.index', [
             'adminUsers' => $adminUsers,
-            'offset'     => $offset,
-            'limit'      => $limit,
-            'count'      => $count,
-            'baseUrl'    => action('Admin\AdminUserController@index'),
+            'offset' => $offset,
+            'limit' => $limit,
+            'count' => $count,
+            'baseUrl' => action('Admin\AdminUserController@index'),
         ]);
     }
 
     public function show($id)
     {
         $adminUser = $this->adminUserRepository->find($id);
-        if (empty( $adminUser )) {
+        if (empty($adminUser)) {
             abort(404);
         }
 
         return view('pages.admin.admin-users.edit', [
-            'isNew'     => false,
+            'isNew' => false,
             'adminUser' => $adminUser,
         ]);
     }
@@ -69,15 +63,13 @@ class AdminUserController extends Controller
     public function create()
     {
         return view('pages.admin.admin-users.edit', [
-            'isNew'     => true,
+            'isNew' => true,
             'adminUser' => $this->adminUserRepository->getBlankModel(),
         ]);
-
     }
 
     public function store(AdminUserUpdateRequest $request)
     {
-
         $input = $request->only([
             'name',
             'email',
@@ -94,7 +86,7 @@ class AdminUserController extends Controller
     public function update($id, AdminUserUpdateRequest $request)
     {
         $adminUser = $this->adminUserRepository->find($id);
-        if (empty( $adminUser )) {
+        if (empty($adminUser)) {
             abort(404);
         }
 

@@ -1,13 +1,13 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Services\AuthenticatableServiceInterface;
 use App\Services\ServiceAuthenticationServiceInterface;
-
 use Laravel\Socialite\Contracts\Factory as Socialite;
 
 class ServiceAuthController extends Controller
 {
-
     /** @var string */
     protected $driver = '';
 
@@ -30,8 +30,7 @@ class ServiceAuthController extends Controller
         AuthenticatableServiceInterface $authenticatableService,
         ServiceAuthenticationServiceInterface $serviceAuthenticationService,
         Socialite $socialite
-    )
-    {
+    ) {
         $this->authenticatableService = $authenticatableService;
         $this->serviceAuthenticationService = $serviceAuthenticationService;
         $this->socialite = $socialite;
@@ -58,15 +57,15 @@ class ServiceAuthController extends Controller
         $name = $serviceUser->getName();
         $email = $serviceUser->getEmail();
 
-        if (empty( $email )) {
+        if (empty($email)) {
             return redirect()->action($this->errorRedirectAction)->withErrors([trans('sign_in_failed_title'), trans('failed_to_get_email')]);
         }
 
         $authUserId = $this->serviceAuthenticationService->getAuthModelId($this->driver, [
-            'service'    => $this->driver,
+            'service' => $this->driver,
             'service_id' => $serviceUserId,
-            'name'       => $name,
-            'email'      => $email,
+            'name' => $name,
+            'email' => $email,
         ]);
 
         if (!empty($authUserId)) {

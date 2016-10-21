@@ -7,8 +7,6 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
@@ -16,7 +14,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call('AdminUserTableSeeder');
 
-        if( App::environment() === 'testing' ) {
+        if (App::environment() === 'testing') {
             // Add More Seed For Testing
         }
 

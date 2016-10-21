@@ -1,4 +1,6 @@
-<?php namespace App\Http\Middleware\Admin;
+<?php
+
+namespace App\Http\Middleware\Admin;
 
 use Closure;
 use App\Services\AdminUserServiceInterface;
@@ -6,7 +8,6 @@ use App\Models\AdminUserRole;
 
 class HasRoleSuperUser
 {
-
     /** @var AdminUserServiceInterface */
     protected $adminUserService;
 
@@ -23,8 +24,9 @@ class HasRoleSuperUser
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -36,5 +38,4 @@ class HasRoleSuperUser
         }
         \App::abort(403);
     }
-
 }

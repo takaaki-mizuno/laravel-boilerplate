@@ -8,8 +8,6 @@ class RepositoryBindServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -18,12 +16,9 @@ class RepositoryBindServiceProvider extends ServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register()
     {
-
         $this->app->singleton('App\Repositories\AdminUserRepositoryInterface',
             'App\Repositories\Eloquent\AdminUserRepository');
 
@@ -82,6 +77,5 @@ class RepositoryBindServiceProvider extends ServiceProvider
         );
 
         /* NEW BINDING */
-
     }
 }

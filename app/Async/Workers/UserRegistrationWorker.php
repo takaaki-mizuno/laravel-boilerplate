@@ -1,11 +1,12 @@
-<?php namespace App\Async\Workers;
+<?php
+
+namespace App\Async\Workers;
 
 use App\Repositories\UserRepositoryInterface;
 use App\Services\MailService;
 
 class UserRegistrationWorker extends Worker
 {
-
     /** @var \App\Repositories\UserRepositoryInterface */
     protected $userRepository;
 
@@ -15,14 +16,14 @@ class UserRegistrationWorker extends Worker
     public function __construct(
         UserRepositoryInterface $userRepository,
         MailService $mailService
-    )
-    {
+    ) {
         $this->userRepository = $userRepository;
         $this->mailService = $mailService;
     }
 
     /**
-     * @param  \App\Async\Jobs\Job $job
+     * @param \App\Async\Jobs\Job $job
+     *
      * @return bool
      */
     public function execute($job)
@@ -36,5 +37,4 @@ class UserRegistrationWorker extends Worker
 
         return true;
     }
-
 }

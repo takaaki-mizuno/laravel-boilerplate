@@ -1,10 +1,11 @@
-<?php namespace Tests\Services;
+<?php
+
+namespace Tests\Services;
 
 use Tests\TestCase;
 
 class LanguageDetectionServiceTest extends TestCase
 {
-
     public function testGetInstance()
     {
         /** @var  \App\Services\LanguageDetectionServiceInterface $service */
@@ -36,7 +37,5 @@ class LanguageDetectionServiceTest extends TestCase
 
         $locale = $service->detect('en');
         $this->assertEquals('en', $locale);
-
     }
-
 }

@@ -14,7 +14,7 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -27,13 +27,13 @@ require __DIR__ . '/../vendor/autoload.php';
 |
 */
 
-$compiledPath = __DIR__ . '/cache/compiled.php';
+$compiledPath = __DIR__.'/cache/compiled.php';
 
 if (file_exists($compiledPath)) {
     require $compiledPath;
 }
 
 // https://laracasts.com/discuss/channels/testing/laravel-5-phpunit-memory-allocation-exhausted/replies/128305
-if(env('APP_ENV') == 'testing') {
+if (env('APP_ENV') == 'testing') {
     ini_set('memory_limit', '2G');
 }

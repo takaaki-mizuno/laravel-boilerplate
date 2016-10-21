@@ -4,10 +4,9 @@ use Illuminate\Database\Seeder;
 
 class CSVSeeder extends Seeder
 {
+    protected $table = 'table name';
 
-    protected $table      = 'table name';
-
-    protected $isTest     = false;
+    protected $isTest = false;
 
     protected $isDisabled = false;
 
@@ -35,7 +34,7 @@ class CSVSeeder extends Seeder
         $data = null;
     }
 
-    function csvToArray($filename = '', $delimiter = ',')
+    public function csvToArray($filename = '', $delimiter = ',')
     {
         if (!file_exists($filename) || !is_readable($filename)) {
             return false;
@@ -44,8 +43,8 @@ class CSVSeeder extends Seeder
         $header = null;
         $data = [];
 
-        if (( $handle = fopen($filename, 'r') ) !== false) {
-            while (( $row = fgetcsv($handle, 1500, $delimiter) ) !== false) {
+        if (($handle = fopen($filename, 'r')) !== false) {
+            while (($row = fgetcsv($handle, 1500, $delimiter)) !== false) {
                 if (!$header) {
                     $header = $row;
                 } else {
@@ -60,7 +59,7 @@ class CSVSeeder extends Seeder
                         $data[] = $rowData;
                     } catch (Exception $e) {
                         print_r($row);
-                        print $e->getMessage();
+                        echo $e->getMessage();
                         exit;
                     }
                 }

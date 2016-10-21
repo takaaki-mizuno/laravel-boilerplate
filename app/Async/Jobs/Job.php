@@ -9,6 +9,9 @@ class Job
     /** @var int $id */
     public $id;
 
+    /** @var array $_data */
+    protected $_data;
+
     /**
      * @param array $jobs
      */

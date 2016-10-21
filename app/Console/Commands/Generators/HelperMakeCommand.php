@@ -64,7 +64,7 @@ class HelperMakeCommand extends GeneratorCommandBase
 
         $className = $this->getClassName($name);
 
-        $stub = $this->files->get($this->getStubForInterface($name));
+        $stub = $this->files->get($this->getStubForInterface());
         $this->replaceTemplateVariable($stub, 'CLASS', $className);
         $this->files->put($path, $stub);
 
@@ -89,7 +89,7 @@ class HelperMakeCommand extends GeneratorCommandBase
 
         $className = $this->getClassName($name);
 
-        $stub = $this->files->get($this->getStubForHelper($name));
+        $stub = $this->files->get($this->getStubForHelper());
         $this->replaceTemplateVariable($stub, 'CLASS', $className);
         $this->files->put($path, $stub);
 
@@ -114,7 +114,7 @@ class HelperMakeCommand extends GeneratorCommandBase
 
         $className = $this->getClassName($name);
 
-        $stub = $this->files->get($this->getStubForFacade($name));
+        $stub = $this->files->get($this->getStubForFacade());
         $this->replaceTemplateVariable($stub, 'CLASS', $className);
         $this->files->put($path, $stub);
 
@@ -139,7 +139,7 @@ class HelperMakeCommand extends GeneratorCommandBase
 
         $className = $this->getClassName($name);
 
-        $stub = $this->files->get($this->getStubForUnitTest($name));
+        $stub = $this->files->get($this->getStubForUnitTest());
         $this->replaceTemplateVariable($stub, 'CLASS', $className);
         $this->files->put($path, $stub);
 
@@ -205,22 +205,22 @@ class HelperMakeCommand extends GeneratorCommandBase
         return $this->laravel['path'].'/../tests/Helpers/'.$className.'Test.php';
     }
 
-    protected function getStubForInterface($name)
+    protected function getStubForInterface()
     {
         return __DIR__.'/stubs/helper-interface.stub';
     }
 
-    protected function getStubForHelper($name)
+    protected function getStubForHelper()
     {
         return __DIR__.'/stubs/helper.stub';
     }
 
-    protected function getStubForFacade($name)
+    protected function getStubForFacade()
     {
         return __DIR__.'/stubs/facade.stub';
     }
 
-    protected function getStubForUnitTest($name)
+    protected function getStubForUnitTest()
     {
         return __DIR__.'/stubs/helper-unittest.stub';
     }

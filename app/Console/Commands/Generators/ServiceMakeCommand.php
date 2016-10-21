@@ -58,7 +58,7 @@ class ServiceMakeCommand extends GeneratorCommandBase
 
         $className = $this->getClassName($name);
 
-        $interfaceStub = $this->files->get($this->getStubForInterface($name));
+        $interfaceStub = $this->files->get($this->getStubForInterface());
         $this->replaceTemplateVariable($interfaceStub, 'CLASS', $className);
         $this->files->put($interfacePath, $interfaceStub);
 
@@ -77,7 +77,7 @@ class ServiceMakeCommand extends GeneratorCommandBase
         $this->makeDirectory($path);
         $className = $this->getClassName($name);
 
-        $stub = $this->files->get($this->getStub($name));
+        $stub = $this->files->get($this->getStub());
         $this->replaceTemplateVariable($stub, 'CLASS', $className);
         $this->files->put($path, $stub);
 
@@ -102,7 +102,7 @@ class ServiceMakeCommand extends GeneratorCommandBase
 
         $className = $this->getClassName($name);
 
-        $stub = $this->files->get($this->getStubForUnitTest($name));
+        $stub = $this->files->get($this->getStubForUnitTest());
         $this->replaceTemplateVariable($stub, 'CLASS', $className);
         $this->files->put($path, $stub);
 
@@ -141,12 +141,12 @@ class ServiceMakeCommand extends GeneratorCommandBase
         return $this->laravel['path'].'/Services/Production/'.$className.'.php';
     }
 
-    protected function getStub($name)
+    protected function getStub()
     {
         return __DIR__.'/stubs/service.stub';
     }
 
-    protected function getStubForInterface($name)
+    protected function getStubForInterface()
     {
         return __DIR__.'/stubs/service-interface.stub';
     }
@@ -158,10 +158,8 @@ class ServiceMakeCommand extends GeneratorCommandBase
         return $this->laravel['path'].'/../tests/Services/'.$className.'Test.php';
     }
 
-    protected function getStubForUnitTest($name)
+    protected function getStubForUnitTest()
     {
-        $className = $this->getClassName($name);
-
         return __DIR__.'/stubs/service-unittest.stub';
     }
 

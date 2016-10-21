@@ -35,6 +35,10 @@ class ModelMakeCommand extends GeneratorCommandBase
         $this->generateUnitTest($name);
     }
 
+    /**
+     * @param  string $name
+     * @return bool
+     */
     protected function generateModel($name)
     {
         $path = $this->getPath($name);
@@ -48,7 +52,7 @@ class ModelMakeCommand extends GeneratorCommandBase
         $className = $this->getClassName($name);
         $tableName = $this->getTableName($name);
 
-        $stub = $this->files->get($this->getStub($name));
+        $stub = $this->files->get($this->getStub());
         $this->replaceTemplateVariable($stub, 'CLASS', $className);
         $this->replaceTemplateVariable($stub, 'TABLE', $tableName);
 
@@ -90,6 +94,10 @@ class ModelMakeCommand extends GeneratorCommandBase
         return true;
     }
 
+    /**
+     * @param string $name
+     * @return string
+     */
     protected function getPath($name)
     {
         $className = $this->getClassName($name);
@@ -97,11 +105,18 @@ class ModelMakeCommand extends GeneratorCommandBase
         return $this->laravel['path'].'/Models/'.$className.'.php';
     }
 
-    protected function getStub($name)
+    /**
+     * @return string
+     */
+    protected function getStub()
     {
         return __DIR__.'/stubs/model.stub';
     }
 
+    /**
+     * @param  string $name
+     * @return string
+     */
     protected function getTableName($name)
     {
         $options = $this->option();
@@ -148,6 +163,10 @@ class ModelMakeCommand extends GeneratorCommandBase
         return $className;
     }
 
+    /**
+     * @param  string $tableName
+     * @return array
+     */
     protected function getFillableColumns($tableName)
     {
         $hasDoctrine = interface_exists('Doctrine\DBAL\Driver');
@@ -172,6 +191,10 @@ class ModelMakeCommand extends GeneratorCommandBase
         return $ret;
     }
 
+    /**
+     * @param  string $tableName
+     * @return array
+     */
     protected function getDateTimeColumns($tableName)
     {
         $hasDoctrine = interface_exists('Doctrine\DBAL\Driver');
@@ -196,6 +219,10 @@ class ModelMakeCommand extends GeneratorCommandBase
         return $ret;
     }
 
+    /**
+     * @param  string $tableName
+     * @return bool
+     */
     protected function hasSoftDeleteColumn($tableName)
     {
         $columns = $this->getTableColumns($tableName, false);
@@ -245,6 +272,10 @@ class ModelMakeCommand extends GeneratorCommandBase
         return $ret;
     }
 
+    /**
+     * @param  string $name
+     * @return bool
+     */
     protected function generatePresenter($name)
     {
         $className = $this->getClassName($name);
@@ -282,8 +313,14 @@ class ModelMakeCommand extends GeneratorCommandBase
         $this->replaceTemplateVariable($stub, 'CLASS', $className);
 
         $this->files->put($path, $stub);
+
+        return true;
     }
 
+    /**
+     * @param  string $name
+     * @return string
+     */
     protected function getPresenterPath($name)
     {
         $className = $this->getClassName($name);
@@ -299,6 +336,10 @@ class ModelMakeCommand extends GeneratorCommandBase
         return __DIR__.'/stubs/presenter.stub';
     }
 
+    /**
+     * @param  string $name
+     * @return bool
+     */
     protected function addModelFactory($name)
     {
         $className = $this->getClassName($name);
@@ -321,11 +362,18 @@ class ModelMakeCommand extends GeneratorCommandBase
         return true;
     }
 
+    /**
+     * @return string
+     */
     protected function getFactoryPath()
     {
         return $this->laravel['path'].'/../database/factories/ModelFactory.php';
     }
 
+    /**
+     * @param  string $name
+     * @return bool
+     */
     protected function generateUnitTest($name)
     {
         $className = $this->getClassName($name);

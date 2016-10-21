@@ -206,10 +206,10 @@ class ArticleController extends Controller
         $input['is_enabled'] = $request->get('is_enabled', 0);
         $dateTimeColumns = ['publish_started_at', 'publish_ended_at'];
         foreach ($dateTimeColumns as $dateTimeColumn) {
-            if (array_key_exists($dateTimeColumn, $input) && !empty($input[ $dateTimeColumn ])) {
-                $input[ $dateTimeColumn ] = \DateTimeHelper::convertToStorageDateTime($input[ $dateTimeColumn ]);
+            if (array_key_exists($dateTimeColumn, $input) && !empty($input[$dateTimeColumn])) {
+                $input[$dateTimeColumn] = \DateTimeHelper::convertToStorageDateTime($input[$dateTimeColumn]);
             } else {
-                $input[ $dateTimeColumn ] = null;
+                $input[$dateTimeColumn] = null;
             }
         }
 

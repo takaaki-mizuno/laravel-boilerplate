@@ -28,6 +28,7 @@ class ModelMakeCommand extends GeneratorCommandBase
     protected function generate($name)
     {
         $this->generateModel($name);
+        $this->generatePresenter($name);
         $this->addModelFactory($name);
         $this->generateUnitTest($name);
     }
@@ -62,6 +63,21 @@ class ModelMakeCommand extends GeneratorCommandBase
         $columns = $this->getDateTimeColumns($tableName);
         $datetimes = count($columns) > 0 ? "'".join("','", $columns)."'" : '';
         $this->replaceTemplateVariable($stub, 'DATETIMES', $datetimes);
+
+        $relations = "";
+        foreach ($columns as $column) {
+            if (preg_match('/^(.*_image)_id$/', $column, $matches)) {
+                $key = $matches[1];
+                $relationName = \StringHelper::snake2Camel($key);
+                $relations .= '    public function '.$relationName.'()'.PHP_EOL.'    {'.PHP_EOL.'        return $this->hasOne(\App\Models\Image::class, \'id\', \''.$column.'\');'.PHP_EOL.'    }'.PHP_EOL.PHP_EOL;
+            }elseif (preg_match('/^(.*)_id$/', $column, $matches)) {
+                $key = $matches[1];
+                $relationName = \StringHelper::snake2Camel($key);
+                $relatedModelName = ucfirst($relationName);
+                $relations .= '    public function '.$relationName.'()'.PHP_EOL.'    {'.PHP_EOL.'        return $this->belongsTo(\App\Models\\'.$relatedModelName.'::class, \''.$column.'\', \'id\');'.PHP_EOL.'    }'.PHP_EOL.PHP_EOL;
+            }
+        }
+        $this->replaceTemplateVariable($stub, 'RELATIONS', $relations);
 
         $hasSoftDelete = $this->hasSoftDeleteColumn($tableName);
         $this->replaceTemplateVariable($stub, 'SOFT_DELETE_CLASS_USE',
@@ -194,8 +210,8 @@ class ModelMakeCommand extends GeneratorCommandBase
     }
 
     /**
-     * @param  string                         $tableName
-     * @param  bool                           $removeDefaultCoulmn
+     * @param  string $tableName
+     * @param  bool $removeDefaultCoulmn
      * @return \Doctrine\DBAL\Schema\Column[]
      */
     protected function getTableColumns($tableName, $removeDefaultCoulmn = true)
@@ -224,6 +240,60 @@ class ModelMakeCommand extends GeneratorCommandBase
         }
 
         return $ret;
+    }
+
+    protected function generatePresenter($name)
+    {
+        $className = $this->getClassName($name);
+        $tableName = $this->getTableName($name);
+
+        $path = $this->getPresenterPath($name);
+        if ($this->alreadyExists($path)) {
+            $this->error($path.' already exists.');
+
+            return false;
+        }
+
+        $stub = $this->files->get($this->getStubForPresenter());
+
+        $columns = $this->getFillableColumns($tableName);
+        $multilingualKeys = [];
+        foreach ($columns as $column) {
+            if (preg_match('/^(.*)_en$/', $column, $matches)) {
+                $multilingualKeys[] = $matches[1];
+            }
+        }
+        $multilingualKeyString = count($multilingualKeys) > 0 ? "'".join("','",
+                array_unique($multilingualKeys))."'" : '';
+        $this->replaceTemplateVariable($stub, 'MULTILINGUAL_COLUMNS', $multilingualKeyString);
+
+        $imageFields = [];
+        foreach ($columns as $column) {
+            if (preg_match('/^(.*_image)_id$/', $column, $matches)) {
+                $imageFields[] = $matches[1];
+            }
+        }
+        $imageFieldString = count($imageFields) > 0 ? "'".join("','", array_unique($imageFields))."'" : '';
+        $this->replaceTemplateVariable($stub, 'IMAGE_COLUMNS', $imageFieldString);
+
+        $this->replaceTemplateVariable($stub, 'CLASS', $className);
+
+        $this->files->put($path, $stub);
+    }
+
+    protected function getPresenterPath($name)
+    {
+        $className = $this->getClassName($name);
+
+        return $this->laravel['path'].'/Presenters/'.$className.'Presenter.php';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getStubForPresenter()
+    {
+        return __DIR__.'/stubs/presenter.stub';
     }
 
     protected function addModelFactory($name)

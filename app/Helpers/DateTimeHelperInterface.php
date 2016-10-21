@@ -92,4 +92,11 @@ interface DateTimeHelperInterface
      */
     public function convertToStorageDateTime($dateTimeString);
 
+
+    /**
+     * @param  \DateTime $dateTime
+     * @return \DateTime
+     */
+    public function changeToPresentationTimeZone($dateTime);
+
 }

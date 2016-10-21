@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Presenters;
+
+class %%CLASS%%Presenter extends BasePresenter
+{
+    protected $multilingualFields = [%%MULTILINGUAL_COLUMNS%%];
+
+    protected $imageFields = [%%IMAGE_COLUMNS%%];
+}

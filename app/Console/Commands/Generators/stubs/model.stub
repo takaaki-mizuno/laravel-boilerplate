@@ -30,8 +30,10 @@ class %%CLASS%% extends Base
 
     protected $dates  = [%%DATETIMES%%];
 
-    // Relations
+    protected $presenter = \App\Presenters\%%CLASS%%Presenter::class;
 
+    // Relations
+    %%RELATIONS%%
     // Utility Functions
 
     /*

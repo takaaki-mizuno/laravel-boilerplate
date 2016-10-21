@@ -66,8 +66,20 @@ class Base extends Model
         return [];
     }
 
+    /**
+     * @return string[]
+     */
     public function getFillableColumns()
     {
         return $this->fillable;
     }
+
+    /**
+     * @return string[]
+     */
+    public function getDateColumns()
+    {
+        return $this->dates;
+    }
+
 }

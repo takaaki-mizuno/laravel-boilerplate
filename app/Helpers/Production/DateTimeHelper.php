@@ -105,4 +105,9 @@ class DateTimeHelper implements DateTimeHelperInterface
 
         return $dateTime;
     }
+
+    public function changeToPresentationTimeZone($dateTime)
+    {
+        return $dateTime->setTimezone($this->timezoneForPresentation());
+    }
 }

@@ -125,7 +125,7 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param array $ids
+     * @param integer[] $ids
      *
      * @return string
      */
@@ -141,14 +141,14 @@ class BaseRepository implements BaseRepositoryInterface
 
     /**
      * @param \Illuminate\Database\Query\Builder $query
-     * @param array                              $orderCandidates
+     * @param string[]                           $orderCandidates
      * @param string                             $orderDefault
      * @param string                             $order
      * @param string                             $direction
      * @param int                                $offset
      * @param int                                $limit
      *
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     protected function getWithQueryBuilder(
         $query,

@@ -43,7 +43,7 @@ class AuthenticatableService implements AuthenticatableServiceInterface
 
     public function signIn($input)
     {
-        $rememberMe = (bool) array_get($input, 'remember_me', 0);
+        $rememberMe = (bool)array_get($input, 'remember_me', 0);
         $guard = $this->getGuard();
         if (!$guard->attempt(['email' => $input['email'], 'password' => $input['password']], $rememberMe, true)) {
             return;

@@ -17,7 +17,7 @@ class SlackService extends BaseService implements SlackServiceInterface
     {
         $fields = [];
 
-        $addToField = function ($name, $value, $short = false) use (&$fields) {
+        $addToField = function($name, $value, $short = false) use (&$fields) {
             if (!empty($value)) {
                 $fields[] = [
                     'title' => $name,

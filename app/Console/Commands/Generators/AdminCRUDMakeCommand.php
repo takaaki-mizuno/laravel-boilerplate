@@ -138,7 +138,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
             }
         }
 
-        $list = implode(',', array_map(function ($name) {
+        $list = implode(',', array_map(function($name) {
             return "'".$name."'";
         }, $params));
 

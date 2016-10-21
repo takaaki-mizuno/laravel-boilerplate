@@ -152,7 +152,7 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
         $sessionIds = \Session::get(self::IMAGE_ID_SESSION_KEY, []);
         $pos = array_search(intval($imageId), $sessionIds);
         if ($pos !== false) {
-            unset($sessionIds[ $pos ]);
+            unset($sessionIds[$pos]);
             \Session::put(self::IMAGE_ID_SESSION_KEY, array_values($sessionIds));
         }
     }
@@ -317,7 +317,7 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
         $client = $this->getS3Client($region);
 
         if (!file_exists($path)) {
-            return;
+            return null;
         }
 
         $client->putObject([
@@ -342,7 +342,7 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
     {
         $pos = ord(time() % 10) % count($candidates);
 
-        return $candidates[ $pos ];
+        return $candidates[$pos];
     }
 
     /**

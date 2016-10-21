@@ -35,8 +35,8 @@ if (!function_exists('http_build_url')) {
 
         if ($flags & HTTP_URL_REPLACE) {
             foreach ($key as $v) {
-                if (isset($parts[ $v ])) {
-                    $new_url[ $v ] = $parts[ $v ];
+                if (isset($parts[$v])) {
+                    $new_url[$v] = $parts[$v];
                 }
             }
         } else {
@@ -60,7 +60,7 @@ if (!function_exists('http_build_url')) {
 
         foreach ($key as $v) {
             if ($flags & constant('HTTP_URL_STRIP_'.strtoupper($v))) {
-                unset($new_url[ $v ]);
+                unset($new_url[$v]);
             }
         }
 

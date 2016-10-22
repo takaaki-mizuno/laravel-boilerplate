@@ -17,9 +17,10 @@ Then, change the directory name to your own project name.
 
 `mv laravel-boilerplate [your-own-project-name]`
 
-Create your own repository on GitHub.And you can change origin url to your own remote repository.
+Create your own repository on GitHub.And you can change origin url to your own remote repository and push it.
 
 `git remote set-url origin [your-git-url]`
+`git push -u origin master`
 
 And after that, you can add this boilerplate remote repository as another remote url.
 

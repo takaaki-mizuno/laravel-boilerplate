@@ -349,8 +349,8 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
                 $relationName = lcfirst(\StringHelper::snake2Camel($fieldName));
                 $idName = \StringHelper::camel2Spinal($relationName);
 
-                $template = '                    @if( !empty($company->%%relation%%) )'
-                    .PHP_EOL.'                        <img width="400" src="{!! $article->%%relation%%->getThumbnailUrl(480, 300) !!}" alt="" class="margin" />'
+                $template = '                    @if( !empty($%%class%%->%%relation%%) )'
+                    .PHP_EOL.'                        <img width="400" src="{!! $%%class%%->%%relation%%->getThumbnailUrl(480, 300) !!}" alt="" class="margin" />'
                     .PHP_EOL.'                    @endif'
                     .PHP_EOL.'                    <div class="form-group">'
                     .PHP_EOL.'                        <label for="%%field%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'
@@ -385,7 +385,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
                     $template = '                    <div class="form-group">'
                         .PHP_EOL.'                        <div class="checkbox">'
                         .PHP_EOL.'                        <label>'
-                        .PHP_EOL.'                        <input type="checkbox" name="is_enabled" value="1"'
+                        .PHP_EOL.'                        <input type="checkbox" name="%%column%%" value="1"'
                         .PHP_EOL.'                        @if( $%%class%%->%%column%%) checked @endif'
                         .PHP_EOL.'                        > @lang(\'admin.pages.companies.columns.%%column%%\')'
                         .PHP_EOL.'                        </label>'

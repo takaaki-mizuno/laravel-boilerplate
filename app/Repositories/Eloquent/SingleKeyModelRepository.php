@@ -20,7 +20,7 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         if ($this->cacheEnabled) {
             $key = $this->getCacheKey([$id]);
             \Log::info("Cache Check $key");
-            $data = \Cache::remember($key, $this->cacheLifeTime, function() use ($id, $modelClass) {
+            $data = \Cache::remember($key, $this->cacheLifeTime, function () use ($id, $modelClass) {
                 $modelClass = $this->getModelClassName();
 
                 return $modelClass::find($id);

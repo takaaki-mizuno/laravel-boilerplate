@@ -43,6 +43,11 @@ class HelperBindServiceProvider extends ServiceProvider
             'App\Helpers\Production\UserNotificationHelper'
         );
 
+        $this->app->singleton(
+            'App\Helpers\TypeHelperInterface',
+            'App\Helpers\Production\TypeHelper'
+        );
+
         /* NEW BINDING */
     }
 }

@@ -248,6 +248,7 @@ return [
         'StringHelper' => App\Facades\StringHelper::class,
         'PaginationHelper' => App\Facades\PaginationHelper::class,
         'UserNotificationHelper' => App\Facades\UserNotificationHelper::class,
+        'TypeHelper'  => App\Facades\TypeHelper::class,
         /* NEW FACADE */
     ],
 

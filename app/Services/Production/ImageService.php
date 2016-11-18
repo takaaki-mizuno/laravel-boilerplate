@@ -19,7 +19,7 @@ class ImageService extends BaseService implements ImageServiceInterface
     {
         $image = new \Imagick($src);
         $image = $this->fixImageOrientation($image);
-        $image = $this->setImageSize($image, $size);
+        $image = $this->setImageSize($image, $size, $needExactSize);
         if (!empty($format)) {
             $image = $this->setImageFormat($image, $format);
         }

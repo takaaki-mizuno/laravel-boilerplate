@@ -132,7 +132,7 @@ class Image extends Base
             return 'https://placehold.jp/'.$width.'x'.$height.'.jpg';
         }
 
-        $categoryType = $this->file_category;
+        $categoryType = $this->file_category_type;
         $confList = config('file.categories');
 
         $conf = array_get($confList, $categoryType);

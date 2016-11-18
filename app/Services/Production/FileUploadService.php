@@ -65,12 +65,12 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
     {
         $conf = config('file.categories.'.$categoryType);
         if (empty($conf)) {
-            return;
+            return null;
         }
 
         $acceptableFileList = config('file.acceptable.'.$conf['type']);
         if (!array_key_exists($mediaType, $acceptableFileList)) {
-            return;
+            return null;
         }
         $ext = array_get($acceptableFileList, $mediaType);
 
@@ -189,7 +189,7 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
             return $match[1].'_'.$size[0].'_'.$size[1].'.'.$match[2];
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -265,7 +265,7 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
         $format = array_get($conf, 'format', 'jpeg');
         $size = $this->imageService->convert($path, $dstPath, $format, array_get($conf, 'size'));
         if (!file_exists($dstPath)) {
-            return;
+            return null;
         }
 
         $fileSize = filesize($dstPath);
@@ -295,7 +295,7 @@ class FileUploadService extends BaseService implements FileUploadServiceInterfac
         ]);
 
         foreach (array_get($conf, 'thumbnails', []) as $thumbnail) {
-            $this->imageService->convert($path, $dstPath, $format, $thumbnail);
+            $this->imageService->convert($path, $dstPath, $format, $thumbnail, true);
             $thumbnailKey = $this->getThumbnailKeyFromKey($key, $thumbnail);
             $this->uploadToS3($dstPath, $region, $bucket, $thumbnailKey, 'image/'.$format);
         }

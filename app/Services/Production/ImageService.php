@@ -11,10 +11,11 @@ class ImageService extends BaseService implements ImageServiceInterface
      * @param string      $dst    file path
      * @param string|null $format file format
      * @param array       $size   [ width, height ]
+     * @param bool        $needExactSize
      *
      * @return array
      */
-    public function convert($src, $dst, $format, $size)
+    public function convert($src, $dst, $format, $size, $needExactSize=false)
     {
         $image = new \Imagick($src);
         $image = $this->fixImageOrientation($image);
@@ -100,14 +101,23 @@ class ImageService extends BaseService implements ImageServiceInterface
     }
 
     /**
-     * @param \Imagick $image
-     * @param array    $size
-     *
+     * @param  \Imagick $image
+     * @param  array $size
+     * @param  bool  $needExactSize
      * @return \Imagick
      */
-    private function setImageSize($image, $size)
+    private function setImageSize($image, $size, $needExactSize=false)
     {
-        if (!empty($size) && $image->getImageWidth() > $size[0]) {
+        if( empty($size) ) {
+            return $image;
+        }
+
+        if( $needExactSize ) {
+            $image->cropThumbnailImage($size[0], $size[1]);
+            return $image;
+        }
+
+        if ($image->getImageWidth() > $size[0]) {
             if ($size[1] > 0) {
                 $image->cropThumbnailImage($size[0], $size[1]);
             } else {

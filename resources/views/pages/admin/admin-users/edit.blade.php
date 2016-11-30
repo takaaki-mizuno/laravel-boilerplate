@@ -10,7 +10,7 @@
 @stop
 
 @section('title')
-    {{ \Config::get('site.name') }} | Admin | Admin Users | Edit
+    {{ config('site.name') }} | Admin | Admin Users | Edit
 @stop
 
 @section('header')
@@ -60,7 +60,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        @foreach( \Config::get('admin_user.roles') as $role => $data )
+                        @foreach( config('admin_user.roles') as $role => $data )
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="role[]" value="{{ $role }}"

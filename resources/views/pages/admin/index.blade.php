@@ -10,7 +10,7 @@
 @stop
 
 @section('title')
-{{ \Config::get('site.name') }} | Admin | Dashboard
+{{ config('site.name') }} | Admin | Dashboard
 @stop
 
 @section('header')

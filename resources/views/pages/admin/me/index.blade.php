@@ -10,7 +10,7 @@
 @stop
 
 @section('title')
-    {{ \Config::get('site.name') }} | Admin | Update Me
+    {{ config('site.name') }} | Admin | Update Me
 @stop
 
 @section('header')

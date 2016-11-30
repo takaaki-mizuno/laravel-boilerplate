@@ -18,10 +18,10 @@ class DateTimeHelperTest extends TestCase
         /** @var  \App\Helpers\DateTimeHelperInterface $helper */
         $helper = \App::make('App\Helpers\DateTimeHelperInterface');
 
-        $this->assertEquals(\Config::get('app.default_presentation_timezone'), $helper->getPresentationTimeZoneString());
+        $this->assertEquals(config('app.default_presentation_timezone'), $helper->getPresentationTimeZoneString());
 
         $timeZone = $helper->timezoneForPresentation();
-        $this->assertEquals(\Config::get('app.default_presentation_timezone'), $timeZone->getName());
+        $this->assertEquals(config('app.default_presentation_timezone'), $timeZone->getName());
 
         $newTimeZone = 'Asia/Bangkok';
         $helper->setPresentationTimeZone($newTimeZone);
@@ -40,10 +40,10 @@ class DateTimeHelperTest extends TestCase
         $this->assertEquals($bangkokNow->format('H:i'), $helper->formatTime($now));
 
         $helper->clearPresentationTimeZone();
-        $this->assertEquals(\Config::get('app.default_presentation_timezone'), $helper->getPresentationTimeZoneString());
+        $this->assertEquals(config('app.default_presentation_timezone'), $helper->getPresentationTimeZoneString());
 
         $timeZone = $helper->timezoneForPresentation();
-        $this->assertEquals(\Config::get('app.default_presentation_timezone'), $timeZone->getName());
+        $this->assertEquals(config('app.default_presentation_timezone'), $timeZone->getName());
 
         $defaultNow = clone $now;
         $defaultNow->setTimezone($timeZone);
@@ -64,7 +64,7 @@ class DateTimeHelperTest extends TestCase
         $helper = \App::make('App\Helpers\DateTimeHelperInterface');
 
         $timeZone = $helper->timezoneForStorage();
-        $this->assertEquals(\Config::get('app.timezone'), $timeZone->getName());
+        $this->assertEquals(config('app.timezone'), $timeZone->getName());
 
         $now = $helper->now();
         $this->assertEquals($timeZone->getName(), $now->getTimezone()->getName());

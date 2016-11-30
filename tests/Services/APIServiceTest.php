@@ -18,7 +18,7 @@ class APIServiceTest extends TestCase
         /** @var  \App\Services\APIServiceInterface $service */
         $service = \App::make(\App\Services\APIServiceInterface::class);
         $error = $service->error('unknown');
-        $config = \Config::get('api.errors.unknown');
+        $config = config('api.errors.unknown');
 
         $this->assertEquals($error->getStatusCode(), $config['status_code']);
     }

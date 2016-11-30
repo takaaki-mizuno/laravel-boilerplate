@@ -44,7 +44,7 @@ SiteConfigurations
             @foreach( $models as $siteConfiguration )
                 <tr>
                     <td>{{{ $siteConfiguration->id }}}</td>
-                    <td>@lang(array_get(\Config::get('locale.languages.' . $siteConfiguration->locale), 'name', $siteConfiguration->locale))</td>
+                    <td>@lang(array_get(config('locale.languages.' . $siteConfiguration->locale), 'name', $siteConfiguration->locale))</td>
                     <td>{{{ $siteConfiguration->name }}}</td>
                     <td>{{{ $siteConfiguration->title }}}</td>
                     <td>

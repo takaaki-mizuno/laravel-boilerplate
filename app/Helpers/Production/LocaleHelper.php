@@ -10,7 +10,7 @@ class LocaleHelper implements LocaleHelperInterface
     {
         if (isset($locale)) {
             $locale = strtolower($locale);
-            if (array_key_exists($locale, \Config::get('locale.languages'))) {
+            if (array_key_exists($locale, config('locale.languages'))) {
                 if (!empty($user)) {
                     $user->setLocale($locale);
                 }
@@ -39,7 +39,7 @@ class LocaleHelper implements LocaleHelperInterface
     {
         $pieces = explode('.', \Request::getHost());
         $locale = null;
-        $availableDomains = \Config::get('locale.domains', []);
+        $availableDomains = config('locale.domains', []);
 
         if (in_array(strtolower($pieces[0]), $availableDomains)) {
             $locale = strtolower($pieces[0]);
@@ -72,7 +72,7 @@ class LocaleHelper implements LocaleHelperInterface
     {
         $pieces = explode('.', \Request::getHost());
         $locale = null;
-        $availableDomains = \Config::get('locale.domains', []);
+        $availableDomains = config('locale.domains', []);
 
         if (in_array(strtolower($pieces[0]), $availableDomains)) {
             $locale = strtolower($pieces[0]);
@@ -83,7 +83,7 @@ class LocaleHelper implements LocaleHelperInterface
 
     public function getEnableLocales()
     {
-        return array_where(\Config::get('locale.languages'), function ($key, $value) {
+        return array_where(config('locale.languages'), function ($key, $value) {
             return $value['status'] == true;
         });
     }
@@ -105,13 +105,13 @@ class LocaleHelper implements LocaleHelperInterface
             }
         }
         foreach ($languages as $lang => $val) {
-            foreach (\Config::get('locale.languages') as $langCode => $data) {
+            foreach (config('locale.languages') as $langCode => $data) {
                 if (strpos(strtolower($lang), $langCode) === 0) {
                     return $langCode;
                 }
             }
         }
 
-        return \Config::get('locale.default');
+        return config('locale.default');
     }
 }

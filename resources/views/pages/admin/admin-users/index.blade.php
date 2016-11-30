@@ -12,7 +12,7 @@
 @stop
 
 @section('title')
-    {{ \Config::get('site.name') }} | Admin | Admin Users
+    {{ config('site.name') }} | Admin | Admin Users
 @stop
 
 @section('header')

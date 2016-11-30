@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@yield('title', \Config::get('site.name', '') . ' | Admin Dashboard')</title>
+    <title>@yield('title', config('site.name', '') . ' | Admin Dashboard')</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     @include('layouts.admin.metadata')
     @include('layouts.admin.styles')

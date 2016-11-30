@@ -4,9 +4,9 @@
     <!-- Logo -->
     <a href="{!! action('Admin\IndexController@index') !!}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini">{{ \Config::get('site.name') }}</span>
+        <span class="logo-mini">{{ config('site.name') }}</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg">{{ \Config::get('site.name') }}</span>
+        <span class="logo-lg">{{ config('site.name') }}</span>
     </a>
 
     <!-- Header Navbar -->

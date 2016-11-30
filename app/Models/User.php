@@ -73,6 +73,11 @@ class User extends AuthenticatableBase
 
     protected $dates = ['deleted_at'];
 
+    public function profileImage()
+    {
+        return $this->belongsTo(\App\Models\Image::class, 'profile_image_id', 'id');
+    }
+
     /*
      * API Presentation
      */

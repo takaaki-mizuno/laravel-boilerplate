@@ -40,6 +40,7 @@ class PaginationHelper implements PaginationHelperInterface
             $data['firstPageLink'] = $this->generateLink(1, $path, $query, $limit);
         }
         $lastPage = intval(($count - 1) / $limit) + 1;
+        $data['lastPage'] = $lastPage;
         if ($page < $lastPage) {
             $data['lastPageLink'] = $this->generateLink($lastPage, $path, $query, $limit);
         }

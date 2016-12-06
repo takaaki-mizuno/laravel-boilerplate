@@ -45,6 +45,6 @@ class AdminUserNotification extends Notification
 
     public function adminUser()
     {
-        return $this->belongsTo('App\Models\AdminUser', 'id', 'user_id');
+        return $this->belongsTo('App\Models\AdminUser', 'user_id', 'id');
     }
 }

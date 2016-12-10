@@ -87,7 +87,7 @@ class %%CLASS%%Controller extends Controller
     {
         $model = $this->%%class%%Repository->find($id);
         if (empty( $model )) {
-            \App::abort(404);
+            abort(404);
         }
 
         return view('pages.admin.%%classes-spinal%%.edit', [
@@ -119,7 +119,7 @@ class %%CLASS%%Controller extends Controller
         /** @var \App\Models\%%CLASS%% $model */
         $model = $this->%%class%%Repository->find($id);
         if (empty( $model )) {
-            \App::abort(404);
+            abort(404);
         }
         $input = $request->only([%%COLUMNS%%]);
         %%COLUMNUPDATES%%
@@ -141,7 +141,7 @@ class %%CLASS%%Controller extends Controller
         /** @var \App\Models\%%CLASS%% $model */
         $model = $this->%%class%%Repository->find($id);
         if (empty( $model )) {
-            \App::abort(404);
+            abort(404);
         }
         $this->%%class%%Repository->delete($model);
 

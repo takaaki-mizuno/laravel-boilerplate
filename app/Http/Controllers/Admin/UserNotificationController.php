@@ -74,6 +74,8 @@ class UserNotificationController extends Controller
     {
         $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
         $input['data'] = json_encode($request->get('data', []));
+        $input['sent_at'] = \DateTimeHelper::now();
+
         $model = $this->userNotificationRepository->create($input);
 
         if (empty($model)) {
@@ -95,7 +97,7 @@ class UserNotificationController extends Controller
     {
         $model = $this->userNotificationRepository->find($id);
         if (empty($model)) {
-            \App::abort(404);
+            abort(404);
         }
 
         return view('pages.admin.user-notifications.edit', [
@@ -129,7 +131,7 @@ class UserNotificationController extends Controller
         /** @var \App\Models\UserNotification $model */
         $model = $this->userNotificationRepository->find($id);
         if (empty($model)) {
-            \App::abort(404);
+            abort(404);
         }
         $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
         $input['data'] = json_encode($request->get('data', []));
@@ -151,7 +153,7 @@ class UserNotificationController extends Controller
         /** @var \App\Models\UserNotification $model */
         $model = $this->userNotificationRepository->find($id);
         if (empty($model)) {
-            \App::abort(404);
+            abort(404);
         }
         $this->userNotificationRepository->delete($model);
 

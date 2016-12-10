@@ -53,7 +53,7 @@ class ArticleRepositoryTest extends TestCase
         $repository = \App::make(\App\Repositories\ArticleRepositoryInterface::class);
         $this->assertNotNull($repository);
 
-        $articleCheck = $repository->create($articleData->toArray());
+        $articleCheck = $repository->create($articleData->toFillableArray());
         $this->assertNotNull($articleCheck);
     }
 
@@ -65,7 +65,7 @@ class ArticleRepositoryTest extends TestCase
         $repository = \App::make(\App\Repositories\ArticleRepositoryInterface::class);
         $this->assertNotNull($repository);
 
-        $articleCheck = $repository->update($articleData, $articleData->toArray());
+        $articleCheck = $repository->update($articleData, $articleData->toFillableArray());
         $this->assertNotNull($articleCheck);
     }
 

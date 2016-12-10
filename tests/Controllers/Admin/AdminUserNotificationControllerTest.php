@@ -38,7 +38,7 @@ class AdminUserNotificationControllerTest extends TestCase
         $adminUserNotification = factory(\App\Models\AdminUserNotification::class)->make();
         $this->action('POST', 'Admin\AdminUserNotificationController@store', [
                 '_token' => csrf_token(),
-            ] + $adminUserNotification->toArray());
+            ] + $adminUserNotification->toFillableArray());
         $this->assertResponseStatus(302);
     }
 
@@ -63,7 +63,7 @@ class AdminUserNotificationControllerTest extends TestCase
 
         $this->action('PUT', 'Admin\AdminUserNotificationController@update', [$id], [
                 '_token' => csrf_token(),
-            ] + $adminUserNotification->toArray());
+            ] + $adminUserNotification->toFillableArray());
         $this->assertResponseStatus(302);
 
         $newAdminUserNotification = \App\Models\AdminUserNotification::find($id);

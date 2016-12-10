@@ -22,7 +22,7 @@ class SiteConfigurationTest extends TestCase
         $siteConfigurationModel = new SiteConfiguration();
 
         $siteConfigurationData = factory(SiteConfiguration::class)->make();
-        foreach ($siteConfigurationData->toArray() as $key => $value) {
+        foreach ($siteConfigurationData->toFillableArray() as $key => $value) {
             $siteConfigurationModel->$key = $value;
         }
         $siteConfigurationModel->save();

@@ -52,6 +52,18 @@ return [
             'prefix' => '',
         ],
 
+        'setup' => [
+            'driver'   => 'sqlite',
+            'database' => database_path('testing/stubdb.sqlite'),
+            'prefix'   => '',
+        ],
+
+        'testing' => [
+            'driver'   => 'sqlite',
+            'database' => database_path('testing/testdb.sqlite'),
+            'prefix'   => '',
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', 'localhost'),
@@ -123,5 +135,10 @@ return [
             'database' => 0,
         ],
 
+    ],
+
+    'testing' => [
+        'stubdb' => database_path('testing/stubdb.sqlite'),
+        'testdb' => database_path('testing/testdb.sqlite'),
     ],
 ];

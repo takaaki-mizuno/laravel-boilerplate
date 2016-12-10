@@ -38,7 +38,7 @@ class ImageControllerTest extends TestCase
         $image = factory(\App\Models\Image::class)->make();
         $this->action('POST', 'Admin\ImageController@store', [
                 '_token' => csrf_token(),
-            ] + $image->toArray());
+            ] + $image->toFillableArray());
         $this->assertResponseStatus(302);
     }
 
@@ -62,7 +62,7 @@ class ImageControllerTest extends TestCase
 
         $this->action('PUT', 'Admin\ImageController@update', [$id], [
                 '_token' => csrf_token(),
-            ] + $image->toArray());
+            ] + $image->toFillableArray());
         $this->assertResponseStatus(302);
 
         $newImage = \App\Models\Image::find($id);

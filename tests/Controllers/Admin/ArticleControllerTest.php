@@ -36,9 +36,11 @@ class ArticleControllerTest extends TestCase
     public function testStoreModel()
     {
         $article = factory(\App\Models\Article::class)->make();
+        $postData = $article->toFillableArray();
+        $postData['publish_started_at'] = $postData['publish_started_at']->format('Y-m-d H:m:s');
         $this->action('POST', 'Admin\ArticleController@store', [
                 '_token' => csrf_token(),
-            ] + $article->toArray());
+            ] + $postData);
         $this->assertResponseStatus(302);
     }
 
@@ -62,7 +64,7 @@ class ArticleControllerTest extends TestCase
 
         $this->action('PUT', 'Admin\ArticleController@update', [$id], [
                 '_token' => csrf_token(),
-            ] + $article->toArray());
+            ] + $article->toFillableArray());
         $this->assertResponseStatus(302);
 
         $newArticle = \App\Models\Article::find($id);

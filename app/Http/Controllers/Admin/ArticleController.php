@@ -156,7 +156,7 @@ class ArticleController extends Controller
     {
         $model = $this->articleRepository->find($id);
         if (empty($model)) {
-            \App::abort(404);
+            abort(404);
         }
 
         return view('pages.admin.articles.edit', [
@@ -190,7 +190,7 @@ class ArticleController extends Controller
         /** @var \App\Models\Article $model */
         $model = $this->articleRepository->find($id);
         if (empty($model)) {
-            \App::abort(404);
+            abort(404);
         }
         $input = $request->only([
             'slug',
@@ -252,7 +252,7 @@ class ArticleController extends Controller
         /** @var \App\Models\Article $model */
         $model = $this->articleRepository->find($id);
         if (empty($model)) {
-            \App::abort(404);
+            abort(404);
         }
         $this->articleRepository->delete($model);
 
@@ -312,7 +312,7 @@ class ArticleController extends Controller
     {
         if (!$request->hasFile('file')) {
             // [TODO] ERROR JSON
-            \App::abort(400, 'No Image File');
+            abort(400, 'No Image File');
         }
 
         $type = $request->input('type', 'article-image');
@@ -320,7 +320,7 @@ class ArticleController extends Controller
 
         $conf = config('file.categories.'.$type);
         if (empty($conf)) {
-            \App::abort(400, 'Invalid type: '.$type);
+            abort(400, 'Invalid type: '.$type);
         }
 
         $file = $request->file('file');
@@ -346,19 +346,19 @@ class ArticleController extends Controller
     {
         $url = $request->input('src');
         if (empty($url)) {
-            \App::abort(400, 'No URL Given');
+            abort(400, 'No URL Given');
         }
         /** @var \App\Models\Image|null $image */
         $image = $this->imageRepository->findByUrl($url);
         if (empty($image)) {
-            \App::abort(404);
+            abort(404);
         }
         $entityId = $request->input('article_id', 0);
         if ($entityId != $image->entity_id) {
-            \App::abort(400, 'Article ID Mismatch');
+            abort(400, 'Article ID Mismatch');
         } else {
             if ($entityId == 0 && !$this->articleService->hasImageIdInSession($image->id)) {
-                \App::abort(400, 'Entity ID Mismatch');
+                abort(400, 'Entity ID Mismatch');
             }
         }
 

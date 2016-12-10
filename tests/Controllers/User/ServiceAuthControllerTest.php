@@ -30,7 +30,7 @@ class ServiceAuthControllerTest extends TestCase
         $this->post(action('User\AuthController@postSignUp'), [
             'email' => 'test_email@example.com',
             'password' => '123456',
-        ])->assertRedirectedToAction("User\AuthController@getSignUp");
+        ])->assertRedirectedToAction('User\AuthController@getSignUp');
 
         $this->assertEquals(1, User::count());
     }

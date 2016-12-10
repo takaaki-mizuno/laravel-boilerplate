@@ -51,7 +51,7 @@ class %%MODEL%%RepositoryTest extends TestCase
         $repository = \App::make(\App\Repositories\%%MODEL%%RepositoryInterface::class);
         $this->assertNotNull($repository);
 
-        $%%model%%Check = $repository->create($%%model%%Data->toArray());
+        $%%model%%Check = $repository->create($%%model%%Data->toFillableArray());
         $this->assertNotNull($%%model%%Check);
     }
 
@@ -63,7 +63,7 @@ class %%MODEL%%RepositoryTest extends TestCase
         $repository = \App::make(\App\Repositories\%%MODEL%%RepositoryInterface::class);
         $this->assertNotNull($repository);
 
-        $%%model%%Check = $repository->update($%%model%%Data, $%%model%%Data->toArray());
+        $%%model%%Check = $repository->update($%%model%%Data, $%%model%%Data->toFillableArray());
         $this->assertNotNull($%%model%%Check);
     }
 

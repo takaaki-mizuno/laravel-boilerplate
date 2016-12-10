@@ -53,7 +53,7 @@ class UserRepositoryTest extends TestCase
         $repository = \App::make(\App\Repositories\UserRepositoryInterface::class);
         $this->assertNotNull($repository);
 
-        $userCheck = $repository->create($userData->toArray());
+        $userCheck = $repository->create($userData->toFillableArray());
         $this->assertNotNull($userCheck);
     }
 
@@ -65,7 +65,7 @@ class UserRepositoryTest extends TestCase
         $repository = \App::make(\App\Repositories\UserRepositoryInterface::class);
         $this->assertNotNull($repository);
 
-        $userCheck = $repository->update($userData, $userData->toArray());
+        $userCheck = $repository->update($userData, $userData->toFillableArray());
         $this->assertNotNull($userCheck);
     }
 

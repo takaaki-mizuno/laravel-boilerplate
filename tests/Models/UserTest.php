@@ -22,7 +22,7 @@ class UserTest extends TestCase
         $userModel = new User();
 
         $userData = factory(User::class)->make();
-        foreach ($userData->toArray() as $key => $value) {
+        foreach ($userData->toFillableArray() as $key => $value) {
             $userModel->$key = $value;
         }
         $userModel->save();

@@ -74,6 +74,7 @@ class AdminUserNotificationController extends Controller
     {
         $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
         $input['data'] = json_encode($request->get('data', []));
+        $input['sent_at'] = \DateTimeHelper::now();
 
         $model = $this->adminUserNotificationRepository->create($input);
 
@@ -96,7 +97,7 @@ class AdminUserNotificationController extends Controller
     {
         $model = $this->adminUserNotificationRepository->find($id);
         if (empty($model)) {
-            \App::abort(404);
+            abort(404);
         }
 
         return view('pages.admin.admin-user-notifications.edit', [
@@ -130,7 +131,7 @@ class AdminUserNotificationController extends Controller
         /** @var \App\Models\AdminUserNotification $model */
         $model = $this->adminUserNotificationRepository->find($id);
         if (empty($model)) {
-            \App::abort(404);
+            abort(404);
         }
         $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
         $input['data'] = json_encode($request->get('data', []));
@@ -152,7 +153,7 @@ class AdminUserNotificationController extends Controller
         /** @var \App\Models\AdminUserNotification $model */
         $model = $this->adminUserNotificationRepository->find($id);
         if (empty($model)) {
-            \App::abort(404);
+            abort(404);
         }
         $this->adminUserNotificationRepository->delete($model);
 

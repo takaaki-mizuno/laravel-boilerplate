@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use \App\Database\Migration;
 
 class CreateSiteConfigurationsTable extends Migration
 {
@@ -30,9 +30,7 @@ class CreateSiteConfigurationsTable extends Migration
             $table->index(['locale']);
         });
 
-        DB::statement('ALTER TABLE site_configurations MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
-
-        DB::statement('ALTER TABLE site_configurations MODIFY updated_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
+        $this->updateTimestampDefaultValue('site_configurations', ['updated_at'], ['created_at']);
     }
 
     /**

@@ -22,7 +22,7 @@ class AdminUserNotificationTest extends TestCase
         $adminUserNotificationModel = new AdminUserNotification();
 
         $adminUserNotificationData = factory(AdminUserNotification::class)->make();
-        foreach ($adminUserNotificationData->toArray() as $key => $value) {
+        foreach ($adminUserNotificationData->toFillableArray() as $key => $value) {
             $adminUserNotificationModel->$key = $value;
         }
         $adminUserNotificationModel->save();

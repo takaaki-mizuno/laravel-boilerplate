@@ -61,12 +61,12 @@ class PasswordController extends Controller
     public function getResetPassword($token = null)
     {
         if (empty($token)) {
-            \App::abort(404);
+            abort(404);
         }
 
         $user = $this->authenticatableService->getUserByPasswordResetToken($token);
         if (empty($user)) {
-            \App::abort(404);
+            abort(404);
         }
 
         return view($this->passwordResetPageView, [

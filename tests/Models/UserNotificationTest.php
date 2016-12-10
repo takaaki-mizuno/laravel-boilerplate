@@ -22,7 +22,7 @@ class UserNotificationTest extends TestCase
         $userNotificationModel = new UserNotification();
 
         $userNotificationData = factory(UserNotification::class)->make();
-        foreach ($userNotificationData->toArray() as $key => $value) {
+        foreach ($userNotificationData->toFillableArray() as $key => $value) {
             $userNotificationModel->$key = $value;
         }
         $userNotificationModel->save();

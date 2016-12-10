@@ -38,7 +38,7 @@ class SiteConfigurationControllerTest extends TestCase
         $siteConfiguration = factory(\App\Models\SiteConfiguration::class)->make();
         $this->action('POST', 'Admin\SiteConfigurationController@store', [
                 '_token' => csrf_token(),
-            ] + $siteConfiguration->toArray());
+            ] + $siteConfiguration->toFillableArray());
         $this->assertResponseStatus(302);
     }
 
@@ -62,7 +62,7 @@ class SiteConfigurationControllerTest extends TestCase
 
         $this->action('PUT', 'Admin\SiteConfigurationController@update', [$id], [
                 '_token' => csrf_token(),
-            ] + $siteConfiguration->toArray());
+            ] + $siteConfiguration->toFillableArray());
         $this->assertResponseStatus(302);
 
         $newSiteConfiguration = \App\Models\SiteConfiguration::find($id);

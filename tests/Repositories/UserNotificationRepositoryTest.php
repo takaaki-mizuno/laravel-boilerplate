@@ -53,7 +53,7 @@ class UserNotificationRepositoryTest extends TestCase
         $repository = \App::make(\App\Repositories\UserNotificationRepositoryInterface::class);
         $this->assertNotNull($repository);
 
-        $userNotificationCheck = $repository->create($userNotificationData->toArray());
+        $userNotificationCheck = $repository->create($userNotificationData->toFillableArray());
         $this->assertNotNull($userNotificationCheck);
     }
 
@@ -65,7 +65,7 @@ class UserNotificationRepositoryTest extends TestCase
         $repository = \App::make(\App\Repositories\UserNotificationRepositoryInterface::class);
         $this->assertNotNull($repository);
 
-        $userNotificationCheck = $repository->update($userNotificationData, $userNotificationData->toArray());
+        $userNotificationCheck = $repository->update($userNotificationData, $userNotificationData->toFillableArray());
         $this->assertNotNull($userNotificationCheck);
     }
 

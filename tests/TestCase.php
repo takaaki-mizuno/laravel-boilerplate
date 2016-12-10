@@ -36,16 +36,15 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
         parent::setUp();
         if ($this->useDatabase) {
             \DB::disableQueryLog();
-            $this->artisan('migrate');
-            $this->artisan('db:seed');
+            exec('cp ' .database_path('testing/stubdb.sqlite') .' ' . database_path('testing/testdb.sqlite'));
         }
     }
 
     public function tearDown()
     {
         if ($this->useDatabase) {
-            $this->artisan('migrate:rollback');
             \DB::disconnect();
+            exec('rm ' . database_path('testing/testdb.sqlite'));
         }
         parent::tearDown();
     }

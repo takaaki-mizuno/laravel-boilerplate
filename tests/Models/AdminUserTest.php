@@ -22,7 +22,7 @@ class AdminUserTest extends TestCase
         $adminUserModel = new AdminUser();
 
         $adminUserData = factory(AdminUser::class)->make();
-        foreach ($adminUserData->toArray() as $key => $value) {
+        foreach ($adminUserData->toFillableArray() as $key => $value) {
             $adminUserModel->$key = $value;
         }
         $adminUserModel->save();

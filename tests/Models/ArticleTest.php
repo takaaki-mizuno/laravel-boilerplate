@@ -22,7 +22,7 @@ class ArticleTest extends TestCase
         $articleModel = new Article();
 
         $articleData = factory(Article::class)->make();
-        foreach ($articleData->toArray() as $key => $value) {
+        foreach ($articleData->toFillableArray() as $key => $value) {
             $articleModel->$key = $value;
         }
         $articleModel->save();

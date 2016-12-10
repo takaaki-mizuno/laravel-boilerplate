@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use \App\Database\Migration;
 
 class CreatePasswordResetsTable extends Migration
 {
@@ -16,7 +16,7 @@ class CreatePasswordResetsTable extends Migration
             $table->timestamp('created_at');
         });
 
-        DB::statement('ALTER TABLE password_resets MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
+        $this->updateTimestampDefaultValue('password_resets', [], ['created_at']);
     }
 
     /**

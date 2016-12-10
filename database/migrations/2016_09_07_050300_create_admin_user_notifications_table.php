@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use \App\Database\Migration;
 
 class CreateAdminUserNotificationsTable extends Migration
 {
@@ -28,17 +28,13 @@ class CreateAdminUserNotificationsTable extends Migration
 
             $table->timestamps();
 
-            $table->index(['category_type', 'user_id', 'locale', 'sent_at'], 'category_index');
+            $table->index(['category_type', 'user_id', 'locale', 'sent_at'], 'category_admin_index');
             $table->index(['type', 'user_id', 'locale', 'sent_at']);
             $table->index(['user_id', 'locale', 'sent_at']);
             $table->index(['read', 'user_id', 'locale', 'sent_at']);
         });
 
-        DB::statement('ALTER TABLE admin_user_notifications MODIFY sent_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
-
-        DB::statement('ALTER TABLE admin_user_notifications MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
-
-        DB::statement('ALTER TABLE admin_user_notifications MODIFY updated_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
+        $this->updateTimestampDefaultValue('admin_user_notifications', ['updated_at'], ['sent_at', 'created_at']);
     }
 
     /**

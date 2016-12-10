@@ -36,6 +36,6 @@ class HasRoleSuperUser
         if ($adminUser && $adminUser->hasRole(AdminUserRole::ROLE_SUPER_USER)) {
             return $next($request);
         }
-        \App::abort(403);
+        abort(403);
     }
 }

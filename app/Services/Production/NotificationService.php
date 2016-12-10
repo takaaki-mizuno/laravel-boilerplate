@@ -33,18 +33,19 @@ class NotificationService extends BaseService implements UserNotificationService
     {
         if ($userId == Notification::BROADCAST_USER_ID) {
             if (empty($locale)) {
-                return;
+                return '';
             }
         } else {
             $locale = '';
         }
         $notification = $this->notificationRepository->create([
-            'user_id' => $userId,
+            'user_id'       => $userId,
             'category_type' => $categoryType,
-            'type' => $type,
-            'locale' => $locale,
-            'content' => $content,
-            'data' => $data,
+            'type'          => $type,
+            'locale'        => $locale,
+            'content'       => $content,
+            'data'          => $data,
+            'sent_at'       => \DateTimeHelper::now(),
         ]);
 
         return $notification;

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use \App\Database\Migration;
 
 class CreateUsersTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name')->default('');
             $table->string('email');
             $table->string('password', 60);
 
@@ -29,9 +29,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        DB::statement('ALTER TABLE users MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
-
-        DB::statement('ALTER TABLE users MODIFY updated_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
+        $this->updateTimestampDefaultValue('users', ['updated_at'], ['created_at']);
     }
 
     /**

@@ -53,7 +53,7 @@ class SiteConfigurationRepositoryTest extends TestCase
         $repository = \App::make(\App\Repositories\SiteConfigurationRepositoryInterface::class);
         $this->assertNotNull($repository);
 
-        $siteConfigurationCheck = $repository->create($siteConfigurationData->toArray());
+        $siteConfigurationCheck = $repository->create($siteConfigurationData->toFillableArray());
         $this->assertNotNull($siteConfigurationCheck);
     }
 
@@ -65,7 +65,7 @@ class SiteConfigurationRepositoryTest extends TestCase
         $repository = \App::make(\App\Repositories\SiteConfigurationRepositoryInterface::class);
         $this->assertNotNull($repository);
 
-        $siteConfigurationCheck = $repository->update($siteConfigurationData, $siteConfigurationData->toArray());
+        $siteConfigurationCheck = $repository->update($siteConfigurationData, $siteConfigurationData->toFillableArray());
         $this->assertNotNull($siteConfigurationCheck);
     }
 

@@ -21,7 +21,7 @@ class %%CLASS%%Test extends TestCase
         $%%class%%Model = new %%CLASS%%();
 
         $%%class%%Data = factory(%%CLASS%%::class)->make();
-        foreach( $%%class%%Data->toArray() as $key => $value ) {
+        foreach( $%%class%%Data->toFillableArray() as $key => $value ) {
             $%%class%%Model->$key = $value;
         }
         $%%class%%Model->save();

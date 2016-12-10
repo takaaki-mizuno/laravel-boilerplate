@@ -38,7 +38,7 @@ class UserControllerTest extends TestCase
         $user = factory(\App\Models\User::class)->make();
         $this->action('POST', 'Admin\UserController@store', [
                 '_token' => csrf_token(),
-            ] + $user->toArray());
+            ] + $user->toFillableArray());
         $this->assertResponseStatus(302);
     }
 
@@ -62,7 +62,7 @@ class UserControllerTest extends TestCase
 
         $this->action('PUT', 'Admin\UserController@update', [$id], [
                 '_token' => csrf_token(),
-            ] + $user->toArray());
+            ] + $user->toFillableArray());
         $this->assertResponseStatus(302);
 
         $newUser = \App\Models\User::find($id);

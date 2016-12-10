@@ -106,7 +106,7 @@ class ImageController extends Controller
     {
         $model = $this->imageRepository->find($id);
         if (empty($model)) {
-            \App::abort(404);
+            abort(404);
         }
 
         return view('pages.admin.images.edit', [
@@ -140,7 +140,7 @@ class ImageController extends Controller
         /** @var \App\Models\Image $model */
         $model = $this->imageRepository->find($id);
         if (empty($model)) {
-            \App::abort(404);
+            abort(404);
         }
         $input = $request->only([
             'url',
@@ -177,7 +177,7 @@ class ImageController extends Controller
         /** @var \App\Models\Image $model */
         $model = $this->imageRepository->find($id);
         if (empty($model)) {
-            \App::abort(404);
+            abort(404);
         }
 
         $this->fileUploadService->delete($model);

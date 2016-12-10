@@ -36,6 +36,6 @@ class HasRoleSiteAdmin
         if ($adminUser && $adminUser->hasRole(AdminUserRole::ROLE_SITE_ADMIN)) {
             return $next($request);
         }
-        \App::abort(403);
+        abort(403);
     }
 }

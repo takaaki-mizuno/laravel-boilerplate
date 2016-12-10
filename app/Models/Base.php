@@ -33,11 +33,17 @@ class Base extends Model
         return with(new static())->getTable();
     }
 
+    /**
+     * @return string[]
+     */
     public function getEditableColumns()
     {
         return $this->fillable;
     }
 
+    /**
+     * @return string
+     */
     public function getPrimaryKey()
     {
         return $this->primaryKey;
@@ -65,6 +71,18 @@ class Base extends Model
     public function toAPIArray()
     {
         return [];
+    }
+
+    /**
+     * @return array
+     */
+    public function toFillableArray()
+    {
+        $ret = [];
+        foreach( $this->fillable as $key ) {
+            $ret[$key] = $this->$key;
+        }
+        return $ret;
     }
 
     /**

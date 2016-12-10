@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use \App\Database\Migration;
 
 class CreateAdminUsersTable extends Migration
 {
@@ -30,9 +30,7 @@ class CreateAdminUsersTable extends Migration
             $table->timestamps();
         });
 
-        DB::statement('ALTER TABLE admin_users MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
-
-        DB::statement('ALTER TABLE admin_users MODIFY updated_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
+        $this->updateTimestampDefaultValue('admin_users', ['updated_at'], ['created_at']);
     }
 
     /**

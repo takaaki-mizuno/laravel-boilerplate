@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use \App\Database\Migration;
 
 class CreateImagesTable extends Migration
 {
@@ -46,9 +46,7 @@ class CreateImagesTable extends Migration
             $table->index(['entity_type', 'entity_id', 'deleted_at']);
         });
 
-        DB::statement('ALTER TABLE images MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
-
-        DB::statement('ALTER TABLE images MODIFY updated_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
+        $this->updateTimestampDefaultValue('images', ['updated_at'], ['created_at']);
     }
 
     /**

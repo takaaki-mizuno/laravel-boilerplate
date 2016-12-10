@@ -53,7 +53,7 @@ class AdminUserNotificationRepositoryTest extends TestCase
         $repository = \App::make(\App\Repositories\AdminUserNotificationRepositoryInterface::class);
         $this->assertNotNull($repository);
 
-        $adminUserNotificationCheck = $repository->create($adminUserNotificationData->toArray());
+        $adminUserNotificationCheck = $repository->create($adminUserNotificationData->toFillableArray());
         $this->assertNotNull($adminUserNotificationCheck);
     }
 
@@ -65,7 +65,7 @@ class AdminUserNotificationRepositoryTest extends TestCase
         $repository = \App::make(\App\Repositories\AdminUserNotificationRepositoryInterface::class);
         $this->assertNotNull($repository);
 
-        $adminUserNotificationCheck = $repository->update($adminUserNotificationData, $adminUserNotificationData->toArray());
+        $adminUserNotificationCheck = $repository->update($adminUserNotificationData, $adminUserNotificationData->toFillableArray());
         $this->assertNotNull($adminUserNotificationCheck);
     }
 

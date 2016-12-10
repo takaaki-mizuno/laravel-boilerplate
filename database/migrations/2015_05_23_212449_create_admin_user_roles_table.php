@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use \App\Database\Migration;
 
 class CreateAdminUserRolesTable extends Migration
 {
@@ -21,9 +21,7 @@ class CreateAdminUserRolesTable extends Migration
             $table->index(['role', 'admin_user_id']);
         });
 
-        DB::statement('ALTER TABLE admin_user_roles MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
-
-        DB::statement('ALTER TABLE admin_user_roles MODIFY updated_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
+        $this->updateTimestampDefaultValue('admin_user_roles', ['updated_at'], ['created_at']);
     }
 
     /**

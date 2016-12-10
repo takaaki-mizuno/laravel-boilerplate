@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use \App\Database\Migration;
 
 class CreateFilesTable extends Migration
 {
@@ -44,9 +44,7 @@ class CreateFilesTable extends Migration
             $table->index(['entity_type', 'entity_id', 'deleted_at']);
         });
 
-        DB::statement('ALTER TABLE files MODIFY created_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
-
-        DB::statement('ALTER TABLE files MODIFY updated_at '.'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
+        $this->updateTimestampDefaultValue('files', ['updated_at'], ['created_at']);
     }
 
     /**

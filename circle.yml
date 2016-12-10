@@ -1,23 +1,10 @@
 machine:
   php:
-    version: 7.0.4
-
-  services:
-    - "docker"
+    version: 7.0.7
 
   environment:
     APP_ENV: testing
-    APP_KEY: base64:COHSkeR6ZTaJrLuKHwymVZpSKPKR23aYJoK3NOPO49s=
+    APP_KEY: base64:H2lnWgQiH23t04sHcwDZ8VbLqQCD5J8hpVMdylqDkp0=
     DB_HOST: 127.0.0.1
-    DB_DATABASE: my_circle_test
+    DB_DATABASE: circle_test
     DB_USERNAME: root
-    DB_PORT: 3307
-
-dependencies:
-  post:
-    - composer install
-    - php artisan migrate
-  override:
-    - docker run --detach --publish 3307:3306 --env MYSQL_ALLOW_EMPTY_PASSWORD=yes mysql:5.7.11
-    - mysqladmin --host=127.0.0.1 --port=3307 --user=root --wait ping
-    - mysqladmin --host=127.0.0.1 --port=3307 --user=root create my_circle_test

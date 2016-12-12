@@ -16,7 +16,7 @@ class CreateAdminPasswordResetsTable extends Migration
             $table->timestamp('created_at');
         });
 
-        $this->updateTimestampDefaultValue('site_configurations', [], ['admin_password_resets']);
+        $this->updateTimestampDefaultValue('admin_password_resets', [], ['admin_password_resets']);
     }
 
     /**

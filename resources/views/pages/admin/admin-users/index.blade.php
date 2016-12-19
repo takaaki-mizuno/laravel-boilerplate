@@ -46,6 +46,7 @@
                         <td>
                             <a href="{!! URL::action('Admin\AdminUserController@show', [$adminUser->id]) !!}"
                                class="btn btn-block btn-primary">Edit</a>
+                            <a href="#" class="btn btn-block btn-danger btn-sm delete-button" data-delete-url="{!! action('Admin\AdminUserController@destroy', $adminUser->id) !!}">@lang('admin.pages.common.buttons.delete')</a>
                         </td>
                     </tr>
                 @endforeach

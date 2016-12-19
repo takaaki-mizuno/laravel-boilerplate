@@ -117,7 +117,7 @@
                 <h3 class="box-title">
                     <div class="input-group @if ($errors->has('title')) has-error @endif">
                         <span class="input-group-addon"><i class="fa fa-newspaper-o"></i></span>
-                        <input type="text" id="input-title" name="title" class="form-control" placeholder="Title" value="{{{ old('title') ? old('title') : $article->title }}}">
+                        <input type="text" id="input-title" name="title" class="form-control" placeholder="Title" value="{{ old('title') ? old('title') : $article->title }}">
                     </div>
                 </h3>
             </div>

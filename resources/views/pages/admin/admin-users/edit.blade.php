@@ -38,7 +38,7 @@
 
                     <div class="col-sm-10">
                         <input type="text" name="name" class="form-control" id="name" placeholder="Name"
-                               value="{{ $adminUser->name }}">
+                               value="{{ old('name') ? old('name') : $adminUser->name }}">
                     </div>
                 </div>
                 <div class="form-group">
@@ -46,7 +46,7 @@
 
                     <div class="col-sm-10">
                         <input type="email" name="email" class="form-control" id="email" placeholder="Email"
-                               value="{{ $adminUser->email }}">
+                               value="{{ old('email') ? old('email') : $adminUser->email }}">
                     </div>
                 </div>
 

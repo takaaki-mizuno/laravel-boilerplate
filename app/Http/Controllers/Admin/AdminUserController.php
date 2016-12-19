@@ -70,11 +70,17 @@ class AdminUserController extends Controller
 
     public function store(AdminUserUpdateRequest $request)
     {
-        $input = $request->only([
+       $input = $request->only([
             'name',
             'email',
             'password',
         ]);
+
+        $exist = $this->adminUserRepository->findByEmail($input['email']);
+        if( !empty($exist) ) {
+            return redirect()->back()->withErrors(['error'=> 'This Email Is Already In Use'])->withInput();
+        }
+
 
         $adminUser = $this->adminUserRepository->create($input);
         $this->adminUserRoleRepository->setAdminUserRoles($adminUser->id, $request->input('role', []));
@@ -90,10 +96,39 @@ class AdminUserController extends Controller
             abort(404);
         }
 
+        $input = $request->only([
+            'name',
+            'email',
+        ]);
+        $password = $request->get('password', '');
+        if( !empty($password) ) {
+            $input['password'] = $password;
+        }
+
         $this->adminUserRepository->update($adminUser, $request->all());
         $this->adminUserRoleRepository->setAdminUserRoles($id, $request->input('role', []));
 
         return redirect()->action('Admin\AdminUserController@show', [$id])->with('message-success',
             trans('admin.messages.general.update_success'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return \Response
+     */
+    public function destroy($id)
+    {
+        /** @var \App\Models\Article $model */
+        $model = $this->adminUserRepository->find($id);
+        if (empty($model)) {
+            abort(404);
+        }
+        $this->adminUserRepository->delete($model);
+
+        return redirect()->action('Admin\AdminUserController@index')->with('message-success',
+            trans('admin.messages.general.delete_success'));
     }
 }

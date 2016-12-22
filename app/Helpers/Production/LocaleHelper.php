@@ -83,7 +83,7 @@ class LocaleHelper implements LocaleHelperInterface
 
     public function getEnableLocales()
     {
-        return array_where(config('locale.languages'), function ($key, $value) {
+        return array_where(config('locale.languages'), function ($value, $key) {
             return $value['status'] == true;
         });
     }

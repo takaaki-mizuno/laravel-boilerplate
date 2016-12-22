@@ -21,6 +21,9 @@ class PasswordResettableRepository extends DatabaseTokenRepository implements Pa
     public function findEmailByToken($token)
     {
         $token = $this->getTable()->where('token', $token)->first();
+        if( empty($token) ) {
+            return null;
+        }
         if ($this->tokenExpired([
             'email'      => $token->email,
             'token'      => $token->token,

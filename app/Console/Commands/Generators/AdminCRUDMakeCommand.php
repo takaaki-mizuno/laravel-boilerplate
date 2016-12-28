@@ -376,7 +376,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
                 case 'TextType':
                     $template = '                    <div class="form-group @if ($errors->has(\'%%column%%\')) has-error @endif">'
                         .PHP_EOL.'                        <label for="%%column%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'
-                        .PHP_EOL.'                        <textarea name="%%column%%" class="form-control" rows="5" placeholder="@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')">{{{ old(\'%%column%%\') ? old(\'%%column%%\') : $%%class%%->%%column%% }}}</textarea>'
+                        .PHP_EOL.'                        <textarea name="%%column%%" class="form-control" rows="5" placeholder="@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')">{{ old(\'%%column%%\') ? old(\'%%column%%\') : $%%class%%->%%column%% }}</textarea>'
                         .PHP_EOL.'                    </div>';
                     $this->replaceTemplateVariable($template, 'column', $column['name']);
                     $this->replaceTemplateVariable($template, 'class', strtolower(substr($name, 0, 1)).substr($name, 1));

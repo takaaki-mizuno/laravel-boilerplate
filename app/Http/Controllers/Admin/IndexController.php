@@ -8,7 +8,7 @@ class IndexController extends Controller
 {
     public function index()
     {
-        return view('layouts.admin.application', [
+        return view('pages.admin.index', [
         ]);
     }
 }

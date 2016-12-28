@@ -100,6 +100,15 @@
                                 </td>
                             </tr>
 
+                            <tr class="@if ($errors->has('password')) has-error @endif">
+                                <td>
+                                    <label for="password">@lang('admin.pages.users.columns.password')</label>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="password" name="password" @if(!$isNew) disabled @endif value="{{ old('password') ? old('password') : $adminUser->password }}">
+                                </td>
+                            </tr>
+
                             <tr class="@if ($errors->has('locale')) has-error @endif">
                                 <td>
                                     <label for="locale">@lang('admin.pages.admin-users.columns.locale')</label>
@@ -111,7 +120,7 @@
 
                         </table>
                     </div>
-                </div> 
+                </div>
             </div>
 
             <div class="box-footer">

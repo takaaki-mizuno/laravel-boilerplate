@@ -24,7 +24,7 @@ interface PaginationHelperInterface
      *
      * @return array
      */
-    public function data($offset, $limit, $count, $path, $query, $paginationNumber = 5);
+    public function data($order, $direction, $offset, $limit, $count, $path, $query, $paginationNumber = 5);
 
     /**
      * @param int    $offset
@@ -38,12 +38,14 @@ interface PaginationHelperInterface
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function render(
+        $order,
+        $direction,
         $offset,
         $limit,
         $count,
         $path,
         $query,
         $paginationNumber = 5,
-        $template = 'shared.pagination'
+        $template = 'shared.bottomPagination'
     );
 }

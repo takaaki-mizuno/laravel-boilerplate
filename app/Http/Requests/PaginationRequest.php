@@ -4,6 +4,13 @@ namespace App\Http\Requests;
 
 class PaginationRequest extends BaseRequest
 {
+    public $offset = 0;
+
+    public $limit = 15;
+
+    public $order = 'id';
+
+    public $direction = 'desc';
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -34,9 +41,10 @@ class PaginationRequest extends BaseRequest
      */
     public function offset()
     {
-        $offset = $this->get('offset', 0);
+        $page = $this->get('page', 1);
+        $this->offset = ( $page - 1 ) * $this->limit;
 
-        return $offset >= 0 ? $offset : 0;
+        return $this->offset;
     }
 
     /**
@@ -44,27 +52,27 @@ class PaginationRequest extends BaseRequest
      *
      * @return int
      */
-    public function limit($default = 10)
+    public function limit()
     {
-        $limit = $this->get('limit', $default);
+        $this->limit = $this->get('limit', $this->limit);
 
-        return ($limit > 0 && $limit <= 100) ? $limit : $default;
+        return $this->limit;
     }
 
-    public function order($default = 'id')
+    public function order()
     {
-        $order = $this->get('order', $default);
+        $order = $this->get('order', $this->order);
 
-        return strtolower($order);
+        return strtolower($this->order);
     }
 
-    public function direction($default = 'asc')
+    public function direction()
     {
-        $direction = strtolower($this->get('direction', $default));
+        $direction = strtolower($this->get('direction', $this->direction));
         if (!in_array($direction, ['asc', 'desc'])) {
-            $direction = 'asc';
+            $this->direction = 'desc';
         }
 
-        return strtolower($direction);
+        return strtolower($this->direction);
     }
 }

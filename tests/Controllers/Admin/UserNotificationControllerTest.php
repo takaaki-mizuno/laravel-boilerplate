@@ -1,10 +1,10 @@
-<?php
-namespace Tests\Controllers\Admin;
+<?php  namespace Tests\Controllers\Admin;
 
 use Tests\TestCase;
 
 class UserNotificationControllerTest extends TestCase
 {
+
     protected $useDatabase = true;
 
     public function testGetInstance()
@@ -55,10 +55,10 @@ class UserNotificationControllerTest extends TestCase
 
         $userNotification = factory(\App\Models\UserNotification::class)->create();
 
-        $text = $faker->sentence();
+        $name = $faker->name;
         $id = $userNotification->id;
 
-        $userNotification->content = $text;
+        $userNotification->name = $name;
 
         $this->action('PUT', 'Admin\UserNotificationController@update', [$id], [
                 '_token' => csrf_token(),
@@ -66,7 +66,7 @@ class UserNotificationControllerTest extends TestCase
         $this->assertResponseStatus(302);
 
         $newUserNotification = \App\Models\UserNotification::find($id);
-        $this->assertEquals($text, $newUserNotification->content);
+        $this->assertEquals($name, $newUserNotification->name);
     }
 
     public function testDeleteModel()
@@ -83,4 +83,5 @@ class UserNotificationControllerTest extends TestCase
         $checkUserNotification = \App\Models\UserNotification::find($id);
         $this->assertNull($checkUserNotification);
     }
+
 }

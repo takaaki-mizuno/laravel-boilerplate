@@ -1,17 +1,17 @@
-<?php
+<?php namespace App\Http\Controllers\Admin;
 
-namespace App\Http\Controllers\Admin;
-
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
 use App\Repositories\UserNotificationRepositoryInterface;
 use App\Http\Requests\Admin\UserNotificationRequest;
 use App\Http\Requests\PaginationRequest;
-use App\Http\Requests\BaseRequest;
 
-class UserNotificationController extends Controller
-{
+class UserNotificationController extends Controller {
+
     /** @var \App\Repositories\UserNotificationRepositoryInterface */
     protected $userNotificationRepository;
+
 
     public function __construct(
         UserNotificationRepositoryInterface $userNotificationRepository
@@ -22,45 +22,48 @@ class UserNotificationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param \App\Http\Requests\PaginationRequest $request
+     * @param  \App\Http\Requests\PaginationRequest $request
      *
      * @return \Response
      */
-    public function index(PaginationRequest $request)
-    {
-        $offset = $request->offset();
-        $limit = $request->limit();
-        $count = $this->userNotificationRepository->count();
-        $models = $this->userNotificationRepository->get('id', 'desc', $offset, $limit);
+    public function index( PaginationRequest $request ) {
+        $paginate[ 'offset' ] = $request->offset();
+        $paginate[ 'limit' ] = $request->limit();
+        $paginate[ 'order' ] = $request->order();
+        $paginate[ 'direction' ] = $request->direction();
+        $paginate[ 'baseUrl' ] = action( 'Admin\UserNotificationController@index' );
 
-        return view('pages.admin.user-notifications.index', [
-            'models' => $models,
-            'count' => $count,
-            'offset' => $offset,
-            'limit' => $limit,
-            'baseUrl' => action('Admin\UserNotificationController@index'),
-        ]);
+        $count = $this->userNotificationRepository->count();
+        $models = $this->userNotificationRepository->get(
+            $paginate[ 'order' ],
+            $paginate[ 'direction' ],
+            $paginate[ 'offset' ],
+            $paginate[ 'limit' ]
+        );
+
+        return view(
+            'pages.admin.user-notifications.index',
+            [
+                'models'   => $models,
+                'count'    => $count,
+                'paginate' => $paginate,
+            ]
+        );
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @param BaseRequest $request
-     *
      * @return \Response
      */
-    public function create(BaseRequest $request)
-    {
-        $userId = $request->get('user_id');
-        $model = $this->userNotificationRepository->getBlankModel();
-        if ($userId !== null) {
-            $model->user_id = (int) $userId;
-        }
-
-        return view('pages.admin.user-notifications.edit', [
-            'isNew' => true,
-            'userNotification' => $model,
-        ]);
+    public function create() {
+        return view(
+            'pages.admin.user-notifications.edit',
+            [
+                'isNew'            => true,
+                'userNotification' => $this->userNotificationRepository->getBlankModel(),
+            ]
+        );
     }
 
     /**
@@ -70,92 +73,116 @@ class UserNotificationController extends Controller
      *
      * @return \Response
      */
-    public function store(UserNotificationRequest $request)
-    {
-        $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
-        $input['data'] = json_encode($request->get('data', []));
-        $model = $this->userNotificationRepository->create($input);
+    public function store( UserNotificationRequest $request ) {
+        $input = $request->only(
+            [
+                'category_type',
+                'type',
+                'data',
+                'content',
+                'locale',
+                'sent_at'
+            ]
+        );
+        $input[ 'read' ] = $request->get( 'read', 0 );
 
-        if (empty($model)) {
-            return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
+        $model = $this->userNotificationRepository->create( $input );
+
+        if( empty( $model ) ) {
+            return redirect()
+                ->back()
+                ->withErrors( trans( 'admin.errors.general.save_failed' ) );
         }
 
-        return redirect()->action('Admin\UserNotificationController@index')->with('message-success',
-                trans('admin.messages.general.create_success'));
+        return redirect()
+            ->action( 'Admin\UserNotificationController@index' )
+            ->with( 'message-success', trans( 'admin.messages.general.create_success' ) );
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return \Response
      */
-    public function show($id)
-    {
-        $model = $this->userNotificationRepository->find($id);
-        if (empty($model)) {
-            \App::abort(404);
+    public function show( $id ) {
+        $model = $this->userNotificationRepository->find( $id );
+        if( empty( $model ) ) {
+            \App::abort( 404 );
         }
 
-        return view('pages.admin.user-notifications.edit', [
-            'isNew' => false,
-            'userNotification' => $model,
-        ]);
+        return view(
+            'pages.admin.user-notifications.edit',
+            [
+                'isNew'            => false,
+                'userNotification' => $model,
+            ]
+        );
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return \Response
      */
-    public function edit($id)
-    {
+    public function edit( $id ) {
         //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param int $id
-     * @param     $request
+     * @param  int $id
+     * @param      $request
      *
      * @return \Response
      */
-    public function update($id, UserNotificationRequest $request)
-    {
+    public function update( $id, UserNotificationRequest $request ) {
         /** @var \App\Models\UserNotification $model */
-        $model = $this->userNotificationRepository->find($id);
-        if (empty($model)) {
-            \App::abort(404);
+        $model = $this->userNotificationRepository->find( $id );
+        if( empty( $model ) ) {
+            \App::abort( 404 );
         }
-        $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
-        $input['data'] = json_encode($request->get('data', []));
-        $this->userNotificationRepository->update($model, $input);
+        $input = $request->only(
+            [
+                'category_type',
+                'type',
+                'data',
+                'content',
+                'locale',
+                'sent_at'
+            ]
+        );
+        $input[ 'read' ] = $request->get( 'read', 0 );
+ 
+        $this->userNotificationRepository->update( $model, $input );
 
-        return redirect()->action('Admin\UserNotificationController@show', [$id])->with('message-success',
-                trans('admin.messages.general.update_success'));
+        return redirect()
+            ->action( 'Admin\UserNotificationController@show', [$id] )
+            ->with( 'message-success', trans( 'admin.messages.general.update_success' ) );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return \Response
      */
-    public function destroy($id)
-    {
+    public function destroy( $id ) {
         /** @var \App\Models\UserNotification $model */
-        $model = $this->userNotificationRepository->find($id);
-        if (empty($model)) {
-            \App::abort(404);
+        $model = $this->userNotificationRepository->find( $id );
+        if( empty( $model ) ) {
+            \App::abort( 404 );
         }
-        $this->userNotificationRepository->delete($model);
+        $this->userNotificationRepository->delete( $model );
 
-        return redirect()->action('Admin\UserNotificationController@index')->with('message-success',
-                trans('admin.messages.general.delete_success'));
+        return redirect()
+            ->action( 'Admin\UserNotificationController@index' )
+            ->with( 'message-success', trans( 'admin.messages.general.delete_success' ) );
     }
+
 }

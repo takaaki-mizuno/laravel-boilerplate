@@ -14,7 +14,7 @@ class CreateImagesTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('url')->default('');
-            $table->text('title')->nullable();
+            $table->string('title')->nullable();
 
             $table->string('entity_type')->default('');
             $table->bigInteger('entity_id')->default(0);

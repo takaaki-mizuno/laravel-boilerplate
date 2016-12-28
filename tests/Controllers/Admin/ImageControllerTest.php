@@ -1,10 +1,10 @@
-<?php
-namespace Tests\Controllers\Admin;
+<?php  namespace Tests\Controllers\Admin;
 
 use Tests\TestCase;
 
 class ImageControllerTest extends TestCase
 {
+
     protected $useDatabase = true;
 
     public function testGetInstance()
@@ -58,7 +58,7 @@ class ImageControllerTest extends TestCase
         $name = $faker->name;
         $id = $image->id;
 
-        $image->title = $name;
+        $image->name = $name;
 
         $this->action('PUT', 'Admin\ImageController@update', [$id], [
                 '_token' => csrf_token(),
@@ -66,7 +66,7 @@ class ImageControllerTest extends TestCase
         $this->assertResponseStatus(302);
 
         $newImage = \App\Models\Image::find($id);
-        $this->assertEquals($name, $newImage->title);
+        $this->assertEquals($name, $newImage->name);
     }
 
     public function testDeleteModel()
@@ -83,4 +83,5 @@ class ImageControllerTest extends TestCase
         $checkImage = \App\Models\Image::find($id);
         $this->assertNull($checkImage);
     }
+
 }

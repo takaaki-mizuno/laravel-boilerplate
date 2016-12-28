@@ -1,12 +1,11 @@
-<?php
-
-namespace App\Http\Requests\Admin;
+<?php namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\BaseRequest;
 use App\Repositories\ImageRepositoryInterface;
 
 class ImageRequest extends BaseRequest
 {
+
     /** @var \App\Repositories\ImageRepositoryInterface */
     protected $imageRepository;
 
@@ -39,4 +38,5 @@ class ImageRequest extends BaseRequest
     {
         return $this->imageRepository->messages();
     }
+
 }

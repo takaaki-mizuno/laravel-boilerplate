@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder
             // Add More Seed For Testing
         }
 
+        if (App::environment() === 'local') {
+            $this->call(Seeds\Local\DatabaseSeeder::class);
+        }
+
         Model::reguard();
     }
 }

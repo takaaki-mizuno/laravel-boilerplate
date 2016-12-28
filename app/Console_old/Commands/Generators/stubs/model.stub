@@ -34,7 +34,6 @@ class %%CLASS%% extends Base
 
     // Relations
     %%RELATIONS%%
-
     // Utility Functions
 
     /*

@@ -1,0 +1,26 @@
+<?php namespace App\Repositories\Eloquent;
+
+use App\Repositories\%%CLASS%%Interface;
+use App\Models\%%MODEL%%;
+
+class %%CLASS%% extends CompositeKeyModelRepository implements %%CLASS%%Interface
+{
+
+    public function getBlankModel()
+    {
+        return new %%MODEL%%();
+    }
+
+    public function rules()
+    {
+        return [
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+        ];
+    }
+
+}

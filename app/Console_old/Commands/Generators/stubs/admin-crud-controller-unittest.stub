@@ -1,0 +1,87 @@
+<?php  namespace Tests\Controllers\Admin;
+
+use Tests\TestCase;
+
+class %%CLASS%%ControllerTest extends TestCase
+{
+
+    protected $useDatabase = true;
+
+    public function testGetInstance()
+    {
+        /** @var  \App\Http\Controllers\Admin\%%CLASS%%Controller $controller */
+        $controller = \App::make(\App\Http\Controllers\Admin\%%CLASS%%Controller::class);
+        $this->assertNotNull($controller);
+    }
+
+    public function setUp()
+    {
+        parent::setUp();
+        $authUser = \App\Models\AdminUser::first();
+        $this->be($authUser, 'admins');
+    }
+
+    public function testGetList()
+    {
+        $response = $this->action('GET', 'Admin\%%CLASS%%Controller@index');
+        $this->assertResponseOk();
+    }
+
+    public function testCreateModel()
+    {
+        $this->action('GET', 'Admin\%%CLASS%%Controller@create');
+        $this->assertResponseOk();
+    }
+
+    public function testStoreModel()
+    {
+        $%%class%% = factory(\App\Models\%%CLASS%%::class)->make();
+        $this->action('POST', 'Admin\%%CLASS%%Controller@store', [
+                '_token' => csrf_token(),
+            ] + $%%class%%->toArray());
+        $this->assertResponseStatus(302);
+    }
+
+    public function testEditModel()
+    {
+        $%%class%% = factory(\App\Models\%%CLASS%%::class)->create();
+        $this->action('GET', 'Admin\%%CLASS%%Controller@show', [$%%class%%->id]);
+        $this->assertResponseOk();
+    }
+
+    public function testUpdateModel()
+    {
+        $faker = \Faker\Factory::create();
+
+        $%%class%% = factory(\App\Models\%%CLASS%%::class)->create();
+
+        $name = $faker->name;
+        $id = $%%class%%->id;
+
+        $%%class%%->name = $name;
+
+        $this->action('PUT', 'Admin\%%CLASS%%Controller@update', [$id], [
+                '_token' => csrf_token(),
+            ] + $%%class%%->toArray());
+        $this->assertResponseStatus(302);
+
+        $new%%CLASS%% = \App\Models\%%CLASS%%::find($id);
+        $this->assertEquals($name, $new%%CLASS%%->name);
+    }
+
+    public function testDeleteModel()
+    {
+        $%%class%% = factory(\App\Models\%%CLASS%%::class)->create();
+
+        $id = $%%class%%->id;
+
+        $this->action('DELETE', 'Admin\%%CLASS%%Controller@destroy', [$id], [
+                '_token' => csrf_token(),
+            ]);
+        $this->assertResponseStatus(302);
+
+        $check%%CLASS%% = \App\Models\%%CLASS%%::find($id);
+        $this->assertNull($check%%CLASS%%);
+    }
+
+}

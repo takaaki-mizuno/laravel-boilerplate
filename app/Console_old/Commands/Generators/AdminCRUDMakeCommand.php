@@ -258,7 +258,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
     {
         $sideMenu = $this->files->get($this->getSideBarViewPath());
 
-        $value = '<li @if( $menu==\''.\StringHelper::camel2Snake($name).'s\') class="active" @endif ><a href="{!! action(\'Admin\\'.$name.'Controller@index\') !!}"><i class="fa fa-users"></i> <span>'.\StringHelper::pluralize($name).'</span></a></li>'.PHP_EOL.'            <!-- %%SIDEMENU%% -->';
+        $value = '<li @if( $menu==\''.\StringHelper::camel2Snake($name).'\') class="active" @endif ><a href="{!! action(\'Admin\\'.$name.'Controller@index\') !!}"><i class="fa fa-users"></i> <span>'.\StringHelper::pluralize($name).'</span></a></li>'.PHP_EOL.'            <!-- %%SIDEMENU%% -->';
 
         $sideMenu = str_replace('<!-- %%SIDEMENU%% -->', $value, $sideMenu);
         $this->files->put($this->getSideBarViewPath(), $sideMenu);
@@ -266,7 +266,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
 
     protected function getSideBarViewPath()
     {
-        return $this->laravel['path'].'/../resources/views/layouts/admin/left_navigation.blade.php';
+        return $this->laravel['path'].'/../resources/views/layouts/admin/side_menu.blade.php';
     }
 
     /**
@@ -315,21 +315,22 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
         return $this->laravel['path'].'/../routes/admin.php';
     }
 
-    protected function generateLanguageFile( $name ) {
-        $directoryName = \StringHelper::camel2Spinal( \StringHelper::pluralize( $name ) );
+    protected function generateLanguageFile($name)
+    {
+        $directoryName = \StringHelper::camel2Spinal(\StringHelper::pluralize($name));
 
-        $languages = $this->files->get( $this->getLanguageFilePath() );
+        $languages = $this->files->get($this->getLanguageFilePath());
         $key = '/* NEW PAGE STRINGS */';
 
         $columns = $this->getColumns($name);
         $data = "'".$directoryName."'   => [".PHP_EOL."            'columns'  => [".PHP_EOL;
         foreach ($columns as $column) {
-            $data .= "                '".$column."' => '" . ucfirst($column) . "',".PHP_EOL;
+            $data .= "                '".$column."' => '',".PHP_EOL;
         }
         $data .= '            ],'.PHP_EOL.'        ],'.PHP_EOL.'        '.$key;
 
-        $languages = str_replace( $key, $data, $languages );
-        $this->files->put( $this->getLanguageFilePath(), $languages );
+        $languages = str_replace($key, $data, $languages);
+        $this->files->put($this->getLanguageFilePath(), $languages);
 
         return true;
     }
@@ -348,17 +349,13 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
                 $relationName = lcfirst(\StringHelper::snake2Camel($fieldName));
                 $idName = \StringHelper::camel2Spinal($relationName);
 
-                $template = '                    <div class="form-group text-center">'
-                    .PHP_EOL.'                      @if( !empty($%%class%%->%%relation%%) )'
-                    .PHP_EOL.'                          <img id="%%id%%-preview"  style="max-width: 500px; width: 100%;" src="{!! $%%class%%->%%relation%%->getThumbnailUrl(480, 300) !!}" alt="" class="margin" />'
-                    .PHP_EOL.'                      @else'
-                    .PHP_EOL.'                          <img id="%%id%%-preview" style="max-width: 500px; width: 100%;" src="{!! \URLHelper::asset(\'img/no_image.jpg\', \'common\') !!}" alt="" class="margin" />'
-                    .PHP_EOL.'                      @endif'
-                    .PHP_EOL.'                      <input type="file" style="display: none;"  id="%%id%%" name="%%field%%">'
-                    .PHP_EOL.'                      <p class="help-block" style="font-weight: bolder;">'
-                    .PHP_EOL.'                          @lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')'
-                    .PHP_EOL.'                          <label for="%%id%%" style="font-weight: 100; color: #549cca; margin-left: 10px; cursor: pointer;">@lang(\'admin.pages.common.buttons.edit\')</label>'
-                    .PHP_EOL.'                      </p>'
+                $template = '                    @if( !empty($%%class%%->%%relation%%) )'
+                    .PHP_EOL.'                        <img width="400" src="{!! $%%class%%->%%relation%%->getThumbnailUrl(480, 300) !!}" alt="" class="margin" />'
+                    .PHP_EOL.'                    @endif'
+                    .PHP_EOL.'                    <div class="form-group">'
+                    .PHP_EOL.'                        <label for="%%field%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'
+                    .PHP_EOL.'                        <input type="file" id="%%id%%-image" name="%%field%%">'
+                    .PHP_EOL.'                        <p class="help-block">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</p>'
                     .PHP_EOL.'                    </div>';
                 $this->replaceTemplateVariable($template, 'column', $column['name']);
                 $this->replaceTemplateVariable($template, 'field', $fieldName);

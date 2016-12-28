@@ -29,19 +29,17 @@ class %%CLASS%%Controller extends Controller
      */
     public function index(PaginationRequest $request)
     {
-        $paginate['offset']     = $request->offset();
-        $paginate['limit']      = $request->limit();
-        $paginate['order']      = $request->order();
-        $paginate['direction']  = $request->direction();
-        $paginate['baseUrl']    = action( 'Admin\%%CLASS%%Controller@index' );
-
+        $offset = $request->offset();
+        $limit = $request->limit();
         $count = $this->%%class%%Repository->count();
-        $models = $this->%%class%%Repository->get( $paginate['order'], $paginate['direction'], $paginate['offset'], $paginate['limit'] );
+        $models = $this->%%class%%Repository->get('id', 'desc', $offset, $limit);
 
         return view('pages.admin.%%classes-spinal%%.index', [
             'models'  => $models,
             'count'   => $count,
-            'paginate'  => $paginate,
+            'offset'  => $offset,
+            'limit'   => $limit,
+            'baseUrl' => action('Admin\%%CLASS%%Controller@index'),
         ]);
     }
 

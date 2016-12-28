@@ -1,0 +1,5 @@
+<?php namespace App\Services;
+
+interface %%CLASS%%Interface extends BaseServiceInterface
+{
+}

@@ -1,0 +1,10 @@
+<?php namespace App\Services\Production;
+
+use \App\Services\%%CLASS%%Interface;
+
+class %%CLASS%% extends BaseService implements %%CLASS%%Interface
+{
+    public function method()
+    {
+    }
+}

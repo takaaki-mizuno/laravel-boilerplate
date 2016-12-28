@@ -1,0 +1,15 @@
+<?php namespace Tests\Helpers;
+
+use Tests\TestCase;
+
+class %%CLASS%%Test extends TestCase
+{
+
+    public function testGetInstance()
+    {
+        /** @var  \App\Helpers\%%CLASS%%Interface $helper */
+        $helper = \App::make(\App\Helpers\%%CLASS%%Interface::class);
+        $this->assertNotNull($helper);
+    }
+
+}

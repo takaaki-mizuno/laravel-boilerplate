@@ -4,6 +4,7 @@
 @stop
 
 @section('styles')
+    <link rel="stylesheet" href="{!! \URLHelper::asset('libs/datetimepicker/css/bootstrap-datetimepicker.min.css', 'admin') !!}">
 @stop
 
 @section('scripts')

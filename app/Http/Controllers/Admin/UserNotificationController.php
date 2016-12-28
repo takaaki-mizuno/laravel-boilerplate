@@ -84,7 +84,9 @@ class UserNotificationController extends Controller {
                 'sent_at'
             ]
         );
-        $input[ 'read' ] = $request->get( 'read', 0 );
+
+        $input[ 'sent_at' ] = ( $input[ 'sent_at' ] != "" ) ? $input[ 'sent_at' ] : null;
+        $input[ 'read' ]    = $request->get( 'read', 0 );
 
         $model = $this->userNotificationRepository->create( $input );
 
@@ -156,7 +158,9 @@ class UserNotificationController extends Controller {
                 'sent_at'
             ]
         );
-        $input[ 'read' ] = $request->get( 'read', 0 );
+
+        $input[ 'sent_at' ] = ( $input[ 'sent_at' ] != "" ) ? $input[ 'sent_at' ] : null;
+        $input[ 'read' ]    = $request->get( 'read', 0 );
  
         $this->userNotificationRepository->update( $model, $input );
 

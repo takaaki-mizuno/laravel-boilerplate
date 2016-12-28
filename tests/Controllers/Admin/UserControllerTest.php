@@ -1,10 +1,10 @@
-<?php
-namespace Tests\Controllers\Admin;
+<?php  namespace Tests\Controllers\Admin;
 
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
+
     protected $useDatabase = true;
 
     public function testGetInstance()
@@ -79,9 +79,9 @@ class UserControllerTest extends TestCase
                 '_token' => csrf_token(),
             ]);
         $this->assertResponseStatus(302);
-        $this->assertRedirectedToAction('Admin\UserController@index');
 
         $checkUser = \App\Models\User::find($id);
         $this->assertNull($checkUser);
     }
+
 }

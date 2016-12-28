@@ -1,11 +1,19 @@
-<?php
-
-namespace App\Http\Requests\Admin;
+<?php namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\BaseRequest;
+use App\Repositories\UserRepositoryInterface;
 
 class UserRequest extends BaseRequest
 {
+
+    /** @var \App\Repositories\UserRepositoryInterface */
+    protected $userRepository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,17 +31,12 @@ class UserRequest extends BaseRequest
      */
     public function rules()
     {
-        return [
-            'email' => 'email',
-            'password' => 'min:6',
-        ];
+        return $this->userRepository->rules();
     }
 
     public function messages()
     {
-        return [
-            'email.email' => '',
-            'password.min' => '',
-        ];
+        return $this->userRepository->messages();
     }
+
 }

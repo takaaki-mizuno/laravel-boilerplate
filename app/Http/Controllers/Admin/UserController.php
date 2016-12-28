@@ -1,97 +1,186 @@
-<?php
+<?php namespace App\Http\Controllers\Admin;
 
-namespace App\Http\Controllers\Admin;
-
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepositoryInterface;
-use App\Http\Requests\PaginationRequest;
-use App\Http\Requests\Admin\UserRequest;
-use Illuminate\Support\MessageBag;
 
-class UserController extends Controller
-{
+use App\Repositories\UserRepositoryInterface;
+use App\Http\Requests\Admin\UserRequest;
+use App\Http\Requests\PaginationRequest;
+
+class UserController extends Controller {
+
     /** @var \App\Repositories\UserRepositoryInterface */
     protected $userRepository;
 
-    /** @var \Illuminate\Support\MessageBag */
-    protected $messageBag;
 
     public function __construct(
-        UserRepositoryInterface $userRepositoryInterface,
-        MessageBag $messageBag
+        UserRepositoryInterface $userRepository
     ) {
-        $this->userRepository = $userRepositoryInterface;
-        $this->messageBag = $messageBag;
+        $this->userRepository = $userRepository;
     }
 
-    public function index(PaginationRequest $request)
-    {
-        $offset = $request->offset();
-        $limit = $request->limit();
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \App\Http\Requests\PaginationRequest $request
+     *
+     * @return \Response
+     */
+    public function index( PaginationRequest $request ) {
+        $paginate[ 'offset' ] = $request->offset();
+        $paginate[ 'limit' ] = $request->limit();
+        $paginate[ 'order' ] = $request->order();
+        $paginate[ 'direction' ] = $request->direction();
+        $paginate[ 'baseUrl' ] = action( 'Admin\UserController@index' );
 
-        $order = $request->order();
-        $direction = $request->direction('desc');
-
-        $users = $this->userRepository->get($order, $direction, $offset, $limit);
         $count = $this->userRepository->count();
+        $models = $this->userRepository->get(
+            $paginate[ 'order' ],
+            $paginate[ 'direction' ],
+            $paginate[ 'offset' ],
+            $paginate[ 'limit' ]
+        );
 
-        return view('pages.admin.users.index', [
-            'users' => $users,
-            'offset' => $offset,
-            'limit' => $limit,
-            'count' => $count,
-            'order' => $order,
-            'direction' => $direction,
-            'baseUrl' => action('Admin\UserController@index'),
-        ]);
+        return view(
+            'pages.admin.users.index',
+            [
+                'models' => $models,
+                'count' => $count,
+                'paginate' => $paginate,
+            ]
+        );
     }
 
-    public function show($id)
-    {
-        $user = $this->userRepository->find($id);
-        if (empty($user)) {
-            abort(404);
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Response
+     */
+    public function create() {
+        return view(
+            'pages.admin.users.edit',
+            [
+                'isNew' => true,
+                'user'  => $this->userRepository->getBlankModel(),
+            ]
+        );
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  $request
+     *
+     * @return \Response
+     */
+    public function store( UserRequest $request ) {
+        $input = $request->only(
+            [
+                'name',
+                'email',
+                'password',
+                'locale',
+                'api_access_token',
+                'remember_token'
+            ]
+        );
+
+        $model = $this->userRepository->create( $input );
+
+        if( empty( $model ) ) {
+            return redirect()
+                ->back()
+                ->withErrors( trans( 'admin.errors.general.save_failed' ) );
         }
 
-        return view('pages.admin.users.edit', [
-            'user' => $user,
-        ]);
+        return redirect()
+            ->action( 'Admin\UserController@index' )
+            ->with( 'message-success', trans( 'admin.messages.general.create_success' ) );
     }
 
-    public function create()
-    {
-    }
-
-    public function store(UserRequest $request)
-    {
-        $model = $this->userRepository->create($request->all());
-
-        return redirect()->action('Admin\UserController@show', [$model->id])->with('message-success',
-            trans('admin.messages.general.create_success'));
-    }
-
-    public function update($id, UserRequest $request)
-    {
-        $user = $this->userRepository->find($id);
-        if (empty($user)) {
-            abort(404);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     *
+     * @return \Response
+     */
+    public function show( $id ) {
+        $model = $this->userRepository->find( $id );
+        if( empty( $model ) ) {
+            \App::abort( 404 );
         }
 
-        $this->userRepository->update($user, $request->all());
-
-        return redirect()->action('Admin\UserController@show', [$id])->with('message-success',
-            trans('admin.messages.general.update_success'));
+        return view(
+            'pages.admin.users.edit',
+            [
+                'isNew' => false,
+                'user'  => $model,
+            ]
+        );
     }
 
-    public function destroy($id)
-    {
-        $user = $this->userRepository->find($id);
-        if (empty($user)) {
-            abort(404);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     *
+     * @return \Response
+     */
+    public function edit( $id ) {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int $id
+     * @param      $request
+     *
+     * @return \Response
+     */
+    public function update( $id, UserRequest $request ) {
+        /** @var \App\Models\User $model */
+        $model = $this->userRepository->find( $id );
+        if( empty( $model ) ) {
+            \App::abort( 404 );
         }
-        $this->userRepository->delete($user);
+        $input = $request->only(
+            [
+                'name',
+                'email',
+                'password',
+                'locale',
+                'api_access_token',
+                'remember_token'
+            ]
+        );
 
-        return redirect()->action('Admin\UserController@index')->with('message-success',
-            trans('admin.messages.general.delete_success'));
+        $this->userRepository->update( $model, $input );
+
+        return redirect()
+            ->action( 'Admin\UserController@show', [$id] )
+            ->with( 'message-success', trans( 'admin.messages.general.update_success' ) );
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     *
+     * @return \Response
+     */
+    public function destroy( $id ) {
+        /** @var \App\Models\User $model */
+        $model = $this->userRepository->find( $id );
+        if( empty( $model ) ) {
+            \App::abort( 404 );
+        }
+        $this->userRepository->delete( $model );
+
+        return redirect()
+            ->action( 'Admin\UserController@index' )
+            ->with( 'message-success', trans( 'admin.messages.general.delete_success' ) );
+    }
+
 }

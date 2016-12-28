@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'menu' => [
-        'dashboard' => 'Dashboard',
-        'admin_users' => 'Admin Users',
-        'users' => 'Users',
+    'menu'     => [
+        'dashboard'          => 'Dashboard',
+        'admin_users'        => 'Admin Users',
+        'users'              => 'Users',
         'site-configuration' => 'Site Configuration',
     ],
     'messages' => [
@@ -14,15 +14,15 @@ return [
             'delete_success' => 'Successfully deleted.',
         ],
     ],
-    'errors' => [
-        'general' => [
+    'errors'   => [
+        'general'  => [
             'save_failed' => 'Failed To Save. Please contact with developers',
         ],
         'requests' => [
             'me' => [
-                'email' => [
+                'email'    => [
                     'required' => 'Email Required',
-                    'email' => 'Email is not valid',
+                    'email'    => 'Email is not valid',
                 ],
                 'password' => [
                     'min' => 'Password need at least 6 letters',
@@ -30,7 +30,7 @@ return [
             ],
         ],
     ],
-    'pages' => [
+    'pages'    => [
         'common'                   => [
             'label'   => [
                 'page'             => 'Page',
@@ -55,122 +55,124 @@ return [
                 'reset_password'  => 'Reset Password',
             ],
         ],
-        'auth' => [
-            'buttons' => [
-                'sign_in' => 'Sign In',
+        'auth'                     => [
+            'buttons'  => [
+                'sign_in'         => 'Sign In',
                 'forgot_password' => 'Send Me Email!',
-                'reset_password' => 'Reset Password',
+                'reset_password'  => 'Reset Password',
             ],
             'messages' => [
-                'remember_me' => 'Remember Me',
-                'please_sign_in' => 'Sign in to start your session',
+                'remember_me'     => 'Remember Me',
+                'please_sign_in'  => 'Sign in to start your session',
                 'forgot_password' => 'I forgot my password',
-                'reset_password' => 'Please enter your e-mail address and new password',
+                'reset_password'  => 'Please enter your e-mail address and new password',
             ],
         ],
-        'site-configurations' => [
+        'site-configurations'      => [
             'columns' => [
-                'locale' => 'Locale',
-                'name' => 'Name',
-                'title' => 'Title',
-                'keywords' => 'Keywords',
-                'description' => 'Descriptions',
-                'ogp_image_id' => 'OGP Image',
+                'locale'                => 'Locale',
+                'name'                  => 'Name',
+                'title'                 => 'Title',
+                'keywords'              => 'Keywords',
+                'description'           => 'Descriptions',
+                'ogp_image_id'          => 'OGP Image',
                 'twitter_card_image_id' => 'Twitter Card Image',
             ],
         ],
-        'articles' => [
+        'articles'                 => [
             'columns' => [
-                'slug' => 'Slug',
-                'title' => 'Title',
-                'keywords' => 'Keywords',
-                'description' => 'Description',
-                'content' => 'Content',
-                'cover_image_id' => 'Cover Image',
-                'locale' => 'Locale',
-                'is_enabled' => 'Active',
+                'slug'               => 'Slug',
+                'title'              => 'Title',
+                'keywords'           => 'Keywords',
+                'description'        => 'Description',
+                'content'            => 'Content',
+                'cover_image_id'     => 'Cover Image',
+                'locale'             => 'Locale',
+                'is_enabled'         => 'Active',
                 'publish_started_at' => 'Publish Started At',
-                'publish_ended_at' => 'Publish Ended At',
-                'is_enabled_true' => 'Enabled',
-                'is_enabled_false' => 'Disabled',
+                'publish_ended_at'   => 'Publish Ended At',
+                'is_enabled_true'    => 'Enabled',
+                'is_enabled_false'   => 'Disabled',
 
             ],
         ],
-        'user-notifications' => [
+        'user-notifications'       => [
             'columns' => [
-                'user_id' => 'User',
+                'user_id'       => 'User',
                 'category_type' => 'Category',
-                'type' => 'Type',
-                'data' => 'Data',
-                'locale' => 'Locale',
-                'content' => 'Content',
-                'read' => 'Read',
-                'read_true' => 'Read',
-                'read_false' => 'Unread',
-                'sent_at' => 'Sent At',
+                'type'          => 'Type',
+                'data'          => 'Data',
+                'locale'        => 'Locale',
+                'content'       => 'Content',
+                'read'          => 'Read',
+                'read_true'     => 'Read',
+                'read_false'    => 'Unread',
+                'sent_at'       => 'Sent At',
             ],
         ],
         'admin-user-notifications' => [
             'columns' => [
-                'user_id' => 'User',
+                'user_id'       => 'User',
                 'category_type' => 'Category',
-                'type' => 'Type',
-                'data' => 'Data',
-                'locale' => 'Locale',
-                'content' => 'Content',
-                'read' => 'Read',
-                'read_true' => 'Read',
-                'read_false' => 'Unread',
-                'sent_at' => 'Sent At',
+                'type'          => 'Type',
+                'data'          => 'Data',
+                'locale'        => 'Locale',
+                'content'       => 'Content',
+                'read'          => 'Read',
+                'read_true'     => 'Read',
+                'read_false'    => 'Unread',
+                'sent_at'       => 'Sent At',
             ],
         ],
-        'images' => [
+        'images'                   => [
             'columns' => [
-                'url' => 'URL',
-                'title' => 'Title',
-                'is_local' => '',
-                'entity_type' => 'EntityType',
-                'entity_id' => 'ID',
-                'file_category_type' => 'Category',
-                's3_key' => '',
-                's3_bucket' => '',
-                's3_region' => '',
-                's3_extension' => '',
-                'media_type' => 'Media Type',
-                'format' => 'Format',
-                'file_size' => 'File Size',
-                'width' => 'Width',
-                'height' => 'Height',
-                'has_alternative' => '',
+                'url'                    => 'URL',
+                'title'                  => 'Title',
+                'is_local'               => '',
+                'entity_type'            => 'EntityType',
+                'entity_id'              => 'ID',
+                'file_category_type'     => 'Category',
+                's3_key'                 => '',
+                's3_bucket'              => '',
+                's3_region'              => '',
+                's3_extension'           => '',
+                'media_type'             => 'Media Type',
+                'format'                 => 'Format',
+                'file_size'              => 'File Size',
+                'width'                  => 'Width',
+                'height'                 => 'Height',
+                'has_alternative'        => '',
                 'alternative_media_type' => '',
-                'alternative_format' => '',
-                'alternative_extension' => '',
-                'is_enabled' => 'Status',
-                'is_enabled_true' => 'Enabled',
-                'is_enabled_false' => 'Disabled',
+                'alternative_format'     => '',
+                'alternative_extension'  => '',
+                'is_enabled'             => 'Status',
+                'is_enabled_true'        => 'Enabled',
+                'is_enabled_false'       => 'Disabled',
             ],
         ],
-        'customers'   => [
-            'columns'  => [
-                'name' => 'Name',
-                'address' => 'Address',
-                'telephone' => 'Telephone',
-                'province_id' => 'Province_id',
-                'district_id' => 'District_id',
-                'avatar_image_id' => 'Avatar_image_id',
+        'admin-users'              => [
+            'columns' => [
+                'name'             => 'Name',
+                'email'            => 'Email',
+                'locale'           => 'Locale',
+                'profile_image_id' => 'Avatar',
             ],
         ],
-        'admin-users'   => [
+        'users'                    => [
             'columns' => [
                 'name'                 => 'Name',
                 'email'                => 'Email',
+                'password'             => 'Password',
                 'locale'               => 'Locale',
-                'profile_image_id'     => 'Avatar',
+                'remember_token'       => 'Remember Token',
+                'api_access_token'     => 'Api Access Token',
+                'profile_image_id'     => 'Profile Image',
+                'last_notification_id' => 'Last Notification Id',
             ],
         ],
         /* NEW PAGE STRINGS */
     ],
-    'roles' => [
+    'roles'    => [
         'super_user' => 'Super User',
         'site_admin' => 'Site Administrator',
     ],

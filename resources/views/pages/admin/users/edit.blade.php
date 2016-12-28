@@ -62,8 +62,6 @@
                 </h3>
             </div>
             <div class="box-body">
-
-                {{---------------------------}}
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="form-group text-center">
@@ -141,7 +139,6 @@
                         </table>
                     </div>
                 </div>
-                {{---------------------------}}
             </div>
 
             <div class="box-footer">

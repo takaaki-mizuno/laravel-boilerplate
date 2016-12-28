@@ -48,10 +48,10 @@
             <table class="table table-bordered">
                 <tr>
                     <th style="width: 10px">ID</th>
-                    <th>@lang('admin.pages.admin-user-notifications.columns.category_type')</th>
-                    <th>@lang('admin.pages.admin-user-notifications.columns.type')</th>
                     <th style="width: 10px">@lang('admin.pages.admin-user-notifications.columns.locale')</th>
                     <th style="width: 10px">@lang('admin.pages.admin-user-notifications.columns.read')</th>
+                    <th>@lang('admin.pages.admin-user-notifications.columns.category_type')</th>
+                    <th>@lang('admin.pages.admin-user-notifications.columns.type')</th>
                     <th>@lang('admin.pages.admin-user-notifications.columns.sent_at')</th>
 
                     <th style="width: 40px">@lang('admin.pages.common.label.actions')</th>
@@ -59,10 +59,7 @@
                 @foreach( $models as $model )
                     <tr>
                         <td>{{ $model->id }}</td>
-                        <td>{{ $model->category_type }}</td>
-                        <td>{{ $model->type }}</td>
                         <td>{{ $model->locale }}</td>
-
                         <td>
                             @if( $model->read )
                                 <span class="badge bg-green">@lang('admin.pages.admin-user-notifications.columns.read_true')</span>
@@ -70,7 +67,8 @@
                                 <span class="badge bg-yellow">@lang('admin.pages.admin-user-notifications.columns.read_false')</span>
                             @endif
                         </td>
-
+                        <td>{{ $model->category_type }}</td>
+                        <td>{{ $model->type }}</td>
                         <td>{{ $model->sent_at }}</td>
                         <td>
                             <a href="{!! URL::action('Admin\AdminUserNotificationController@show', $model->id) !!}"

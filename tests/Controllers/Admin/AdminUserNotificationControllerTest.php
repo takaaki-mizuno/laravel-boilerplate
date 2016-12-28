@@ -1,10 +1,10 @@
-<?php
-namespace Tests\Controllers\Admin;
+<?php  namespace Tests\Controllers\Admin;
 
 use Tests\TestCase;
 
 class AdminUserNotificationControllerTest extends TestCase
 {
+
     protected $useDatabase = true;
 
     public function testGetInstance()
@@ -45,7 +45,6 @@ class AdminUserNotificationControllerTest extends TestCase
     public function testEditModel()
     {
         $adminUserNotification = factory(\App\Models\AdminUserNotification::class)->create();
-
         $this->action('GET', 'Admin\AdminUserNotificationController@show', [$adminUserNotification->id]);
         $this->assertResponseOk();
     }
@@ -56,10 +55,10 @@ class AdminUserNotificationControllerTest extends TestCase
 
         $adminUserNotification = factory(\App\Models\AdminUserNotification::class)->create();
 
-        $text = $faker->sentence();
+        $name = $faker->name;
         $id = $adminUserNotification->id;
 
-        $adminUserNotification->content = $text;
+        $adminUserNotification->name = $name;
 
         $this->action('PUT', 'Admin\AdminUserNotificationController@update', [$id], [
                 '_token' => csrf_token(),
@@ -67,7 +66,7 @@ class AdminUserNotificationControllerTest extends TestCase
         $this->assertResponseStatus(302);
 
         $newAdminUserNotification = \App\Models\AdminUserNotification::find($id);
-        $this->assertEquals($text, $newAdminUserNotification->content);
+        $this->assertEquals($name, $newAdminUserNotification->name);
     }
 
     public function testDeleteModel()
@@ -84,4 +83,5 @@ class AdminUserNotificationControllerTest extends TestCase
         $checkAdminUserNotification = \App\Models\AdminUserNotification::find($id);
         $this->assertNull($checkAdminUserNotification);
     }
+
 }

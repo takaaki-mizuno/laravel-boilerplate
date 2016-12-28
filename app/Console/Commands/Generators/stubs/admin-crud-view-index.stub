@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    <div class="box-body">
+    <div class="box-body" style=" overflow-x: scroll; ">
         <table class="table table-bordered">
             <tr>
                 <th style="width: 10px">ID</th>

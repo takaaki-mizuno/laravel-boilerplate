@@ -31,17 +31,28 @@ return [
         ],
     ],
     'pages' => [
-        'common' => [
+        'common'                   => [
+            'label'   => [
+                'page'             => 'Page',
+                'actions'          => 'Actions',
+                'is_enabled'       => 'Status',
+                'is_enabled_true'  => 'Enabled',
+                'is_enabled_false' => 'Disabled',
+                'search_results'   => 'Total: :count results',
+                'select_province'  => 'Select a Province',
+                'select_district'  => 'Select a District',
+            ],
             'buttons' => [
-                'create' => 'Create New',
-                'edit' => 'Edit',
-                'save' => 'Save',
-                'delete' => 'Delete',
-                'cancel' => 'Cancel',
-                'add' => 'Add',
-                'preview' => 'Preview',
+                'create'          => 'Create New',
+                'edit'            => 'Edit',
+                'save'            => 'Save',
+                'delete'          => 'Delete',
+                'cancel'          => 'Cancel',
+                'back'            => 'Back',
+                'add'             => 'Add',
+                'preview'         => 'Preview',
                 'forgot_password' => 'Send Me Email!',
-                'reset_password' => 'Reset Password',
+                'reset_password'  => 'Reset Password',
             ],
         ],
         'auth' => [
@@ -137,6 +148,16 @@ return [
                 'is_enabled' => 'Status',
                 'is_enabled_true' => 'Enabled',
                 'is_enabled_false' => 'Disabled',
+            ],
+        ],
+        'customers'   => [
+            'columns'  => [
+                'name' => 'Name',
+                'address' => 'Address',
+                'telephone' => 'Telephone',
+                'province_id' => 'Province_id',
+                'district_id' => 'District_id',
+                'avatar_image_id' => 'Avatar_image_id',
             ],
         ],
         /* NEW PAGE STRINGS */

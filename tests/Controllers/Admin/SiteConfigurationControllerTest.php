@@ -1,10 +1,10 @@
-<?php
-namespace Tests\Controllers\Admin;
+<?php  namespace Tests\Controllers\Admin;
 
 use Tests\TestCase;
 
 class SiteConfigurationControllerTest extends TestCase
 {
+
     protected $useDatabase = true;
 
     public function testGetInstance()
@@ -79,9 +79,9 @@ class SiteConfigurationControllerTest extends TestCase
                 '_token' => csrf_token(),
             ]);
         $this->assertResponseStatus(302);
-        $this->assertRedirectedToAction('Admin\SiteConfigurationController@index');
 
         $checkSiteConfiguration = \App\Models\SiteConfiguration::find($id);
         $this->assertNull($checkSiteConfiguration);
     }
+
 }

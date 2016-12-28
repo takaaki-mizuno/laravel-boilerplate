@@ -160,6 +160,14 @@ return [
                 'avatar_image_id' => 'Avatar_image_id',
             ],
         ],
+        'admin-users'   => [
+            'columns' => [
+                'name'                 => 'Name',
+                'email'                => 'Email',
+                'locale'               => 'Locale',
+                'profile_image_id'     => 'Avatar',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles' => [

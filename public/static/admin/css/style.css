@@ -326,3 +326,20 @@ input.cmn-toggle-round-flat:checked + label:after {
 /* End: Search group */
 
 /*-----------------------------------------------------------------------------------*/
+
+/* Begin: edit user profile */
+.edit-user-profile {
+    width: 90%;
+    margin-top: 10px;
+}
+.edit-user-profile td:nth-child(1) {
+    width: 25%;
+    text-align: right;
+    padding-right: 20px;
+}
+.edit-user-profile td:nth-child(2) input {
+    margin-bottom: 15px;
+}
+/* End: edit user profile */
+
+/*-----------------------------------------------------------------------------------*/

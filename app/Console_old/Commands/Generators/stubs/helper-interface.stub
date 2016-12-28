@@ -1,6 +1,0 @@
-<?php namespace App\Helpers;
-
-interface %%CLASS%%Interface
-{
-
-}

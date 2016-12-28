@@ -1,5 +1,0 @@
-<?php namespace App\Repositories;
-
-interface %%CLASS%%Interface extends CompositeKeyModelRepositoryInterface
-{
-}

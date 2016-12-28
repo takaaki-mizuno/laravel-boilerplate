@@ -1,12 +1,11 @@
-<?php
-
-namespace App\Http\Requests\Admin;
+<?php namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\BaseRequest;
 use App\Repositories\ArticleRepositoryInterface;
 
 class ArticleRequest extends BaseRequest
 {
+
     /** @var \App\Repositories\ArticleRepositoryInterface */
     protected $articleRepository;
 
@@ -39,4 +38,5 @@ class ArticleRequest extends BaseRequest
     {
         return $this->articleRepository->messages();
     }
+
 }

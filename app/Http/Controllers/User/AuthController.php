@@ -30,7 +30,7 @@ class AuthController extends Controller
             return redirect()->action('User\AuthController@getSignIn');
         }
 
-        return redirect()->intended(action('User\IndexController@index'));
+        return \RedirectHelper::intended(action('User\IndexController@index'));
     }
 
     public function getSignUp()
@@ -46,6 +46,6 @@ class AuthController extends Controller
             return redirect()->action('User\AuthController@getSignUp');
         }
 
-        return redirect()->intended(action('User\IndexController@index'));
+        return \RedirectHelper::intended(action('User\IndexController@index'));
     }
 }

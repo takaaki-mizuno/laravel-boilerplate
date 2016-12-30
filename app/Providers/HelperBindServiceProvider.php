@@ -48,6 +48,11 @@ class HelperBindServiceProvider extends ServiceProvider
             'App\Helpers\Production\TypeHelper'
         );
 
+        $this->app->singleton(
+            'App\Helpers\RedirectHelperInterface',
+            'App\Helpers\Production\RedirectHelper'
+        );
+
         /* NEW BINDING */
     }
 }

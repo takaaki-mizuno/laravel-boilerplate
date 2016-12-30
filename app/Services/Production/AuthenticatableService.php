@@ -137,7 +137,7 @@ class AuthenticatableService implements AuthenticatableServiceInterface
     {
         $email = $this->passwordResettableRepository->findEmailByToken($token);
         if (empty($email)) {
-            return;
+            return null;
         }
 
         return $this->authenticatableRepository->findByEmail($email);
@@ -171,7 +171,7 @@ class AuthenticatableService implements AuthenticatableServiceInterface
         /** @var \App\Models\AuthenticatableBase $user */
         $user = $this->signIn($input);
         if (empty($user)) {
-            return;
+            return null;
         }
 
         return $this->setAPIAccessToken($user);
@@ -182,7 +182,7 @@ class AuthenticatableService implements AuthenticatableServiceInterface
         /** @var \App\Models\AuthenticatableBase $user */
         $user = $this->signUp($input);
         if (empty($user)) {
-            return;
+            return null;
         }
 
         return $this->setAPIAccessToken($user);
@@ -199,7 +199,7 @@ class AuthenticatableService implements AuthenticatableServiceInterface
     /**
      * @return string
      */
-    protected function getGuardName()
+    public function getGuardName()
     {
         return '';
     }

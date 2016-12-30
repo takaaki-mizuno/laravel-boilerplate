@@ -34,7 +34,7 @@ class Authenticate
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest(action('User\AuthController@getSignIn'));
+                return \RedirectHelper::guest(action('User\AuthController@getSignIn'));
             }
         }
         view()->share('authUser', $this->userService->getUser());

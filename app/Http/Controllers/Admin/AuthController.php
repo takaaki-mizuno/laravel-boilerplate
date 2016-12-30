@@ -29,7 +29,7 @@ class AuthController extends Controller
             return redirect()->action('Admin\AuthController@getSignIn');
         }
 
-        return redirect()->action('Admin\IndexController@index');
+        return \RedirectHelper::intended('Admin\IndexController@index', $this->adminUserService->getGuardName());
     }
 
     public function postSignOut()

@@ -249,6 +249,7 @@ return [
         'PaginationHelper' => App\Facades\PaginationHelper::class,
         'UserNotificationHelper' => App\Facades\UserNotificationHelper::class,
         'TypeHelper'  => App\Facades\TypeHelper::class,
+        'RedirectHelper'  => App\Facades\RedirectHelper::class,
         /* NEW FACADE */
     ],
 

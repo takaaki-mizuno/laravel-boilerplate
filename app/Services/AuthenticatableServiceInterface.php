@@ -98,4 +98,9 @@ interface AuthenticatableServiceInterface extends BaseServiceInterface
      * @return \App\Models\AuthenticatableBase
      */
     public function setAPIAccessToken($user);
+
+    /**
+     * @return string
+     */
+    public function getGuardName();
 }

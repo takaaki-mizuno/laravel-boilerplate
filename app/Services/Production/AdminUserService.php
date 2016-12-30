@@ -22,7 +22,7 @@ class AdminUserService extends AuthenticatableService implements AdminUserServic
         $this->passwordResettableRepository = $adminPasswordResetRepository;
     }
 
-    protected function getGuardName()
+    public function getGuardName()
     {
         return 'admins';
     }

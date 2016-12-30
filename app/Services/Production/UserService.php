@@ -22,7 +22,7 @@ class UserService extends AuthenticatableService implements UserServiceInterface
         $this->passwordResettableRepository = $userPasswordResetRepository;
     }
 
-    protected function getGuardName()
+    public function getGuardName()
     {
         return 'users';
     }

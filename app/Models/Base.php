@@ -79,9 +79,10 @@ class Base extends Model
     public function toFillableArray()
     {
         $ret = [];
-        foreach( $this->fillable as $key ) {
+        foreach ($this->fillable as $key) {
             $ret[$key] = $this->$key;
         }
+
         return $ret;
     }
 

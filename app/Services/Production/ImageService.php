@@ -7,10 +7,10 @@ use App\Services\ImageServiceInterface;
 class ImageService extends BaseService implements ImageServiceInterface
 {
     /**
-     * @param string      $src    file path
-     * @param string      $dst    file path
-     * @param string|null $format file format
-     * @param array       $size   [ width, height ]
+     * @param string      $src           file path
+     * @param string      $dst           file path
+     * @param string|null $format        file format
+     * @param array       $size          [ width, height ]
      * @param bool        $needExactSize
      *
      * @return array
@@ -102,18 +102,19 @@ class ImageService extends BaseService implements ImageServiceInterface
 
     /**
      * @param  \Imagick $image
-     * @param  array $size
-     * @param  bool  $needExactSize
+     * @param  array    $size
+     * @param  bool     $needExactSize
      * @return \Imagick
      */
     private function setImageSize($image, $size, $needExactSize=false)
     {
-        if( empty($size) ) {
+        if ( empty($size) ) {
             return $image;
         }
 
-        if( $needExactSize ) {
+        if ($needExactSize) {
             $image->cropThumbnailImage($size[0], $size[1]);
+
             return $image;
         }
 

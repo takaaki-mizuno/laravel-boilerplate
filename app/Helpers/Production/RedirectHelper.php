@@ -16,7 +16,7 @@ class RedirectHelper implements RedirectHelperInterface
     /**
      * Create a new Redirector instance.
      *
-     * @param  \Illuminate\Routing\UrlGenerator $generator
+     * @param \Illuminate\Routing\UrlGenerator $generator
      */
     public function __construct(UrlGenerator $generator)
     {

@@ -77,10 +77,9 @@ class AdminUserController extends Controller
         ]);
 
         $exist = $this->adminUserRepository->findByEmail($input['email']);
-        if( !empty($exist) ) {
+        if ( !empty($exist) ) {
             return redirect()->back()->withErrors(['error'=> 'This Email Is Already In Use'])->withInput();
         }
-
 
         $adminUser = $this->adminUserRepository->create($input);
         $this->adminUserRoleRepository->setAdminUserRoles($adminUser->id, $request->input('role', []));
@@ -101,7 +100,7 @@ class AdminUserController extends Controller
             'email',
         ]);
         $password = $request->get('password', '');
-        if( !empty($password) ) {
+        if ( !empty($password) ) {
             $input['password'] = $password;
         }
 

@@ -41,13 +41,13 @@ class Execute extends Command
      */
     public function handle()
     {
-        if( $this->files->exists($this->testDbPath) ) {
+        if ( $this->files->exists($this->testDbPath) ) {
             $this->files->delete($this->testDbPath);
         }
 
         system(base_path('vendor/bin/phpunit'));
 
-        if( $this->files->exists($this->testDbPath) ) {
+        if ( $this->files->exists($this->testDbPath) ) {
             $this->files->delete($this->testDbPath);
         }
     }

@@ -40,7 +40,7 @@ class SetUpStubDatabase extends Command
      */
     public function handle()
     {
-        if( $this->files->exists($this->stubDbPath) ) {
+        if ( $this->files->exists($this->stubDbPath) ) {
             $this->files->delete($this->stubDbPath);
         }
         $this->files->put($this->stubDbPath, '');

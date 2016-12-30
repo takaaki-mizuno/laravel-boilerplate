@@ -157,7 +157,7 @@ class HelperMakeCommand extends GeneratorCommandBase
 
         $bindService = $this->files->get($this->getBindServiceProviderPath());
         $key = '/* NEW BINDING */';
-        $bind = '$this->app->singleton('.PHP_EOL."            'App\\Helpers\\".$className."Interface',".PHP_EOL."            'App\\Helpers\\Production\\".$className."'".PHP_EOL.'        );'.PHP_EOL.PHP_EOL.'        '.$key;
+        $bind = '$this->app->singleton('.PHP_EOL."            \\App\\Helpers\\".$className."Interface::class,".PHP_EOL."            \\App\\Helpers\\Production\\".$className."::class".PHP_EOL.'        );'.PHP_EOL.PHP_EOL.'        '.$key;
         $bindService = str_replace($key, $bind, $bindService);
         $this->files->put($this->getBindServiceProviderPath(), $bindService);
 
@@ -170,7 +170,7 @@ class HelperMakeCommand extends GeneratorCommandBase
 
         $appConfig = $this->files->get($this->getAppConfigPath());
         $key = '/* NEW FACADE */';
-        $facade = "'".$className."'  => App\\Facades\\".$className.'::class,'.PHP_EOL.'        '.$key;
+        $facade = "'".$className."'  => \\App\\Facades\\".$className.'::class,'.PHP_EOL.'        '.$key;
         $appConfig = str_replace($key, $facade, $appConfig);
         $this->files->put($this->getAppConfigPath(), $appConfig);
 

@@ -98,7 +98,7 @@ class RepositoryMakeCommand extends GeneratorCommandBase
 
         $bindService = $this->files->get($this->getBindServiceProviderPath());
         $key = '/* NEW BINDING */';
-        $bind = '$this->app->singleton('.PHP_EOL."            'App\\Repositories\\".$className."Interface',".PHP_EOL."            'App\\Repositories\\Eloquent\\".$className."'".PHP_EOL.'        );'.PHP_EOL.PHP_EOL.'        '.$key;
+        $bind = '$this->app->singleton('.PHP_EOL."            \\App\\Repositories\\".$className."Interface::class,".PHP_EOL."            \\App\\Repositories\\Eloquent\\".$className."::class".PHP_EOL.'        );'.PHP_EOL.PHP_EOL.'        '.$key;
         $bindService = str_replace($key, $bind, $bindService);
         $this->files->put($this->getBindServiceProviderPath(), $bindService);
 

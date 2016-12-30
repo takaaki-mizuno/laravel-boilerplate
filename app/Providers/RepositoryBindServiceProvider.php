@@ -19,61 +19,61 @@ class RepositoryBindServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('App\Repositories\AdminUserRepositoryInterface',
-            'App\Repositories\Eloquent\AdminUserRepository');
+        $this->app->singleton(\App\Repositories\AdminUserRepositoryInterface::class,
+            \App\Repositories\Eloquent\AdminUserRepository::class);
 
-        $this->app->singleton('App\Repositories\AdminUserRoleRepositoryInterface',
-            'App\Repositories\Eloquent\AdminUserRoleRepository');
+        $this->app->singleton(\App\Repositories\AdminUserRoleRepositoryInterface::class,
+            \App\Repositories\Eloquent\AdminUserRoleRepository::class);
 
-        $this->app->singleton('App\Repositories\UserRepositoryInterface', 'App\Repositories\Eloquent\UserRepository');
+        $this->app->singleton(\App\Repositories\UserRepositoryInterface::class, \App\Repositories\Eloquent\UserRepository::class);
 
-        $this->app->singleton('App\Repositories\FileRepositoryInterface', 'App\Repositories\Eloquent\FileRepository');
+        $this->app->singleton(\App\Repositories\FileRepositoryInterface::class, \App\Repositories\Eloquent\FileRepository::class);
 
-        $this->app->singleton('App\Repositories\ImageRepositoryInterface', 'App\Repositories\Eloquent\ImageRepository');
+        $this->app->singleton(\App\Repositories\ImageRepositoryInterface::class, \App\Repositories\Eloquent\ImageRepository::class);
 
-        $this->app->singleton('App\Repositories\SiteConfigurationRepositoryInterface',
-            'App\Repositories\Eloquent\SiteConfigurationRepository');
+        $this->app->singleton(\App\Repositories\SiteConfigurationRepositoryInterface::class,
+            \App\Repositories\Eloquent\SiteConfigurationRepository::class);
 
-        $this->app->singleton('App\Repositories\UserServiceAuthenticationRepositoryInterface',
-            'App\Repositories\Eloquent\UserServiceAuthenticationRepository');
+        $this->app->singleton(\App\Repositories\UserServiceAuthenticationRepositoryInterface::class,
+            \App\Repositories\Eloquent\UserServiceAuthenticationRepository::class);
 
-        $this->app->singleton('App\Repositories\PasswordResettableRepositoryInterface',
-            'App\Repositories\Eloquent\PasswordResettableRepository');
+        $this->app->singleton(\App\Repositories\PasswordResettableRepositoryInterface::class,
+            \App\Repositories\Eloquent\PasswordResettableRepository::class);
 
-        $this->app->singleton('App\Repositories\UserPasswordResetRepositoryInterface',
-            'App\Repositories\Eloquent\UserPasswordResetRepository');
+        $this->app->singleton(\App\Repositories\UserPasswordResetRepositoryInterface::class,
+            \App\Repositories\Eloquent\UserPasswordResetRepository::class);
 
-        $this->app->singleton('App\Repositories\AdminPasswordResetRepositoryInterface',
-            'App\Repositories\Eloquent\AdminPasswordResetRepository');
+        $this->app->singleton(\App\Repositories\AdminPasswordResetRepositoryInterface::class,
+            \App\Repositories\Eloquent\AdminPasswordResetRepository::class);
 
         $this->app->singleton(
-            'App\Repositories\SiteConfigurationRepositoryInterface',
-            'App\Repositories\Eloquent\SiteConfigurationRepository'
+            \App\Repositories\SiteConfigurationRepositoryInterface::class,
+            \App\Repositories\Eloquent\SiteConfigurationRepository::class
         );
 
         $this->app->singleton(
-            'App\Repositories\SiteConfigurationRepositoryInterface',
-            'App\Repositories\Eloquent\SiteConfigurationRepository'
+            \App\Repositories\SiteConfigurationRepositoryInterface::class,
+            \App\Repositories\Eloquent\SiteConfigurationRepository::class
         );
 
         $this->app->singleton(
-            'App\Repositories\ArticleRepositoryInterface',
-            'App\Repositories\Eloquent\ArticleRepository'
+            \App\Repositories\ArticleRepositoryInterface::class,
+            \App\Repositories\Eloquent\ArticleRepository::class
         );
 
         $this->app->singleton(
-            'App\Repositories\NotificationRepositoryInterface',
-            'App\Repositories\Eloquent\NotificationRepository'
+            \App\Repositories\NotificationRepositoryInterface::class,
+            \App\Repositories\Eloquent\NotificationRepository::class
         );
 
         $this->app->singleton(
-            'App\Repositories\UserNotificationRepositoryInterface',
-            'App\Repositories\Eloquent\UserNotificationRepository'
+            \App\Repositories\UserNotificationRepositoryInterface::class,
+            \App\Repositories\Eloquent\UserNotificationRepository::class
         );
 
         $this->app->singleton(
-            'App\Repositories\AdminUserNotificationRepositoryInterface',
-            'App\Repositories\Eloquent\AdminUserNotificationRepository'
+            \App\Repositories\AdminUserNotificationRepositoryInterface::class,
+            \App\Repositories\Eloquent\AdminUserNotificationRepository::class
         );
 
         /* NEW BINDING */

@@ -60,7 +60,7 @@ class ModelMakeCommand extends GeneratorCommandBase
         $fillables = count($columns) > 0 ? "'".implode("',".PHP_EOL."        '", $columns)."'," : '';
         $this->replaceTemplateVariable($stub, 'FILLABLES', $fillables);
 
-        $api = count($columns) > 0 ? implode(','.PHP_EOL.'            ', array_map(function ($column) {
+        $api = count($columns) > 0 ? implode(','.PHP_EOL.'            ', array_map(function($column) {
                 return "'".$column."'".' => $this->'.$column;
             }, $columns)).',' : '';
         $this->replaceTemplateVariable($stub, 'API', $api);
@@ -69,19 +69,7 @@ class ModelMakeCommand extends GeneratorCommandBase
         $datetimes = count($columns) > 0 ? "'".implode("','", $columns)."'" : '';
         $this->replaceTemplateVariable($stub, 'DATETIMES', $datetimes);
 
-        $relations = "";
-        foreach ($columns as $column) {
-            if (preg_match('/^(.*_image)_id$/', $column, $matches)) {
-                $key = $matches[1];
-                $relationName = \StringHelper::snake2Camel($key);
-                $relations .= '    public function '.$relationName.'()'.PHP_EOL.'    {'.PHP_EOL.'        return $this->hasOne(\App\Models\Image::class, \'id\', \''.$column.'\');'.PHP_EOL.'    }'.PHP_EOL.PHP_EOL;
-            } elseif (preg_match('/^(.*)_id$/', $column, $matches)) {
-                $key = $matches[1];
-                $relationName = \StringHelper::snake2Camel($key);
-                $relatedModelName = ucfirst($relationName);
-                $relations .= '    public function '.$relationName.'()'.PHP_EOL.'    {'.PHP_EOL.'        return $this->belongsTo(\App\Models\\'.$relatedModelName.'::class, \''.$column.'\', \'id\');'.PHP_EOL.'    }'.PHP_EOL.PHP_EOL;
-            }
-        }
+        $relations = $this->detectRelations($name);
         $this->replaceTemplateVariable($stub, 'RELATIONS', $relations);
 
         $hasSoftDelete = $this->hasSoftDeleteColumn($tableName);
@@ -111,34 +99,6 @@ class ModelMakeCommand extends GeneratorCommandBase
     protected function getStub()
     {
         return __DIR__.'/stubs/model.stub';
-    }
-
-    /**
-     * @param  string $name
-     * @return string
-     */
-    protected function getTableName($name)
-    {
-        $options = $this->option();
-        if (array_key_exists('name', $options)) {
-            return $optionName = $this->option('name');
-        }
-
-        $className = $this->getClassName($name);
-
-        $name = \StringHelper::pluralize(\StringHelper::camel2Snake($className));
-        $columns = $this->getTableColumns($name);
-        if (count($columns)) {
-            return $name;
-        }
-
-        $name = \StringHelper::singularize(\StringHelper::camel2Snake($className));
-        $columns = $this->getTableColumns($name);
-        if (count($columns)) {
-            return $name;
-        }
-
-        return \StringHelper::pluralize(\StringHelper::camel2Snake($className));
     }
 
     /**
@@ -236,40 +196,6 @@ class ModelMakeCommand extends GeneratorCommandBase
         }
 
         return false;
-    }
-
-    /**
-     * @param string $tableName
-     * @param bool   $removeDefaultCoulmn
-     *
-     * @return \Doctrine\DBAL\Schema\Column[]
-     */
-    protected function getTableColumns($tableName, $removeDefaultCoulmn = true)
-    {
-        $hasDoctrine = interface_exists('Doctrine\DBAL\Driver');
-        if (!$hasDoctrine) {
-            return [];
-        }
-
-        $platform = \DB::getDoctrineConnection()->getDatabasePlatform();
-        $platform->registerDoctrineTypeMapping('json', 'string');
-
-        $schema = \DB::getDoctrineSchemaManager();
-
-        $columns = $schema->listTableColumns($tableName);
-
-        if (!$removeDefaultCoulmn) {
-            return $columns;
-        }
-
-        $ret = [];
-        foreach ($columns as $column) {
-            if (!in_array($column->getName(), ['created_at', 'updated_at', 'deleted_at'])) {
-                $ret[] = $column;
-            }
-        }
-
-        return $ret;
     }
 
     /**
@@ -427,5 +353,92 @@ class ModelMakeCommand extends GeneratorCommandBase
         return [
             ['table', '-t', InputOption::VALUE_OPTIONAL, 'Table Name', null],
         ];
+    }
+
+    protected function detectRelations($name)
+    {
+        $tableName = $this->getTableName($name);
+        $columns = $this->getTableColumns($tableName);
+
+        $relations = "";
+
+        foreach ($columns as $column) {
+            $columnName = $column->getName();
+            if (preg_match('/^(.*_image)_id$/', $column, $matches)) {
+                $relationName = \StringHelper::snake2Camel($matches[1]);
+                $relations .= '    public function '.$relationName.'()'.PHP_EOL.'    {'.PHP_EOL.'        return $this->hasOne(\App\Models\Image::class, \'id\', \''.$columnName.'\');'.PHP_EOL.'    }'.PHP_EOL.PHP_EOL;
+            } elseif (preg_match('/^(.*)_id$/', $column, $matches)) {
+                $relationName = \StringHelper::snake2Camel($matches[1]);
+                $className = ucfirst($relationName);
+                if (!$this->getPath($className)) {
+                    continue;
+                }
+                $relations .= '    public function '.$relationName.'()'.PHP_EOL.'    {'.PHP_EOL.'        return $this->belongsTo(\App\Models\\'.$className.'::class, \''.$columnName.'\', \'id\');'.PHP_EOL.'    }'.PHP_EOL.PHP_EOL;
+            }
+        }
+
+        return $relations;
+    }
+
+    /**
+     * @param  string $name
+     * @return string
+     */
+    protected function getTableName($name)
+    {
+        $options = $this->option();
+        if (array_key_exists('name', $options)) {
+            return $optionName = $this->option('name');
+        }
+
+        $className = $this->getClassName($name);
+
+        $name = \StringHelper::pluralize(\StringHelper::camel2Snake($className));
+        $columns = $this->getTableColumns($name);
+        if (count($columns)) {
+            return $name;
+        }
+
+        $name = \StringHelper::singularize(\StringHelper::camel2Snake($className));
+        $columns = $this->getTableColumns($name);
+        if (count($columns)) {
+            return $name;
+        }
+
+        return \StringHelper::pluralize(\StringHelper::camel2Snake($className));
+    }
+
+    /**
+     * @param string $tableName
+     * @param bool $removeDefaultColumn
+     *
+     * @return \Doctrine\DBAL\Schema\Column[]
+     */
+    protected function getTableColumns($tableName, $removeDefaultColumn = true)
+    {
+        $hasDoctrine = interface_exists('Doctrine\DBAL\Driver');
+        if (!$hasDoctrine) {
+            return [];
+        }
+
+        $platform = \DB::getDoctrineConnection()->getDatabasePlatform();
+        $platform->registerDoctrineTypeMapping('json', 'string');
+
+        $schema = \DB::getDoctrineSchemaManager();
+
+        $columns = $schema->listTableColumns($tableName);
+
+        if (!$removeDefaultColumn) {
+            return $columns;
+        }
+
+        $ret = [];
+        foreach ($columns as $column) {
+            if (!in_array($column->getName(), ['created_at', 'updated_at', 'deleted_at'])) {
+                $ret[] = $column;
+            }
+        }
+
+        return $ret;
     }
 }

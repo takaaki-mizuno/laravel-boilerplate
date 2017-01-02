@@ -364,10 +364,10 @@ class ModelMakeCommand extends GeneratorCommandBase
 
         foreach ($columns as $column) {
             $columnName = $column->getName();
-            if (preg_match('/^(.*_image)_id$/', $column, $matches)) {
+            if (preg_match('/^(.*_image)_id$/', $columnName, $matches)) {
                 $relationName = \StringHelper::snake2Camel($matches[1]);
                 $relations .= '    public function '.$relationName.'()'.PHP_EOL.'    {'.PHP_EOL.'        return $this->hasOne(\App\Models\Image::class, \'id\', \''.$columnName.'\');'.PHP_EOL.'    }'.PHP_EOL.PHP_EOL;
-            } elseif (preg_match('/^(.*)_id$/', $column, $matches)) {
+            } elseif (preg_match('/^(.*)_id$/', $columnName, $matches)) {
                 $relationName = \StringHelper::snake2Camel($matches[1]);
                 $className = ucfirst($relationName);
                 if (!$this->getPath($className)) {

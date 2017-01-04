@@ -30,8 +30,8 @@
             </h3>
             {!! \PaginationHelper::render($offset, $limit, $count, $baseUrl, []) !!}
         </div>
-        <div class="box-body no-padding scroll">
-            <table class="table">
+        <div class="box-body scroll">
+            <table class="table table-bordered">
                 <tr>
                     <th style="width: 10px">#</th>
                     <th>Name</th>

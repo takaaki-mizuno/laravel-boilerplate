@@ -10,11 +10,11 @@
 @stop
 
 @section('title')
-    {{ config('site.name') }} | Admin | Admin Users | Edit
+    {{ config('site.name') }} | Admin | Users | Edit
 @stop
 
 @section('header')
-Edit Admin Users
+    Edit User:
 @stop
 
 @section('content')
@@ -22,26 +22,42 @@ Edit Admin Users
         {!! csrf_field() !!}
         <input type="hidden" name="_method" value="put">
         <div class="box-body">
-            <div class="form-group">
-                <label for="name" class="col-sm-2 control-label">Name</label>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">@lang('admin.pages.users.columns.name')</label>
 
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" placeholder="Name" value="{{ $user->name }}">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" placeholder="Name"
+                                   value="{{ $user->name }}">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="email" class="col-sm-2 control-label">EMail Address</label>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="email"
+                               class="col-sm-2 control-label">@lang('admin.pages.users.columns.email')</label>
 
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email" placeholder="Email" value="{{ $user->email }}">
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="email" placeholder="Email"
+                                   value="{{ $user->email }}">
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="inputPassword3"
+                               class="col-sm-2 control-label">@lang('admin.pages.users.columns.password')</label>
 
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password"  value="">
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password"
+                                   value="">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

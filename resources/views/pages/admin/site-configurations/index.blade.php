@@ -43,10 +43,10 @@ SiteConfigurations
             </tr>
             @foreach( $models as $siteConfiguration )
                 <tr>
-                    <td>{{{ $siteConfiguration->id }}}</td>
+                    <td>{{ $siteConfiguration->id }}</td>
                     <td>@lang(array_get(config('locale.languages.' . $siteConfiguration->locale), 'name', $siteConfiguration->locale))</td>
-                    <td>{{{ $siteConfiguration->name }}}</td>
-                    <td>{{{ $siteConfiguration->title }}}</td>
+                    <td>{{ $siteConfiguration->name }}</td>
+                    <td>{{ $siteConfiguration->title }}</td>
                     <td>
                         <a href="{!! URL::action('Admin\SiteConfigurationController@show', $siteConfiguration->id) !!}" class="btn btn-block btn-primary btn-sm">@lang('admin.pages.common.buttons.edit')</a>
                         <a href="#" class="btn btn-block btn-danger btn-sm delete-button" data-delete-url="{!! action('Admin\SiteConfigurationController@destroy', $siteConfiguration->id) !!}">@lang('admin.pages.common.buttons.delete')</a>

@@ -25,15 +25,15 @@
             {!! \PaginationHelper::render($offset, $limit, $count, $baseUrl, []) !!}
         </div>
 
-        <div class="box-body no-padding scroll">
-            <table class="table">
+        <div class="box-body scroll">
+            <table class="table table-bordered">
                 <tr>
-                    <th style="width: 10px">#</th>
+                    <th style="width: 10px">ID</th>
                     <th class="sortable"
                         data-key="name">@lang('admin.pages.users.columns.name')  @if( $order=="name") @if( $direction=='asc')
                             <i class="fa fa-sort-amount-asc"></i> @else <i
                                     class="fa fa-sort-amount-desc"></i> @endif @endif</th>
-                    <th>Email</th>
+                    <th>@lang('admin.pages.users.columns.email')</th>
                     <th style="width: 40px"></th>
                 </tr>
                 @foreach( $users as $user )
@@ -43,7 +43,8 @@
                         <td>{{ $user->email }}</td>
                         <td>
                             <a href="{!! URL::action('Admin\UserController@show', [$user->id]) !!}"
-                               class="btn btn-block btn-primary">Edit</a>
+                               class="btn btn-block btn-primary">@lang('admin.pages.common.buttons.edit')</a>
+                            <a href="#" class="btn btn-block btn-danger btn-sm delete-button" data-delete-url="{!! action('Admin\UserController@destroy', $user->id) !!}">@lang('admin.pages.common.buttons.delete')</a>
                         </td>
                     </tr>
                 @endforeach

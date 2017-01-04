@@ -141,7 +141,7 @@
                                         <label for="locale">@lang('admin.pages.articles.columns.locale')</label>
                                         <select name="locale" id="locale" class="form-control">
                                             @foreach( config('locale.languages') as $code => $locale )
-                                                <option value="{!! $code !!}" @if( (old('locale') && old('locale') == $code) || (!old('locale') && $article->locale == $code)) selected @endif >{{{ trans(array_get($locale, 'name', $code)) }}}</option>
+                                                <option value="{!! $code !!}" @if( (old('locale') && old('locale') == $code) || (!old('locale') && $article->locale == $code)) selected @endif >{{ trans(array_get($locale, 'name', $code)) }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -157,11 +157,11 @@
                                     </div>
                                     <div class="form-group @if ($errors->has('keywords')) has-error @endif">
                                         <label for="keywords">@lang('admin.pages.articles.columns.keywords')</label>
-                                        <input type="text" name="keywords" class="form-control" placeholder="Keywords" value="{{{ old('keywords') ? old('keywords') : $article->keywords }}}">
+                                        <input type="text" name="keywords" class="form-control" placeholder="Keywords" value="{{ old('keywords') ? old('keywords') : $article->keywords }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="description">@lang('admin.pages.articles.columns.description')</label>
-                                        <textarea name="description" class="form-control" rows="5" placeholder="Description">{{{ old('description') ? old('description') : $article->description }}}</textarea>
+                                        <textarea name="description" class="form-control" rows="5" placeholder="Description">{{ old('description') ? old('description') : $article->description }}</textarea>
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="tab_contents">

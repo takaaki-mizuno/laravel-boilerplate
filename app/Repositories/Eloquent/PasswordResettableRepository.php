@@ -33,7 +33,7 @@ class PasswordResettableRepository extends DatabaseTokenRepository implements Pa
             return null;
         }
 
-        return $token['email'];
+        return $token->email;
     }
 
     protected function getDatabaseConnection()

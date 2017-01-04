@@ -14,7 +14,7 @@
 @stop
 
 @section('header')
-    Me
+    Update Me Information
 @stop
 
 @section('breadcrumb')
@@ -30,28 +30,39 @@
                 <h3 class="box-title">Edit Your Information</h3>
             </div>
             <div class="box-body">
-                <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">Name</label>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">Name</label>
 
-                    <div class="col-sm-10">
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Name"
-                               value="{{ $authUser->name }}">
+                            <div class="col-sm-10">
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Name"
+                                       value="{{ $authUser->name }}">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="email" class="col-sm-2 control-label">EMail Address</label>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">Email Address</label>
 
-                    <div class="col-sm-10">
-                        <input type="email" name="email" class="form-control" id="email" placeholder="Email"
-                               value="{{ $authUser->email }}">
+                            <div class="col-sm-10">
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Email"
+                                       value="{{ $authUser->email }}">
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-                    <div class="col-sm-10">
-                        <input type="password" name="password" class="form-control" id="inputPassword3"
-                               placeholder="Password" value="">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" name="password" class="form-control" id="inputPassword3"
+                                       placeholder="Password" value="">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

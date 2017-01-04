@@ -24,6 +24,6 @@ class UserService extends AuthenticatableService implements UserServiceInterface
 
     public function getGuardName()
     {
-        return 'users';
+        return 'web';
     }
 }

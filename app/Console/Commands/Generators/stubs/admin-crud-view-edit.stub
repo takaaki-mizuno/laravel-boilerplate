@@ -57,15 +57,6 @@ $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss'});
                 </div>
                 <div class="box-body">
                     %%FORM%%
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="is_enabled" value="1"
-                                       @if( $%%class%%->is_enabled) checked @endif
-                                > @lang('admin.pages.%%classes-spinal%%.columns.is_enabled')
-                            </label>
-                        </div>
-                    </div>
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary">@lang('admin.pages.common.buttons.save')</button>

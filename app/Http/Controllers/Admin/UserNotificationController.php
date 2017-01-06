@@ -73,7 +73,7 @@ class UserNotificationController extends Controller
     public function store(UserNotificationRequest $request)
     {
         $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
-        $input['data'] = json_encode($request->get('data', []));
+        $input['data'] = json_decode($request->get('data', ''));
         $input['sent_at'] = \DateTimeHelper::now();
 
         $model = $this->userNotificationRepository->create($input);
@@ -134,7 +134,7 @@ class UserNotificationController extends Controller
             abort(404);
         }
         $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
-        $input['data'] = json_encode($request->get('data', []));
+        $input['data'] = json_decode($request->get('data', ''));
         $this->userNotificationRepository->update($model, $input);
 
         return redirect()->action('Admin\UserNotificationController@show', [$id])->with('message-success',

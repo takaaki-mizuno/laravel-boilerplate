@@ -73,7 +73,7 @@ class AdminUserNotificationController extends Controller
     public function store(AdminUserNotificationRequest $request)
     {
         $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
-        $input['data'] = json_encode($request->get('data', []));
+        $input['data'] = json_decode($request->get('data', ''));
         $input['sent_at'] = \DateTimeHelper::now();
 
         $model = $this->adminUserNotificationRepository->create($input);
@@ -134,7 +134,7 @@ class AdminUserNotificationController extends Controller
             abort(404);
         }
         $input = $request->only(['user_id', 'category_type', 'type', 'locale', 'content']);
-        $input['data'] = json_encode($request->get('data', []));
+        $input['data'] = json_decode($request->get('data', ''));
         $this->adminUserNotificationRepository->update($model, $input);
 
         return redirect()->action('Admin\AdminUserNotificationController@show', [$id])->with('message-success',

@@ -55,7 +55,7 @@ class AuthenticatableService implements AuthenticatableServiceInterface
     public function signUp($input)
     {
         $existingUser = $this->authenticatableRepository->findByEmail(array_get($input, 'email'));
-        if( !empty($existingUser) ) {
+        if ( !empty($existingUser) ) {
             return null;
         }
 

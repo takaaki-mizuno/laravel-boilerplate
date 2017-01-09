@@ -35,6 +35,7 @@ class StringHelper implements StringHelperInterface
         $string = preg_replace_callback('/(^|_)([a-z])/', function ($match) {
             return strtoupper($match[2]);
         }, $input);
+
         return lcfirst($string);
     }
 

@@ -87,7 +87,6 @@ class AddRelationCommand extends GeneratorCommandBase
         return $relations;
     }
 
-
     protected function getNewRelations($existingRelations)
     {
         $newRelations = [];
@@ -253,7 +252,7 @@ class AddRelationCommand extends GeneratorCommandBase
 
     /**
      * @param string $tableName
-     * @param bool $removeDefaultColumn
+     * @param bool   $removeDefaultColumn
      *
      * @return \Doctrine\DBAL\Schema\Column[]
      */

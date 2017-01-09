@@ -60,7 +60,7 @@ class ModelMakeCommand extends GeneratorCommandBase
         $fillables = count($columns) > 0 ? "'".implode("',".PHP_EOL."        '", $columns)."'," : '';
         $this->replaceTemplateVariable($stub, 'FILLABLES', $fillables);
 
-        $api = count($columns) > 0 ? implode(','.PHP_EOL.'            ', array_map(function($column) {
+        $api = count($columns) > 0 ? implode(','.PHP_EOL.'            ', array_map(function ($column) {
                 return "'".$column."'".' => $this->'.$column;
             }, $columns)).',' : '';
         $this->replaceTemplateVariable($stub, 'API', $api);
@@ -410,7 +410,7 @@ class ModelMakeCommand extends GeneratorCommandBase
 
     /**
      * @param string $tableName
-     * @param bool $removeDefaultColumn
+     * @param bool   $removeDefaultColumn
      *
      * @return \Doctrine\DBAL\Schema\Column[]
      */

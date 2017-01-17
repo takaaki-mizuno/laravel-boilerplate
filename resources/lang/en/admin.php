@@ -148,6 +148,14 @@ return [
                 'is_enabled_false'       => 'Disabled',
             ],
         ],
+        'admin-users'              => [
+            'columns' => [
+                'name'             => 'Name',
+                'email'            => 'Email',
+                'locale'           => 'Locale',
+                'profile_image_id' => 'Avatar',
+            ],
+        ],
         'users'                    => [
             'columns' => [
                 'name'     => 'Name',

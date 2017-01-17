@@ -4,21 +4,28 @@
 @stop
 
 @section('styles')
+    <link rel="stylesheet" href="{!! \URLHelper::asset('libs/datetimepicker/css/bootstrap-datetimepicker.min.css', 'admin') !!}">
 @stop
 
 @section('scripts')
-<script src="{{ \URLHelper::asset('libs/moment/moment.min.js', 'admin') }}"></script>
-<script src="{{ \URLHelper::asset('libs/datetimepicker/js/bootstrap-datetimepicker.min.js', 'admin') }}"></script>
-<script>
-$('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss'});
-</script>
+    <script src="{{ \URLHelper::asset('libs/moment/moment.min.js', 'admin') }}"></script>
+    <script src="{{ \URLHelper::asset('libs/datetimepicker/js/bootstrap-datetimepicker.min.js', 'admin') }}"></script>
+    <script>
+        $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss', 'defaultDate': new Date()});
+
+        $(document).ready(function () {
+            $('#avatar-image').change(function (event) {
+                $('#avatar-image-preview').attr('src', URL.createObjectURL(event.target.files[0]));
+            });
+        });
+    </script>
 @stop
 
 @section('title')
 @stop
 
 @section('header')
-%%CLASSES%%
+    %%CLASSES%%
 @stop
 
 @section('breadcrumb')
@@ -42,25 +49,30 @@ $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss'});
         </div>
     @endif
 
-    @if( $isNew )
-        <form action="{!! action('Admin\%%CLASS%%Controller@store') !!}" method="POST" enctype="multipart/form-data">
-    @else
-        <form action="{!! action('Admin\%%CLASS%%Controller@update', [$%%class%%->id]) !!}" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="_method" value="PUT">
-    @endif
-            {!! csrf_field() !!}
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">
+    <form action="@if($isNew) {!! action('Admin\%%CLASS%%Controller@store') !!} @else {!! action('Admin\%%CLASS%%Controller@update', [$%%class%%->id]) !!} @endif" method="POST" enctype="multipart/form-data">
+        @if( !$isNew ) <input type="hidden" name="_method" value="PUT"> @endif
+        {!! csrf_field() !!}
 
-                    </h3>
-                </div>
-                <div class="box-body">
-                    %%FORM%%
-                </div>
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">@lang('admin.pages.common.buttons.save')</button>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    <a href="{!! URL::action('Admin\%%CLASS%%Controller@index') !!}" class="btn btn-block btn-default btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.back')</a>
+                </h3>
+            </div>
+            <div class="box-body">
+                %%FORM%%
+
+                <div class="form-group">
+                    <label for="is_enabled">@lang('admin.pages.common.label.is_enabled')</label>
+                    <div class="switch">
+                        <input id="is_enabled" name="is_enabled" value="1" @if( $%%class%%->is_enabled) checked @endif class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+                        <label for="is_enabled"></label>
+                    </div>
                 </div>
             </div>
-        </form>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.save')</button>
+            </div>
+        </div>
+    </form>
 @stop

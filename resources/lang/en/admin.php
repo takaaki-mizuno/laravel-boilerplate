@@ -32,12 +32,21 @@ return [
     ],
     'pages'    => [
         'common'                   => [
+            'label'   => [
+                'page'             => 'Page',
+                'actions'          => 'Actions',
+                'is_enabled'       => 'Status',
+                'is_enabled_true'  => 'Enabled',
+                'is_enabled_false' => 'Disabled',
+                'search_results'   => 'Total: :count results',
+            ],
             'buttons' => [
                 'create'          => 'Create New',
                 'edit'            => 'Edit',
                 'save'            => 'Save',
                 'delete'          => 'Delete',
                 'cancel'          => 'Cancel',
+                'back'            => 'Back',
                 'add'             => 'Add',
                 'preview'         => 'Preview',
                 'forgot_password' => 'Send Me Email!',

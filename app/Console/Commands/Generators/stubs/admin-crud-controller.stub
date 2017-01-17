@@ -29,17 +29,19 @@ class %%CLASS%%Controller extends Controller
      */
     public function index(PaginationRequest $request)
     {
-        $offset = $request->offset();
-        $limit = $request->limit();
+        $paginate['offset']     = $request->offset();
+        $paginate['limit']      = $request->limit();
+        $paginate['order']      = $request->order();
+        $paginate['direction']  = $request->direction();
+        $paginate['baseUrl']    = action( 'Admin\%%CLASS%%Controller@index' );
+
         $count = $this->%%class%%Repository->count();
-        $models = $this->%%class%%Repository->get('id', 'desc', $offset, $limit);
+        $%%class%%s = $this->%%class%%Repository->get( $paginate['order'], $paginate['direction'], $paginate['offset'], $paginate['limit'] );
 
         return view('pages.admin.%%classes-spinal%%.index', [
-            'models'  => $models,
-            'count'   => $count,
-            'offset'  => $offset,
-            'limit'   => $limit,
-            'baseUrl' => action('Admin\%%CLASS%%Controller@index'),
+            '%%class%%s'    => $%%class%%s,
+            'count'         => $count,
+            'paginate'      => $paginate,
         ]);
     }
 
@@ -67,9 +69,9 @@ class %%CLASS%%Controller extends Controller
         $input = $request->only([%%COLUMNS%%]);
         %%COLUMNUPDATES%%
         $input['is_enabled'] = $request->get('is_enabled', 0);
-        $model = $this->%%class%%Repository->create($input);
+        $%%class%% = $this->%%class%%Repository->create($input);
 
-        if (empty( $model )) {
+        if (empty( $%%class%% )) {
             return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
         }
 
@@ -85,14 +87,14 @@ class %%CLASS%%Controller extends Controller
      */
     public function show($id)
     {
-        $model = $this->%%class%%Repository->find($id);
-        if (empty( $model )) {
+        $%%class%% = $this->%%class%%Repository->find($id);
+        if (empty( $%%class%% )) {
             abort(404);
         }
 
         return view('pages.admin.%%classes-spinal%%.edit', [
             'isNew' => false,
-            '%%class%%' => $model,
+            '%%class%%' => $%%class%%,
         ]);
     }
 
@@ -116,15 +118,15 @@ class %%CLASS%%Controller extends Controller
      */
     public function update($id, %%CLASS%%Request $request)
     {
-        /** @var \App\Models\%%CLASS%% $model */
-        $model = $this->%%class%%Repository->find($id);
-        if (empty( $model )) {
+        /** @var \App\Models\%%CLASS%% $%%class%% */
+        $%%class%% = $this->%%class%%Repository->find($id);
+        if (empty( $%%class%% )) {
             abort(404);
         }
         $input = $request->only([%%COLUMNS%%]);
         %%COLUMNUPDATES%%
         $input['is_enabled'] = $request->get('is_enabled', 0);
-        $this->%%class%%Repository->update($model, $input);
+        $this->%%class%%Repository->update($%%class%%, $input);
 
         return redirect()->action('Admin\%%CLASS%%Controller@show', [$id])
                     ->with('message-success', trans('admin.messages.general.update_success'));
@@ -138,12 +140,12 @@ class %%CLASS%%Controller extends Controller
      */
     public function destroy($id)
     {
-        /** @var \App\Models\%%CLASS%% $model */
-        $model = $this->%%class%%Repository->find($id);
-        if (empty( $model )) {
+        /** @var \App\Models\%%CLASS%% $%%class%% */
+        $%%class%% = $this->%%class%%Repository->find($id);
+        if (empty( $%%class%% )) {
             abort(404);
         }
-        $this->%%class%%Repository->delete($model);
+        $this->%%class%%Repository->delete($%%class%%);
 
         return redirect()->action('Admin\%%CLASS%%Controller@index')
                     ->with('message-success', trans('admin.messages.general.delete_success'));

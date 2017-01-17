@@ -158,9 +158,14 @@ return [
         ],
         'users'                    => [
             'columns' => [
-                'name'     => 'Name',
-                'email'    => 'Email',
-                'password' => 'Password',
+                'name'                 => 'Name',
+                'email'                => 'Email',
+                'password'             => 'Password',
+                'locale'               => 'Locale',
+                'remember_token'       => 'Remember Token',
+                'api_access_token'     => 'Api Access Token',
+                'profile_image_id'     => 'Profile Image',
+                'last_notification_id' => 'Last Notification Id',
             ],
         ],
         /* NEW PAGE STRINGS */

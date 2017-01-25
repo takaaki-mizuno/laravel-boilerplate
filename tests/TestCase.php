@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
+abstract class TestCase extends \Laravel\BrowserKitTesting\TestCase
 {
     /** @var bool */
     protected $useDatabase = false;
@@ -48,4 +48,5 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
         }
         parent::tearDown();
     }
+
 }

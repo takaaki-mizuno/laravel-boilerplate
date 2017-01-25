@@ -15,7 +15,7 @@ class PasswordResettableRepository extends DatabaseTokenRepository implements Pa
 
     public function __construct()
     {
-        parent::__construct($this->getDatabaseConnection(), $this->tableName, $this->hashKey, $this->expires);
+        parent::__construct($this->getDatabaseConnection(), app()['hash'], $this->tableName, $this->hashKey, $this->expires);
     }
 
     public function findEmailByToken($token)
@@ -40,4 +40,5 @@ class PasswordResettableRepository extends DatabaseTokenRepository implements Pa
     {
         return $connection = app()['db']->connection();
     }
+
 }

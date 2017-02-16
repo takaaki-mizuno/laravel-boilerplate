@@ -1,6 +1,6 @@
 $(function () {
-    $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss'});
-    
+    $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss', 'defaultDate': new Date()});
+
     $('#cover-image').change(function (event) {
         $('#cover-image-preview').attr('src', URL.createObjectURL(event.target.files[0]));
     });
@@ -32,5 +32,15 @@ $(function () {
         params.url = $img.attr('src');
         editor.options.imageDeleteParams = params;
         editor.deleteImage($img);
+    });
+
+    $('#button-preview').click(function () {
+        var editor = $('#edit'),
+            html = editor.froalaEditor('html.get', false, false);
+        $('#preview-title').val($('#title').val());
+        $('#preview-locale').val($('#locale').val());
+        $('#preview-content').val($('#froala-editor').val());
+        $('#form-preview').submit();
+        return false;
     });
 });

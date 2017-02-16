@@ -73,9 +73,8 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    <a href="{!! URL::action('Admin\ArticleController@index') !!}"
-                       class="btn btn-block btn-default btn-sm"
-                       style="width: 125px;">@lang('admin.pages.common.buttons.back')</a>
+                    <a href="{!! URL::action('Admin\ArticleController@index') !!}" class="btn btn-block btn-default btn-sm" style="width: 125px; display: inline-block;">@lang('admin.pages.common.buttons.back')</a>
+                    <a href="{!! URL::action('Admin\ArticleController@index') !!}" class="btn btn-block btn-primary btn-sm" id="button-preview" style="width: 125px; display: inline-block; margin: 0 15px;">@lang('admin.pages.common.buttons.preview')</a>
                 </h3>
             </div>
             <div class="box-body">
@@ -104,7 +103,7 @@
                                     <label for="title">@lang('admin.pages.articles.columns.title')</label>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" id="title" name="title" value="{{ old('title') ? old('title') : $article->title }}">
+                                    <input type="text" class="form-control" id="title" name="title" required value="{{ old('title') ? old('title') : $article->title }}">
                                 </td>
                             </tr>
 
@@ -122,7 +121,14 @@
                                     <label for="locale">@lang('admin.pages.articles.columns.locale')</label>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" id="locale" name="locale" value="{{ old('locale') ? old('locale') : $article->locale }}">
+                                    <select class="form-control" name="locale" id="locale" style="margin-bottom: 15px;" required>
+                                        <option value="">@lang('admin.pages.common.label.select_locale')</option>
+                                        @foreach( config('locale.languages') as $code => $locale )
+                                            <option value="{!! $code !!}" @if( (old('locale') && old('locale') == $code) || ( $article->locale === $code) ) selected @endif >
+                                                {{ trans($locale['name']) }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </td>
                             </tr>
 
@@ -144,7 +150,7 @@
                                 </td>
                                 <td>
                                     <div class="input-group date datetime-field" style="margin-bottom: 10px;">
-                                        <input type="text" class="form-control" style="margin: 0;" name="publish_started_at" value="{{ old('publish_started_at') ? old('publish_started_at') : $article->publish_started_at }}">
+                                        <input type="text" class="form-control" style="margin: 0;" name="publish_started_at" required value="{{ old('publish_started_at') ? old('publish_started_at') : $article->publish_started_at }}">
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -201,5 +207,12 @@
                 <button type="submit" class="btn btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.save')</button>
             </div>
         </div>
+    </form>
+
+    <form id="form-preview" action="{!! action('Admin\ArticleController@preview') !!}" method="POST" enctype="multipart/form-data" target="_blank">
+        {!! csrf_field() !!}
+        <input type="hidden" name="title" id="preview-title">
+        <input type="hidden" name="content" id="preview-content">
+        <input type="hidden" name="locale" id="preview-locale">
     </form>
 @stop

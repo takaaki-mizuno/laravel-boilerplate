@@ -12,7 +12,8 @@ use App\Services\ArticleServiceInterface;
 use App\Services\FileUploadServiceInterface;
 use App\Services\ImageServiceInterface;
 
-class ArticleController extends Controller {
+class ArticleController extends Controller
+{
     /** @var \App\Repositories\ArticleRepositoryInterface */
     protected $articleRepository;
 
@@ -29,17 +30,18 @@ class ArticleController extends Controller {
     protected $imageService;
 
     public function __construct(
-        ArticleRepositoryInterface  $articleRepository,
-        ArticleServiceInterface     $articleService,
-        FileUploadServiceInterface  $fileUploadService,
-        ImageRepositoryInterface    $imageRepository,
-        ImageServiceInterface       $imageService
-    ) {
-        $this->articleRepository    = $articleRepository;
-        $this->articleService       = $articleService;
-        $this->fileUploadService    = $fileUploadService;
-        $this->imageRepository      = $imageRepository;
-        $this->imageService         = $imageService;
+        ArticleRepositoryInterface $articleRepository,
+        ArticleServiceInterface $articleService,
+        FileUploadServiceInterface $fileUploadService,
+        ImageRepositoryInterface $imageRepository,
+        ImageServiceInterface $imageService
+    )
+    {
+        $this->articleRepository = $articleRepository;
+        $this->articleService = $articleService;
+        $this->fileUploadService = $fileUploadService;
+        $this->imageRepository = $imageRepository;
+        $this->imageService = $imageService;
     }
 
     /**
@@ -49,7 +51,8 @@ class ArticleController extends Controller {
      *
      * @return \Response
      */
-    public function index( PaginationRequest $request ) {
+    public function index( PaginationRequest $request )
+    {
         $paginate[ 'offset' ] = $request->offset();
         $paginate[ 'limit' ] = $request->limit();
         $paginate[ 'order' ] = $request->order();
@@ -79,7 +82,8 @@ class ArticleController extends Controller {
      *
      * @return \Response
      */
-    public function create() {
+    public function create()
+    {
         return view(
             'pages.admin.articles.edit',
             [
@@ -96,7 +100,8 @@ class ArticleController extends Controller {
      *
      * @return \Response
      */
-    public function store( ArticleRequest $request ) {
+    public function store( ArticleRequest $request )
+    {
         $input = $request->only(
             [
                 'slug',
@@ -104,15 +109,16 @@ class ArticleController extends Controller {
                 'keywords',
                 'description',
                 'content',
-                'locale',
                 'publish_started_at',
-                'publish_ended_at'
+                'publish_ended_at',
             ]
         );
 
-        $input[ 'publish_started_at' ]  = ( $input[ 'publish_started_at' ] != "" ) ? $input[ 'publish_started_at' ] : null;
-        $input[ 'publish_ended_at' ]    = ( $input[ 'publish_ended_at' ] != "" ) ? $input[ 'publish_ended_at' ] : null;
         $input[ 'is_enabled' ] = $request->get( 'is_enabled', 0 );
+        $input[ 'locale' ] = $request->get( 'locale', 'ja' );
+        $input[ 'publish_started_at' ] = ( $input[ 'publish_started_at' ] != "" ) ? $input[ 'publish_started_at' ] : null;
+        $input[ 'publish_ended_at' ] = ( $input[ 'publish_ended_at' ] != "" ) ? $input[ 'publish_ended_at' ] : null;
+
         $model = $this->articleRepository->create( $input );
 
         if( empty( $model ) ) {
@@ -121,24 +127,32 @@ class ArticleController extends Controller {
                 ->withErrors( trans( 'admin.errors.general.save_failed' ) );
         }
 
-        if ($request->hasFile('cover_image')) {
-            $file       = $request->file('cover_image');
-            $mediaType  = $file->getClientMimeType();
-            $path       = $file->getPathname();
-            $image      = $this->fileUploadService->upload('article-cover-image', $path, $mediaType, [
-                'entityType' => 'article-cover-image',
-                'entityId'   => $model->id,
-                'title'      => $request->input('title', ''),
-            ]);
+        if( $request->hasFile( 'cover_image' ) ) {
+            $file = $request->file( 'cover_image' );
+            $mediaType = $file->getClientMimeType();
+            $path = $file->getPathname();
+            $image = $this->fileUploadService->upload(
+                'article-cover-image',
+                $path,
+                $mediaType,
+                [
+                    'entityType' => 'article-cover-image',
+                    'entityId'   => $model->id,
+                    'title'      => $request->input( 'title', '' ),
+                ]
+            );
 
-            if (!empty($image)) {
-                $this->articleRepository->update($model, ['cover_image_id' => $image->id]);
+            if( !empty( $image ) ) {
+                $this->articleRepository->update( $model, ['cover_image_id' => $image->id] );
             }
         }
 
         return redirect()
             ->action( 'Admin\ArticleController@index' )
-            ->with( 'message-success', trans( 'admin.messages.general.create_success' ) );
+            ->with(
+                'message-success',
+                trans( 'admin.messages.general.create_success' )
+            );
     }
 
     /**
@@ -148,7 +162,8 @@ class ArticleController extends Controller {
      *
      * @return \Response
      */
-    public function show( $id ) {
+    public function show( $id )
+    {
         $model = $this->articleRepository->find( $id );
         if( empty( $model ) ) {
             abort( 404 );
@@ -170,7 +185,8 @@ class ArticleController extends Controller {
      *
      * @return \Response
      */
-    public function edit( $id ) {
+    public function edit( $id )
+    {
         //
     }
 
@@ -182,10 +198,11 @@ class ArticleController extends Controller {
      *
      * @return \Response
      */
-    public function update( $id, ArticleRequest $request ) {
-        /** @var \App\Models\Article $model */
-        $model = $this->articleRepository->find( $id );
-        if( empty( $model ) ) {
+    public function update( $id, ArticleRequest $request )
+    {
+        /** @var \App\Models\Article $article */
+        $article = $this->articleRepository->find( $id );
+        if( empty( $article ) ) {
             abort( 404 );
         }
         $input = $request->only(
@@ -195,41 +212,52 @@ class ArticleController extends Controller {
                 'keywords',
                 'description',
                 'content',
-                'locale',
-                'publish_started_at',
-                'publish_ended_at'
             ]
         );
 
-        $input[ 'publish_started_at' ]  = ( $input[ 'publish_started_at' ] != "" ) ? $input[ 'publish_started_at' ] : null;
-        $input[ 'publish_ended_at' ]    = ( $input[ 'publish_ended_at' ] != "" ) ? $input[ 'publish_ended_at' ] : null;
-        $input[ 'is_enabled' ]          = $request->get( 'is_enabled', 0 );
-        $this->articleRepository->update( $model, $input );
+        $input[ 'is_enabled' ] = $request->get( 'is_enabled', 0 );
+        $input[ 'locale' ] = $request->get( 'locale', 'ja' );
+        if( $request->get( 'publish_started_at' ) != "" ) {
+            $input[ 'publish_started_at' ] = $request->get( 'publish_started_at' );
+        }
+        if( $request->get( 'publish_ended_at' ) != "" ) {
+            $input[ 'publish_ended_at' ] = $request->get( 'publish_ended_at' );
+        }
 
-        if ($request->hasFile('cover_image')) {
-            $file       = $request->file('cover_image');
-            $mediaType  = $file->getClientMimeType();
-            $path       = $file->getPathname();
-            $image      = $this->fileUploadService->upload('article-cover-image', $path, $mediaType, [
-                'entityType' => 'article-cover-image',
-                'entityId'   => $model->id,
-                'title'      => $request->input('title', ''),
-            ]);
+        $this->articleRepository->update( $article, $input );
 
-            if (!empty($image)) {
-                $oldImage = $model->coverImage;
-                if (!empty($oldImage)) {
-                    $this->fileUploadService->delete($oldImage);
-                    $this->imageRepository->delete($oldImage);
+        if( $request->hasFile( 'cover_image' ) ) {
+            $currentImage = $article->coverImage;
+            $file = $request->file( 'cover_image' );
+            $mediaType = $file->getClientMimeType();
+            $path = $file->getPathname();
+            $newImage = $this->fileUploadService->upload(
+                'article-cover-image',
+                $path,
+                $mediaType,
+                [
+                    'entityType' => 'article',
+                    'entityId'   => $article->id,
+                    'title'      => $request->input( 'name', '' ),
+                ]
+            );
+
+            if( !empty( $newImage ) ) {
+                $this->articleRepository->update( $article, ['cover_image_id' => $newImage->id] );
+
+                if( !empty( $currentImage ) ) {
+                    $this->fileUploadService->delete( $currentImage );
+                    $this->imageRepository->delete( $currentImage );
                 }
-
-                $this->articleRepository->update($model, [ 'cover_image_id' => $image->id ]);
             }
         }
 
         return redirect()
             ->action( 'Admin\ArticleController@show', [$id] )
-            ->with( 'message-success', trans( 'admin.messages.general.update_success' ) );
+            ->with(
+                'message-success',
+                trans( 'admin.messages.general.update_success' )
+            );
     }
 
     /**
@@ -239,7 +267,8 @@ class ArticleController extends Controller {
      *
      * @return \Response
      */
-    public function destroy( $id ) {
+    public function destroy( $id )
+    {
         /** @var \App\Models\Article $model */
         $model = $this->articleRepository->find( $id );
         if( empty( $model ) ) {
@@ -252,8 +281,29 @@ class ArticleController extends Controller {
             ->with( 'message-success', trans( 'admin.messages.general.delete_success' ) );
     }
 
+    /**
+     * @param BaseRequest $request
+     *
+     * @return \Response
+     */
+    public function preview(BaseRequest $request)
+    {
+        $locale = $request->input('language');
 
-    public function getImages( PaginationRequest $request ) {
+        $content = $this->articleService->filterContent($request->input('content'), $locale);
+        $title = $request->input('title');
+        $response = response()->view('pages.admin.articles.preview', [
+            'content' => $content,
+            'title' => $title,
+        ]);
+        //        $response->headers->set('Content-Security-Policy', "default-src 'self' 'unsafe-inline'");
+        $response->headers->set('X-XSS-Protection', '0');
+
+        return $response;
+    }
+
+    public function getImages( PaginationRequest $request )
+    {
         $entityId = intval( $request->input( 'article_id', 0 ) );
         $type = $request->input( 'type', 'article-image' );
 
@@ -276,7 +326,8 @@ class ArticleController extends Controller {
         return response()->json( $result );
     }
 
-    public function postImage( BaseRequest $request ) {
+    public function postImage( BaseRequest $request )
+    {
         if( !$request->hasFile( 'file' ) ) {
             // [TODO] ERROR JSON
             abort( 400, 'No Image File' );
@@ -316,7 +367,8 @@ class ArticleController extends Controller {
         );
     }
 
-    public function deleteImage( BaseRequest $request ) {
+    public function deleteImage( BaseRequest $request )
+    {
         $url = $request->input( 'src' );
         if( empty( $url ) ) {
             abort( 400, 'No URL Given' );

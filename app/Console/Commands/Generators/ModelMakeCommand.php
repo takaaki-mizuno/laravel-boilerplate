@@ -18,7 +18,7 @@ class ModelMakeCommand extends GeneratorCommandBase
      *
      * @var string
      */
-    protected $description = 'Create a new  model class';
+    protected $description = 'Create a new model class';
 
     /**
      * The type of class being generated.
@@ -278,7 +278,12 @@ class ModelMakeCommand extends GeneratorCommandBase
 
         $data = '$factory->define(App\Models\\'.$className.'::class, function (Faker\Generator $faker) {'.PHP_EOL.'    return ['.PHP_EOL;
         foreach ($columns as $column) {
-            $data .= "        '".$column->getName()."' => '',".PHP_EOL;
+            if( preg_match('/_id$/', $column->getName()) ) {
+                $defaultValue = 0;
+            }else {
+                $defaultValue = "''";
+            }
+            $data .= "        '".$column->getName()."' => ".$defaultValue.",".PHP_EOL;
         }
         $data .= '    ];'.PHP_EOL.'});'.PHP_EOL.PHP_EOL.$key;
 

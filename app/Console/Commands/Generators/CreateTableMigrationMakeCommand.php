@@ -58,7 +58,7 @@ class CreateTableMigrationMakeCommand extends GeneratorCommandBase
 
     protected function getClassName($name)
     {
-        return 'Create'.\StringHelper::snake2Camel($name).'Table';
+        return 'Create'. ucfirst(\StringHelper::snake2Camel($name)).'Table';
     }
 
     protected function getPath($name)

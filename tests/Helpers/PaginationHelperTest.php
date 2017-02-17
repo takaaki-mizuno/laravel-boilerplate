@@ -19,9 +19,9 @@ class PaginationHelperTest extends TestCase
         $helper = \App::make(\App\Helpers\PaginationHelperInterface::class);
         $this->assertNotNull($helper);
 
-        $data = $helper->data(100, 100, 1500, '/abc', []);
+        $data = $helper->data('id', 'desc', 10, 10, 100, '/abc', []);
 
-        $this->assertEquals($data['previousPageLink'], '/abc?offset=0&limit=100');
-        $this->assertEquals($data['nextPageLink'], '/abc?offset=200&limit=100');
+        $this->assertEquals($data['previousPageLink'], '/abc?page=1&order=id&direction=desc');
+        $this->assertEquals($data['nextPageLink'], '/abc?page=3&order=id&direction=desc');
     }
 }

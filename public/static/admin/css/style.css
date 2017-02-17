@@ -13,3 +13,272 @@
 .scroll::-webkit-scrollbar-thumb {
     background: #BCBCBC;
 }
+
+.form-control {
+    box-shadow: none !important;
+}
+body {
+    font-size: 14px;
+}
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {border: 1px solid #ddd !important;}
+
+/*----------------------------------------------------------------*/
+
+/* Begin: Switch button */
+.cmn-toggle {
+    position: absolute;
+    margin-left: -9999px;
+    visibility: hidden;
+}
+
+.cmn-toggle + label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+input.cmn-toggle-round-flat + label {
+    padding: 2px;
+    width: 75px;
+    height: 30px;
+    background-color: #dddddd;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    -ms-border-radius: 60px;
+    -o-border-radius: 60px;
+    border-radius: 60px;
+    -webkit-transition: background 0.4s;
+    -moz-transition: background 0.4s;
+    -o-transition: background 0.4s;
+    transition: background 0.4s;
+}
+
+input.cmn-toggle-round-flat + label:before, input.cmn-toggle-round-flat + label:after {
+    display: block;
+    position: absolute;
+    content: "";
+}
+
+input.cmn-toggle-round-flat + label:before {
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    right: 2px;
+    background-color: #fff;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    -ms-border-radius: 60px;
+    -o-border-radius: 60px;
+    border-radius: 60px;
+    -webkit-transition: background 0.4s;
+    -moz-transition: background 0.4s;
+    -o-transition: background 0.4s;
+    transition: background 0.4s;
+}
+
+input.cmn-toggle-round-flat + label:after {
+    top: 4px;
+    left: 4px;
+    bottom: 4px;
+    width: 22px;
+    background-color: #dddddd;
+    -webkit-border-radius: 52px;
+    -moz-border-radius: 52px;
+    -ms-border-radius: 52px;
+    -o-border-radius: 52px;
+    border-radius: 52px;
+    -webkit-transition: margin 0.4s, background 0.4s;
+    -moz-transition: margin 0.4s, background 0.4s;
+    -o-transition: margin 0.4s, background 0.4s;
+    transition: margin 0.4s, background 0.4s;
+}
+
+input.cmn-toggle-round-flat:checked + label {
+    background-color: #27A1CA;
+}
+
+input.cmn-toggle-round-flat:checked + label:after {
+    margin-left: 45px;
+    background-color: #27A1CA;
+}
+
+.switch6 {  max-width: 17em;  margin: 0 auto; }
+.switch6-light > span, .switch-toggle > span {  color: #000000; }
+.switch6-light span span, .switch6-light label, .switch-toggle span span, .switch-toggle label {  color: #2b2b2b; }
+
+.switch-toggle a,
+.switch6-light span span { display: none; }
+
+.switch6-light { display: block; height: 30px; position: relative; overflow: visible; padding: 0px; margin-left:0px; }
+.switch6-light * { box-sizing: border-box; }
+.switch6-light a { display: block; transition: all 0.3s ease-out 0s; }
+
+.switch6-light label,
+.switch6-light > span { line-height: 30px; vertical-align: middle;}
+
+.switch6-light label {font-weight: 700; margin-bottom: 0px; max-width: 100%;}
+
+.switch6-light input:focus ~ a, .switch6-light input:focus + label { outline: 1px dotted rgb(136, 136, 136); }
+.switch6-light input { position: absolute; opacity: 0; z-index: 5; }
+.switch6-light input:checked ~ a { right: 0%; }
+.switch6-light > span { position: absolute; left: -100px; width: 100%; margin: 0px; padding-right: 100px; text-align: left; }
+.switch6-light > span span { position: absolute; top: 0px; left: 0px; z-index: 5; display: block; width: 50%; margin-left: 100px; text-align: center; }
+.switch6-light > span span:last-child { left: 50%; }
+.switch6-light a { position: absolute; right: 50%; top: 0px; z-index: 4; display: block; width: 50%; height: 100%; padding: 0px; }
+/* End: Switch button */
+
+/*----------------------------------------------------------------*/
+
+/* Begin: Pagination */
+.heading-page-pagination {
+    display: inline-block;
+    float: right;
+    margin: 15px 30px 10px 0;
+}
+.t-pagination {
+    display: inline-block;
+    width: 250px;
+}
+.t-pagination-number {
+    display: inline-block;
+    margin: 0 5px 0 5px;
+}
+.t-pagination > a {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+.t-pagination > a:hover {
+    border: 1px solid #337ab7;
+}
+.t-pagination a > i.fa {
+    /*font-size: 1.5em;*/
+    /*vertical-align: middle;*/
+}
+.t-pagination-number {
+    width: 150px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 4px 10px 3px 10px;
+    margin: 0 5px;
+    position: relative;
+}
+.t-pagination-number:hover {
+    cursor: pointer;
+    border: 1px solid #337ab7;
+    border-radius: 3px;
+}
+.t-pagination-number > i.fa {
+    float: right;
+    line-height: 20px;
+    color: #337ab7;
+}
+.t-pagination-dropdown {
+    display: none;
+    position: absolute;
+    width: 150px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #FFFFFF;
+    left: 0;
+    top: 30px;
+}
+.t-pagination-dropdown ul {
+    list-style: none;
+    padding: 10px 20px;
+    max-height: 175px;
+    overflow-y: scroll;
+}
+.t-pagination-dropdown > ul > li > a {
+    color: #000000;
+    text-decoration: none;
+}
+.t-pagination-dropdown > ul > li:hover a {
+    color: #337ab7 !important;
+    cursor: pointer;
+}
+@media screen and (max-width: 620px) {
+    .wrap-top-pagination {
+        text-align: center;
+    }
+    .heading-page-pagination {
+        margin: 0;
+        float: none;
+    }
+}
+/*----------------*/
+
+.b-pagination {
+    text-align: center;
+}
+.b-pagination > ul {
+    list-style: none;
+    padding: 0;
+    font-size: 16px;
+    display: inline-block;
+}
+.b-pagination > ul > li {
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 0 2px;
+}
+.b-pagination > ul > li:hover {
+    border: 1px solid #337ab7;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.b-pagination > ul > li > a {
+    color: #000000;
+    text-decoration: none;
+    width: 25px;
+    display: inline-block;
+}
+.b-pagination .b-pagination-first {
+    width: 100px;
+}
+.b-pagination .b-pagination-first > a {
+    width: 100px;
+}
+.b-pagination .b-pagination-first i.fa {
+    margin-right: 5px;
+    font-size: 14px;
+}
+.b-pagination .b-pagination-last {
+    width: 100px;
+}
+.b-pagination .b-pagination-last > a {
+    width: 100px;
+}
+.b-pagination .b-pagination-last i.fa {
+    margin-left: 5px;
+    font-size: 14px;
+}
+/* End: Pagination */
+
+/*-----------------------------------------------------------------------------------*/
+
+/* Begin: edit user profile */
+.edit-user-profile {
+    width: 90%;
+    margin-top: 10px;
+}
+.edit-user-profile td:nth-child(1) {
+    width: 25%;
+    text-align: right;
+    padding-right: 20px;
+}
+.edit-user-profile td:nth-child(2) input {
+    margin-bottom: 15px;
+}
+/* End: edit user profile */
+
+/*-----------------------------------------------------------------------------------*/

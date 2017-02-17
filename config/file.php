@@ -49,6 +49,19 @@ return [
             'seedPrefix' => 'article',
             'format' => 'jpeg',
         ],
+        'user-profile-image' => [
+            'name' => 'user-profile-image',
+            'type' => 'image',
+            'region' => env('AWS_IMAGE_REGION'),
+            'buckets' => [
+                env('AWS_IMAGE_BUCKET'),
+            ],
+            'size' => [328, 328],
+            'thumbnails' => [
+            ],
+            'seedPrefix' => 'user-profile',
+            'format' => 'jpeg',
+        ],
         'ogp-image' => [
             'name' => 'ogp-image',
             'type' => 'image',

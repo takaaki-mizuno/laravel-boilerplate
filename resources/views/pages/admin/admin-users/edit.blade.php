@@ -7,91 +7,123 @@
 @stop
 
 @section('scripts')
+    <script src="{{ \URLHelper::asset('libs/moment/moment.min.js', 'admin') }}"></script>
+    <script src="{{ \URLHelper::asset('libs/datetimepicker/js/bootstrap-datetimepicker.min.js', 'admin') }}"></script>
+    <script>
+        $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss'});
+
+        $(document).ready(function () {
+            $('#profile-image').change(function (event) {
+                $('#profile-image-preview').attr('src', URL.createObjectURL(event.target.files[0]));
+            });
+        });
+    </script>
 @stop
 
 @section('title')
-    {{ config('site.name') }} | Admin | Admin Users | Edit
 @stop
 
 @section('header')
-    Edit Admin Users
+    AdminUsers
+@stop
+
+@section('breadcrumb')
+    <li><a href="{!! action('Admin\AdminUserController@index') !!}"><i class="fa fa-files-o"></i> AdminUsers</a></li>
+    @if( $isNew )
+        <li class="active">New</li>
+    @else
+        <li class="active">{{ $adminUser->id }}</li>
+    @endif
 @stop
 
 @section('content')
-    <form class="form-horizontal"
-          @if( $isNew )
-          action="{!! action('Admin\AdminUserController@store') !!}" method="POST" enctype="multipart/form-data">
-        @else
-            action="{!! action('Admin\AdminUserController@update', [$adminUser->id]) !!}" method="post"
-            enctype="multipart/form-data">
-            <input type="hidden" name="_method" value="put">
-        @endif
-        {!! csrf_field() !!}
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">{{ $adminUser->name }}</h3>
-            </div>
+    @if (count($errors) > 0)
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
+    <form action="@if($isNew) {!! action('Admin\AdminUserController@store') !!} @else {!! action('Admin\AdminUserController@update', [$adminUser->id]) !!} @endif"
+          method="POST" enctype="multipart/form-data">
+        @if( !$isNew ) <input type="hidden" name="_method" value="PUT"> @endif
+        {!! csrf_field() !!}
+
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    <a href="{!! URL::action('Admin\AdminUserController@index') !!}"
+                       class="btn btn-block btn-default btn-sm"
+                       style="width: 125px;">@lang('admin.pages.common.buttons.back')</a>
+                </h3>
+            </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="name" class="col-sm-2 control-label">Name</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Name"
-                                       value="{{ old('name') ? old('name') : $adminUser->name }}">
-                            </div>
+                    <div class="col-lg-5">
+                        <div class="form-group text-center">
+                            @if( !empty($adminUser->profileImage) )
+                                <img id="profile-image-preview" style="max-width: 500px; width: 100%;" src="{!! $adminUser->profileImage->getThumbnailUrl(480, 300) !!}" alt="" class="margin"/>
+                            @else
+                                <img id="profile-image-preview" style="max-width: 500px; width: 100%;" src="{!! \URLHelper::asset('img/no_image.jpg', 'common') !!}" alt="" class="margin"/>
+                            @endif
+                            <input type="file" style="display: none;" id="profile-image" name="profile_image">
+                            <p class="help-block" style="font-weight: bolder;">
+                                @lang('admin.pages.admin-users.columns.profile_image_id')
+                                <label for="profile-image" style="font-weight: 100; color: #549cca; margin-left: 10px; cursor: pointer;">@lang('admin.pages.common.buttons.edit')</label>
+                            </p>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="email" class="col-sm-2 control-label">EMail Address</label>
+                    <div class="col-lg-7">
+                        <table class="edit-user-profile">
+                            <tr class="@if ($errors->has('name')) has-error @endif">
+                                <td>
+                                    <label for="name">@lang('admin.pages.admin-users.columns.name')</label>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name') ? old('name') : $adminUser->name }}">
+                                </td>
+                            </tr>
 
-                            <div class="col-sm-10">
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Email"
-                                       value="{{ old('email') ? old('email') : $adminUser->email }}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                            <tr class="@if ($errors->has('email')) has-error @endif">
+                                <td>
+                                    <label for="email">@lang('admin.pages.admin-users.columns.email')</label>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="email" name="email" value="{{ old('email') ? old('email') : $adminUser->email }}">
+                                </td>
+                            </tr>
 
-                            <div class="col-sm-10">
-                                <input type="password" name="password" class="form-control" id="inputPassword3"
-                                       placeholder="Password" value="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                @foreach( config('admin_user.roles') as $role => $data )
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="role[]" value="{{ $role }}"
-                                                   @if( $adminUser->hasRole($role, false)) checked @endif
-                                            > @lang($data['name'])
-                                        </label>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
+                            <tr class="@if ($errors->has('password')) has-error @endif">
+                                <td>
+                                    <label for="password">@lang('admin.pages.users.columns.password')</label>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="password" name="password" @if(!$isNew) disabled @endif value="{{ old('password') ? old('password') : $adminUser->password }}">
+                                </td>
+                            </tr>
+
+                            <tr class="@if ($errors->has('locale')) has-error @endif">
+                                <td>
+                                    <label for="locale">@lang('admin.pages.admin-users.columns.locale')</label>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="locale" name="locale" value="{{ old('locale') ? old('locale') : $adminUser->locale }}">
+                                </td>
+                            </tr>
+
+                        </table>
                     </div>
                 </div>
             </div>
-            <!-- /.box-body -->
+
             <div class="box-footer">
-                <button type="submit" class="btn btn-info pull-right">Save</button>
+                <button type="submit" class="btn btn-primary btn-sm"
+                        style="width: 125px;">@lang('admin.pages.common.buttons.save')</button>
             </div>
-            <!-- /.box-footer -->
         </div>
     </form>
 @stop

@@ -1,19 +1,15 @@
 $(function () {
-    $('#input-publish-started-at').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss'});
-    $('#input-publish-ended-at').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss'});
+    $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss', 'defaultDate': new Date()});
 
-    var content = $('#input-content').val(),
-        editor = $('#edit');
-    if (!content) {
-        content = "";
-    }
+    $('#cover-image').change(function (event) {
+        $('#cover-image-preview').attr('src', URL.createObjectURL(event.target.files[0]));
+    });
 
-    // Content Editor
-    editor.froalaEditor({
+    // for Froala editor
+    $('#froala-editor').froalaEditor({
         toolbarInline: false,
         pastePlain: true,
-        height: 500,
-        heightMin: 500,
+        heightMin: 200,
         heightMax: 500,
         imageUploadURL: Boilerplate.imageUploadUrl,
         imageUploadParams: Boilerplate.imageUploadParams,
@@ -22,6 +18,10 @@ $(function () {
         imageManagerDeleteURL: Boilerplate.imageDeleteURL,
         imageManagerDeleteParams: Boilerplate.imageDeleteParams,
         imageManagerDeleteMethod: "DELETE"
+    }).on('froalaEditor.initialized', function (e, editor) {
+
+    }).on('froalaEditor.focus', function (e, editor) {
+
     }).on('froalaEditor.image.inserted', function (e, editor, img) {
         img.attr("width", "100%");
         console.log(img);
@@ -33,25 +33,14 @@ $(function () {
         editor.options.imageDeleteParams = params;
         editor.deleteImage($img);
     });
-    editor.froalaEditor('html.set', content, true);
-
-    var saveButton = $("#button-save");
-    saveButton.click(function () {
-        var editor = $('#edit'),
-            html = editor.froalaEditor('html.get', false, false);
-        $('#input-content').val(html);
-        $('#form-article').submit();
-        return false;
-    });
 
     $('#button-preview').click(function () {
         var editor = $('#edit'),
             html = editor.froalaEditor('html.get', false, false);
-        $('#preview-title').val($('#input-title').val());
+        $('#preview-title').val($('#title').val());
         $('#preview-locale').val($('#locale').val());
-        $('#preview-content').val(html);
+        $('#preview-content').val($('#froala-editor').val());
         $('#form-preview').submit();
         return false;
     });
-
 });

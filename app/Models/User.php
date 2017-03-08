@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\User.
  *
- * @property int $id
- * @property string $name
- * @property string $email
- * @property string $password
- * @property string $locale
- * @property int $last_notification_id
- * @property string $api_access_token
- * @property int $profile_image_id
- * @property \Carbon\Carbon $deleted_at
- * @property string $remember_token
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property int                    $id
+ * @property string                 $name
+ * @property string                 $email
+ * @property string                 $password
+ * @property string                 $locale
+ * @property int                    $last_notification_id
+ * @property string                 $api_access_token
+ * @property int                    $profile_image_id
+ * @property \Carbon\Carbon         $deleted_at
+ * @property string                 $remember_token
+ * @property \Carbon\Carbon         $created_at
+ * @property \Carbon\Carbon         $updated_at
  * @property-read \App\Models\Image $profileImage
  *
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
@@ -57,11 +57,16 @@ class User extends AuthenticatableBase
         'name',
         'email',
         'password',
+        'gender',
+        'telephone',
+        'birthday',
         'locale',
+        'address',
         'remember_token',
         'api_access_token',
         'profile_image_id',
         'last_notification_id',
+        'is_activated',
     ];
 
     /**
@@ -85,8 +90,16 @@ class User extends AuthenticatableBase
     public function toAPIArray()
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'id'        => $this->id,
+            'name'      => $this->name,
+            'email'     => $this->email,
+            'token'     => $this->api_access_token,
+            'gender'    => $this->gender ? "Male" : "Female",
+            'telephone' => $this->telephone,
+            'birthday'  => $this->birthday,
+            'locale'    => $this->locale,
+            'address'   => $this->address,
+            'avatar'    => !empty($this->profileImage) ? $this->profileImage->url : \URLHelper::asset('img/user_avatar.png', 'common'),
         ];
     }
 }

@@ -1,30 +1,23 @@
 <?php
 
 return [
-    'errors' => [
-        'unknown' => [
-            'code' => 1000,
-            'message' => 'Unknown Error',
-            'status_code' => 400,
-        ],
-        'not_found' => [
-            'code' => 1001,
-            'message' => 'Not Found',
-            'status_code' => 400,
-        ],
-        'auth_failed' => [
-            'code' => 1002,
-            'message' => 'Auth Failed',
-            'status_code' => 401,
-        ],
-        'sign_in_required' => [
-            'code' => 1003,
-            'message' => 'Sign In Required',
-            'status_code' => 401,
-        ],
-    ],
-    'headers' => [
-        'locale' => 'X-MYAPP-LOCALE',
-        'session' => 'X-MYAPP-SESSION',
-    ],
+    'messages' => [
+        '100' => 'Successfully !!!',
+        '101' => 'Error, Authentication failed !!!',
+        '102' => 'Error, Parameter is not enough !!!',
+        '103' => 'Error, Parameter type is invalid !!!',
+        '104' => 'Error, Parameter value is invalid !!!',
+        '105' => 'Error, Parameter type Json is invalid !!!',
+        '106' => 'Error, Token was invalid !!!',
+        '107' => 'Error, Access was denied !!!',
+        '108' => 'Error, Email is invalid !!!',
+        '109' => 'Error, This email is already used !!!',
+        '110' => 'Error, Wrong password !!!',
+
+        '900' => 'Error, Unknown error !!!',
+        '901' => 'Error, Can\'t working with Database !!!',
+        '902' => 'Error, No data matching !!!',
+        '903' => 'Error, Data has been Delete !!!',
+        '904' => 'Error, Server cannot send email !!!'
+    ]
 ];

@@ -46,9 +46,7 @@ class PasswordController extends Controller
     public function postForgotPassword(ForgotPasswordRequest $request)
     {
         $email = $request->get('email');
-        $this->authenticatableService->sendPasswordResetEmail($email);
-
-        return redirect()->back()->with('status', 'success');
+        return $this->authenticatableService->sendPasswordResetEmail($email);
     }
 
     /**

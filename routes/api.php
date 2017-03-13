@@ -1,7 +1,22 @@
 <?php
 
-use Illuminate\Http\Request;
+\Route::group(['prefix' => 'api', 'middleware' => []], function () {
 
-Route::get('/me', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+    \Route::group(['middleware' => []], function () {
+        \Route::post('signin', 'API\AuthController@signIn');
+
+        \Route::post('signin/{social}', 'API\AuthController@signInBySocial');
+
+        \Route::post('forgot-password', 'API\PasswordController@forgotPassword');
+
+        \Route::post('signup', 'API\AuthController@signUp');
+
+    });
+
+    \Route::group(['middleware' => ['api.auth']], function () {
+        \Route::post('/test', 'API\IndexController@test');
+
+        \Route::post('signout', 'API\AuthController@postSignOut');
+    });
+});
+

@@ -19,7 +19,7 @@ class CreateUserServiceAuthenticationsTable extends Migration
             $table->string('email');
 
             $table->string('service');
-            $table->bigInteger('service_id');
+            $table->string('service_id');
 
             $table->timestamps();
         });

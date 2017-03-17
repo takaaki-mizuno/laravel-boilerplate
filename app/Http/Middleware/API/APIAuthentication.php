@@ -32,18 +32,10 @@ class APIAuthentication
                 
                 return $next($request);
             } else {
-                return response(
-                    'Error, Authentication failed !!!',
-                    401,
-                    ['WWW-Authenticate' => 'Basic realm="RESTRICTED"']
-                );
+                return response()->json(['code' => 101, 'message' => config('api.messages.101'), 'data' => null]);
             }
         } else {
-            return response(
-                'Error, Authentication failed !!!',
-                401,
-                ['WWW-Authenticate' => 'Basic realm="RESTRICTED"']
-            );
+            return response()->json(['code' => 101, 'message' => config('api.messages.101'), 'data' => null]);
         }
     }
 }

@@ -10,14 +10,15 @@ return [
         '105' => 'Error, Parameter type Json is invalid !!!',
         '106' => 'Error, Token was invalid !!!',
         '107' => 'Error, Access was denied !!!',
-        '108' => 'Error, Email is invalid !!!',
-        '109' => 'Error, This email is already used !!!',
-        '110' => 'Error, Wrong password !!!',
+        '108' => 'Error, The HTTP method not allowed !!!',
+        '109' => 'Error, The route is not defined !!!',
+        '110' => 'Error, This email is already used !!!',
 
-        '900' => 'Error, Unknown error !!!',
-        '901' => 'Error, Can\'t working with Database !!!',
-        '902' => 'Error, No data matching !!!',
-        '903' => 'Error, Data has been Delete !!!',
-        '904' => 'Error, Server cannot send email !!!'
+        '900' => 'Sorry, Unknown error !!!',
+        '901' => 'Sorry, Can\'t working with Database !!!',
+        '902' => 'Sorry, No data matching !!!',
+        '903' => 'Sorry, Data has been Delete !!!',
+        '904' => 'Sorry, Server cannot send email !!!',
+        '905' => 'Sorry, Internal Server Error !!!'
     ]
 ];

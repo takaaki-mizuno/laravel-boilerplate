@@ -31,7 +31,7 @@ class APIRequest extends BaseRequest
             }
         }
 
-        if (isset($paramsAllow['json']) && $paramsAllow['json'] != null) {
+        if (isset($paramsAllow['json']) && is_array($paramsAllow['json'])) {
             foreach ($paramsAllow['json'] as $param) {
                 json_decode($param);
                 if (json_last_error() != JSON_ERROR_NONE) {
@@ -44,7 +44,7 @@ class APIRequest extends BaseRequest
             // Do nothing
         }
 
-        if (isset($paramsAllow['string']) && $paramsAllow['string'] != null) {
+        if (isset($paramsAllow['string']) && is_array($paramsAllow['string'])) {
             // Don't check string ????
             foreach ($paramsAllow['string'] as $param) {
                 $data[$param] = isset($params[$param]) ? $params[$param] : null;
@@ -53,7 +53,7 @@ class APIRequest extends BaseRequest
             // Do nothing
         }
 
-        if (isset($paramsAllow['numeric']) && $paramsAllow['numeric'] != null) {
+        if (isset($paramsAllow['numeric']) && is_array($paramsAllow['numeric'])) {
             foreach ($paramsAllow['numeric'] as $condition => $paramNumeric) {
                 foreach ($paramNumeric as $param) {
                     if (isset($params[$param])) {
@@ -83,14 +83,28 @@ class APIRequest extends BaseRequest
             // Don't exist param type numeric => continue
         }
 
+        if( isset($paramsAllow['enum']) && is_array($paramsAllow['enum']) ) {
+            foreach ($paramsAllow['enum'] as $param => $values) {
+                if( isset($params[$param]) ) {
+                    if( in_array($params[$param], $values) ) {
+                        $data[$param] = $params[$param];
+                    } else {
+                        return $this->_response(104);
+                    }
+                } else {
+                    $data[$param] = $values[0];
+                }
+            }
+        }
+
         return $this->_response(100, $data);
     }
 
     private function _response($code = 100, $data = [])
     {
-        $response['code'] = $code;
+        $response['code']    = $code;
         $response['message'] = config('api.messages.' . $code);
-        $response['data'] = $data;
+        $response['data']    = $data;
 
         return $response;
     }

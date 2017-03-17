@@ -16,13 +16,19 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('password', 60);
 
-            $table->string('locale')->default('');
+            $table->smallInteger('gender')->default(1);     // 1 = Male, 0 = Female
+            $table->string('telephone')->nullable()->default('');
+            $table->date('birthday')->nullable()->default(null);
+            $table->string('locale')->nullable()->default('');
+            $table->string('address')->nullable()->default('');
 
             $table->bigInteger('last_notification_id')->default(0);
 
             $table->string('api_access_token')->default('');
 
             $table->bigInteger('profile_image_id')->default(0);
+
+            $table->smallInteger('is_activated')->default(0);
 
             $table->softDeletes();
             $table->rememberToken();

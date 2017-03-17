@@ -18,7 +18,8 @@
     "icanboogie/inflector": "^1.4",
     "laravel/socialite": "^2.0",
     "google/apiclient": "^2.0",
-    "dusterio/laravel-aws-worker": "^0.1.5"
+    "dusterio/laravel-aws-worker": "^0.1.5",
+    "cviebrock/eloquent-sluggable": "^4.0"
   },
   "require-dev": {
     "mockery/mockery": "0.9.*",

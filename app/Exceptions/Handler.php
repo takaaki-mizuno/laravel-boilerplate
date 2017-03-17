@@ -44,6 +44,39 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($request->is('api/*')) {
+            if( !$exception->getMessage() ) {
+                switch( $exception->getStatusCode() ) {
+                    // not authorized
+                    case '403':
+                        return response()->json(['code' => 101, 'message' => config('api.messages.101'), 'data' => null]);
+                        break;
+
+                    // not found
+                    case '404':
+                        return response()->json(['code' => 109, 'message' => config('api.messages.109'), 'data' => null]);
+                        break;
+
+                    // wrong http method
+                    case '405':
+                        return response()->json(['code' => 108, 'message' => config('api.messages.108'), 'data' => null]);
+                        break;
+
+                    // internal error
+                    case '500':
+                        return response()->json(['code' => 905, 'message' => config('api.messages.905'), 'data' => null]);
+                        break;
+
+                    default:
+                        return $this->renderHttpException($exception);
+                        break;
+                }
+            } else {
+                // defined in route but method not exist
+                return response()->json(['code' => 110, 'message' => $exception->getMessage(), 'data' => null]);
+            }
+        }
+        
         return parent::render($request, $exception);
     }
 

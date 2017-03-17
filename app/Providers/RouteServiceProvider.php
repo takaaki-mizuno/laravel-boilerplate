@@ -21,8 +21,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
     }
 
@@ -34,8 +32,6 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapUserRoutes();
         $this->mapAdminRoutes();
         $this->mapApiRoutes();
-
-        //
     }
 
     /**
@@ -47,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group([
             'middleware' => 'user',
-            'namespace' => $this->namespace,
+            'namespace'  => $this->namespace,
         ], function ($router) {
             require base_path('routes/user.php');
         });
@@ -62,7 +58,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group([
             'middleware' => 'admin',
-            'namespace' => $this->namespace,
+            'namespace'  => $this->namespace,
         ], function ($router) {
             require base_path('routes/admin.php');
         });
@@ -77,8 +73,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group([
             'middleware' => 'api',
-            'namespace' => $this->namespace,
-            'prefix' => 'api',
+            'namespace'  => $this->namespace,
         ], function ($router) {
             require base_path('routes/api.php');
         });

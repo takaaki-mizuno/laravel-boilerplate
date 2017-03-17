@@ -37,29 +37,25 @@ class UserController extends Controller {
      *
      * @return \Response
      */
-    public function index( PaginationRequest $request ) {
-        $paginate[ 'offset' ]    = $request->offset();
-        $paginate[ 'limit' ]     = $request->limit();
-        $paginate[ 'order' ]     = $request->order();
-        $paginate[ 'direction' ] = $request->direction();
-        $paginate[ 'baseUrl' ]   = action( 'Admin\UserController@index' );
-
-        $count  = $this->userRepository->count();
-        $models = $this->userRepository->get(
-            $paginate[ 'order' ],
-            $paginate[ 'direction' ],
-            $paginate[ 'offset' ],
-            $paginate[ 'limit' ]
-        );
-
-        return view(
-            'pages.admin.users.index',
-            [
-                'models'   => $models,
-                'count'    => $count,
-                'paginate' => $paginate,
-            ]
-        );
+    public function index(PaginationRequest $request)
+    {
+        $offset = $request->offset();
+        $limit = $request->limit();
+        
+        $order = $request->order();
+        $direction = $request->direction('desc');
+        
+        $users = $this->userRepository->get($order, $direction, $offset, $limit);
+        $count = $this->userRepository->count();
+        return view('pages.admin.users.index', [
+            'users' => $users,
+            'offset' => $offset,
+            'limit' => $limit,
+            'count' => $count,
+            'order' => $order,
+            'direction' => $direction,
+            'baseUrl' => action('Admin\UserController@index'),
+        ]);
     }
 
     /**

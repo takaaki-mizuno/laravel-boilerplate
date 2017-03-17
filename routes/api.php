@@ -17,6 +17,11 @@
 
         \Route::resource('articles', 'API\ArticleController');
 
+        \Route::group(['prefix' => 'profile'], function() {
+            \Route::get('/getInfo', 'API\UserController@show');
+            \Route::put('/update', 'API\UserController@update');
+        });
+
         \Route::post('signout', 'API\AuthController@postSignOut');
     });
 });

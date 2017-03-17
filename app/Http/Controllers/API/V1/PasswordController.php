@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\PasswordController as PasswordControllerBase;
 use App\Http\Requests\APIRequest;

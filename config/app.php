@@ -177,6 +177,7 @@ return [
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
         Dusterio\AwsWorker\Integrations\LaravelServiceProvider::class,
+        Cviebrock\EloquentSluggable\ServiceProvider::class,
 
         /*
          * Application Service Providers...

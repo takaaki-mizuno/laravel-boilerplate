@@ -14,7 +14,8 @@
     });
 
     \Route::group(['middleware' => ['api.auth']], function () {
-        \Route::post('/test', 'API\IndexController@test');
+
+        \Route::resource('articles', 'API\ArticleController');
 
         \Route::post('signout', 'API\AuthController@postSignOut');
     });

@@ -47,7 +47,9 @@ class APIRequest extends BaseRequest
         if (isset($paramsAllow['string']) && is_array($paramsAllow['string'])) {
             // Don't check string ????
             foreach ($paramsAllow['string'] as $param) {
-                $data[$param] = isset($params[$param]) ? $params[$param] : null;
+                if( isset($params[$param]) ) {
+                    $data[$param] = $params[$param];
+                }
             }
         } else {
             // Do nothing
@@ -93,6 +95,19 @@ class APIRequest extends BaseRequest
                     }
                 } else {
                     $data[$param] = $values[0];
+                }
+            }
+        }
+
+        if( isset($paramsAllow['datetime']) && is_array($paramsAllow['datetime']) ) {
+            foreach ($paramsAllow['datetime'] as $param => $condition) {
+                if (isset($params[$param])) {
+                    $tmp = date_create_from_format($condition, $params[$param]);
+                    if( $tmp ) {
+                        $data[$param] = $params[$param];
+                    } else {
+                        return $this->_response(104);
+                    }
                 }
             }
         }

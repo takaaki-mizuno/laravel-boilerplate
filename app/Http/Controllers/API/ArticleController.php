@@ -79,21 +79,23 @@ class ArticleController extends Controller
     {
         $data = $request->all();
         $paramsAllow = [
-            'string'    => [
+            'string'   => [
                 'slug',
                 'title',
                 'keywords',
                 'description',
-                'content',
-                'publish_started_at',
-                'publish_ended_at',
+                'content'
             ],
-            'enum'  => [
+            'enum'     => [
                 'locale' => ['en', 'ja', 'th']
             ],
-            'numeric' => [
+            'numeric'  => [
                 '>=0' => ['is_enabled'],
                 '<=1' => ['is_enabled']
+            ],
+            'datetime' => [
+                'publish_started_at' => 'Y-m-d H:i:s',
+                'publish_ended_at'   => 'Y-m-d H:i:s'
             ]
         ];
         $paramsRequire = ['title', 'content', 'publish_started_at'];
@@ -103,8 +105,8 @@ class ArticleController extends Controller
         }
         $data = $validate['data'];
 
-        $data['publish_started_at'] = ($data['publish_started_at'] != "") ? \DateTimeHelper::convertToStorageDateTime($data['publish_started_at']) : null;
-        $data['publish_ended_at']   = ($data['publish_ended_at'] != "") ? \DateTimeHelper::convertToStorageDateTime($data['publish_ended_at']) : null;
+        $data['publish_started_at'] = isset($data['publish_started_at']) ? \DateTimeHelper::convertToStorageDateTime($data['publish_started_at']) : null;
+        $data['publish_ended_at']   = isset($data['publish_ended_at']) ? \DateTimeHelper::convertToStorageDateTime($data['publish_ended_at']) : null;
 
         try {
             $article = $this->articleRepository->create($data);
@@ -152,21 +154,23 @@ class ArticleController extends Controller
 
         $data = $request->all();
         $paramsAllow = [
-            'string'    => [
+            'string'   => [
                 'slug',
                 'title',
                 'keywords',
                 'description',
-                'content',
-                'publish_started_at',
-                'publish_ended_at',
+                'content'
             ],
-            'enum'  => [
+            'enum'     => [
                 'locale' => ['en', 'ja', 'th']
             ],
-            'numeric' => [
+            'numeric'  => [
                 '>=0' => ['is_enabled'],
                 '<=1' => ['is_enabled']
+            ],
+            'datetime' => [
+                'publish_started_at' => 'Y-m-d H:i:s',
+                'publish_ended_at'   => 'Y-m-d H:i:s'
             ]
         ];
         $paramsRequire = ['title', 'content', 'publish_started_at'];
@@ -176,8 +180,8 @@ class ArticleController extends Controller
         }
         $data = $validate['data'];
 
-        $data['publish_started_at'] = ($data['publish_started_at'] != "") ? \DateTimeHelper::convertToStorageDateTime($data['publish_started_at']) : null;
-        $data['publish_ended_at']   = ($data['publish_ended_at'] != "") ? \DateTimeHelper::convertToStorageDateTime($data['publish_ended_at']) : null;
+        $data['publish_started_at'] = isset($data['publish_started_at']) ? \DateTimeHelper::convertToStorageDateTime($data['publish_started_at']) : null;
+        $data['publish_ended_at']   = isset($data['publish_ended_at']) ? \DateTimeHelper::convertToStorageDateTime($data['publish_ended_at']) : null;
 
 
         try {

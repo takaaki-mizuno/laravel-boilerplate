@@ -66,18 +66,20 @@ class AuthController extends Controller
     {
         $data = $request->all();
         $paramsAllow = [
-            'string'  => [
+            'string'   => [
                 'name',
                 'email',
                 'password',
                 'telephone',
-                'birthday',
                 'locale',
                 'address'
             ],
-            'numeric' => [
+            'numeric'  => [
                 '>=0' => ['gender'],
                 '<=1' => ['gender']
+            ],
+            'datetime' => [
+                'birthday' => 'Y-m-d'
             ]
         ];
         $paramsRequire = [
@@ -126,17 +128,19 @@ class AuthController extends Controller
 
         $data = $request->all();
         $paramsAllow = [
-            'string'  => [
+            'string'   => [
                 'name',
                 'email',
                 'service_id',
                 'telephone',
-                'birthday',
                 'avatar',
             ],
-            'numeric' => [
+            'numeric'  => [
                 '>=0' => ['gender'],
                 '<=1' => ['gender']
+            ],
+            'datetime' => [
+                'birthday' => 'Y-m-d'
             ]
         ];
         $paramsRequire = [

@@ -73,7 +73,7 @@ class Handler extends ExceptionHandler
                 }
             } else {
                 // defined in route but method not exist
-                return response()->json(['code' => $exception->getCode(), 'message' => $exception->getMessage(), 'data' => null]);
+                return response()->json(['code' => 110, 'message' => $exception->getMessage(), 'data' => null]);
             }
         }
         

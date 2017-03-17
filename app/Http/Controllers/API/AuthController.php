@@ -95,7 +95,7 @@ class AuthController extends Controller
         $data = $validate['data'];
 
         if( !empty($this->userRepository->findByEmail($data['email'])) ) {
-            return $this->response(110);
+            return $this->response(111);
         }
 
         $user = $this->userService->signUpByAPI($data);

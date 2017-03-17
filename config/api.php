@@ -12,7 +12,8 @@ return [
         '107' => 'Error, Access was denied !!!',
         '108' => 'Error, The HTTP method not allowed !!!',
         '109' => 'Error, The route is not defined !!!',
-        '110' => 'Error, This email is already used !!!',
+        '110' => 'Error, Method not exist !!!',
+        '111' => 'Error, This email is already used !!!',
 
         '900' => 'Sorry, Unknown error !!!',
         '901' => 'Sorry, Can\'t working with Database !!!',

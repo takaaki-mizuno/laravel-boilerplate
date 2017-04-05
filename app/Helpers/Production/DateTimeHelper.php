@@ -16,7 +16,7 @@ class DateTimeHelper implements DateTimeHelperInterface
 
     public function setPresentationTimeZone($timezone = null)
     {
-        \Session::set(static::PRESENTATION_TIME_ZONE_SESSION_KEY, $timezone);
+        \Session::put(static::PRESENTATION_TIME_ZONE_SESSION_KEY, $timezone);
     }
 
     public function clearPresentationTimeZone()

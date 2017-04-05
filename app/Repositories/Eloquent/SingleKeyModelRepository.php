@@ -116,7 +116,6 @@ class SingleKeyModelRepository extends BaseRepository implements SingleKeyModelR
         if ($this->cacheEnabled) {
             $primaryKey = $this->getPrimaryKey();
             $key = $this->getCacheKey([$model->$primaryKey]);
-            \Log::info("Cache Remove $key");
             \Cache::forget($key);
         }
 

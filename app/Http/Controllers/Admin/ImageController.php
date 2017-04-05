@@ -18,7 +18,8 @@ class ImageController extends Controller
     public function __construct(
         ImageRepositoryInterface $imageRepository,
         FileUploadServiceInterface $fileUploadService
-    ) {
+    )
+    {
         $this->imageRepository = $imageRepository;
         $this->fileUploadService = $fileUploadService;
     }
@@ -38,10 +39,10 @@ class ImageController extends Controller
         $models = $this->imageRepository->get('id', 'desc', $offset, $limit);
 
         return view('pages.admin.images.index', [
-            'models' => $models,
-            'count' => $count,
-            'offset' => $offset,
-            'limit' => $limit,
+            'models'  => $models,
+            'count'   => $count,
+            'offset'  => $offset,
+            'limit'   => $limit,
             'baseUrl' => action('Admin\ImageController@index'),
         ]);
     }
@@ -85,6 +86,12 @@ class ImageController extends Controller
             'height',
         ]);
         $input['is_enabled'] = $request->get('is_enabled', 0);
+        foreach (['s3_key', 's3_bucket', 's3_region'] as $key) {
+            if (empty($input[$key])) {
+                $input[$key] = "";
+            }
+        }
+
         $model = $this->imageRepository->create($input);
 
         if (empty($model)) {
@@ -92,7 +99,7 @@ class ImageController extends Controller
         }
 
         return redirect()->action('Admin\ImageController@index')->with('message-success',
-                trans('admin.messages.general.create_success'));
+            trans('admin.messages.general.create_success'));
     }
 
     /**
@@ -159,10 +166,15 @@ class ImageController extends Controller
             'height',
         ]);
         $input['is_enabled'] = $request->get('is_enabled', 0);
+        foreach (['s3_key', 's3_bucket', 's3_region'] as $key) {
+            if (empty($input[$key])) {
+                $input[$key] = "";
+            }
+        }
         $this->imageRepository->update($model, $input);
 
         return redirect()->action('Admin\ImageController@show', [$id])->with('message-success',
-                trans('admin.messages.general.update_success'));
+            trans('admin.messages.general.update_success'));
     }
 
     /**
@@ -184,6 +196,6 @@ class ImageController extends Controller
         $this->imageRepository->delete($model);
 
         return redirect()->action('Admin\ImageController@index')->with('message-success',
-                trans('admin.messages.general.delete_success'));
+            trans('admin.messages.general.delete_success'));
     }
 }

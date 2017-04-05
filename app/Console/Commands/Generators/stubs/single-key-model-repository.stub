@@ -3,6 +3,19 @@
 use \App\Repositories\%%CLASS%%Interface;
 use \App\Models\%%MODEL%%;
 
+/**
+ *
+ * @method \App\Models\%%MODEL%%[] getEmptyList()
+ * @method \App\Models\%%MODEL%%[]|\Traversable|array all($order = null, $direction = null)
+ * @method \App\Models\%%MODEL%%[]|\Traversable|array get($order, $direction, $offset, $limit)
+ * @method \App\Models\%%MODEL%% create($value)
+ * @method \App\Models\%%MODEL%% find($id)
+ * @method \App\Models\%%MODEL%%[]|\Traversable|array allByIds($ids, $order = null, $direction = null, $reorder = false)
+ * @method \App\Models\%%MODEL%%[]|\Traversable|array getByIds($ids, $order = null, $direction = null, $offset = null, $limit = null);
+ * @method \App\Models\%%MODEL%% update($model, $input)
+ * @method \App\Models\%%MODEL%% save($model);
+ */
+
 class %%CLASS%% extends SingleKeyModelRepository implements %%CLASS%%Interface
 {
 

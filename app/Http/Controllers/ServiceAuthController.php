@@ -56,6 +56,7 @@ class ServiceAuthController extends Controller
         $serviceUserId = $serviceUser->getId();
         $name = $serviceUser->getName();
         $email = $serviceUser->getEmail();
+        $avatar = $serviceUser->getAvatar();
 
         if (empty($email)) {
             return redirect()->action($this->errorRedirectAction)->withErrors([trans('sign_in_failed_title'), trans('failed_to_get_email')]);
@@ -66,6 +67,7 @@ class ServiceAuthController extends Controller
             'service_id' => $serviceUserId,
             'name' => $name,
             'email' => $email,
+            'avatar' => $avatar,
         ]);
 
         if (!empty($authUserId)) {

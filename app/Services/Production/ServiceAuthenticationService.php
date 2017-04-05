@@ -2,6 +2,7 @@
 
 namespace App\Services\Production;
 
+use App\Repositories\ImageRepositoryInterface;
 use App\Repositories\ServiceAuthenticationRepositoryInterface;
 use App\Repositories\AuthenticatableRepositoryInterface;
 use App\Services\ServiceAuthenticationServiceInterface;
@@ -14,12 +15,17 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
     /** @var \App\Repositories\AuthenticatableRepositoryInterface */
     protected $authenticatableRepository;
 
+    /** @var ImageRepositoryInterface $imageRepository */
+    protected $imageRepository;
+
     public function __construct(
         AuthenticatableRepositoryInterface $authenticatableRepository,
-        ServiceAuthenticationRepositoryInterface $serviceAuthenticationRepository
+        ServiceAuthenticationRepositoryInterface $serviceAuthenticationRepository,
+        ImageRepositoryInterface $imageRepository
     ) {
         $this->authenticatableRepository = $authenticatableRepository;
         $this->serviceAuthenticationRepository = $serviceAuthenticationRepository;
+        $this->imageRepository = $imageRepository;
     }
 
     /**
@@ -45,6 +51,13 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
                 return $authUser->id;
             }
         } else {
+            if( array_key_exists('avatar', $input) ) {
+                $image = $this->imageRepository->create([
+                        'url'        => $input['avatar'],
+                        'is_enabled' => true,
+                    ]);
+                $input['profile_image_id'] = $image->id;
+            }
             $authUser = $this->authenticatableRepository->create($input);
         }
 

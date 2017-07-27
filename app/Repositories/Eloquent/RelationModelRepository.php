@@ -54,6 +54,7 @@ class RelationModelRepository extends SingleKeyModelRepository implements Relati
 
         if (count($deletes) > 0) {
             $query = $this->getBlankModel();
+            $query = $query->where($this->getParentKey(), $parentId);
             $query->whereIn($this->getChildKey(), $deletes)->delete();
         }
 
